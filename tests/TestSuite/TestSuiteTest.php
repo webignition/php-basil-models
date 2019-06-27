@@ -3,10 +3,8 @@
 
 namespace webignition\BasilModel\Tests\TestSuite;
 
-use webignition\BasilModel\Step\Step;
 use webignition\BasilModel\Test\Configuration;
 use webignition\BasilModel\Test\Test;
-use webignition\BasilModel\Test\TestInterface;
 use webignition\BasilModel\TestSuite\TestSuite;
 
 class TestSuiteTest extends \PHPUnit\Framework\TestCase
@@ -14,10 +12,11 @@ class TestSuiteTest extends \PHPUnit\Framework\TestCase
     /**
      * @dataProvider createDataProvider
      */
-    public function testCreate(array $tests, array $expectedTests)
+    public function testCreate(string $name, array $tests, array $expectedTests)
     {
-        $testSuite = new TestSuite($tests);
+        $testSuite = new TestSuite($name, $tests);
 
+        $this->assertSame($name, $testSuite->getName());
         $this->assertSame($expectedTests, $testSuite->getTests());
     }
 
@@ -37,10 +36,12 @@ class TestSuiteTest extends \PHPUnit\Framework\TestCase
 
         return [
             'no tests' => [
+                'name' => 'no tests',
                 'tests' => [],
                 'expectedTests' => [],
             ],
             'non-test tests' => [
+                'name' => 'non-test tests',
                 'tests' => [
                     1,
                     true,
@@ -49,6 +50,7 @@ class TestSuiteTest extends \PHPUnit\Framework\TestCase
                 'expectedTests' => [],
             ],
             'has tests' => [
+                'name' => 'has tests',
                 'tests' => [
                     $testOne,
                     $testTwo,
