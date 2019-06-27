@@ -1,0 +1,20 @@
+<?php
+
+namespace webignition\BasilModel\Tests\Action;
+
+use webignition\BasilModel\Action\ActionTypes;
+use webignition\BasilModel\Action\NoArgumentsAction;
+
+class NoArgumentsActionTest extends \PHPUnit\Framework\TestCase
+{
+    public function testCreate()
+    {
+        $type = 'reload';
+
+        $action = new NoArgumentsAction($type, '');
+
+        $this->assertSame(ActionTypes::RELOAD, $action->getType());
+        $this->assertSame('', $action->getArguments());
+        $this->assertTrue($action->isRecognised());
+    }
+}
