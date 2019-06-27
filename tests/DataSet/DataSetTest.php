@@ -4,7 +4,6 @@
 namespace webignition\BasilModel\Tests\DataSet;
 
 use webignition\BasilModel\DataSet\DataSet;
-use webignition\BasilModel\DataSet\DataSetInterface;
 
 class DataSetTest extends \PHPUnit\Framework\TestCase
 {
@@ -12,10 +11,12 @@ class DataSetTest extends \PHPUnit\Framework\TestCase
      * @dataProvider getParameterValueDataProvider
      */
     public function testGetParameterValue(
-        DataSetInterface $dataSet,
+        array $data,
         string $parameterName,
         ?string $expectedParameterValue
     ) {
+        $dataSet = new DataSet($data);
+
         $this->assertSame($expectedParameterValue, $dataSet->getParameterValue($parameterName));
     }
 
@@ -23,21 +24,21 @@ class DataSetTest extends \PHPUnit\Framework\TestCase
     {
         return [
             'parameter name not present' => [
-                'dataSet' => new DataSet([]),
+                'data' => [],
                 'parameterName' => 'example',
                 'expectedParameterValue' => null,
             ],
             'parameter name present, is string' => [
-                'dataSet' => new DataSet([
+                'data' => [
                     'example' => 'value',
-                ]),
+                ],
                 'parameterName' => 'example',
                 'expectedParameterValue' => 'value',
             ],
             'parameter name present, is int' => [
-                'dataSet' => new DataSet([
+                'data' => [
                     'example' => 15,
-                ]),
+                ],
                 'parameterName' => 'example',
                 'expectedParameterValue' => '15',
             ],
@@ -47,8 +48,10 @@ class DataSetTest extends \PHPUnit\Framework\TestCase
     /**
      * @dataProvider getParameterNamesDataProvider
      */
-    public function testGetParameterNames(DataSetInterface $dataSet, array $expectedParameterNames)
+    public function testGetParameterNames(array $data, array $expectedParameterNames)
     {
+        $dataSet = new DataSet($data);
+
         $this->assertSame($expectedParameterNames, $dataSet->getParameterNames());
     }
 
@@ -56,15 +59,15 @@ class DataSetTest extends \PHPUnit\Framework\TestCase
     {
         return [
             'empty' => [
-                'dataSet' => new DataSet([]),
+                'data' => [],
                 'expectedParameterNames' => [],
             ],
             'non-empty' => [
-                'dataSet' => new DataSet([
+                'data' => [
                     '1' => 'value for one',
                     '2' => 'value for two',
                     'three' => 'value for three',
-                ]),
+                ],
                 'expectedParameterNames' => [
                     '1',
                     '2',

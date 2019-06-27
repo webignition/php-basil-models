@@ -21,6 +21,7 @@ class PageElementReferenceTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($expectedImportName, $pageElementReference->getImportName());
         $this->assertSame($expectedElementName, $pageElementReference->getElementName());
         $this->assertSame($expectedIsValid, $pageElementReference->isValid());
+        $this->assertSame($reference, (string) $pageElementReference);
     }
 
     public function createDataProvider(): array

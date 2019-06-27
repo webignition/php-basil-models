@@ -13,11 +13,19 @@ class TestTest extends \PHPUnit\Framework\TestCase
     /**
      * @dataProvider createDataProvider
      */
-    public function testCreate(string $name, Configuration $configuration, array $steps, TestInterface $expectedTest)
-    {
+    public function testCreate(
+        string $name,
+        Configuration $configuration,
+        array $steps,
+        TestInterface $expectedTest,
+        array $expectedSteps
+    ) {
         $test = new Test($name, $configuration, $steps);
 
         $this->assertEquals($expectedTest, $test);
+        $this->assertSame($name, $test->getName());
+        $this->assertSame($configuration, $test->getConfiguration());
+        $this->assertEquals($expectedSteps, $test->getSteps());
     }
 
     public function createDataProvider()
@@ -32,6 +40,7 @@ class TestTest extends \PHPUnit\Framework\TestCase
                     new Configuration('chrome', 'http://example.com'),
                     []
                 ),
+                'expectedSteps' => [],
             ],
             'invalid steps' => [
                 'name' => 'invalid steps',
@@ -45,6 +54,7 @@ class TestTest extends \PHPUnit\Framework\TestCase
                     new Configuration('chrome', 'http://example.com'),
                     []
                 ),
+                'expectedSteps' => [],
             ],
             'has steps' => [
                 'name' => 'has steps',
@@ -59,6 +69,9 @@ class TestTest extends \PHPUnit\Framework\TestCase
                         new Step([], []),
                     ]
                 ),
+                'expectedSteps' => [
+                    new Step([], []),
+                ],
             ],
         ];
     }

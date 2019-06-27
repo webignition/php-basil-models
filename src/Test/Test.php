@@ -8,7 +8,7 @@ class Test implements TestInterface
 {
     private $name;
     private $configuration;
-    private $steps;
+    private $steps = [];
 
     public function __construct(string $name, ConfigurationInterface $configuration, array $steps)
     {

@@ -48,4 +48,16 @@ class ImportCollectionTest extends \PHPUnit\Framework\TestCase
             ],
         ];
     }
+
+    public function testGetImportPath()
+    {
+        $importCollection = new ImportCollection([
+            'page1' => '../page/1.example.com.yml',
+            'page2' => '../page/2.example.com.yml',
+        ]);
+
+        $this->assertEquals('../page/1.example.com.yml', $importCollection->getImportPath('page1'));
+        $this->assertEquals('../page/2.example.com.yml', $importCollection->getImportPath('page2'));
+        $this->assertNull($importCollection->getImportPath('page3'));
+    }
 }

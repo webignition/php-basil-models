@@ -9,16 +9,18 @@ use webignition\BasilModel\Value\ValueTypes;
 class ValueTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @dataProvider toStringDataProvider
+     * @dataProvider createDataProvider
      */
-    public function testToString(string $type, string $valueString, string $expectedString)
+    public function testCreate(string $type, string $valueString, string $expectedString)
     {
         $value = new Value($type, $valueString);
 
+        $this->assertSame($type, $value->getType());
+        $this->assertSame($valueString, $value->getValue());
         $this->assertSame($expectedString, (string) $value);
     }
 
-    public function toStringDataProvider(): array
+    public function createDataProvider(): array
     {
         return [
             'type: string' => [

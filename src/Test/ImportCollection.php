@@ -18,6 +18,6 @@ class ImportCollection implements ImportCollectionInterface
 
     public function getImportPath(string $name): ?string
     {
-        return $collection[$name] ?? null;
+        return $this->importPaths[$name] ?? null;
     }
 }
