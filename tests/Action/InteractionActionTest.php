@@ -6,13 +6,18 @@ use webignition\BasilModel\Action\ActionTypes;
 use webignition\BasilModel\Action\InteractionAction;
 use webignition\BasilModel\Identifier\Identifier;
 use webignition\BasilModel\Identifier\IdentifierTypes;
+use webignition\BasilModel\Value\Value;
+use webignition\BasilModel\Value\ValueTypes;
 
 class InteractionActionTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {
         $type = ActionTypes::CLICK;
-        $identifier = new Identifier(IdentifierTypes::CSS_SELECTOR, '.foo');
+        $identifier = new Identifier(
+            IdentifierTypes::CSS_SELECTOR,
+            new Value(ValueTypes::STRING, '.foo')
+        );
 
         $action = new InteractionAction($type, $identifier, '".foo"');
 

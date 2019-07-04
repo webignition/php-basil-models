@@ -2,6 +2,8 @@
 
 namespace webignition\BasilModel\Identifier;
 
+use webignition\BasilModel\Value\ValueInterface;
+
 class Identifier implements IdentifierInterface
 {
     const DEFAULT_POSITION = 1;
@@ -16,7 +18,7 @@ class Identifier implements IdentifierInterface
      */
     private $parentIdentifier;
 
-    public function __construct(string $type, string $value, int $position = null, string $name = null)
+    public function __construct(string $type, ValueInterface $value, int $position = null, string $name = null)
     {
         $position = $position ?? self::DEFAULT_POSITION;
 
@@ -31,7 +33,7 @@ class Identifier implements IdentifierInterface
         return $this->type;
     }
 
-    public function getValue(): string
+    public function getValue(): ValueInterface
     {
         return $this->value;
     }
@@ -61,15 +63,15 @@ class Identifier implements IdentifierInterface
 
     public function __toString(): string
     {
-        $value = $this->value;
+        $string = $this->value->getValue();
 
         if ($this->parentIdentifier instanceof IdentifierInterface) {
-            $value = '{{ ' . $this->parentIdentifier->getName() . ' }} ' . $value;
+            $string = '{{ ' . $this->parentIdentifier->getName() . ' }} ' . $string;
         }
 
-        $string = in_array($this->type, [IdentifierTypes::CSS_SELECTOR, IdentifierTypes::XPATH_EXPRESSION])
-            ? '"' . $value . '"'
-            : $value;
+        if (in_array($this->type, [IdentifierTypes::CSS_SELECTOR, IdentifierTypes::XPATH_EXPRESSION])) {
+            $string = '"' . $string . '"';
+        }
 
         if (self::DEFAULT_POSITION !== $this->position) {
             $string .= ':' . $this->position;

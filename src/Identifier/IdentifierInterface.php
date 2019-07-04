@@ -2,10 +2,12 @@
 
 namespace webignition\BasilModel\Identifier;
 
+use webignition\BasilModel\Value\ValueInterface;
+
 interface IdentifierInterface
 {
     public function getType(): string;
-    public function getValue(): string;
+    public function getValue(): ValueInterface;
     public function getPosition(): int;
     public function getName(): ?string;
     public function getParentIdentifier(): ?IdentifierInterface;

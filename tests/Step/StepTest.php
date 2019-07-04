@@ -11,6 +11,8 @@ use webignition\BasilModel\Identifier\Identifier;
 use webignition\BasilModel\Identifier\IdentifierTypes;
 use webignition\BasilModel\Step\Step;
 use webignition\BasilModel\Step\StepInterface;
+use webignition\BasilModel\Value\Value;
+use webignition\BasilModel\Value\ValueTypes;
 
 class StepTest extends \PHPUnit\Framework\TestCase
 {
@@ -59,7 +61,7 @@ class StepTest extends \PHPUnit\Framework\TestCase
                         '".selector" is "foo"',
                         new Identifier(
                             IdentifierTypes::CSS_SELECTOR,
-                            '.selector'
+                            new Value(ValueTypes::STRING, '.selector')
                         ),
                         AssertionComparisons::IS
                     ),
@@ -72,7 +74,7 @@ class StepTest extends \PHPUnit\Framework\TestCase
                         '".selector" is "foo"',
                         new Identifier(
                             IdentifierTypes::CSS_SELECTOR,
-                            '.selector'
+                            new Value(ValueTypes::STRING, '.selector')
                         ),
                         AssertionComparisons::IS
                     ),
@@ -168,13 +170,13 @@ class StepTest extends \PHPUnit\Framework\TestCase
                 'elementIdentifiers' => [
                     'input' => new Identifier(
                         IdentifierTypes::CSS_SELECTOR,
-                        '.input'
+                        new Value(ValueTypes::STRING, '.input')
                     ),
                 ],
                 'expectedElementIdentifiers' => [
                     'input' => new Identifier(
                         IdentifierTypes::CSS_SELECTOR,
-                        '.input'
+                        new Value(ValueTypes::STRING, '.input')
                     ),
                 ],
             ],
@@ -182,7 +184,7 @@ class StepTest extends \PHPUnit\Framework\TestCase
                 'step' => (new Step([], []))->withElementIdentifiers([
                     'input' => new Identifier(
                         IdentifierTypes::CSS_SELECTOR,
-                        '.input'
+                        new Value(ValueTypes::STRING, '.input')
                     ),
                 ]),
                 'elementIdentifiers' => [],
@@ -192,19 +194,19 @@ class StepTest extends \PHPUnit\Framework\TestCase
                 'step' => (new Step([], []))->withElementIdentifiers([
                     'input' => new Identifier(
                         IdentifierTypes::CSS_SELECTOR,
-                        '.input'
+                        new Value(ValueTypes::STRING, '.input')
                     ),
                 ]),
                 'elementIdentifiers' => [
                     'button' => new Identifier(
                         IdentifierTypes::CSS_SELECTOR,
-                        '.button'
+                        new Value(ValueTypes::STRING, '.button')
                     ),
                 ],
                 'expectedElementIdentifiers' => [
                     'button' => new Identifier(
                         IdentifierTypes::CSS_SELECTOR,
-                        '.button'
+                        new Value(ValueTypes::STRING, '.button')
                     ),
                 ],
             ],
