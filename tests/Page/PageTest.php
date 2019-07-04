@@ -8,6 +8,8 @@ use Psr\Http\Message\UriInterface;
 use webignition\BasilModel\Identifier\Identifier;
 use webignition\BasilModel\Identifier\IdentifierTypes;
 use webignition\BasilModel\Page\Page;
+use webignition\BasilModel\Value\Value;
+use webignition\BasilModel\Value\ValueTypes;
 
 class PageTest extends \PHPUnit\Framework\TestCase
 {
@@ -42,11 +44,11 @@ class PageTest extends \PHPUnit\Framework\TestCase
                 'elementIdentifiers' => [
                     'foo' => new Identifier(
                         IdentifierTypes::CSS_SELECTOR,
-                        '.foo'
+                        new Value(ValueTypes::STRING, '.foo')
                     ),
                     'bar' => new Identifier(
                         IdentifierTypes::CSS_SELECTOR,
-                        '.bar'
+                        new Value(ValueTypes::STRING, '.bar')
                     ),
                 ],
                 'expectedPage' => new Page(
@@ -54,11 +56,11 @@ class PageTest extends \PHPUnit\Framework\TestCase
                     [
                         'foo' => new Identifier(
                             IdentifierTypes::CSS_SELECTOR,
-                            '.foo'
+                            new Value(ValueTypes::STRING, '.foo')
                         ),
                         'bar' => new Identifier(
                             IdentifierTypes::CSS_SELECTOR,
-                            '.bar'
+                            new Value(ValueTypes::STRING, '.bar')
                         ),
                     ]
                 ),
@@ -78,12 +80,12 @@ class PageTest extends \PHPUnit\Framework\TestCase
     {
         $fooIdentifier = new Identifier(
             IdentifierTypes::CSS_SELECTOR,
-            '.foo'
+            new Value(ValueTypes::STRING, '.foo')
         );
 
         $barIdentifier = new Identifier(
             IdentifierTypes::CSS_SELECTOR,
-            '.bar'
+            new Value(ValueTypes::STRING, '.bar')
         );
 
         $page = new Page(
@@ -103,12 +105,12 @@ class PageTest extends \PHPUnit\Framework\TestCase
     {
         $fooIdentifier = new Identifier(
             IdentifierTypes::CSS_SELECTOR,
-            '.foo'
+            new Value(ValueTypes::STRING, '.foo')
         );
 
         $barIdentifier = new Identifier(
             IdentifierTypes::CSS_SELECTOR,
-            '.bar'
+            new Value(ValueTypes::STRING, '.bar')
         );
 
         $page = new Page(

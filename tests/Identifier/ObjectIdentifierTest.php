@@ -5,13 +5,16 @@ namespace webignition\BasilModel\Tests\Identifier;
 
 use webignition\BasilModel\Identifier\IdentifierTypes;
 use webignition\BasilModel\Identifier\ObjectIdentifier;
+use webignition\BasilModel\Value\ObjectValue;
+use webignition\BasilModel\Value\ValueInterface;
+use webignition\BasilModel\Value\ValueTypes;
 
 class ObjectIdentifierTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @dataProvider createDataProvider
      */
-    public function testCreate(string $type, string $value, string $objectName, string $objectProperty)
+    public function testCreate(string $type, ValueInterface $value, string $objectName, string $objectProperty)
     {
         $identifier = new ObjectIdentifier($type, $value, $objectName, $objectProperty);
 
@@ -21,7 +24,7 @@ class ObjectIdentifierTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($objectProperty, $identifier->getObjectProperty());
         $this->assertSame(1, $identifier->getPosition());
         $this->assertNull($identifier->getName());
-        $this->assertSame($value, (string) $identifier);
+        $this->assertSame((string) $value, (string) $identifier);
     }
 
     public function createDataProvider(): array
@@ -29,13 +32,23 @@ class ObjectIdentifierTest extends \PHPUnit\Framework\TestCase
         return [
             'page object identifier' => [
                 'type' => IdentifierTypes::PAGE_OBJECT_PARAMETER,
-                'value' => '$page.url',
+                'value' => new ObjectValue(
+                    ValueTypes::PAGE_OBJECT_PROPERTY,
+                    '$page.url',
+                    'page',
+                    'url'
+                ),
                 'objectName' => 'page',
                 'objectProperty' => 'url',
             ],
             'browser object identifier' => [
                 'type' => IdentifierTypes::BROWSER_OBJECT_PARAMETER,
-                'value' => '$browser.size',
+                'value' => new ObjectValue(
+                    ValueTypes::BROWSER_OBJECT_PROPERTY,
+                    'browser.size',
+                    'browser',
+                    'size'
+                ),
                 'objectName' => 'browser',
                 'objectProperty' => 'size',
             ],

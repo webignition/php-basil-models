@@ -13,7 +13,10 @@ class InputActionTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {
-        $identifier = new Identifier(IdentifierTypes::CSS_SELECTOR, '.foo');
+        $identifier = new Identifier(
+            IdentifierTypes::CSS_SELECTOR,
+            new Value(ValueTypes::STRING, '.foo')
+        );
         $value = new Value(ValueTypes::STRING, 'foo');
 
         $action = new InputAction($identifier, $value, '".foo" to "foo"');

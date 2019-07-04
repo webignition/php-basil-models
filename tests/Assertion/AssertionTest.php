@@ -14,7 +14,10 @@ class AssertionTest extends \PHPUnit\Framework\TestCase
     public function testCreate()
     {
         $assertionString = '.foo is "foo"';
-        $identifier = new Identifier(IdentifierTypes::CSS_SELECTOR, '.foo');
+        $identifier = new Identifier(
+            IdentifierTypes::CSS_SELECTOR,
+            new Value(ValueTypes::STRING, '.foo')
+        );
         $comparison = AssertionComparisons::IS;
         $value = new Value(ValueTypes::STRING, 'foo');
 
