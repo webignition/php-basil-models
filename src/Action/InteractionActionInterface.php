@@ -2,9 +2,6 @@
 
 namespace webignition\BasilModel\Action;
 
-use webignition\BasilModel\Identifier\IdentifierInterface;
-
-interface InteractionActionInterface extends ActionInterface
+interface InteractionActionInterface extends IdentifierContainerInterface
 {
-    public function getIdentifier(): ?IdentifierInterface;
 }

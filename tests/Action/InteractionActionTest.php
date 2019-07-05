@@ -26,4 +26,35 @@ class InteractionActionTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($identifier, $action->getIdentifier());
         $this->assertTrue($action->isRecognised());
     }
+
+    public function testWithIdentifier()
+    {
+        $originalIdentifier = new Identifier(
+            IdentifierTypes::CSS_SELECTOR,
+            new Value(
+                ValueTypes::STRING,
+                '.original'
+            )
+        );
+
+        $newIdentifier = new Identifier(
+            IdentifierTypes::CSS_SELECTOR,
+            new Value(
+                ValueTypes::STRING,
+                '.new'
+            )
+        );
+
+        $action = new InteractionAction(
+            ActionTypes::CLICK,
+            $originalIdentifier,
+            '".original"'
+        );
+
+        $mutatedAction = $action->withIdentifier($newIdentifier);
+
+        $this->assertNotSame($action, $mutatedAction);
+        $this->assertSame($originalIdentifier, $action->getIdentifier());
+        $this->assertSame($newIdentifier, $mutatedAction->getIdentifier());
+    }
 }
