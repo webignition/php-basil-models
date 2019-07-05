@@ -19,4 +19,12 @@ class InteractionAction extends AbstractAction implements InteractionActionInter
     {
         return $this->identifier;
     }
+
+    public function withIdentifier(IdentifierInterface $identifier): IdentifierContainerInterface
+    {
+        $new = clone $this;
+        $new->identifier = $identifier;
+
+        return $new;
+    }
 }

@@ -27,4 +27,38 @@ class InputActionTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($value, $action->getValue());
         $this->assertTrue($action->isRecognised());
     }
+
+    public function testWithIdentifier()
+    {
+        $originalIdentifier = new Identifier(
+            IdentifierTypes::CSS_SELECTOR,
+            new Value(
+                ValueTypes::STRING,
+                '.original'
+            )
+        );
+
+        $newIdentifier = new Identifier(
+            IdentifierTypes::CSS_SELECTOR,
+            new Value(
+                ValueTypes::STRING,
+                '.new'
+            )
+        );
+
+        $action = new InputAction(
+            $originalIdentifier,
+            new Value(
+                ValueTypes::STRING,
+                'value'
+            ),
+            '".original" to "value"'
+        );
+
+        $mutatedAction = $action->withIdentifier($newIdentifier);
+
+        $this->assertNotSame($action, $mutatedAction);
+        $this->assertSame($originalIdentifier, $action->getIdentifier());
+        $this->assertSame($newIdentifier, $mutatedAction->getIdentifier());
+    }
 }
