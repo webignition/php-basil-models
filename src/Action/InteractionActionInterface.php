@@ -2,6 +2,8 @@
 
 namespace webignition\BasilModel\Action;
 
-interface InteractionActionInterface extends IdentifierContainerInterface
+use webignition\BasilModel\IdentifierContainerInterface;
+
+interface InteractionActionInterface extends ActionInterface, IdentifierContainerInterface
 {
 }

@@ -3,12 +3,15 @@
 namespace webignition\BasilModel\Assertion;
 
 use webignition\BasilModel\Identifier\IdentifierInterface;
+use webignition\BasilModel\IdentifierContainerInterface;
+use webignition\BasilModel\IdentifierContainerTrait;
 use webignition\BasilModel\Value\ValueInterface;
 
-class Assertion implements AssertionInterface
+class Assertion implements AssertionInterface, IdentifierContainerInterface
 {
+    use IdentifierContainerTrait;
+
     private $assertionString;
-    private $identifier;
     private $comparison;
     private $value;
 
@@ -27,11 +30,6 @@ class Assertion implements AssertionInterface
     public function getAssertionString(): string
     {
         return $this->assertionString;
-    }
-
-    public function getIdentifier(): ?IdentifierInterface
-    {
-        return $this->identifier;
     }
 
     public function getComparison(): ?string
