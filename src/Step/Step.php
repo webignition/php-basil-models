@@ -31,17 +31,8 @@ class Step implements StepInterface
 
     public function __construct(array $actions, array $assertions)
     {
-        foreach ($actions as $action) {
-            if ($action instanceof ActionInterface) {
-                $this->actions[] = $action;
-            }
-        }
-
-        foreach ($assertions as $assertion) {
-            if ($assertion instanceof AssertionInterface) {
-                $this->assertions[] = $assertion;
-            }
-        }
+        $this->setActions($actions);
+        $this->setAssertions($assertions);
     }
 
     /**
@@ -150,5 +141,53 @@ class Step implements StepInterface
         $new->assertions = $assertions;
 
         return $new;
+    }
+
+    /**
+     * @param ActionInterface[] $actions
+     *
+     * @return StepInterface
+     */
+    public function withActions(array $actions): StepInterface
+    {
+        $new = clone $this;
+        $new->setActions($actions);
+
+        return $new;
+    }
+
+    /**
+     * @param AssertionInterface[] $assertions
+     *
+     * @return StepInterface
+     */
+    public function withAssertions(array $assertions): StepInterface
+    {
+        $new = clone $this;
+        $new->setAssertions($assertions);
+
+        return $new;
+    }
+
+    private function setActions(array $actions)
+    {
+        $this->actions = [];
+
+        foreach ($actions as $action) {
+            if ($action instanceof ActionInterface) {
+                $this->actions[] = $action;
+            }
+        }
+    }
+
+    private function setAssertions(array $assertions)
+    {
+        $this->assertions = [];
+
+        foreach ($assertions as $assertion) {
+            if ($assertion instanceof AssertionInterface) {
+                $this->assertions[] = $assertion;
+            }
+        }
     }
 }

@@ -428,4 +428,86 @@ class StepTest extends \PHPUnit\Framework\TestCase
             ],
         ];
     }
+
+    /**
+     * @dataProvider withActionsDataProvider
+     */
+    public function testWithActions(StepInterface $step, array $actions)
+    {
+        $mutatedStep = $step->withActions($actions);
+
+        $this->assertNotSame($step, $mutatedStep);
+        $this->assertSame($actions, $mutatedStep->getActions());
+    }
+
+    public function withActionsDataProvider(): array
+    {
+        return [
+            'no initial actions, no actions' => [
+                'step' => new Step([], []),
+                'actions' => [],
+            ],
+            'has initial actions, no actions' => [
+                'step' => new Step([
+                    new WaitAction('1'),
+                ], []),
+                'actions' => [],
+            ],
+            'no initial actions, has actions' => [
+                'step' => new Step([], []),
+                'actions' => [
+                    new WaitAction('1'),
+                ],
+            ],
+            'has initial actions, has actions' => [
+                'step' => new Step([
+                    new WaitAction('1'),
+                ], []),
+                'actions' => [
+                    new WaitAction('2'),
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider withAssertionsDataProvider
+     */
+    public function testWithAssertions(StepInterface $step, array $assertions)
+    {
+        $mutatedStep = $step->withAssertions($assertions);
+
+        $this->assertNotSame($step, $mutatedStep);
+        $this->assertSame($assertions, $mutatedStep->getAssertions());
+    }
+
+    public function withAssertionsDataProvider(): array
+    {
+        return [
+            'no initial assertions, no assertions' => [
+                'step' => new Step([], []),
+                'assertions' => [],
+            ],
+            'has initial assertions, no assertions' => [
+                'step' => new Step([], [
+                    new Assertion('".selector" exists', null, null),
+                ]),
+                'assertions' => [],
+            ],
+            'no initial assertions, has assertions' => [
+                'step' => new Step([], []),
+                'assertions' => [
+                    new Assertion('".selector" exists', null, null),
+                ],
+            ],
+            'has initial assertions, has assertions' => [
+                'step' => new Step([], [
+                    new Assertion('".selector1" exists', null, null),
+                ]),
+                'assertions' => [
+                    new Assertion('".selector2" exists', null, null),
+                ],
+            ],
+        ];
+    }
 }
