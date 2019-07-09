@@ -214,75 +214,69 @@ class StepTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @dataProvider prependActionsFromDataProvider
+     * @dataProvider withPrependedActionsDataProvider
      */
-    public function testPrependActionsFrom(StepInterface $step, StepInterface $parent, StepInterface $expectedStep)
+    public function testWithPrependedActions(StepInterface $step, array $actions, StepInterface $expectedStep)
     {
-        $mutatedStep = $step->prependActionsFrom($parent);
+        $mutatedStep = $step->withPrependedActions($actions);
 
         $this->assertEquals($expectedStep, $mutatedStep);
     }
 
-    public function prependActionsFromDataProvider(): array
+    public function withPrependedActionsDataProvider(): array
     {
         return [
-            'step has no actions, parent has no actions' => [
+            'step has no actions, empty prepended actions' => [
                 'step' => new Step([], []),
-                'parent' => new Step([], []),
+                'actions' => [],
                 'expectedStep' => new Step([], []),
             ],
-            'step has actions, parent has no actions' => [
+            'step has actions, empty prepended actions' => [
                 'step' => new Step([
                     new WaitAction('1'),
                 ], []),
-                'parent' => new Step([], []),
+                'actions' => [],
                 'expectedStep' => new Step([
                     new WaitAction('1'),
                 ], []),
             ],
-            'step has no actions, parent has actions' => [
+            'step has no actions, non-empty prepended actions' => [
                 'step' => new Step([], []),
-                'parent' => new Step([
+                'actions' => [
                     new WaitAction('2'),
-                ], []),
+                ],
                 'expectedStep' => new Step([
                     new WaitAction('2'),
                 ], []),
             ],
-            'step has actions, parent has actions' => [
+            'step has actions, non-empty prepended actions' => [
                 'step' => new Step([
                     new WaitAction('1'),
                 ], []),
-                'parent' => new Step([
+                'actions' => [
                     new WaitAction('2'),
-                ], []),
+                ],
                 'expectedStep' => new Step([
                     new WaitAction('2'),
                     new WaitAction('1'),
                 ], []),
             ],
-            'step assertions are retained, parent assertions are not' => [
+            'step assertions are retained' => [
                 'step' => new Step([], [
                     new Assertion('".selector1" exists', null, null),
                 ]),
-                'parent' => new Step([], [
-                    new Assertion('".selector2" exists', null, null),
-                ]),
+                'actions' => [],
                 'expectedStep' => new Step([], [
                     new Assertion('".selector1" exists', null, null),
                 ]),
             ],
-            'step data sets are retained, parent data sets are not' => [
+            'step data sets are retained' => [
                 'step' => (new Step([], []))->withDataSets([
                     new DataSet([
                         'field1' => 'value1',
                     ])
                 ]),
-                'parent' => (new Step([], []))->withDataSets([
-                    new DataSet([
-                        'field2' => 'value3',
-                    ])
-                ]),
+                'actions' => [],
                 'expectedStep' => (new Step([], []))->withDataSets([
                     new DataSet([
                         'field1' => 'value1',
@@ -299,15 +293,7 @@ class StepTest extends \PHPUnit\Framework\TestCase
                         )
                     )
                 ]),
-                'parent' => (new Step([], []))->withElementIdentifiers([
-                    'heading2' => new Identifier(
-                        IdentifierTypes::CSS_SELECTOR,
-                        new Value(
-                            ValueTypes::STRING,
-                            '.heading2'
-                        )
-                    )
-                ]),
+                'actions' => [],
                 'expectedStep' => (new Step([], []))->withElementIdentifiers([
                     'heading1' => new Identifier(
                         IdentifierTypes::CSS_SELECTOR,
@@ -322,60 +308,58 @@ class StepTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @dataProvider prependAssertionsFromDataProvider
+     * @dataProvider withPrependedAssertionsDataProvider
      */
-    public function testPrependAssertionsFrom(StepInterface $step, StepInterface $parent, StepInterface $expectedStep)
+    public function testWithPrependedAssertions(StepInterface $step, array $assertions, StepInterface $expectedStep)
     {
-        $mutatedStep = $step->prependAssertionsFrom($parent);
+        $mutatedStep = $step->withPrependedAssertions($assertions);
 
         $this->assertEquals($expectedStep, $mutatedStep);
     }
 
-    public function prependAssertionsFromDataProvider(): array
+    public function withPrependedAssertionsDataProvider(): array
     {
         return [
-            'step has no assertions, parent has no assertions' => [
+            'step has no assertions, empty prepended assertions' => [
                 'step' => new Step([], []),
-                'parent' => new Step([], []),
+                'assertions' => [],
                 'expectedStep' => new Step([], []),
             ],
-            'step has assertions, parent has no assertions' => [
+            'step has assertions, empty prepended assertions' => [
                 'step' => new Step([], [
                     new Assertion('".selector" exists', null, null),
                 ]),
-                'parent' => new Step([], []),
+                'assertions' => [],
                 'expectedStep' => new Step([], [
                     new Assertion('".selector" exists', null, null),
                 ]),
             ],
-            'step has no assertions, parent has assertions' => [
+            'step has no assertions, non-empty prepended assertions' => [
                 'step' => new Step([], []),
-                'parent' => new Step([], [
+                'assertions' => [
                     new Assertion('".selector" exists', null, null),
-                ]),
+                ],
                 'expectedStep' => new Step([], [
                     new Assertion('".selector" exists', null, null),
                 ]),
             ],
-            'step has assertions, parent has assertions' => [
+            'step has assertions, non-empty prepended assertions' => [
                 'step' => new Step([], [
                     new Assertion('".selector1" exists', null, null),
                 ]),
-                'parent' => new Step([], [
+                'assertions' => [
                     new Assertion('".selector2" exists', null, null),
-                ]),
+                ],
                 'expectedStep' => new Step([], [
                     new Assertion('".selector2" exists', null, null),
                     new Assertion('".selector1" exists', null, null),
                 ]),
             ],
-            'step actions are retained, parent actions are not' => [
+            'step actions are retained' => [
                 'step' => new Step([
                     new WaitAction('1'),
                 ], []),
-                'parent' => new Step([
-                    new WaitAction('2'),
-                ], []),
+                'assertions' => [],
                 'expectedStep' => new Step([
                     new WaitAction('1'),
                 ], []),
@@ -386,11 +370,7 @@ class StepTest extends \PHPUnit\Framework\TestCase
                         'field1' => 'value1',
                     ])
                 ]),
-                'parent' => (new Step([], []))->withDataSets([
-                    new DataSet([
-                        'field2' => 'value3',
-                    ])
-                ]),
+                'assertions' => [],
                 'expectedStep' => (new Step([], []))->withDataSets([
                     new DataSet([
                         'field1' => 'value1',
@@ -407,15 +387,7 @@ class StepTest extends \PHPUnit\Framework\TestCase
                         )
                     )
                 ]),
-                'parent' => (new Step([], []))->withElementIdentifiers([
-                    'heading2' => new Identifier(
-                        IdentifierTypes::CSS_SELECTOR,
-                        new Value(
-                            ValueTypes::STRING,
-                            '.heading2'
-                        )
-                    )
-                ]),
+                'assertions' => [],
                 'expectedStep' => (new Step([], []))->withElementIdentifiers([
                     'heading1' => new Identifier(
                         IdentifierTypes::CSS_SELECTOR,

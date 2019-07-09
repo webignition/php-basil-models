@@ -77,16 +77,16 @@ class PendingImportResolutionStep implements StepInterface, PendingImportResolut
         return $this;
     }
 
-    public function prependActionsFrom(StepInterface $step): StepInterface
+    public function withPrependedActions(array $actions): StepInterface
     {
-        $this->step = $this->step->prependActionsFrom($step);
+        $this->step = $this->step->withPrependedActions($actions);
 
         return $this;
     }
 
-    public function prependAssertionsFrom(StepInterface $step): StepInterface
+    public function withPrependedAssertions(array $assertions): StepInterface
     {
-        $this->step = $this->step->prependAssertionsFrom($step);
+        $this->step = $this->step->withPrependedAssertions($assertions);
 
         return $this;
     }
