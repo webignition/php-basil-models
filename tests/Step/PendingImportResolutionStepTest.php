@@ -10,6 +10,8 @@ use webignition\BasilModel\Identifier\Identifier;
 use webignition\BasilModel\Identifier\IdentifierTypes;
 use webignition\BasilModel\Step\PendingImportResolutionStep;
 use webignition\BasilModel\Step\PendingImportResolutionStepInterface;
+use webignition\BasilModel\Step\Step;
+use webignition\BasilModel\Step\StepInterface;
 use webignition\BasilModel\Value\Value;
 use webignition\BasilModel\Value\ValueTypes;
 
@@ -19,76 +21,58 @@ class PendingImportResolutionStepTest extends \PHPUnit\Framework\TestCase
      * @dataProvider createDataProvider
      */
     public function testCreate(
-        array $actions,
-        array $assertions,
+        StepInterface $encapsulatedStep,
         string $importName,
         string $dataProviderImportName,
         PendingImportResolutionStepInterface $expectedStep,
         bool $expectedRequiresResolution
     ) {
-        $step = new PendingImportResolutionStep($actions, $assertions, $importName, $dataProviderImportName);
+        $step = new PendingImportResolutionStep($encapsulatedStep, $importName, $dataProviderImportName);
 
         $this->assertEquals($expectedStep, $step);
         $this->assertEquals($expectedRequiresResolution, $step->requiresResolution());
+        $this->assertSame($encapsulatedStep, $step->getStep());
     }
 
     public function createDataProvider(): array
     {
         return [
             'empty' => [
-                'actions' => [],
-                'assertions' => [],
+                'encapsulatedStep' => new Step([], []),
                 'importName' => '',
                 'dataProviderImportName' => '',
-                'expectedStep' => new PendingImportResolutionStep([], [], '', ''),
+                'expectedStep' => new PendingImportResolutionStep(new Step([], []), '', ''),
                 'expectedRequiresResolution' => false,
             ],
             'import name only' => [
-                'actions' => [],
-                'assertions' => [],
+                'encapsulatedStep' => new Step([], []),
                 'importName' => 'import_name',
                 'dataProviderImportName' => '',
-                'expectedStep' => new PendingImportResolutionStep([], [], 'import_name', ''),
+                'expectedStep' => new PendingImportResolutionStep(new Step([], []), 'import_name', ''),
                 'expectedRequiresResolution' => true,
             ],
             'data provider import name only' => [
-                'actions' => [],
-                'assertions' => [],
+                'encapsulatedStep' => new Step([], []),
                 'importName' => '',
                 'dataProviderImportName' => 'data_provider_import_name',
-                'expectedStep' => new PendingImportResolutionStep([], [], '', 'data_provider_import_name'),
+                'expectedStep' => new PendingImportResolutionStep(new Step([], []), '', 'data_provider_import_name'),
                 'expectedRequiresResolution' => true,
             ],
             'import name and data provider import name' => [
-                'actions' => [],
-                'assertions' => [],
+                'encapsulatedStep' => new Step([], []),
                 'importName' => 'import_name',
                 'dataProviderImportName' => 'data_provider_import_name',
-                'expectedStep' => new PendingImportResolutionStep([], [], 'import_name', 'data_provider_import_name'),
+                'expectedStep' => new PendingImportResolutionStep(
+                    new Step([], []),
+                    'import_name',
+                    'data_provider_import_name'
+                ),
                 'expectedRequiresResolution' => true,
             ],
             'with actions and assertions' => [
-                'actions' => [
-                    new WaitAction('30')
-                ],
-                'assertions' => [
-                    new Assertion(
-                        '".selector" exists',
-                        new Identifier(
-                            IdentifierTypes::CSS_SELECTOR,
-                            new Value(
-                                ValueTypes::STRING,
-                                '.selector'
-                            )
-                        ),
-                        AssertionComparisons::EXISTS
-                    ),
-                ],
-                'importName' => '',
-                'dataProviderImportName' => '',
-                'expectedStep' => new PendingImportResolutionStep(
+                'encapsulatedStep' => new Step(
                     [
-                        new WaitAction('30')
+                        new WaitAction('30'),
                     ],
                     [
                         new Assertion(
@@ -102,7 +86,29 @@ class PendingImportResolutionStepTest extends \PHPUnit\Framework\TestCase
                             ),
                             AssertionComparisons::EXISTS
                         ),
-                    ],
+                    ]
+                ),
+                'importName' => '',
+                'dataProviderImportName' => '',
+                'expectedStep' => new PendingImportResolutionStep(
+                    new Step(
+                        [
+                            new WaitAction('30'),
+                        ],
+                        [
+                            new Assertion(
+                                '".selector" exists',
+                                new Identifier(
+                                    IdentifierTypes::CSS_SELECTOR,
+                                    new Value(
+                                        ValueTypes::STRING,
+                                        '.selector'
+                                    )
+                                ),
+                                AssertionComparisons::EXISTS
+                            ),
+                        ]
+                    ),
                     '',
                     ''
                 ),
