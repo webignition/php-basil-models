@@ -212,4 +212,220 @@ class StepTest extends \PHPUnit\Framework\TestCase
             ],
         ];
     }
+
+    /**
+     * @dataProvider prependActionsFromDataProvider
+     */
+    public function testPrependActionsFrom(StepInterface $step, StepInterface $parent, StepInterface $expectedStep)
+    {
+        $mutatedStep = $step->prependActionsFrom($parent);
+
+        $this->assertEquals($expectedStep, $mutatedStep);
+    }
+
+    public function prependActionsFromDataProvider(): array
+    {
+        return [
+            'step has no actions, parent has no actions' => [
+                'step' => new Step([], []),
+                'parent' => new Step([], []),
+                'expectedStep' => new Step([], []),
+            ],
+            'step has actions, parent has no actions' => [
+                'step' => new Step([
+                    new WaitAction('1'),
+                ], []),
+                'parent' => new Step([], []),
+                'expectedStep' => new Step([
+                    new WaitAction('1'),
+                ], []),
+            ],
+            'step has no actions, parent has actions' => [
+                'step' => new Step([], []),
+                'parent' => new Step([
+                    new WaitAction('2'),
+                ], []),
+                'expectedStep' => new Step([
+                    new WaitAction('2'),
+                ], []),
+            ],
+            'step has actions, parent has actions' => [
+                'step' => new Step([
+                    new WaitAction('1'),
+                ], []),
+                'parent' => new Step([
+                    new WaitAction('2'),
+                ], []),
+                'expectedStep' => new Step([
+                    new WaitAction('2'),
+                    new WaitAction('1'),
+                ], []),
+            ],
+            'step assertions are retained, parent assertions are not' => [
+                'step' => new Step([], [
+                    new Assertion('".selector1" exists', null, null),
+                ]),
+                'parent' => new Step([], [
+                    new Assertion('".selector2" exists', null, null),
+                ]),
+                'expectedStep' => new Step([], [
+                    new Assertion('".selector1" exists', null, null),
+                ]),
+            ],
+            'step data sets are retained, parent data sets are not' => [
+                'step' => (new Step([], []))->withDataSets([
+                    new DataSet([
+                        'field1' => 'value1',
+                    ])
+                ]),
+                'parent' => (new Step([], []))->withDataSets([
+                    new DataSet([
+                        'field2' => 'value3',
+                    ])
+                ]),
+                'expectedStep' => (new Step([], []))->withDataSets([
+                    new DataSet([
+                        'field1' => 'value1',
+                    ])
+                ]),
+            ],
+            'step element identifiers are retained, parent element identifiers are not' => [
+                'step' => (new Step([], []))->withElementIdentifiers([
+                    'heading1' => new Identifier(
+                        IdentifierTypes::CSS_SELECTOR,
+                        new Value(
+                            ValueTypes::STRING,
+                            '.heading1'
+                        )
+                    )
+                ]),
+                'parent' => (new Step([], []))->withElementIdentifiers([
+                    'heading2' => new Identifier(
+                        IdentifierTypes::CSS_SELECTOR,
+                        new Value(
+                            ValueTypes::STRING,
+                            '.heading2'
+                        )
+                    )
+                ]),
+                'expectedStep' => (new Step([], []))->withElementIdentifiers([
+                    'heading1' => new Identifier(
+                        IdentifierTypes::CSS_SELECTOR,
+                        new Value(
+                            ValueTypes::STRING,
+                            '.heading1'
+                        )
+                    )
+                ]),
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider prependAssertionsFromDataProvider
+     */
+    public function testPrependAssertionsFrom(StepInterface $step, StepInterface $parent, StepInterface $expectedStep)
+    {
+        $mutatedStep = $step->prependAssertionsFrom($parent);
+
+        $this->assertEquals($expectedStep, $mutatedStep);
+    }
+
+    public function prependAssertionsFromDataProvider(): array
+    {
+        return [
+            'step has no assertions, parent has no assertions' => [
+                'step' => new Step([], []),
+                'parent' => new Step([], []),
+                'expectedStep' => new Step([], []),
+            ],
+            'step has assertions, parent has no assertions' => [
+                'step' => new Step([], [
+                    new Assertion('".selector" exists', null, null),
+                ]),
+                'parent' => new Step([], []),
+                'expectedStep' => new Step([], [
+                    new Assertion('".selector" exists', null, null),
+                ]),
+            ],
+            'step has no assertions, parent has assertions' => [
+                'step' => new Step([], []),
+                'parent' => new Step([], [
+                    new Assertion('".selector" exists', null, null),
+                ]),
+                'expectedStep' => new Step([], [
+                    new Assertion('".selector" exists', null, null),
+                ]),
+            ],
+            'step has assertions, parent has assertions' => [
+                'step' => new Step([], [
+                    new Assertion('".selector1" exists', null, null),
+                ]),
+                'parent' => new Step([], [
+                    new Assertion('".selector2" exists', null, null),
+                ]),
+                'expectedStep' => new Step([], [
+                    new Assertion('".selector2" exists', null, null),
+                    new Assertion('".selector1" exists', null, null),
+                ]),
+            ],
+            'step actions are retained, parent actions are not' => [
+                'step' => new Step([
+                    new WaitAction('1'),
+                ], []),
+                'parent' => new Step([
+                    new WaitAction('2'),
+                ], []),
+                'expectedStep' => new Step([
+                    new WaitAction('1'),
+                ], []),
+            ],
+            'step data sets are retained, parent data sets are not' => [
+                'step' => (new Step([], []))->withDataSets([
+                    new DataSet([
+                        'field1' => 'value1',
+                    ])
+                ]),
+                'parent' => (new Step([], []))->withDataSets([
+                    new DataSet([
+                        'field2' => 'value3',
+                    ])
+                ]),
+                'expectedStep' => (new Step([], []))->withDataSets([
+                    new DataSet([
+                        'field1' => 'value1',
+                    ])
+                ]),
+            ],
+            'step element identifiers are retained, parent element identifiers are not' => [
+                'step' => (new Step([], []))->withElementIdentifiers([
+                    'heading1' => new Identifier(
+                        IdentifierTypes::CSS_SELECTOR,
+                        new Value(
+                            ValueTypes::STRING,
+                            '.heading1'
+                        )
+                    )
+                ]),
+                'parent' => (new Step([], []))->withElementIdentifiers([
+                    'heading2' => new Identifier(
+                        IdentifierTypes::CSS_SELECTOR,
+                        new Value(
+                            ValueTypes::STRING,
+                            '.heading2'
+                        )
+                    )
+                ]),
+                'expectedStep' => (new Step([], []))->withElementIdentifiers([
+                    'heading1' => new Identifier(
+                        IdentifierTypes::CSS_SELECTOR,
+                        new Value(
+                            ValueTypes::STRING,
+                            '.heading1'
+                        )
+                    )
+                ]),
+            ],
+        ];
+    }
 }

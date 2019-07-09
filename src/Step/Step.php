@@ -117,4 +117,38 @@ class Step implements StepInterface
 
         return $new;
     }
+
+    public function prependActionsFrom(StepInterface $step): StepInterface
+    {
+        $actions = [];
+        foreach ($step->getActions() as $action) {
+            $actions[] = clone $action;
+        }
+
+        foreach ($this->getActions() as $action) {
+            $actions[] = clone $action;
+        }
+
+        $new = clone $this;
+        $new->actions = $actions;
+
+        return $new;
+    }
+
+    public function prependAssertionsFrom(StepInterface $step): StepInterface
+    {
+        $assertions = [];
+        foreach ($step->getAssertions() as $assertion) {
+            $assertions[] = clone $assertion;
+        }
+
+        foreach ($this->getAssertions() as $assertion) {
+            $assertions[] = clone $assertion;
+        }
+
+        $new = clone $this;
+        $new->assertions = $assertions;
+
+        return $new;
+    }
 }
