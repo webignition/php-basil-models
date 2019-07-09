@@ -43,8 +43,19 @@ interface StepInterface
      */
     public function withElementIdentifiers(array $elementIdentifiers): StepInterface;
 
-    public function prependActionsFrom(StepInterface $step): StepInterface;
-    public function prependAssertionsFrom(StepInterface $step): StepInterface;
+    /**
+     * @param array|ActionInterface[] $actions
+     *
+     * @return StepInterface
+     */
+    public function withPrependedActions(array $actions): StepInterface;
+
+    /**
+     * @param array|AssertionInterface[] $assertions
+     *
+     * @return StepInterface
+     */
+    public function withPrependedAssertions(array $assertions): StepInterface;
 
     /**
      * @param ActionInterface[] $actions
