@@ -212,4 +212,97 @@ class IdentifierTest extends \PHPUnit\Framework\TestCase
             ],
         ];
     }
+
+    /**
+     * @dataProvider withNameDataProvider
+     */
+    public function testWithName(IdentifierInterface $identifier, string $name, IdentifierInterface $expectedIdentifier)
+    {
+        $updatedIdentifier = $identifier->withName($name);
+
+        $this->assertNotSame($identifier, $updatedIdentifier);
+        $this->assertEquals($expectedIdentifier, $updatedIdentifier);
+    }
+
+    public function withNameDataProvider(): array
+    {
+        return [
+            'no name, no new name' => [
+                'identifier' => new Identifier(
+                    IdentifierTypes::CSS_SELECTOR,
+                    new Value(
+                        ValueTypes::STRING,
+                        '.selector'
+                    )
+                ),
+                'name' => '',
+                'expectedIdentifier' => new Identifier(
+                    IdentifierTypes::CSS_SELECTOR,
+                    new Value(
+                        ValueTypes::STRING,
+                        '.selector'
+                    )
+                ),
+            ],
+            'has name, no new name' => [
+                'identifier' => new Identifier(
+                    IdentifierTypes::CSS_SELECTOR,
+                    new Value(
+                        ValueTypes::STRING,
+                        '.selector'
+                    ),
+                    null,
+                    'identifier name'
+                ),
+                'name' => '',
+                'expectedIdentifier' => new Identifier(
+                    IdentifierTypes::CSS_SELECTOR,
+                    new Value(
+                        ValueTypes::STRING,
+                        '.selector'
+                    )
+                ),
+            ],
+            'no name, has new name' => [
+                'identifier' => new Identifier(
+                    IdentifierTypes::CSS_SELECTOR,
+                    new Value(
+                        ValueTypes::STRING,
+                        '.selector'
+                    )
+                ),
+                'name' => 'identifier name',
+                'expectedIdentifier' => new Identifier(
+                    IdentifierTypes::CSS_SELECTOR,
+                    new Value(
+                        ValueTypes::STRING,
+                        '.selector'
+                    ),
+                    null,
+                    'identifier name'
+                ),
+            ],
+            'has name, has new name' => [
+                'identifier' => new Identifier(
+                    IdentifierTypes::CSS_SELECTOR,
+                    new Value(
+                        ValueTypes::STRING,
+                        '.selector'
+                    ),
+                    null,
+                    'current identifier name'
+                ),
+                'name' => 'new identifier name',
+                'expectedIdentifier' => new Identifier(
+                    IdentifierTypes::CSS_SELECTOR,
+                    new Value(
+                        ValueTypes::STRING,
+                        '.selector'
+                    ),
+                    null,
+                    'new identifier name'
+                ),
+            ],
+        ];
+    }
 }

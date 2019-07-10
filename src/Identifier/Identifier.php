@@ -61,6 +61,14 @@ class Identifier implements IdentifierInterface
         return $new;
     }
 
+    public function withName(string $name): IdentifierInterface
+    {
+        $new = clone $this;
+        $new->name = $name;
+
+        return $new;
+    }
+
     public function __toString(): string
     {
         $string = $this->value->getValue();
