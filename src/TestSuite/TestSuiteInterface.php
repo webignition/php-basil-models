@@ -6,6 +6,8 @@ use webignition\BasilModel\Test\TestInterface;
 
 interface TestSuiteInterface
 {
+    public function getName(): string;
+
     /**
      * @return TestInterface[]
      */
