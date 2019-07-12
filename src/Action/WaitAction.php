@@ -6,9 +6,9 @@ class WaitAction extends AbstractAction implements WaitActionInterface
 {
     private $duration;
 
-    public function __construct(string $duration)
+    public function __construct(string $actionString, string $duration)
     {
-        parent::__construct(ActionTypes::WAIT, $duration, true);
+        parent::__construct($actionString, ActionTypes::WAIT, $duration, true);
 
         $this->duration = $duration;
     }

@@ -9,9 +9,9 @@ class InteractionAction extends AbstractAction implements InteractionActionInter
 {
     use IdentifierContainerTrait;
 
-    public function __construct(string $type, ?IdentifierInterface $identifier, string $arguments)
+    public function __construct(string $actionString, string $type, ?IdentifierInterface $identifier, string $arguments)
     {
-        parent::__construct($type, $arguments, true);
+        parent::__construct($actionString, $type, $arguments, true);
 
         $this->identifier = $identifier;
     }

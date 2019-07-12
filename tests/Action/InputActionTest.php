@@ -19,7 +19,12 @@ class InputActionTest extends \PHPUnit\Framework\TestCase
         );
         $value = new Value(ValueTypes::STRING, 'foo');
 
-        $action = new InputAction($identifier, $value, '".foo" to "foo"');
+        $action = new InputAction(
+            'set ".foo" to "foo"',
+            $identifier,
+            $value,
+            '".foo" to "foo"'
+        );
 
         $this->assertSame(ActionTypes::SET, $action->getType());
         $this->assertSame('".foo" to "foo"', $action->getArguments());
@@ -47,6 +52,7 @@ class InputActionTest extends \PHPUnit\Framework\TestCase
         );
 
         $action = new InputAction(
+            'set ".original" to "value"',
             $originalIdentifier,
             new Value(
                 ValueTypes::STRING,

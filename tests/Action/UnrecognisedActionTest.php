@@ -9,11 +9,9 @@ class UnrecognisedActionTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {
-        $type = ActionTypes::RELOAD;
+        $action = new UnrecognisedAction('foo', 'foo', '');
 
-        $action = new UnrecognisedAction($type, '');
-
-        $this->assertSame($type, $action->getType());
+        $this->assertSame('foo', $action->getType());
         $this->assertSame('', $action->getArguments());
         $this->assertFalse($action->isRecognised());
     }

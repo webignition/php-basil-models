@@ -11,7 +11,7 @@ class WaitActionTest extends \PHPUnit\Framework\TestCase
     {
         $duration = '10';
 
-        $action = new WaitAction($duration);
+        $action = new WaitAction('wait 10', $duration);
 
         $this->assertSame(ActionTypes::WAIT, $action->getType());
         $this->assertSame('10', $action->getArguments());
