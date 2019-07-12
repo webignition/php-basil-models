@@ -19,7 +19,12 @@ class InteractionActionTest extends \PHPUnit\Framework\TestCase
             new Value(ValueTypes::STRING, '.foo')
         );
 
-        $action = new InteractionAction($type, $identifier, '".foo"');
+        $action = new InteractionAction(
+            'click ".foo"',
+            $type,
+            $identifier,
+            '".foo"'
+        );
 
         $this->assertSame($type, $action->getType());
         $this->assertSame('".foo"', $action->getArguments());
@@ -46,6 +51,7 @@ class InteractionActionTest extends \PHPUnit\Framework\TestCase
         );
 
         $action = new InteractionAction(
+            'click ".original"',
             ActionTypes::CLICK,
             $originalIdentifier,
             '".original"'
