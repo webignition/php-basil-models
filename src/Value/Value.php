@@ -23,6 +23,11 @@ class Value implements ValueInterface
         return $this->value;
     }
 
+    public function isEmpty(): bool
+    {
+        return '' === $this->value;
+    }
+
     public function __toString(): string
     {
         return ValueTypes::STRING === $this->type

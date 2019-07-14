@@ -40,4 +40,10 @@ class ValueTest extends \PHPUnit\Framework\TestCase
             ],
         ];
     }
+
+    public function testIsEmpty()
+    {
+        $this->assertTrue((new Value(ValueTypes::STRING, ''))->isEmpty());
+        $this->assertFalse((new Value(ValueTypes::STRING, 'non-empty'))->isEmpty());
+    }
 }
