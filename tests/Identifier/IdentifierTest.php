@@ -3,6 +3,7 @@
 
 namespace webignition\BasilModel\Tests\Identifier;
 
+use webignition\BasilModel\Action\InputAction;
 use webignition\BasilModel\Identifier\Identifier;
 use webignition\BasilModel\Identifier\IdentifierInterface;
 use webignition\BasilModel\Identifier\IdentifierTypes;
@@ -302,6 +303,46 @@ class IdentifierTest extends \PHPUnit\Framework\TestCase
                     null,
                     'new identifier name'
                 ),
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider isActionableDataProvider
+     */
+    public function testIsActionable(IdentifierInterface $identifier, bool $expectedIsActionable)
+    {
+        $this->assertSame($expectedIsActionable, $identifier->isActionable());
+    }
+
+    public function isActionableDataProvider(): array
+    {
+        $value = new Value(ValueTypes::STRING, '');
+
+        return [
+            'css selector is actionable' => [
+                'identifier' => new Identifier(IdentifierTypes::CSS_SELECTOR, $value),
+                'expectedIsActionable' => true,
+            ],
+            'xpath expression is actionable' => [
+                'identifier' => new Identifier(IdentifierTypes::XPATH_EXPRESSION, $value),
+                'expectedIsActionable' => true,
+            ],
+            'page model element reference is not actionable' => [
+                'identifier' => new Identifier(IdentifierTypes::PAGE_MODEL_ELEMENT_REFERENCE, $value),
+                'expectedIsActionable' => false,
+            ],
+            'element parameter is not actionable' => [
+                'identifier' => new Identifier(IdentifierTypes::ELEMENT_PARAMETER, $value),
+                'expectedIsActionable' => false,
+            ],
+            'page object parameter is not actionable' => [
+                'identifier' => new Identifier(IdentifierTypes::PAGE_OBJECT_PARAMETER, $value),
+                'expectedIsActionable' => false,
+            ],
+            'browser object parameter is not actionable' => [
+                'identifier' => new Identifier(IdentifierTypes::BROWSER_OBJECT_PARAMETER, $value),
+                'expectedIsActionable' => false,
             ],
         ];
     }
