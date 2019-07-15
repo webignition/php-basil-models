@@ -10,4 +10,9 @@ class IdentifierTypes
     const ELEMENT_PARAMETER = 'element-parameter';
     const PAGE_OBJECT_PARAMETER = 'page-object-parameter';
     const BROWSER_OBJECT_PARAMETER = 'browser-object-parameter';
+
+    const ACTIONABLE_TYPES = [
+        self::CSS_SELECTOR,
+        self::XPATH_EXPRESSION,
+    ];
 }

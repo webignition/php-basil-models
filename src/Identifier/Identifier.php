@@ -69,6 +69,11 @@ class Identifier implements IdentifierInterface
         return $new;
     }
 
+    public function isActionable(): bool
+    {
+        return in_array($this->type, IdentifierTypes::ACTIONABLE_TYPES);
+    }
+
     public function __toString(): string
     {
         $string = $this->value->getValue();
