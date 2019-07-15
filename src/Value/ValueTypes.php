@@ -10,4 +10,13 @@ class ValueTypes
     const PAGE_OBJECT_PROPERTY = 'page-object-property';
     const BROWSER_OBJECT_PROPERTY = 'browser-object-property';
     const PAGE_MODEL_REFERENCE = 'page-model-reference';
+
+    const ALL = [
+        self::DATA_PARAMETER,
+        self::STRING,
+        self::ELEMENT_PARAMETER,
+        self::PAGE_OBJECT_PROPERTY,
+        self::BROWSER_OBJECT_PROPERTY,
+        self::PAGE_MODEL_REFERENCE,
+    ];
 }
