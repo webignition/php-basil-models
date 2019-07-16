@@ -21,7 +21,7 @@ class Step implements StepInterface
     private $assertions = [];
 
     /**
-     * @var DataSetCollection
+     * @var DataSetCollectionInterface
      */
     private $dataSetCollection;
 
