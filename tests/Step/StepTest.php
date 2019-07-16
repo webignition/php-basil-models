@@ -7,6 +7,7 @@ use webignition\BasilModel\Action\WaitAction;
 use webignition\BasilModel\Assertion\Assertion;
 use webignition\BasilModel\Assertion\AssertionComparisons;
 use webignition\BasilModel\DataSet\DataSet;
+use webignition\BasilModel\DataSet\DataSetCollection;
 use webignition\BasilModel\Identifier\Identifier;
 use webignition\BasilModel\Identifier\IdentifierTypes;
 use webignition\BasilModel\Step\Step;
@@ -83,61 +84,21 @@ class StepTest extends \PHPUnit\Framework\TestCase
         ];
     }
 
-    /**
-     * @dataProvider withDataSetsDataProvider
-     */
-    public function testWithDataSets(
-        StepInterface $step,
-        array $dataSets,
-        array $expectedDataSets
-    ) {
-        $currentDataSets = $step->getDataSets();
-
-        $mutatedStep = $step->withDataSets($dataSets);
-
-        $this->assertNotSame($mutatedStep, $step);
-        $this->assertEquals($expectedDataSets, $mutatedStep->getDataSets());
-        $this->assertSame($currentDataSets, $step->getDataSets());
-    }
-
-    public function withDataSetsDataProvider(): array
+    public function testWithDataSetCollection()
     {
-        return [
-            'no existing data sets, empty data sets' => [
-                'step' => new Step([], []),
-                'dataSets' => [],
-                'expectedDataSets' => [],
-            ],
-            'no existing data sets, non-empty data sets' => [
-                'step' => new Step([], []),
-                'dataSets' => [
-                    'one' => 1,
-                    'two' => 'two',
-                    'three' => new DataSet([]),
-                ],
-                'expectedDataSets' => [
-                    'three' => new DataSet([]),
-                ],
-            ],
-            'has existing data sets, empty data sets' => [
-                'step' => (new Step([], []))->withDataSets([
-                    'one' => new DataSet([]),
-                ]),
-                'dataSets' => [],
-                'expectedDataSets' => [],
-            ],
-            'has existing data sets, non-empty data sets' => [
-                'step' => (new Step([], []))->withDataSets([
-                    'one' => new DataSet([]),
-                ]),
-                'dataSets' => [
-                    'two' => new DataSet([]),
-                ],
-                'expectedDataSets' => [
-                    'two' => new DataSet([]),
-                ],
-            ],
-        ];
+        $step = new Step([], []);
+
+        $this->assertEquals(new DataSetCollection(), $step->getDataSetCollection());
+
+        $dataSetCollection = new DataSetCollection([
+            new DataSet([
+                'foo' => 'bar',
+            ])
+        ]);
+
+        $step = $step->withDataSetCollection($dataSetCollection);
+
+        $this->assertSame($dataSetCollection, $step->getDataSetCollection());
     }
 
     /**
@@ -271,17 +232,17 @@ class StepTest extends \PHPUnit\Framework\TestCase
                 ]),
             ],
             'step data sets are retained' => [
-                'step' => (new Step([], []))->withDataSets([
+                'step' => (new Step([], []))->withDataSetCollection(new DataSetCollection([
                     new DataSet([
                         'field1' => 'value1',
                     ])
-                ]),
+                ])),
                 'actions' => [],
-                'expectedStep' => (new Step([], []))->withDataSets([
+                'expectedStep' => (new Step([], []))->withDataSetCollection(new DataSetCollection([
                     new DataSet([
                         'field1' => 'value1',
                     ])
-                ]),
+                ])),
             ],
             'step element identifiers are retained, parent element identifiers are not' => [
                 'step' => (new Step([], []))->withElementIdentifiers([
@@ -365,17 +326,17 @@ class StepTest extends \PHPUnit\Framework\TestCase
                 ], []),
             ],
             'step data sets are retained, parent data sets are not' => [
-                'step' => (new Step([], []))->withDataSets([
+                'step' => (new Step([], []))->withDataSetCollection(new DataSetCollection([
                     new DataSet([
                         'field1' => 'value1',
                     ])
-                ]),
+                ])),
                 'assertions' => [],
-                'expectedStep' => (new Step([], []))->withDataSets([
+                'expectedStep' => (new Step([], []))->withDataSetCollection(new DataSetCollection([
                     new DataSet([
                         'field1' => 'value1',
                     ])
-                ]),
+                ])),
             ],
             'step element identifiers are retained, parent element identifiers are not' => [
                 'step' => (new Step([], []))->withElementIdentifiers([

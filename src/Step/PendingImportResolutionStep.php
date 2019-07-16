@@ -2,6 +2,8 @@
 
 namespace webignition\BasilModel\Step;
 
+use webignition\BasilModel\DataSet\DataSetCollectionInterface;
+
 class PendingImportResolutionStep implements StepInterface, PendingImportResolutionStepInterface
 {
     private $step;
@@ -53,9 +55,9 @@ class PendingImportResolutionStep implements StepInterface, PendingImportResolut
         return $this->step->getAssertions();
     }
 
-    public function getDataSets(): array
+    public function getDataSetCollection(): DataSetCollectionInterface
     {
-        return $this->step->getDataSets();
+        return $this->step->getDataSetCollection();
     }
 
     public function getElementIdentifiers(): array
@@ -63,9 +65,9 @@ class PendingImportResolutionStep implements StepInterface, PendingImportResolut
         return $this->step->getElementIdentifiers();
     }
 
-    public function withDataSets(array $dataSets): StepInterface
+    public function withDataSetCollection(DataSetCollectionInterface $dataSetCollection): StepInterface
     {
-        $this->step = $this->step->withDataSets($dataSets);
+        $this->step = $this->step->withDataSetCollection($dataSetCollection);
 
         return $this;
     }
