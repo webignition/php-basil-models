@@ -29,6 +29,8 @@ class DataSet implements DataSetInterface
             $keys[] = (string) $key;
         }
 
-        return $keys;
+        asort($keys);
+
+        return array_values($keys);
     }
 }
