@@ -20,6 +20,19 @@ class DataSetCollection implements DataSetCollectionInterface
         $this->iteratorPosition = 0;
     }
 
+    public static function fromArray(array $data): DataSetCollectionInterface
+    {
+        $dataSetCollection = new DataSetCollection();
+
+        foreach ($data as $dataSetIndex => $dataSet) {
+            if (is_array($dataSet)) {
+                $dataSetCollection[$dataSetIndex] = new DataSet($dataSet);
+            }
+        }
+
+        return $dataSetCollection;
+    }
+
     // \Countable methods
 
     public function count(): int
