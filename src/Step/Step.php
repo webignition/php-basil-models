@@ -4,7 +4,8 @@ namespace webignition\BasilModel\Step;
 
 use webignition\BasilModel\Action\ActionInterface;
 use webignition\BasilModel\Assertion\AssertionInterface;
-use webignition\BasilModel\DataSet\DataSetInterface;
+use webignition\BasilModel\DataSet\DataSetCollection;
+use webignition\BasilModel\DataSet\DataSetCollectionInterface;
 use webignition\BasilModel\Identifier\IdentifierInterface;
 
 class Step implements StepInterface
@@ -20,9 +21,9 @@ class Step implements StepInterface
     private $assertions = [];
 
     /**
-     * @var DataSetInterface[]
+     * @var DataSetCollectionInterface
      */
-    private $dataSets = [];
+    private $dataSetCollection;
 
     /**
      * @var IdentifierInterface[]
@@ -33,6 +34,8 @@ class Step implements StepInterface
     {
         $this->setActions($actions);
         $this->setAssertions($assertions);
+
+        $this->dataSetCollection = new DataSetCollection();
     }
 
     /**
@@ -51,12 +54,9 @@ class Step implements StepInterface
         return $this->assertions;
     }
 
-    /**
-     * @return DataSetInterface[]
-     */
-    public function getDataSets(): array
+    public function getDataSetCollection(): DataSetCollectionInterface
     {
-        return $this->dataSets;
+        return $this->dataSetCollection;
     }
 
     /**
@@ -68,22 +68,14 @@ class Step implements StepInterface
     }
 
     /**
-     * @param DataSetInterface[] $dataSets
+     * @param DataSetCollectionInterface $dataSetCollection
      *
      * @return StepInterface
      */
-    public function withDataSets(array $dataSets): StepInterface
+    public function withDataSetCollection(DataSetCollectionInterface $dataSetCollection): StepInterface
     {
-        $filteredDataSets = [];
-
-        foreach ($dataSets as $name => $dataSet) {
-            if ($dataSet instanceof DataSetInterface) {
-                $filteredDataSets[$name] = $dataSet;
-            }
-        }
-
         $new = clone $this;
-        $new->dataSets = $filteredDataSets;
+        $new->dataSetCollection = $dataSetCollection;
 
         return $new;
     }
