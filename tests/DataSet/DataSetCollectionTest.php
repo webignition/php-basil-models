@@ -141,4 +141,25 @@ class DataSetCollectionTest extends \PHPUnit\Framework\TestCase
         $this->assertNull($dataSetCollection[0]);
         $this->assertNull($dataSetCollection[1]);
     }
+
+    public function testCreateFromArray()
+    {
+        $dataSetCollection = DataSetCollection::fromArray([
+            1,
+            [
+                'foo' => 'bar',
+            ],
+            'string',
+            new \stdClass(),
+        ]);
+
+        $this->assertEquals(
+            new DataSetCollection([
+                1 => new DataSet([
+                    'foo' => 'bar',
+                ]),
+            ]),
+            $dataSetCollection
+        );
+    }
 }
