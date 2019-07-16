@@ -74,6 +74,18 @@ class DataSetTest extends \PHPUnit\Framework\TestCase
                     'three',
                 ],
             ],
+            'names are sorted' => [
+                'data' => [
+                    'bear' => 'like a large dog',
+                    'zebra' => 'stripey horse',
+                    'aardvark' => 'first animal in the alphabet',
+                ],
+                'expectedParameterNames' => [
+                    'aardvark',
+                    'bear',
+                    'zebra',
+                ],
+            ],
         ];
     }
 }
