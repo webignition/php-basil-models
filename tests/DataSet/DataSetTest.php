@@ -4,6 +4,7 @@
 namespace webignition\BasilModel\Tests\DataSet;
 
 use webignition\BasilModel\DataSet\DataSet;
+use webignition\BasilModel\DataSet\DataSetInterface;
 
 class DataSetTest extends \PHPUnit\Framework\TestCase
 {
@@ -85,6 +86,59 @@ class DataSetTest extends \PHPUnit\Framework\TestCase
                     'bear',
                     'zebra',
                 ],
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider hasParameterNamesDataProvider
+     */
+    public function testHasParameterNames(
+        DataSetInterface $dataSet,
+        array $parameterNames,
+        bool $expectedHasParameterNames
+    ) {
+        $this->assertSame($expectedHasParameterNames, $dataSet->hasParameterNames($parameterNames));
+    }
+
+    public function hasParameterNamesDataProvider(): array
+    {
+        return [
+            'empty data set, empty parameter names' => [
+                'dataSet' => new DataSet([]),
+                'parameterNames' => [],
+                'expectedHasParameterNames' => true,
+            ],
+            'empty data set, non-empty parameter names' => [
+                'dataSet' => new DataSet([]),
+                'parameterNames' => [
+                    'foo',
+                ],
+                'expectedHasParameterNames' => false,
+            ],
+            'non-empty data set, no matching parameter names' => [
+                'dataSet' => new DataSet([
+                    'key1' => 'value1',
+                    'key2' => 'value2',
+                    'key3' => 'value3',
+                ]),
+                'parameterNames' => [
+                    'key4',
+                    'key5',
+                ],
+                'expectedHasParameterNames' => false,
+            ],
+            'has parameter names' => [
+                'dataSet' => new DataSet([
+                    'key1' => 'value1',
+                    'key2' => 'value2',
+                    'key3' => 'value3',
+                ]),
+                'parameterNames' => [
+                    'key1',
+                    'key2',
+                ],
+                'expectedHasParameterNames' => true,
             ],
         ];
     }

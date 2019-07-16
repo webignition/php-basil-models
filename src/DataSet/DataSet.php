@@ -33,4 +33,17 @@ class DataSet implements DataSetInterface
 
         return array_values($keys);
     }
+
+    public function hasParameterNames(array $parameterNames): bool
+    {
+        $dataSetParameterNames = $this->getParameterNames();
+
+        foreach ($parameterNames as $parameterName) {
+            if (!in_array($parameterName, $dataSetParameterNames)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
