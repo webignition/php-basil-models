@@ -332,7 +332,7 @@ class IdentifierTest extends \PHPUnit\Framework\TestCase
                 'identifier' => new Identifier(IdentifierTypes::PAGE_MODEL_ELEMENT_REFERENCE, $value),
                 'expectedIsActionable' => false,
             ],
-            'element parameter is not actionable' => [
+            'element parameter is actionable' => [
                 'identifier' => new Identifier(IdentifierTypes::ELEMENT_PARAMETER, $value),
                 'expectedIsActionable' => true,
             ],
@@ -343,6 +343,46 @@ class IdentifierTest extends \PHPUnit\Framework\TestCase
             'browser object parameter is not actionable' => [
                 'identifier' => new Identifier(IdentifierTypes::BROWSER_OBJECT_PARAMETER, $value),
                 'expectedIsActionable' => false,
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider isAssertableDataProvider
+     */
+    public function testIsAssertable(IdentifierInterface $identifier, bool $expectedIsActionable)
+    {
+        $this->assertSame($expectedIsActionable, $identifier->isAssertable());
+    }
+
+    public function isAssertableDataProvider(): array
+    {
+        $value = new Value(ValueTypes::STRING, '');
+
+        return [
+            'css selector is assertable' => [
+                'identifier' => new Identifier(IdentifierTypes::CSS_SELECTOR, $value),
+                'expectedIsAssertable' => true,
+            ],
+            'xpath expression is assertable' => [
+                'identifier' => new Identifier(IdentifierTypes::XPATH_EXPRESSION, $value),
+                'expectedIsAssertable' => true,
+            ],
+            'page model element reference is not assertable' => [
+                'identifier' => new Identifier(IdentifierTypes::PAGE_MODEL_ELEMENT_REFERENCE, $value),
+                'expectedIsAssertable' => false,
+            ],
+            'element parameter is not assertable' => [
+                'identifier' => new Identifier(IdentifierTypes::ELEMENT_PARAMETER, $value),
+                'expectedIsAssertable' => true,
+            ],
+            'page object parameter is assertable' => [
+                'identifier' => new Identifier(IdentifierTypes::PAGE_OBJECT_PARAMETER, $value),
+                'expectedIsAssertable' => true,
+            ],
+            'browser object parameter is assertable' => [
+                'identifier' => new Identifier(IdentifierTypes::BROWSER_OBJECT_PARAMETER, $value),
+                'expectedIsAssertable' => true,
             ],
         ];
     }
