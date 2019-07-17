@@ -3,6 +3,7 @@
 namespace webignition\BasilModel\Step;
 
 use webignition\BasilModel\DataSet\DataSetCollectionInterface;
+use webignition\BasilModel\Identifier\IdentifierCollectionInterface;
 
 class PendingImportResolutionStep implements StepInterface, PendingImportResolutionStepInterface
 {
@@ -60,9 +61,9 @@ class PendingImportResolutionStep implements StepInterface, PendingImportResolut
         return $this->step->getDataSetCollection();
     }
 
-    public function getElementIdentifiers(): array
+    public function getIdentifierCollection(): IdentifierCollectionInterface
     {
-        return $this->step->getElementIdentifiers();
+        return $this->step->getIdentifierCollection();
     }
 
     public function withDataSetCollection(DataSetCollectionInterface $dataSetCollection): StepInterface
@@ -72,9 +73,9 @@ class PendingImportResolutionStep implements StepInterface, PendingImportResolut
         return $this;
     }
 
-    public function withElementIdentifiers(array $elementIdentifiers): StepInterface
+    public function withIdentifierCollection(IdentifierCollectionInterface $identifierCollection): StepInterface
     {
-        $this->step = $this->step->withElementIdentifiers($elementIdentifiers);
+        $this->step = $this->step->withIdentifierCollection($identifierCollection);
 
         return $this;
     }

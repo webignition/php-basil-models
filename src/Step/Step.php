@@ -6,7 +6,8 @@ use webignition\BasilModel\Action\ActionInterface;
 use webignition\BasilModel\Assertion\AssertionInterface;
 use webignition\BasilModel\DataSet\DataSetCollection;
 use webignition\BasilModel\DataSet\DataSetCollectionInterface;
-use webignition\BasilModel\Identifier\IdentifierInterface;
+use webignition\BasilModel\Identifier\IdentifierCollection;
+use webignition\BasilModel\Identifier\IdentifierCollectionInterface;
 
 class Step implements StepInterface
 {
@@ -26,9 +27,9 @@ class Step implements StepInterface
     private $dataSetCollection;
 
     /**
-     * @var IdentifierInterface[]
+     * @var IdentifierCollectionInterface
      */
-    private $elementIdentifiers = [];
+    private $identifierCollection;
 
     public function __construct(array $actions, array $assertions)
     {
@@ -36,6 +37,7 @@ class Step implements StepInterface
         $this->setAssertions($assertions);
 
         $this->dataSetCollection = new DataSetCollection();
+        $this->identifierCollection = new IdentifierCollection();
     }
 
     /**
@@ -60,11 +62,11 @@ class Step implements StepInterface
     }
 
     /**
-     * @return IdentifierInterface[]
+     * @return IdentifierCollectionInterface
      */
-    public function getElementIdentifiers(): array
+    public function getIdentifierCollection(): IdentifierCollectionInterface
     {
-        return $this->elementIdentifiers;
+        return $this->identifierCollection;
     }
 
     /**
@@ -81,22 +83,14 @@ class Step implements StepInterface
     }
 
     /**
-     * @param IdentifierInterface[] $elementIdentifiers
+     * @param IdentifierCollectionInterface $identifierCollection
      *
      * @return StepInterface
      */
-    public function withElementIdentifiers(array $elementIdentifiers): StepInterface
+    public function withIdentifierCollection(IdentifierCollectionInterface $identifierCollection): StepInterface
     {
-        $filteredElementIdentifiers = [];
-
-        foreach ($elementIdentifiers as $elementName => $identifier) {
-            if ($identifier instanceof IdentifierInterface) {
-                $filteredElementIdentifiers[$elementName] = $identifier;
-            }
-        }
-
         $new = clone $this;
-        $new->elementIdentifiers = $filteredElementIdentifiers;
+        $new->identifierCollection = $identifierCollection;
 
         return $new;
     }
