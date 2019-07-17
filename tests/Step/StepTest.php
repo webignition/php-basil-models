@@ -91,9 +91,12 @@ class StepTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(new DataSetCollection(), $step->getDataSetCollection());
 
         $dataSetCollection = new DataSetCollection([
-            new DataSet([
-                'foo' => 'bar',
-            ])
+            new DataSet(
+                '0',
+                [
+                    'foo' => 'bar',
+                ]
+            )
         ]);
 
         $step = $step->withDataSetCollection($dataSetCollection);
@@ -233,15 +236,21 @@ class StepTest extends \PHPUnit\Framework\TestCase
             ],
             'step data sets are retained' => [
                 'step' => (new Step([], []))->withDataSetCollection(new DataSetCollection([
-                    new DataSet([
-                        'field1' => 'value1',
-                    ])
+                    new DataSet(
+                        '0',
+                        [
+                            'field1' => 'value1',
+                        ]
+                    )
                 ])),
                 'actions' => [],
                 'expectedStep' => (new Step([], []))->withDataSetCollection(new DataSetCollection([
-                    new DataSet([
-                        'field1' => 'value1',
-                    ])
+                    new DataSet(
+                        '0',
+                        [
+                            'field1' => 'value1',
+                        ]
+                    )
                 ])),
             ],
             'step element identifiers are retained, parent element identifiers are not' => [
@@ -327,15 +336,21 @@ class StepTest extends \PHPUnit\Framework\TestCase
             ],
             'step data sets are retained, parent data sets are not' => [
                 'step' => (new Step([], []))->withDataSetCollection(new DataSetCollection([
-                    new DataSet([
-                        'field1' => 'value1',
-                    ])
+                    new DataSet(
+                        '0',
+                        [
+                            'field1' => 'value1',
+                        ]
+                    )
                 ])),
                 'assertions' => [],
                 'expectedStep' => (new Step([], []))->withDataSetCollection(new DataSetCollection([
-                    new DataSet([
-                        'field1' => 'value1',
-                    ])
+                    new DataSet(
+                        '0',
+                        [
+                            'field1' => 'value1',
+                        ]
+                    )
                 ])),
             ],
             'step element identifiers are retained, parent element identifiers are not' => [
