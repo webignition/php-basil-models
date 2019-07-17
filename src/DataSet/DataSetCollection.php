@@ -13,8 +13,10 @@ class DataSetCollection implements DataSetCollectionInterface
 
     public function __construct(array $dataSets = [])
     {
-        foreach ($dataSets as $dataSetIndex => $dataSet) {
-            $this[$dataSetIndex] = $dataSet;
+        foreach ($dataSets as $dataSet) {
+            if ($dataSet instanceof DataSetInterface) {
+                $this->addDataSet($dataSet);
+            }
         }
 
         $this->iteratorPosition = 0;
@@ -26,11 +28,16 @@ class DataSetCollection implements DataSetCollectionInterface
 
         foreach ($data as $dataSetName => $dataSet) {
             if (is_array($dataSet)) {
-                $dataSetCollection[$dataSetName] = new DataSet((string) $dataSetName, $dataSet);
+                $dataSetCollection->addDataSet(new DataSet((string) $dataSetName, $dataSet));
             }
         }
 
         return $dataSetCollection;
+    }
+
+    public function addDataSet(DataSetInterface $dataSet)
+    {
+        $this->dataSets[] = $dataSet;
     }
 
     // \Countable methods
@@ -65,33 +72,5 @@ class DataSetCollection implements DataSetCollectionInterface
     public function valid(): bool
     {
         return isset($this->dataSets[$this->iteratorPosition]);
-    }
-
-    // \ArrayAccess methods
-
-    public function offsetSet($offset, $value)
-    {
-        if ($value instanceof DataSetInterface) {
-            if (is_null($offset)) {
-                $this->dataSets[] = $value;
-            } else {
-                $this->dataSets[$offset] = $value;
-            }
-        }
-    }
-
-    public function offsetExists($offset): bool
-    {
-        return isset($this->dataSets[$offset]);
-    }
-
-    public function offsetUnset($offset)
-    {
-        unset($this->dataSets[$offset]);
-    }
-
-    public function offsetGet($offset): ?DataSetInterface
-    {
-        return $this->dataSets[$offset] ?? null;
     }
 }
