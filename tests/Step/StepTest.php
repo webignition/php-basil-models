@@ -9,6 +9,8 @@ use webignition\BasilModel\Assertion\AssertionComparisons;
 use webignition\BasilModel\DataSet\DataSet;
 use webignition\BasilModel\DataSet\DataSetCollection;
 use webignition\BasilModel\Identifier\Identifier;
+use webignition\BasilModel\Identifier\IdentifierCollection;
+use webignition\BasilModel\Identifier\IdentifierCollectionInterface;
 use webignition\BasilModel\Identifier\IdentifierTypes;
 use webignition\BasilModel\Step\Step;
 use webignition\BasilModel\Step\StepInterface;
@@ -105,74 +107,74 @@ class StepTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @dataProvider withElementIdentifiersDataProvider
+     * @dataProvider withIdentifierCollectionDataProvider
      */
-    public function testWithElementIdentifiers(
+    public function testWithIdentifierCollection(
         StepInterface $step,
-        array $elementIdentifiers,
-        array $expectedElementIdentifiers
+        IdentifierCollectionInterface $identifierCollection,
+        IdentifierCollectionInterface $expectedIdentifierCollection
     ) {
-        $currentElementIdentifiers = $step->getElementIdentifiers();
+        $currentIdentifierCollection = $step->getIdentifierCollection();
 
-        $mutatedStep = $step->withElementIdentifiers($elementIdentifiers);
+        $mutatedStep = $step->withIdentifierCollection($identifierCollection);
 
         $this->assertNotSame($mutatedStep, $step);
-        $this->assertEquals($expectedElementIdentifiers, $mutatedStep->getElementIdentifiers());
-        $this->assertSame($currentElementIdentifiers, $step->getElementIdentifiers());
+        $this->assertEquals($expectedIdentifierCollection, $mutatedStep->getIdentifierCollection());
+        $this->assertSame($currentIdentifierCollection, $step->getIdentifierCollection());
     }
 
-    public function withElementIdentifiersDataProvider(): array
+    public function withIdentifierCollectionDataProvider(): array
     {
         return [
-            'no existing element references, empty element references' => [
+            'no existing identifier collection, empty identifier collection' => [
                 'step' => new Step([], []),
-                'elementIdentifiers' => [],
-                'expectedElementIdentifiers' => [],
+                'identifierCollection' => new IdentifierCollection(),
+                'expectedIdentifierCollection' => new IdentifierCollection(),
             ],
-            'no existing element references, non-empty element references' => [
+            'no existing identifier collection, non-empty identifier collection' => [
                 'step' => new Step([], []),
-                'elementIdentifiers' => [
-                    'input' => new Identifier(
-                        IdentifierTypes::CSS_SELECTOR,
-                        new Value(ValueTypes::STRING, '.input')
-                    ),
-                ],
-                'expectedElementIdentifiers' => [
-                    'input' => new Identifier(
-                        IdentifierTypes::CSS_SELECTOR,
-                        new Value(ValueTypes::STRING, '.input')
-                    ),
-                ],
-            ],
-            'has existing element references, empty element references' => [
-                'step' => (new Step([], []))->withElementIdentifiers([
+                'identifierCollection' => new IdentifierCollection([
                     'input' => new Identifier(
                         IdentifierTypes::CSS_SELECTOR,
                         new Value(ValueTypes::STRING, '.input')
                     ),
                 ]),
-                'elementIdentifiers' => [],
-                'expectedElementIdentifiers' => [],
-            ],
-            'has existing element references, non-empty element references' => [
-                'step' => (new Step([], []))->withElementIdentifiers([
+                'expectedIdentifierCollection' => new IdentifierCollection([
                     'input' => new Identifier(
                         IdentifierTypes::CSS_SELECTOR,
                         new Value(ValueTypes::STRING, '.input')
                     ),
                 ]),
-                'elementIdentifiers' => [
+            ],
+            'has existing identifier collection, empty identifier collection' => [
+                'step' => (new Step([], []))->withIdentifierCollection(new IdentifierCollection([
+                    'input' => new Identifier(
+                        IdentifierTypes::CSS_SELECTOR,
+                        new Value(ValueTypes::STRING, '.input')
+                    ),
+                ])),
+                'identifierCollection' => new IdentifierCollection(),
+                'expectedIdentifierCollection' => new IdentifierCollection(),
+            ],
+            'has existing identifier collection, non-empty identifier collection' => [
+                'step' => (new Step([], []))->withIdentifierCollection(new IdentifierCollection([
+                    'input' => new Identifier(
+                        IdentifierTypes::CSS_SELECTOR,
+                        new Value(ValueTypes::STRING, '.input')
+                    ),
+                ])),
+                'identifierCollection' => new IdentifierCollection([
                     'button' => new Identifier(
                         IdentifierTypes::CSS_SELECTOR,
                         new Value(ValueTypes::STRING, '.button')
                     ),
-                ],
-                'expectedElementIdentifiers' => [
+                ]),
+                'expectedIdentifierCollection' => new IdentifierCollection([
                     'button' => new Identifier(
                         IdentifierTypes::CSS_SELECTOR,
                         new Value(ValueTypes::STRING, '.button')
                     ),
-                ],
+                ]),
             ],
         ];
     }
@@ -253,8 +255,8 @@ class StepTest extends \PHPUnit\Framework\TestCase
                     )
                 ])),
             ],
-            'step element identifiers are retained, parent element identifiers are not' => [
-                'step' => (new Step([], []))->withElementIdentifiers([
+            'step identifier collection is retained' => [
+                'step' => (new Step([], []))->withIdentifierCollection(new IdentifierCollection([
                     'heading1' => new Identifier(
                         IdentifierTypes::CSS_SELECTOR,
                         new Value(
@@ -262,9 +264,9 @@ class StepTest extends \PHPUnit\Framework\TestCase
                             '.heading1'
                         )
                     )
-                ]),
+                ])),
                 'actions' => [],
-                'expectedStep' => (new Step([], []))->withElementIdentifiers([
+                'expectedStep' => (new Step([], []))->withIdentifierCollection(new IdentifierCollection([
                     'heading1' => new Identifier(
                         IdentifierTypes::CSS_SELECTOR,
                         new Value(
@@ -272,7 +274,7 @@ class StepTest extends \PHPUnit\Framework\TestCase
                             '.heading1'
                         )
                     )
-                ]),
+                ])),
             ],
         ];
     }
@@ -334,7 +336,7 @@ class StepTest extends \PHPUnit\Framework\TestCase
                     new WaitAction('wait 1', '1'),
                 ], []),
             ],
-            'step data sets are retained, parent data sets are not' => [
+            'step data sets are retained' => [
                 'step' => (new Step([], []))->withDataSetCollection(new DataSetCollection([
                     new DataSet(
                         '0',
@@ -353,8 +355,8 @@ class StepTest extends \PHPUnit\Framework\TestCase
                     )
                 ])),
             ],
-            'step element identifiers are retained, parent element identifiers are not' => [
-                'step' => (new Step([], []))->withElementIdentifiers([
+            'step identifier collection is retained' => [
+                'step' => (new Step([], []))->withIdentifierCollection(new IdentifierCollection([
                     'heading1' => new Identifier(
                         IdentifierTypes::CSS_SELECTOR,
                         new Value(
@@ -362,9 +364,9 @@ class StepTest extends \PHPUnit\Framework\TestCase
                             '.heading1'
                         )
                     )
-                ]),
+                ])),
                 'assertions' => [],
-                'expectedStep' => (new Step([], []))->withElementIdentifiers([
+                'expectedStep' => (new Step([], []))->withIdentifierCollection(new IdentifierCollection([
                     'heading1' => new Identifier(
                         IdentifierTypes::CSS_SELECTOR,
                         new Value(
@@ -372,7 +374,7 @@ class StepTest extends \PHPUnit\Framework\TestCase
                             '.heading1'
                         )
                     )
-                ]),
+                ])),
             ],
         ];
     }

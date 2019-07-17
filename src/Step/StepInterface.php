@@ -5,7 +5,7 @@ namespace webignition\BasilModel\Step;
 use webignition\BasilModel\Action\ActionInterface;
 use webignition\BasilModel\Assertion\AssertionInterface;
 use webignition\BasilModel\DataSet\DataSetCollectionInterface;
-use webignition\BasilModel\Identifier\IdentifierInterface;
+use webignition\BasilModel\Identifier\IdentifierCollectionInterface;
 
 interface StepInterface
 {
@@ -25,9 +25,9 @@ interface StepInterface
     public function getDataSetCollection(): DataSetCollectionInterface;
 
     /**
-     * @return IdentifierInterface[]
+     * @return IdentifierCollectionInterface
      */
-    public function getElementIdentifiers(): array;
+    public function getIdentifierCollection(): IdentifierCollectionInterface;
 
     /**
      * @param DataSetCollectionInterface $dataSetCollection
@@ -37,11 +37,11 @@ interface StepInterface
     public function withDataSetCollection(DataSetCollectionInterface $dataSetCollection): StepInterface;
 
     /**
-     * @param IdentifierInterface[] $elementIdentifiers
+     * @param IdentifierCollectionInterface $identifierCollection
      *
      * @return StepInterface
      */
-    public function withElementIdentifiers(array $elementIdentifiers): StepInterface;
+    public function withIdentifierCollection(IdentifierCollectionInterface $identifierCollection): StepInterface;
 
     /**
      * @param array|ActionInterface[] $actions
