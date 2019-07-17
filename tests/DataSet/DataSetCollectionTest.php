@@ -43,46 +43,70 @@ class DataSetCollectionTest extends \PHPUnit\Framework\TestCase
             ],
             'valid items, numerical indices' => [
                 'dataSets' => [
-                    new DataSet([
-                        'username' => 'user1',
-                        'role' => 'user',
-                    ]),
-                    new DataSet([
-                        'username' => 'user2',
-                        'role' => 'admin',
-                    ]),
+                    new DataSet(
+                        '0',
+                        [
+                            'username' => 'user1',
+                            'role' => 'user',
+                        ]
+                    ),
+                    new DataSet(
+                        '1',
+                        [
+                            'username' => 'user2',
+                            'role' => 'admin',
+                        ]
+                    ),
                 ],
                 'expectedDataSets' => [
-                    new DataSet([
-                        'username' => 'user1',
-                        'role' => 'user',
-                    ]),
-                    new DataSet([
-                        'username' => 'user2',
-                        'role' => 'admin',
-                    ]),
+                    new DataSet(
+                        '0',
+                        [
+                            'username' => 'user1',
+                            'role' => 'user',
+                        ]
+                    ),
+                    new DataSet(
+                        '1',
+                        [
+                            'username' => 'user2',
+                            'role' => 'admin',
+                        ]
+                    ),
                 ],
             ],
             'valid items, string indices' => [
                 'dataSets' => [
-                    'set1' =>new DataSet([
-                        'username' => 'user1',
-                        'role' => 'user',
-                    ]),
-                    'set2' => new DataSet([
-                        'username' => 'user2',
-                        'role' => 'admin',
-                    ]),
+                    'set1' =>new DataSet(
+                        'set1',
+                        [
+                            'username' => 'user1',
+                            'role' => 'user',
+                        ]
+                    ),
+                    'set2' => new DataSet(
+                        'set2',
+                        [
+                            'username' => 'user2',
+                            'role' => 'admin',
+                        ]
+                    ),
                 ],
                 'expectedDataSets' => [
-                    'set1' =>new DataSet([
-                        'username' => 'user1',
-                        'role' => 'user',
-                    ]),
-                    'set2' => new DataSet([
-                        'username' => 'user2',
-                        'role' => 'admin',
-                    ]),
+                    'set1' =>new DataSet(
+                        'set1',
+                        [
+                            'username' => 'user1',
+                            'role' => 'user',
+                        ]
+                    ),
+                    'set2' => new DataSet(
+                        'set2',
+                        [
+                            'username' => 'user2',
+                            'role' => 'admin',
+                        ]
+                    ),
                 ],
             ],
         ];
@@ -90,15 +114,21 @@ class DataSetCollectionTest extends \PHPUnit\Framework\TestCase
 
     public function testArrayAccess()
     {
-        $set1 = new DataSet([
-            'username' => 'user1',
-            'role' => 'user',
-        ]);
+        $set1 = new DataSet(
+            'set1',
+            [
+                'username' => 'user1',
+                'role' => 'user',
+            ]
+        );
 
-        $set2 = new DataSet([
-            'username' => 'user2',
-            'role' => 'admin',
-        ]);
+        $set2 = new DataSet(
+            'set2',
+            [
+                'username' => 'user2',
+                'role' => 'admin',
+            ]
+        );
 
         $dataSetCollection = new DataSetCollection([]);
 
@@ -155,9 +185,12 @@ class DataSetCollectionTest extends \PHPUnit\Framework\TestCase
 
         $this->assertEquals(
             new DataSetCollection([
-                1 => new DataSet([
-                    'foo' => 'bar',
-                ]),
+                1 => new DataSet(
+                    '1',
+                    [
+                        'foo' => 'bar',
+                    ]
+                ),
             ]),
             $dataSetCollection
         );

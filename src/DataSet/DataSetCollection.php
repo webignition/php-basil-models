@@ -24,9 +24,9 @@ class DataSetCollection implements DataSetCollectionInterface
     {
         $dataSetCollection = new DataSetCollection();
 
-        foreach ($data as $dataSetIndex => $dataSet) {
+        foreach ($data as $dataSetName => $dataSet) {
             if (is_array($dataSet)) {
-                $dataSetCollection[$dataSetIndex] = new DataSet($dataSet);
+                $dataSetCollection[$dataSetName] = new DataSet((string) $dataSetName, $dataSet);
             }
         }
 

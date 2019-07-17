@@ -4,13 +4,21 @@ namespace webignition\BasilModel\DataSet;
 
 class DataSet implements DataSetInterface
 {
+    private $name;
     private $data = [];
 
-    public function __construct(array $data)
+    public function __construct(string $name, array $data)
     {
+        $this->name = $name;
+
         foreach ($data as $key => $value) {
             $this->data[$key] = (string) $value;
         }
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
     }
 
     public function getParameterValue(string $parameterName): ?string
