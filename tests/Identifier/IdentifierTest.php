@@ -334,7 +334,7 @@ class IdentifierTest extends \PHPUnit\Framework\TestCase
             ],
             'element parameter is not actionable' => [
                 'identifier' => new Identifier(IdentifierTypes::ELEMENT_PARAMETER, $value),
-                'expectedIsActionable' => false,
+                'expectedIsActionable' => true,
             ],
             'page object parameter is not actionable' => [
                 'identifier' => new Identifier(IdentifierTypes::PAGE_OBJECT_PARAMETER, $value),

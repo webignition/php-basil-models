@@ -14,5 +14,6 @@ class IdentifierTypes
     const ACTIONABLE_TYPES = [
         self::CSS_SELECTOR,
         self::XPATH_EXPRESSION,
+        self::ELEMENT_PARAMETER,
     ];
 }
