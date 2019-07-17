@@ -14,5 +14,6 @@ interface IdentifierInterface
     public function withParentIdentifier(IdentifierInterface $identifier): IdentifierInterface;
     public function withName(string $name): IdentifierInterface;
     public function isActionable(): bool;
+    public function isAssertable(): bool;
     public function __toString(): string;
 }

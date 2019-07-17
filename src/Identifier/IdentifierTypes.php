@@ -16,4 +16,12 @@ class IdentifierTypes
         self::XPATH_EXPRESSION,
         self::ELEMENT_PARAMETER,
     ];
+
+    const ASSERTABLE_TYPES = [
+        self::CSS_SELECTOR,
+        self::XPATH_EXPRESSION,
+        self::ELEMENT_PARAMETER,
+        self::PAGE_OBJECT_PARAMETER,
+        self::BROWSER_OBJECT_PARAMETER,
+    ];
 }

@@ -74,6 +74,11 @@ class Identifier implements IdentifierInterface
         return in_array($this->type, IdentifierTypes::ACTIONABLE_TYPES);
     }
 
+    public function isAssertable(): bool
+    {
+        return in_array($this->type, IdentifierTypes::ASSERTABLE_TYPES);
+    }
+
     public function __toString(): string
     {
         $string = $this->value->getValue();
