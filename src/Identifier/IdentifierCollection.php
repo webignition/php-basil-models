@@ -2,7 +2,7 @@
 
 namespace webignition\BasilModel\Identifier;
 
-class IdentifierCollection implements IdentifierCollectionInterface, \Iterator
+class IdentifierCollection implements IdentifierCollectionInterface
 {
     /**
      * @var IdentifierInterface[]
