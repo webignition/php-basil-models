@@ -4,10 +4,12 @@ namespace webignition\BasilModel\Action;
 
 use webignition\BasilModel\Identifier\IdentifierInterface;
 use webignition\BasilModel\Value\ValueInterface;
+use webignition\BasilModel\ValueContainerInterface;
+use webignition\BasilModel\ValueContainerTrait;
 
-class InputAction extends InteractionAction implements InputActionInterface
+class InputAction extends InteractionAction implements InputActionInterface, ValueContainerInterface
 {
-    private $value;
+    use ValueContainerTrait;
 
     public function __construct(
         string $actionString,
@@ -18,10 +20,5 @@ class InputAction extends InteractionAction implements InputActionInterface
         parent::__construct($actionString, ActionTypes::SET, $identifier, $arguments);
 
         $this->value = $value;
-    }
-
-    public function getValue(): ?ValueInterface
-    {
-        return $this->value;
     }
 }

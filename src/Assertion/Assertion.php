@@ -6,14 +6,16 @@ use webignition\BasilModel\Identifier\IdentifierInterface;
 use webignition\BasilModel\IdentifierContainerInterface;
 use webignition\BasilModel\IdentifierContainerTrait;
 use webignition\BasilModel\Value\ValueInterface;
+use webignition\BasilModel\ValueContainerInterface;
+use webignition\BasilModel\ValueContainerTrait;
 
-class Assertion implements AssertionInterface, IdentifierContainerInterface
+class Assertion implements AssertionInterface, IdentifierContainerInterface, ValueContainerInterface
 {
     use IdentifierContainerTrait;
+    use ValueContainerTrait;
 
     private $assertionString;
     private $comparison;
-    private $value;
 
     public function __construct(
         string $assertionString,
@@ -35,10 +37,5 @@ class Assertion implements AssertionInterface, IdentifierContainerInterface
     public function getComparison(): ?string
     {
         return $this->comparison;
-    }
-
-    public function getValue(): ?ValueInterface
-    {
-        return $this->value;
     }
 }
