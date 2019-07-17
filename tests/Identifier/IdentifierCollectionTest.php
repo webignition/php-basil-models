@@ -101,4 +101,32 @@ class IdentifierCollectionTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($buttonIdentifier, $identifierCollection->getIdentifier('button'));
         $this->assertNull($identifierCollection->getIdentifier('not-present'));
     }
+
+    public function testIterator()
+    {
+        $headingIdentifier = new Identifier(
+            IdentifierTypes::CSS_SELECTOR,
+            new Value(ValueTypes::STRING, '.heading'),
+            1,
+            'heading'
+        );
+
+        $buttonIdentifier = new Identifier(
+            IdentifierTypes::XPATH_EXPRESSION,
+            new Value(ValueTypes::STRING, '//button'),
+            1,
+            'button'
+        );
+
+        $identifiers = [
+            $headingIdentifier,
+            $buttonIdentifier,
+        ];
+
+        $identifierCollection = new IdentifierCollection($identifiers);
+
+        foreach ($identifierCollection as $index => $identifier) {
+            $this->assertSame($identifiers[$index], $identifier);
+        }
+    }
 }
