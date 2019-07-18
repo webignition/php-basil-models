@@ -28,6 +28,11 @@ class Value implements ValueInterface
         return '' === $this->value;
     }
 
+    public function isActionable(): bool
+    {
+        return in_array($this->type, ValueTypes::ACTIONABLE_TYPES);
+    }
+
     public function __toString(): string
     {
         return ValueTypes::STRING === $this->type

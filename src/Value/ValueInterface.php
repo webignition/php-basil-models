@@ -7,5 +7,6 @@ interface ValueInterface
     public function getType(): string;
     public function getValue(): string;
     public function isEmpty(): bool;
+    public function isActionable(): bool;
     public function __toString(): string;
 }

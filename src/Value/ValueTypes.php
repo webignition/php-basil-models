@@ -19,4 +19,12 @@ class ValueTypes
         self::BROWSER_OBJECT_PROPERTY,
         self::PAGE_MODEL_REFERENCE,
     ];
+
+    const ACTIONABLE_TYPES = [
+        self::DATA_PARAMETER,
+        self::STRING,
+        self::ELEMENT_PARAMETER,
+        self::PAGE_OBJECT_PROPERTY,
+        self::BROWSER_OBJECT_PROPERTY,
+    ];
 }
