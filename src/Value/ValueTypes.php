@@ -10,6 +10,7 @@ class ValueTypes
     const PAGE_OBJECT_PROPERTY = 'page-object-property';
     const BROWSER_OBJECT_PROPERTY = 'browser-object-property';
     const PAGE_MODEL_REFERENCE = 'page-model-reference';
+    const ENVIRONMENT_PARAMETER = 'environment-parameter';
 
     const ALL = [
         self::DATA_PARAMETER,
@@ -18,6 +19,7 @@ class ValueTypes
         self::PAGE_OBJECT_PROPERTY,
         self::BROWSER_OBJECT_PROPERTY,
         self::PAGE_MODEL_REFERENCE,
+        self::ENVIRONMENT_PARAMETER,
     ];
 
     const ACTIONABLE_TYPES = [
@@ -26,5 +28,6 @@ class ValueTypes
         self::ELEMENT_PARAMETER,
         self::PAGE_OBJECT_PROPERTY,
         self::BROWSER_OBJECT_PROPERTY,
+        self::ENVIRONMENT_PARAMETER,
     ];
 }
