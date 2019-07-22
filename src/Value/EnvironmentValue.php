@@ -8,11 +8,10 @@ class EnvironmentValue extends ObjectValue implements EnvironmentValueInterface
 
     public function __construct(
         string $value,
-        string $objectName,
         string $objectProperty,
         ?string $default = null
     ) {
-        parent::__construct(ValueTypes::ENVIRONMENT_PARAMETER, $value, $objectName, $objectProperty);
+        parent::__construct(ValueTypes::ENVIRONMENT_PARAMETER, $value, ObjectNames::ENVIRONMENT, $objectProperty);
 
         $this->default = $default;
     }
