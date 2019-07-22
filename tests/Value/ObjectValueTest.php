@@ -3,6 +3,7 @@
 
 namespace webignition\BasilModel\Tests\Value;
 
+use webignition\BasilModel\Value\ObjectNames;
 use webignition\BasilModel\Value\ObjectValue;
 use webignition\BasilModel\Value\ValueTypes;
 
@@ -33,16 +34,23 @@ class ObjectValueTest extends \PHPUnit\Framework\TestCase
             'type: page object property' => [
                 'type' => ValueTypes::PAGE_OBJECT_PROPERTY,
                 'valueString' => '$page.url',
-                'objectName' => 'page',
+                'objectName' => ObjectNames::PAGE,
                 'objectProperty' => 'url',
                 'expectedString' => '$page.url',
             ],
             'type: browser object property' => [
                 'type' => ValueTypes::BROWSER_OBJECT_PROPERTY,
                 'valueString' => '$browser.title',
-                'objectName' => 'browser',
+                'objectName' => ObjectNames::BROWSER,
                 'objectProperty' => 'title',
                 'expectedString' => '$browser.title',
+            ],
+            'type: element parameter' => [
+                'type' => ValueTypes::ELEMENT_PARAMETER,
+                'valueString' => '$elements.element_name',
+                'objectName' => ObjectNames::ELEMENT,
+                'objectProperty' => 'element_name',
+                'expectedString' => '$elements.element_name',
             ],
         ];
     }
