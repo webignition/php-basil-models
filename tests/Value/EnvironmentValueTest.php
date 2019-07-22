@@ -12,16 +12,15 @@ class EnvironmentValueTest extends \PHPUnit\Framework\TestCase
      * @dataProvider createDataProvider
      */
     public function testCreate(
-        string $type,
         string $valueString,
         string $objectName,
         string $objectProperty,
         ?string $default,
         string $expectedString
     ) {
-        $value = new EnvironmentValue($type, $valueString, $objectName, $objectProperty, $default);
+        $value = new EnvironmentValue($valueString, $objectName, $objectProperty, $default);
 
-        $this->assertSame($type, $value->getType());
+        $this->assertSame(ValueTypes::ENVIRONMENT_PARAMETER, $value->getType());
         $this->assertSame($valueString, $value->getValue());
         $this->assertSame($objectName, $value->getObjectName());
         $this->assertSame($objectProperty, $value->getObjectProperty());
@@ -33,7 +32,6 @@ class EnvironmentValueTest extends \PHPUnit\Framework\TestCase
     {
         return [
             'no default' => [
-                'type' => ValueTypes::ENVIRONMENT_PARAMETER,
                 'valueString' => '$env.KEY',
                 'objectName' => 'env',
                 'objectProperty' => 'KEY',
@@ -41,7 +39,6 @@ class EnvironmentValueTest extends \PHPUnit\Framework\TestCase
                 'expectedString' => '$env.KEY',
             ],
             'has default' => [
-                'type' => ValueTypes::ENVIRONMENT_PARAMETER,
                 'valueString' => '$env.KEY',
                 'objectName' => 'env',
                 'objectProperty' => 'KEY',
@@ -49,7 +46,6 @@ class EnvironmentValueTest extends \PHPUnit\Framework\TestCase
                 'expectedString' => '$env.KEY|"default_value"',
             ],
             'default contains double quotes' => [
-                'type' => ValueTypes::ENVIRONMENT_PARAMETER,
                 'valueString' => '$env.KEY',
                 'objectName' => 'env',
                 'objectProperty' => 'KEY',
