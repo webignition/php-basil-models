@@ -3,22 +3,18 @@
 namespace webignition\BasilModel\Page;
 
 use Psr\Http\Message\UriInterface;
+use webignition\BasilModel\Identifier\IdentifierCollectionInterface;
 use webignition\BasilModel\Identifier\IdentifierInterface;
 
 class Page implements PageInterface
 {
     private $uri;
-    private $elements = [];
+    private $identifierCollection;
 
-    public function __construct(UriInterface $uri, array $elementIdentifiers)
+    public function __construct(UriInterface $uri, IdentifierCollectionInterface $identifierCollection)
     {
         $this->uri = $uri;
-
-        foreach ($elementIdentifiers as $elementName => $elementIdentifier) {
-            if ($elementIdentifier instanceof IdentifierInterface) {
-                $this->elements[$elementName] = $elementIdentifier;
-            }
-        }
+        $this->identifierCollection = $identifierCollection;
     }
 
     public function getUri(): UriInterface
@@ -26,22 +22,24 @@ class Page implements PageInterface
         return $this->uri;
     }
 
-    public function getElementIdentifier(string $name): ?IdentifierInterface
-    {
-        return $this->elements[$name] ?? null;
-    }
-
     /**
      * @return string[]
      */
     public function getElementNames(): array
     {
-        $keys = [];
+        $names = [];
 
-        foreach (array_keys($this->elements) as $key) {
-            $keys[] = (string) $key;
+        /* @var IdentifierInterface $identifier */
+        foreach ($this->identifierCollection as $identifier) {
+            $name = $identifier->getName();
+
+            if (null !== $name) {
+                $names[] = $name;
+            }
         }
 
-        return $keys;
+        sort($names);
+
+        return $names;
     }
 }
