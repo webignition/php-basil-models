@@ -70,16 +70,6 @@ class Identifier implements IdentifierInterface
         return $new;
     }
 
-    public function isActionable(): bool
-    {
-        return in_array($this->type, IdentifierTypes::ACTIONABLE_TYPES);
-    }
-
-    public function isAssertable(): bool
-    {
-        return in_array($this->type, IdentifierTypes::ASSERTABLE_TYPES);
-    }
-
     public function __toString(): string
     {
         if ($this->value instanceof LiteralValue) {
