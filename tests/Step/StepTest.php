@@ -64,7 +64,7 @@ class StepTest extends \PHPUnit\Framework\TestCase
                         '".selector" is "foo"',
                         new ElementValue(new Identifier(
                             IdentifierTypes::CSS_SELECTOR,
-                            new LiteralValue('.selector')
+                            '.selector'
                         )),
                         AssertionComparisons::IS
                     ),
@@ -77,7 +77,7 @@ class StepTest extends \PHPUnit\Framework\TestCase
                         '".selector" is "foo"',
                         new ElementValue(new Identifier(
                             IdentifierTypes::CSS_SELECTOR,
-                            new LiteralValue('.selector')
+                            '.selector'
                         )),
                         AssertionComparisons::IS
                     ),
@@ -136,13 +136,13 @@ class StepTest extends \PHPUnit\Framework\TestCase
                 'identifierCollection' => new IdentifierCollection([
                     'input' => new Identifier(
                         IdentifierTypes::CSS_SELECTOR,
-                        new LiteralValue('.input')
+                        '.input'
                     ),
                 ]),
                 'expectedIdentifierCollection' => new IdentifierCollection([
                     'input' => new Identifier(
                         IdentifierTypes::CSS_SELECTOR,
-                        new LiteralValue('.input')
+                        '.input'
                     ),
                 ]),
             ],
@@ -150,7 +150,7 @@ class StepTest extends \PHPUnit\Framework\TestCase
                 'step' => (new Step([], []))->withIdentifierCollection(new IdentifierCollection([
                     'input' => new Identifier(
                         IdentifierTypes::CSS_SELECTOR,
-                        new LiteralValue('.input')
+                        '.input'
                     ),
                 ])),
                 'identifierCollection' => new IdentifierCollection(),
@@ -160,7 +160,7 @@ class StepTest extends \PHPUnit\Framework\TestCase
                 'step' => (new Step([], []))->withIdentifierCollection(new IdentifierCollection([
                     'input' => new Identifier(
                         IdentifierTypes::CSS_SELECTOR,
-                        new LiteralValue('.input')
+                        '.input'
                     ),
                 ])),
                 'identifierCollection' => new IdentifierCollection([
@@ -259,14 +259,14 @@ class StepTest extends \PHPUnit\Framework\TestCase
                 'step' => (new Step([], []))->withIdentifierCollection(new IdentifierCollection([
                     'heading1' => new Identifier(
                         IdentifierTypes::CSS_SELECTOR,
-                        new LiteralValue('.heading1')
+                        '.heading1'
                     )
                 ])),
                 'actions' => [],
                 'expectedStep' => (new Step([], []))->withIdentifierCollection(new IdentifierCollection([
                     'heading1' => new Identifier(
                         IdentifierTypes::CSS_SELECTOR,
-                        new LiteralValue('.heading1')
+                        '.heading1'
                     )
                 ])),
             ],
@@ -353,14 +353,14 @@ class StepTest extends \PHPUnit\Framework\TestCase
                 'step' => (new Step([], []))->withIdentifierCollection(new IdentifierCollection([
                     'heading1' => new Identifier(
                         IdentifierTypes::CSS_SELECTOR,
-                        new LiteralValue('.heading1')
+                        '.heading1'
                     )
                 ])),
                 'assertions' => [],
                 'expectedStep' => (new Step([], []))->withIdentifierCollection(new IdentifierCollection([
                     'heading1' => new Identifier(
                         IdentifierTypes::CSS_SELECTOR,
-                        new LiteralValue('.heading1')
+                        '.heading1'
                     )
                 ])),
             ],
