@@ -16,7 +16,7 @@ class AssertionTest extends \PHPUnit\Framework\TestCase
         $assertionString = '.selector is "foo"';
         $identifier = new Identifier(
             IdentifierTypes::CSS_SELECTOR,
-            new LiteralValue('.selector')
+            '.selector'
         );
 
         $examinedValue = new ElementValue($identifier);

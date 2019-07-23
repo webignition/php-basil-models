@@ -3,7 +3,6 @@
 namespace webignition\BasilModel\Identifier;
 
 use webignition\BasilModel\Value\LiteralValue;
-use webignition\BasilModel\Value\ValueInterface;
 
 class Identifier implements IdentifierInterface
 {
@@ -19,7 +18,7 @@ class Identifier implements IdentifierInterface
      */
     private $parentIdentifier;
 
-    public function __construct(string $type, ValueInterface $value, int $position = null, string $name = null)
+    public function __construct(string $type, string $value, int $position = null, string $name = null)
     {
         $position = $position ?? self::DEFAULT_POSITION;
 
@@ -34,7 +33,7 @@ class Identifier implements IdentifierInterface
         return $this->type;
     }
 
-    public function getValue(): ValueInterface
+    public function getValue(): string
     {
         return $this->value;
     }

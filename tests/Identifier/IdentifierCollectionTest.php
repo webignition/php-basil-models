@@ -34,25 +34,25 @@ class IdentifierCollectionTest extends \PHPUnit\Framework\TestCase
             ],
             'invalid, lacking names' => [
                 'identifiers' => [
-                    new Identifier(IdentifierTypes::CSS_SELECTOR, new LiteralValue('.heading')),
-                    new Identifier(IdentifierTypes::XPATH_EXPRESSION, new LiteralValue('//button')),
+                    new Identifier(IdentifierTypes::CSS_SELECTOR, '.heading'),
+                    new Identifier(IdentifierTypes::XPATH_EXPRESSION, '//button'),
                 ],
                 'expectedIdentifierCollection' => new IdentifierCollection([
-                    new Identifier(IdentifierTypes::CSS_SELECTOR, new LiteralValue('.heading')),
-                    new Identifier(IdentifierTypes::XPATH_EXPRESSION, new LiteralValue('//button')),
+                    new Identifier(IdentifierTypes::CSS_SELECTOR, '.heading'),
+                    new Identifier(IdentifierTypes::XPATH_EXPRESSION, '//button'),
                 ]),
             ],
             'valid' => [
                 'identifiers' => [
                     new Identifier(
                         IdentifierTypes::CSS_SELECTOR,
-                        new LiteralValue('.heading'),
+                        '.heading',
                         1,
                         'heading'
                     ),
                     new Identifier(
                         IdentifierTypes::XPATH_EXPRESSION,
-                        new LiteralValue('//button'),
+                        '//button',
                         1,
                         'button'
                     ),
@@ -60,13 +60,13 @@ class IdentifierCollectionTest extends \PHPUnit\Framework\TestCase
                 'expectedIdentifierCollection' => new IdentifierCollection([
                     new Identifier(
                         IdentifierTypes::CSS_SELECTOR,
-                        new LiteralValue('.heading'),
+                        '.heading',
                         1,
                         'heading'
                     ),
                     new Identifier(
                         IdentifierTypes::XPATH_EXPRESSION,
-                        new LiteralValue('//button'),
+                        '//button',
                         1,
                         'button'
                     ),
@@ -79,14 +79,14 @@ class IdentifierCollectionTest extends \PHPUnit\Framework\TestCase
     {
         $headingIdentifier = new Identifier(
             IdentifierTypes::CSS_SELECTOR,
-            new LiteralValue('.heading'),
+            '.heading',
             1,
             'heading'
         );
 
         $buttonIdentifier = new Identifier(
             IdentifierTypes::XPATH_EXPRESSION,
-            new LiteralValue('//button'),
+            '//button',
             1,
             'button'
         );
@@ -105,14 +105,14 @@ class IdentifierCollectionTest extends \PHPUnit\Framework\TestCase
     {
         $headingIdentifier = new Identifier(
             IdentifierTypes::CSS_SELECTOR,
-            new LiteralValue('.heading'),
+            '.heading',
             1,
             'heading'
         );
 
         $buttonIdentifier = new Identifier(
             IdentifierTypes::XPATH_EXPRESSION,
-            new LiteralValue('//button'),
+            '//button',
             1,
             'button'
         );

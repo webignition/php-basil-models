@@ -10,7 +10,6 @@ use webignition\BasilModel\Identifier\IdentifierCollection;
 use webignition\BasilModel\Identifier\IdentifierCollectionInterface;
 use webignition\BasilModel\Identifier\IdentifierTypes;
 use webignition\BasilModel\Page\Page;
-use webignition\BasilModel\Value\LiteralValue;
 
 class PageTest extends \PHPUnit\Framework\TestCase
 {
@@ -40,7 +39,7 @@ class PageTest extends \PHPUnit\Framework\TestCase
                 'identifierCollection' => new IdentifierCollection([
                     (new Identifier(
                         IdentifierTypes::CSS_SELECTOR,
-                        new LiteralValue('.foo')
+                        '.foo'
                     ))->withName('foo'),
                 ]),
                 'expectedPage' => new Page(
@@ -48,7 +47,7 @@ class PageTest extends \PHPUnit\Framework\TestCase
                     new IdentifierCollection([
                         (new Identifier(
                             IdentifierTypes::CSS_SELECTOR,
-                            new LiteralValue('.foo')
+                            '.foo'
                         ))->withName('foo'),
                     ])
                 ),
@@ -71,11 +70,11 @@ class PageTest extends \PHPUnit\Framework\TestCase
             new IdentifierCollection([
                 (new Identifier(
                     IdentifierTypes::CSS_SELECTOR,
-                    new LiteralValue('.foo')
+                    '.foo'
                 ))->withName('foo'),
                 (new Identifier(
                     IdentifierTypes::CSS_SELECTOR,
-                    new LiteralValue('.bar')
+                    '.bar'
                 ))->withName('bar')
             ])
         );

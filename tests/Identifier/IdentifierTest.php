@@ -6,15 +6,13 @@ namespace webignition\BasilModel\Tests\Identifier;
 use webignition\BasilModel\Identifier\Identifier;
 use webignition\BasilModel\Identifier\IdentifierInterface;
 use webignition\BasilModel\Identifier\IdentifierTypes;
-use webignition\BasilModel\Value\LiteralValue;
-use webignition\BasilModel\Value\ValueInterface;
 
 class IdentifierTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @dataProvider createDataProvider
      */
-    public function testCreate(string $type, ValueInterface $value, int $expectedPosition, ?int $position = null)
+    public function testCreate(string $type, string $value, int $expectedPosition, ?int $position = null)
     {
         $identifier = new Identifier($type, $value, $position);
 
@@ -28,12 +26,12 @@ class IdentifierTest extends \PHPUnit\Framework\TestCase
         return [
             'string value, no explicit position' => [
                 'type' => IdentifierTypes::CSS_SELECTOR,
-                'value' => new LiteralValue('.selector'),
+                'value' => '.selector',
                 'expectedPosition' => Identifier::DEFAULT_POSITION,
             ],
             'string value, has explicit position' => [
                 'type' => IdentifierTypes::CSS_SELECTOR,
-                'value' => new LiteralValue('.selector'),
+                'value' => '.selector',
                 'expectedPosition' => 3,
                 'position' => 3,
             ],
@@ -44,14 +42,14 @@ class IdentifierTest extends \PHPUnit\Framework\TestCase
     {
         $identifier = new Identifier(
             IdentifierTypes::CSS_SELECTOR,
-            new LiteralValue('.selector')
+            '.selector'
         );
 
         $this->assertNull($identifier->getParentIdentifier());
 
         $parentIdentifier = new Identifier(
             IdentifierTypes::CSS_SELECTOR,
-            new LiteralValue('.parent'),
+            '.parent',
             null,
             'parent_name'
         );
@@ -72,12 +70,9 @@ class IdentifierTest extends \PHPUnit\Framework\TestCase
 
     public function toStringDataProvider(): array
     {
-        $cssSelectorIdentifierValue = new LiteralValue('.selector');
-        $xpathExpressionIdentifierValue = new LiteralValue('//foo');
-
         $parentIdentifier = new Identifier(
             IdentifierTypes::CSS_SELECTOR,
-            new LiteralValue('.parent'),
+            '.parent',
             null,
             'parent_identifier_name'
         );
@@ -85,38 +80,38 @@ class IdentifierTest extends \PHPUnit\Framework\TestCase
         $cssSelectorWithElementReference =
             (new Identifier(
                 IdentifierTypes::CSS_SELECTOR,
-                $cssSelectorIdentifierValue
+                '.selector'
             ))->withParentIdentifier($parentIdentifier);
 
         $xpathExpressionWithElementReference =
             (new Identifier(
                 IdentifierTypes::XPATH_EXPRESSION,
-                $xpathExpressionIdentifierValue
+                '//foo'
             ))->withParentIdentifier($parentIdentifier);
 
         return [
             'css selector, position null' => [
-                'identifier' => new Identifier(IdentifierTypes::CSS_SELECTOR, $cssSelectorIdentifierValue),
+                'identifier' => new Identifier(IdentifierTypes::CSS_SELECTOR, '.selector'),
                 'expectedString' => '".selector"',
             ],
             'css selector, position 1' => [
-                'identifier' => new Identifier(IdentifierTypes::CSS_SELECTOR, $cssSelectorIdentifierValue, 1),
+                'identifier' => new Identifier(IdentifierTypes::CSS_SELECTOR, '.selector', 1),
                 'expectedString' => '".selector"',
             ],
             'css selector, position 2' => [
-                'identifier' => new Identifier(IdentifierTypes::CSS_SELECTOR, $cssSelectorIdentifierValue, 2),
+                'identifier' => new Identifier(IdentifierTypes::CSS_SELECTOR, '.selector', 2),
                 'expectedString' => '".selector":2',
             ],
             'xpath expression, position null' => [
-                'identifier' => new Identifier(IdentifierTypes::XPATH_EXPRESSION, $xpathExpressionIdentifierValue),
+                'identifier' => new Identifier(IdentifierTypes::XPATH_EXPRESSION, '//foo'),
                 'expectedString' => '"//foo"',
             ],
             'xpath expression, position 1' => [
-                'identifier' => new Identifier(IdentifierTypes::XPATH_EXPRESSION, $xpathExpressionIdentifierValue, 1),
+                'identifier' => new Identifier(IdentifierTypes::XPATH_EXPRESSION, '//foo', 1),
                 'expectedString' => '"//foo"',
             ],
             'xpath expression, position 2' => [
-                'identifier' => new Identifier(IdentifierTypes::XPATH_EXPRESSION, $xpathExpressionIdentifierValue, 2),
+                'identifier' => new Identifier(IdentifierTypes::XPATH_EXPRESSION, '//foo', 2),
                 'expectedString' => '"//foo":2',
             ],
             'css selector with element reference, position null' => [
@@ -147,36 +142,36 @@ class IdentifierTest extends \PHPUnit\Framework\TestCase
             'no name, no new name' => [
                 'identifier' => new Identifier(
                     IdentifierTypes::CSS_SELECTOR,
-                    new LiteralValue('.selector')
+                    '.selector'
                 ),
                 'name' => '',
                 'expectedIdentifier' => new Identifier(
                     IdentifierTypes::CSS_SELECTOR,
-                    new LiteralValue('.selector')
+                    '.selector'
                 ),
             ],
             'has name, no new name' => [
                 'identifier' => new Identifier(
                     IdentifierTypes::CSS_SELECTOR,
-                    new LiteralValue('.selector'),
+                    '.selector',
                     null,
                     'identifier name'
                 ),
                 'name' => '',
                 'expectedIdentifier' => new Identifier(
                     IdentifierTypes::CSS_SELECTOR,
-                    new LiteralValue('.selector')
+                    '.selector'
                 ),
             ],
             'no name, has new name' => [
                 'identifier' => new Identifier(
                     IdentifierTypes::CSS_SELECTOR,
-                    new LiteralValue('.selector')
+                    '.selector'
                 ),
                 'name' => 'identifier name',
                 'expectedIdentifier' => new Identifier(
                     IdentifierTypes::CSS_SELECTOR,
-                    new LiteralValue('.selector'),
+                    '.selector',
                     null,
                     'identifier name'
                 ),
@@ -184,14 +179,14 @@ class IdentifierTest extends \PHPUnit\Framework\TestCase
             'has name, has new name' => [
                 'identifier' => new Identifier(
                     IdentifierTypes::CSS_SELECTOR,
-                    new LiteralValue('.selector'),
+                    '.selector',
                     null,
                     'current identifier name'
                 ),
                 'name' => 'new identifier name',
                 'expectedIdentifier' => new Identifier(
                     IdentifierTypes::CSS_SELECTOR,
-                    new LiteralValue('.selector'),
+                    '.selector',
                     null,
                     'new identifier name'
                 ),
