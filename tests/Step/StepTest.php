@@ -54,7 +54,7 @@ class StepTest extends \PHPUnit\Framework\TestCase
             'has actions, has assertions, some not correct types' => [
                 'actions' => [
                     'foo',
-                    new WaitAction('wait 5', '5'),
+                    new WaitAction('wait 5', new Value(ValueTypes::STRING, '5')),
                     'bar',
                 ],
                 'assertions' => [
@@ -70,7 +70,7 @@ class StepTest extends \PHPUnit\Framework\TestCase
                     ),
                 ],
                 'expectedActions' => [
-                    new WaitAction('wait 5', '5'),
+                    new WaitAction('wait 5', new Value(ValueTypes::STRING, '5')),
                 ],
                 'expectedAssertions' => [
                     new Assertion(
@@ -199,32 +199,32 @@ class StepTest extends \PHPUnit\Framework\TestCase
             ],
             'step has actions, empty prepended actions' => [
                 'step' => new Step([
-                    new WaitAction('wait 1', '1'),
+                    new WaitAction('wait 1', new Value(ValueTypes::STRING, '1')),
                 ], []),
                 'actions' => [],
                 'expectedStep' => new Step([
-                    new WaitAction('wait 1', '1'),
+                    new WaitAction('wait 1', new Value(ValueTypes::STRING, '1')),
                 ], []),
             ],
             'step has no actions, non-empty prepended actions' => [
                 'step' => new Step([], []),
                 'actions' => [
-                    new WaitAction('wait 2', '2'),
+                    new WaitAction('wait 2', new Value(ValueTypes::STRING, '2')),
                 ],
                 'expectedStep' => new Step([
-                    new WaitAction('wait 2', '2'),
+                    new WaitAction('wait 2', new Value(ValueTypes::STRING, '2')),
                 ], []),
             ],
             'step has actions, non-empty prepended actions' => [
                 'step' => new Step([
-                    new WaitAction('wait 1', '1'),
+                    new WaitAction('wait 1', new Value(ValueTypes::STRING, '1')),
                 ], []),
                 'actions' => [
-                    new WaitAction('wait 2', '2'),
+                    new WaitAction('wait 2', new Value(ValueTypes::STRING, '2')),
                 ],
                 'expectedStep' => new Step([
-                    new WaitAction('wait 2', '2'),
-                    new WaitAction('wait 1', '1'),
+                    new WaitAction('wait 2', new Value(ValueTypes::STRING, '2')),
+                    new WaitAction('wait 1', new Value(ValueTypes::STRING, '1')),
                 ], []),
             ],
             'step assertions are retained' => [
@@ -329,11 +329,11 @@ class StepTest extends \PHPUnit\Framework\TestCase
             ],
             'step actions are retained' => [
                 'step' => new Step([
-                    new WaitAction('wait 1', '1'),
+                    new WaitAction('wait 1', new Value(ValueTypes::STRING, '1')),
                 ], []),
                 'assertions' => [],
                 'expectedStep' => new Step([
-                    new WaitAction('wait 1', '1'),
+                    new WaitAction('wait 1', new Value(ValueTypes::STRING, '1')),
                 ], []),
             ],
             'step data sets are retained' => [
@@ -399,22 +399,22 @@ class StepTest extends \PHPUnit\Framework\TestCase
             ],
             'has initial actions, no actions' => [
                 'step' => new Step([
-                    new WaitAction('wait 1', '1'),
+                    new WaitAction('wait 1', new Value(ValueTypes::STRING, '1')),
                 ], []),
                 'actions' => [],
             ],
             'no initial actions, has actions' => [
                 'step' => new Step([], []),
                 'actions' => [
-                    new WaitAction('wait 1', '1'),
+                    new WaitAction('wait 1', new Value(ValueTypes::STRING, '1')),
                 ],
             ],
             'has initial actions, has actions' => [
                 'step' => new Step([
-                    new WaitAction('wait 1', '1'),
+                    new WaitAction('wait 1', new Value(ValueTypes::STRING, '1')),
                 ], []),
                 'actions' => [
-                    new WaitAction('wait 2', '2'),
+                    new WaitAction('wait 2', new Value(ValueTypes::STRING, '2')),
                 ],
             ],
         ];
