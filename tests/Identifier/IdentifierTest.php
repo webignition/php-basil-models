@@ -121,44 +121,6 @@ class IdentifierTest extends \PHPUnit\Framework\TestCase
                 'identifier' => new Identifier(IdentifierTypes::XPATH_EXPRESSION, $xpathExpressionIdentifierValue, 2),
                 'expectedString' => '"//foo":2',
             ],
-            'page model element reference, position null' => [
-                'identifier' => new Identifier(
-                    IdentifierTypes::PAGE_MODEL_ELEMENT_REFERENCE,
-                    new ObjectValue(
-                        ValueTypes::PAGE_ELEMENT_REFERENCE,
-                        'page_import_name.elements.element_name',
-                        'page_import_name',
-                        'element_name'
-                    )
-                ),
-                'expectedString' => 'page_import_name.elements.element_name',
-            ],
-            'page model element reference, position 1' => [
-                'identifier' => new Identifier(
-                    IdentifierTypes::PAGE_MODEL_ELEMENT_REFERENCE,
-                    new ObjectValue(
-                        ValueTypes::PAGE_ELEMENT_REFERENCE,
-                        'page_model.elements.element_name',
-                        'page_model',
-                        'element_name'
-                    ),
-                    1
-                ),
-                'expectedString' => 'page_model.elements.element_name',
-            ],
-            'page model element reference, position 2' => [
-                'identifier' => new Identifier(
-                    IdentifierTypes::PAGE_MODEL_ELEMENT_REFERENCE,
-                    new ObjectValue(
-                        ValueTypes::PAGE_ELEMENT_REFERENCE,
-                        'page_model.elements.element_name',
-                        'page_model',
-                        'element_name'
-                    ),
-                    2
-                ),
-                'expectedString' => 'page_model.elements.element_name:2',
-            ],
             'css selector with element reference, position null' => [
                 'identifier' => $cssSelectorWithElementReference,
                 'expectedString' => '"{{ parent_identifier_name }} .selector"',
@@ -260,10 +222,6 @@ class IdentifierTest extends \PHPUnit\Framework\TestCase
                 'identifier' => new Identifier(IdentifierTypes::XPATH_EXPRESSION, $value),
                 'expectedIsActionable' => true,
             ],
-            'page model element reference is not actionable' => [
-                'identifier' => new Identifier(IdentifierTypes::PAGE_MODEL_ELEMENT_REFERENCE, $value),
-                'expectedIsActionable' => false,
-            ],
         ];
     }
 
@@ -287,10 +245,6 @@ class IdentifierTest extends \PHPUnit\Framework\TestCase
             'xpath expression is assertable' => [
                 'identifier' => new Identifier(IdentifierTypes::XPATH_EXPRESSION, $value),
                 'expectedIsAssertable' => true,
-            ],
-            'page model element reference is not assertable' => [
-                'identifier' => new Identifier(IdentifierTypes::PAGE_MODEL_ELEMENT_REFERENCE, $value),
-                'expectedIsAssertable' => false,
             ],
         ];
     }
