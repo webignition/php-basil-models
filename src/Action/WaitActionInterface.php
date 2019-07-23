@@ -2,7 +2,9 @@
 
 namespace webignition\BasilModel\Action;
 
+use webignition\BasilModel\Value\ValueInterface;
+
 interface WaitActionInterface extends ActionInterface
 {
-    public function getDuration(): string;
+    public function getDuration(): ValueInterface;
 }
