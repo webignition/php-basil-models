@@ -2,7 +2,7 @@
 
 namespace webignition\BasilModel\Identifier;
 
-use webignition\BasilModel\Value\ValueInterface;
+use webignition\BasilModel\Value\LiteralValue;
 
 class Identifier implements IdentifierInterface
 {
@@ -18,7 +18,7 @@ class Identifier implements IdentifierInterface
      */
     private $parentIdentifier;
 
-    public function __construct(string $type, ValueInterface $value, int $position = null, string $name = null)
+    public function __construct(string $type, string $value, int $position = null, string $name = null)
     {
         $position = $position ?? self::DEFAULT_POSITION;
 
@@ -33,7 +33,7 @@ class Identifier implements IdentifierInterface
         return $this->type;
     }
 
-    public function getValue(): ValueInterface
+    public function getValue(): string
     {
         return $this->value;
     }
@@ -69,19 +69,13 @@ class Identifier implements IdentifierInterface
         return $new;
     }
 
-    public function isActionable(): bool
-    {
-        return in_array($this->type, IdentifierTypes::ACTIONABLE_TYPES);
-    }
-
-    public function isAssertable(): bool
-    {
-        return in_array($this->type, IdentifierTypes::ASSERTABLE_TYPES);
-    }
-
     public function __toString(): string
     {
-        $string = $this->value->getValue();
+        if ($this->value instanceof LiteralValue) {
+            $string = $this->value->getValue();
+        } else {
+            $string = (string) $this->value;
+        }
 
         if ($this->parentIdentifier instanceof IdentifierInterface) {
             $string = '{{ ' . $this->parentIdentifier->getName() . ' }} ' . $string;

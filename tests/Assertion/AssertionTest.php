@@ -4,8 +4,8 @@ namespace webignition\BasilModel\Tests\Assertion;
 
 use webignition\BasilModel\Assertion\Assertion;
 use webignition\BasilModel\Assertion\AssertionComparisons;
-use webignition\BasilModel\Value\Value;
-use webignition\BasilModel\Value\ValueTypes;
+use webignition\BasilModel\Value\ElementValue;
+use webignition\BasilModel\Value\LiteralValue;
 use webignition\BasilModel\Identifier\Identifier;
 use webignition\BasilModel\Identifier\IdentifierTypes;
 
@@ -13,19 +13,22 @@ class AssertionTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {
-        $assertionString = '.foo is "foo"';
+        $assertionString = '.selector is "foo"';
         $identifier = new Identifier(
             IdentifierTypes::CSS_SELECTOR,
-            new Value(ValueTypes::STRING, '.foo')
+            '.selector'
         );
-        $comparison = AssertionComparisons::IS;
-        $value = new Value(ValueTypes::STRING, 'foo');
 
-        $assertion = new Assertion($assertionString, $identifier, $comparison, $value);
+        $examinedValue = new ElementValue($identifier);
+
+        $comparison = AssertionComparisons::IS;
+        $expectedValue = new LiteralValue('foo');
+
+        $assertion = new Assertion($assertionString, $examinedValue, $comparison, $expectedValue);
 
         $this->assertSame($assertionString, $assertion->getAssertionString());
-        $this->assertSame($identifier, $assertion->getIdentifier());
+        $this->assertSame($examinedValue, $assertion->getExaminedValue());
         $this->assertSame($comparison, $assertion->getComparison());
-        $this->assertSame($value, $assertion->getValue());
+        $this->assertSame($expectedValue, $assertion->getExpectedValue());
     }
 }

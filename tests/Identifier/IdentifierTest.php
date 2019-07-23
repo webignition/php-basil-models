@@ -3,21 +3,16 @@
 
 namespace webignition\BasilModel\Tests\Identifier;
 
-use webignition\BasilModel\Action\InputAction;
 use webignition\BasilModel\Identifier\Identifier;
 use webignition\BasilModel\Identifier\IdentifierInterface;
 use webignition\BasilModel\Identifier\IdentifierTypes;
-use webignition\BasilModel\Value\ObjectValue;
-use webignition\BasilModel\Value\Value;
-use webignition\BasilModel\Value\ValueInterface;
-use webignition\BasilModel\Value\ValueTypes;
 
 class IdentifierTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @dataProvider createDataProvider
      */
-    public function testCreate(string $type, ValueInterface $value, int $expectedPosition, ?int $position = null)
+    public function testCreate(string $type, string $value, int $expectedPosition, ?int $position = null)
     {
         $identifier = new Identifier($type, $value, $position);
 
@@ -31,19 +26,14 @@ class IdentifierTest extends \PHPUnit\Framework\TestCase
         return [
             'string value, no explicit position' => [
                 'type' => IdentifierTypes::CSS_SELECTOR,
-                'value' => new Value(ValueTypes::STRING, '.foo'),
+                'value' => '.selector',
                 'expectedPosition' => Identifier::DEFAULT_POSITION,
             ],
             'string value, has explicit position' => [
                 'type' => IdentifierTypes::CSS_SELECTOR,
-                'value' => new Value(ValueTypes::STRING, '.foo'),
+                'value' => '.selector',
                 'expectedPosition' => 3,
                 'position' => 3,
-            ],
-            'object value' => [
-                'type' => IdentifierTypes::PAGE_OBJECT_PARAMETER,
-                'value' => new ObjectValue(ValueTypes::PAGE_OBJECT_PROPERTY, '$page.url', 'page', 'url'),
-                'expectedPosition' => Identifier::DEFAULT_POSITION
             ],
         ];
     }
@@ -52,14 +42,14 @@ class IdentifierTest extends \PHPUnit\Framework\TestCase
     {
         $identifier = new Identifier(
             IdentifierTypes::CSS_SELECTOR,
-            new Value(ValueTypes::STRING, '.selector')
+            '.selector'
         );
 
         $this->assertNull($identifier->getParentIdentifier());
 
         $parentIdentifier = new Identifier(
             IdentifierTypes::CSS_SELECTOR,
-            new Value(ValueTypes::STRING, '.parent'),
+            '.parent',
             null,
             'parent_name'
         );
@@ -80,12 +70,9 @@ class IdentifierTest extends \PHPUnit\Framework\TestCase
 
     public function toStringDataProvider(): array
     {
-        $cssSelectorIdentifierValue = new Value(ValueTypes::STRING, '.selector');
-        $xpathExpressionIdentifierValue = new Value(ValueTypes::STRING, '//foo');
-
         $parentIdentifier = new Identifier(
             IdentifierTypes::CSS_SELECTOR,
-            new Value(ValueTypes::STRING, '.parent'),
+            '.parent',
             null,
             'parent_identifier_name'
         );
@@ -93,115 +80,39 @@ class IdentifierTest extends \PHPUnit\Framework\TestCase
         $cssSelectorWithElementReference =
             (new Identifier(
                 IdentifierTypes::CSS_SELECTOR,
-                $cssSelectorIdentifierValue
+                '.selector'
             ))->withParentIdentifier($parentIdentifier);
 
         $xpathExpressionWithElementReference =
             (new Identifier(
                 IdentifierTypes::XPATH_EXPRESSION,
-                $xpathExpressionIdentifierValue
+                '//foo'
             ))->withParentIdentifier($parentIdentifier);
 
         return [
             'css selector, position null' => [
-                'identifier' => new Identifier(IdentifierTypes::CSS_SELECTOR, $cssSelectorIdentifierValue),
+                'identifier' => new Identifier(IdentifierTypes::CSS_SELECTOR, '.selector'),
                 'expectedString' => '".selector"',
             ],
             'css selector, position 1' => [
-                'identifier' => new Identifier(IdentifierTypes::CSS_SELECTOR, $cssSelectorIdentifierValue, 1),
+                'identifier' => new Identifier(IdentifierTypes::CSS_SELECTOR, '.selector', 1),
                 'expectedString' => '".selector"',
             ],
             'css selector, position 2' => [
-                'identifier' => new Identifier(IdentifierTypes::CSS_SELECTOR, $cssSelectorIdentifierValue, 2),
+                'identifier' => new Identifier(IdentifierTypes::CSS_SELECTOR, '.selector', 2),
                 'expectedString' => '".selector":2',
             ],
             'xpath expression, position null' => [
-                'identifier' => new Identifier(IdentifierTypes::XPATH_EXPRESSION, $xpathExpressionIdentifierValue),
+                'identifier' => new Identifier(IdentifierTypes::XPATH_EXPRESSION, '//foo'),
                 'expectedString' => '"//foo"',
             ],
             'xpath expression, position 1' => [
-                'identifier' => new Identifier(IdentifierTypes::XPATH_EXPRESSION, $xpathExpressionIdentifierValue, 1),
+                'identifier' => new Identifier(IdentifierTypes::XPATH_EXPRESSION, '//foo', 1),
                 'expectedString' => '"//foo"',
             ],
             'xpath expression, position 2' => [
-                'identifier' => new Identifier(IdentifierTypes::XPATH_EXPRESSION, $xpathExpressionIdentifierValue, 2),
+                'identifier' => new Identifier(IdentifierTypes::XPATH_EXPRESSION, '//foo', 2),
                 'expectedString' => '"//foo":2',
-            ],
-            'page model element reference, position null' => [
-                'identifier' => new Identifier(
-                    IdentifierTypes::PAGE_MODEL_ELEMENT_REFERENCE,
-                    new ObjectValue(
-                        ValueTypes::PAGE_MODEL_REFERENCE,
-                        'page_model.elements.element_name',
-                        'page_model',
-                        'element_name'
-                    )
-                ),
-                'expectedString' => 'page_model.elements.element_name',
-            ],
-            'page model element reference, position 1' => [
-                'identifier' => new Identifier(
-                    IdentifierTypes::PAGE_MODEL_ELEMENT_REFERENCE,
-                    new ObjectValue(
-                        ValueTypes::PAGE_MODEL_REFERENCE,
-                        'page_model.elements.element_name',
-                        'page_model',
-                        'element_name'
-                    ),
-                    1
-                ),
-                'expectedString' => 'page_model.elements.element_name',
-            ],
-            'page model element reference, position 2' => [
-                'identifier' => new Identifier(
-                    IdentifierTypes::PAGE_MODEL_ELEMENT_REFERENCE,
-                    new ObjectValue(
-                        ValueTypes::PAGE_MODEL_REFERENCE,
-                        'page_model.elements.element_name',
-                        'page_model',
-                        'element_name'
-                    ),
-                    2
-                ),
-                'expectedString' => 'page_model.elements.element_name:2',
-            ],
-            'element parameter, position null' => [
-                'identifier' => new Identifier(
-                    IdentifierTypes::ELEMENT_PARAMETER,
-                    new ObjectValue(
-                        ValueTypes::ELEMENT_PARAMETER,
-                        '$elements.element_name',
-                        'elements',
-                        'element_name'
-                    )
-                ),
-                'expectedString' => '$elements.element_name',
-            ],
-            'element parameter, position 1' => [
-                'identifier' => new Identifier(
-                    IdentifierTypes::ELEMENT_PARAMETER,
-                    new ObjectValue(
-                        ValueTypes::ELEMENT_PARAMETER,
-                        '$elements.element_name',
-                        'elements',
-                        'element_name'
-                    ),
-                    1
-                ),
-                'expectedString' => '$elements.element_name',
-            ],
-            'element parameter, position 2' => [
-                'identifier' => new Identifier(
-                    IdentifierTypes::ELEMENT_PARAMETER,
-                    new ObjectValue(
-                        ValueTypes::ELEMENT_PARAMETER,
-                        '$elements.element_name',
-                        'elements',
-                        'element_name'
-                    ),
-                    2
-                ),
-                'expectedString' => '$elements.element_name:2',
             ],
             'css selector with element reference, position null' => [
                 'identifier' => $cssSelectorWithElementReference,
@@ -231,54 +142,36 @@ class IdentifierTest extends \PHPUnit\Framework\TestCase
             'no name, no new name' => [
                 'identifier' => new Identifier(
                     IdentifierTypes::CSS_SELECTOR,
-                    new Value(
-                        ValueTypes::STRING,
-                        '.selector'
-                    )
+                    '.selector'
                 ),
                 'name' => '',
                 'expectedIdentifier' => new Identifier(
                     IdentifierTypes::CSS_SELECTOR,
-                    new Value(
-                        ValueTypes::STRING,
-                        '.selector'
-                    )
+                    '.selector'
                 ),
             ],
             'has name, no new name' => [
                 'identifier' => new Identifier(
                     IdentifierTypes::CSS_SELECTOR,
-                    new Value(
-                        ValueTypes::STRING,
-                        '.selector'
-                    ),
+                    '.selector',
                     null,
                     'identifier name'
                 ),
                 'name' => '',
                 'expectedIdentifier' => new Identifier(
                     IdentifierTypes::CSS_SELECTOR,
-                    new Value(
-                        ValueTypes::STRING,
-                        '.selector'
-                    )
+                    '.selector'
                 ),
             ],
             'no name, has new name' => [
                 'identifier' => new Identifier(
                     IdentifierTypes::CSS_SELECTOR,
-                    new Value(
-                        ValueTypes::STRING,
-                        '.selector'
-                    )
+                    '.selector'
                 ),
                 'name' => 'identifier name',
                 'expectedIdentifier' => new Identifier(
                     IdentifierTypes::CSS_SELECTOR,
-                    new Value(
-                        ValueTypes::STRING,
-                        '.selector'
-                    ),
+                    '.selector',
                     null,
                     'identifier name'
                 ),
@@ -286,103 +179,17 @@ class IdentifierTest extends \PHPUnit\Framework\TestCase
             'has name, has new name' => [
                 'identifier' => new Identifier(
                     IdentifierTypes::CSS_SELECTOR,
-                    new Value(
-                        ValueTypes::STRING,
-                        '.selector'
-                    ),
+                    '.selector',
                     null,
                     'current identifier name'
                 ),
                 'name' => 'new identifier name',
                 'expectedIdentifier' => new Identifier(
                     IdentifierTypes::CSS_SELECTOR,
-                    new Value(
-                        ValueTypes::STRING,
-                        '.selector'
-                    ),
+                    '.selector',
                     null,
                     'new identifier name'
                 ),
-            ],
-        ];
-    }
-
-    /**
-     * @dataProvider isActionableDataProvider
-     */
-    public function testIsActionable(IdentifierInterface $identifier, bool $expectedIsActionable)
-    {
-        $this->assertSame($expectedIsActionable, $identifier->isActionable());
-    }
-
-    public function isActionableDataProvider(): array
-    {
-        $value = new Value(ValueTypes::STRING, '');
-
-        return [
-            'css selector is actionable' => [
-                'identifier' => new Identifier(IdentifierTypes::CSS_SELECTOR, $value),
-                'expectedIsActionable' => true,
-            ],
-            'xpath expression is actionable' => [
-                'identifier' => new Identifier(IdentifierTypes::XPATH_EXPRESSION, $value),
-                'expectedIsActionable' => true,
-            ],
-            'page model element reference is not actionable' => [
-                'identifier' => new Identifier(IdentifierTypes::PAGE_MODEL_ELEMENT_REFERENCE, $value),
-                'expectedIsActionable' => false,
-            ],
-            'element parameter is actionable' => [
-                'identifier' => new Identifier(IdentifierTypes::ELEMENT_PARAMETER, $value),
-                'expectedIsActionable' => true,
-            ],
-            'page object parameter is not actionable' => [
-                'identifier' => new Identifier(IdentifierTypes::PAGE_OBJECT_PARAMETER, $value),
-                'expectedIsActionable' => false,
-            ],
-            'browser object parameter is not actionable' => [
-                'identifier' => new Identifier(IdentifierTypes::BROWSER_OBJECT_PARAMETER, $value),
-                'expectedIsActionable' => false,
-            ],
-        ];
-    }
-
-    /**
-     * @dataProvider isAssertableDataProvider
-     */
-    public function testIsAssertable(IdentifierInterface $identifier, bool $expectedIsActionable)
-    {
-        $this->assertSame($expectedIsActionable, $identifier->isAssertable());
-    }
-
-    public function isAssertableDataProvider(): array
-    {
-        $value = new Value(ValueTypes::STRING, '');
-
-        return [
-            'css selector is assertable' => [
-                'identifier' => new Identifier(IdentifierTypes::CSS_SELECTOR, $value),
-                'expectedIsAssertable' => true,
-            ],
-            'xpath expression is assertable' => [
-                'identifier' => new Identifier(IdentifierTypes::XPATH_EXPRESSION, $value),
-                'expectedIsAssertable' => true,
-            ],
-            'page model element reference is not assertable' => [
-                'identifier' => new Identifier(IdentifierTypes::PAGE_MODEL_ELEMENT_REFERENCE, $value),
-                'expectedIsAssertable' => false,
-            ],
-            'element parameter is not assertable' => [
-                'identifier' => new Identifier(IdentifierTypes::ELEMENT_PARAMETER, $value),
-                'expectedIsAssertable' => true,
-            ],
-            'page object parameter is assertable' => [
-                'identifier' => new Identifier(IdentifierTypes::PAGE_OBJECT_PARAMETER, $value),
-                'expectedIsAssertable' => true,
-            ],
-            'browser object parameter is assertable' => [
-                'identifier' => new Identifier(IdentifierTypes::BROWSER_OBJECT_PARAMETER, $value),
-                'expectedIsAssertable' => true,
             ],
         ];
     }

@@ -12,8 +12,8 @@ use webignition\BasilModel\Step\PendingImportResolutionStep;
 use webignition\BasilModel\Step\PendingImportResolutionStepInterface;
 use webignition\BasilModel\Step\Step;
 use webignition\BasilModel\Step\StepInterface;
-use webignition\BasilModel\Value\Value;
-use webignition\BasilModel\Value\ValueTypes;
+use webignition\BasilModel\Value\ElementValue;
+use webignition\BasilModel\Value\LiteralValue;
 
 class PendingImportResolutionStepTest extends \PHPUnit\Framework\TestCase
 {
@@ -72,18 +72,15 @@ class PendingImportResolutionStepTest extends \PHPUnit\Framework\TestCase
             'with actions and assertions' => [
                 'encapsulatedStep' => new Step(
                     [
-                        new WaitAction('wait 30', new Value(ValueTypes::STRING, '30')),
+                        new WaitAction('wait 30', new LiteralValue('30')),
                     ],
                     [
                         new Assertion(
                             '".selector" exists',
-                            new Identifier(
+                            new ElementValue(new Identifier(
                                 IdentifierTypes::CSS_SELECTOR,
-                                new Value(
-                                    ValueTypes::STRING,
-                                    '.selector'
-                                )
-                            ),
+                                '.selector'
+                            )),
                             AssertionComparisons::EXISTS
                         ),
                     ]
@@ -93,18 +90,15 @@ class PendingImportResolutionStepTest extends \PHPUnit\Framework\TestCase
                 'expectedStep' => new PendingImportResolutionStep(
                     new Step(
                         [
-                            new WaitAction('wait 30', new Value(ValueTypes::STRING, '30')),
+                            new WaitAction('wait 30', new LiteralValue('30')),
                         ],
                         [
                             new Assertion(
                                 '".selector" exists',
-                                new Identifier(
+                                new ElementValue(new Identifier(
                                     IdentifierTypes::CSS_SELECTOR,
-                                    new Value(
-                                        ValueTypes::STRING,
-                                        '.selector'
-                                    )
-                                ),
+                                    '.selector'
+                                )),
                                 AssertionComparisons::EXISTS
                             ),
                         ]

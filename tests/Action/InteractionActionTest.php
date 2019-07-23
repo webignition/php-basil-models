@@ -6,8 +6,6 @@ use webignition\BasilModel\Action\ActionTypes;
 use webignition\BasilModel\Action\InteractionAction;
 use webignition\BasilModel\Identifier\Identifier;
 use webignition\BasilModel\Identifier\IdentifierTypes;
-use webignition\BasilModel\Value\Value;
-use webignition\BasilModel\Value\ValueTypes;
 
 class InteractionActionTest extends \PHPUnit\Framework\TestCase
 {
@@ -16,38 +14,33 @@ class InteractionActionTest extends \PHPUnit\Framework\TestCase
         $type = ActionTypes::CLICK;
         $identifier = new Identifier(
             IdentifierTypes::CSS_SELECTOR,
-            new Value(ValueTypes::STRING, '.foo')
+            '.selector'
         );
 
         $action = new InteractionAction(
-            'click ".foo"',
+            'click ".selector"',
             $type,
             $identifier,
-            '".foo"'
+            '".selector"'
         );
 
         $this->assertSame($type, $action->getType());
-        $this->assertSame('".foo"', $action->getArguments());
+        $this->assertSame('".selector"', $action->getArguments());
         $this->assertSame($identifier, $action->getIdentifier());
         $this->assertTrue($action->isRecognised());
+        $this->assertSame('click ".selector"', $action->getActionString());
     }
 
     public function testWithIdentifier()
     {
         $originalIdentifier = new Identifier(
             IdentifierTypes::CSS_SELECTOR,
-            new Value(
-                ValueTypes::STRING,
-                '.original'
-            )
+            '.original'
         );
 
         $newIdentifier = new Identifier(
             IdentifierTypes::CSS_SELECTOR,
-            new Value(
-                ValueTypes::STRING,
-                '.new'
-            )
+            '.new'
         );
 
         $action = new InteractionAction(
