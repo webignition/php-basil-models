@@ -4,13 +4,22 @@ namespace webignition\BasilModel\Value;
 
 class ValueTypes
 {
-    const DATA_PARAMETER = 'data-parameter';
+    // LiteralValue
     const STRING = 'string';
-    const ELEMENT_PARAMETER = 'element-parameter';
+
+    // ObjectValue
+    const DATA_PARAMETER = 'data-parameter';
     const PAGE_OBJECT_PROPERTY = 'page-object-property';
     const BROWSER_OBJECT_PROPERTY = 'browser-object-property';
-    const PAGE_MODEL_REFERENCE = 'page-model-reference';
+    const ELEMENT_PARAMETER = 'element-parameter';
+    const PAGE_ELEMENT_REFERENCE = 'page-element-reference';
+
+    // EnvironmentValue
     const ENVIRONMENT_PARAMETER = 'environment-parameter';
+
+    // ElementValue
+    const ELEMENT_IDENTIFIER = 'element-identifier';
+
 
     const ALL = [
         self::DATA_PARAMETER,
@@ -18,8 +27,9 @@ class ValueTypes
         self::ELEMENT_PARAMETER,
         self::PAGE_OBJECT_PROPERTY,
         self::BROWSER_OBJECT_PROPERTY,
-        self::PAGE_MODEL_REFERENCE,
+        self::PAGE_ELEMENT_REFERENCE,
         self::ENVIRONMENT_PARAMETER,
+        self::ELEMENT_IDENTIFIER,
     ];
 
     const ACTIONABLE_TYPES = [
@@ -29,5 +39,6 @@ class ValueTypes
         self::PAGE_OBJECT_PROPERTY,
         self::BROWSER_OBJECT_PROPERTY,
         self::ENVIRONMENT_PARAMETER,
+        self::ELEMENT_IDENTIFIER,
     ];
 }

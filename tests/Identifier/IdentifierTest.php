@@ -3,12 +3,11 @@
 
 namespace webignition\BasilModel\Tests\Identifier;
 
-use webignition\BasilModel\Action\InputAction;
 use webignition\BasilModel\Identifier\Identifier;
 use webignition\BasilModel\Identifier\IdentifierInterface;
 use webignition\BasilModel\Identifier\IdentifierTypes;
+use webignition\BasilModel\Value\LiteralValue;
 use webignition\BasilModel\Value\ObjectValue;
-use webignition\BasilModel\Value\Value;
 use webignition\BasilModel\Value\ValueInterface;
 use webignition\BasilModel\Value\ValueTypes;
 
@@ -31,12 +30,12 @@ class IdentifierTest extends \PHPUnit\Framework\TestCase
         return [
             'string value, no explicit position' => [
                 'type' => IdentifierTypes::CSS_SELECTOR,
-                'value' => new Value(ValueTypes::STRING, '.foo'),
+                'value' => new LiteralValue('.selector'),
                 'expectedPosition' => Identifier::DEFAULT_POSITION,
             ],
             'string value, has explicit position' => [
                 'type' => IdentifierTypes::CSS_SELECTOR,
-                'value' => new Value(ValueTypes::STRING, '.foo'),
+                'value' => new LiteralValue('.selector'),
                 'expectedPosition' => 3,
                 'position' => 3,
             ],
@@ -52,14 +51,14 @@ class IdentifierTest extends \PHPUnit\Framework\TestCase
     {
         $identifier = new Identifier(
             IdentifierTypes::CSS_SELECTOR,
-            new Value(ValueTypes::STRING, '.selector')
+            new LiteralValue('.selector')
         );
 
         $this->assertNull($identifier->getParentIdentifier());
 
         $parentIdentifier = new Identifier(
             IdentifierTypes::CSS_SELECTOR,
-            new Value(ValueTypes::STRING, '.parent'),
+            new LiteralValue('.parent'),
             null,
             'parent_name'
         );
@@ -80,12 +79,12 @@ class IdentifierTest extends \PHPUnit\Framework\TestCase
 
     public function toStringDataProvider(): array
     {
-        $cssSelectorIdentifierValue = new Value(ValueTypes::STRING, '.selector');
-        $xpathExpressionIdentifierValue = new Value(ValueTypes::STRING, '//foo');
+        $cssSelectorIdentifierValue = new LiteralValue('.selector');
+        $xpathExpressionIdentifierValue = new LiteralValue('//foo');
 
         $parentIdentifier = new Identifier(
             IdentifierTypes::CSS_SELECTOR,
-            new Value(ValueTypes::STRING, '.parent'),
+            new LiteralValue('.parent'),
             null,
             'parent_identifier_name'
         );
@@ -131,19 +130,19 @@ class IdentifierTest extends \PHPUnit\Framework\TestCase
                 'identifier' => new Identifier(
                     IdentifierTypes::PAGE_MODEL_ELEMENT_REFERENCE,
                     new ObjectValue(
-                        ValueTypes::PAGE_MODEL_REFERENCE,
-                        'page_model.elements.element_name',
-                        'page_model',
+                        ValueTypes::PAGE_ELEMENT_REFERENCE,
+                        'page_import_name.elements.element_name',
+                        'page_import_name',
                         'element_name'
                     )
                 ),
-                'expectedString' => 'page_model.elements.element_name',
+                'expectedString' => 'page_import_name.elements.element_name',
             ],
             'page model element reference, position 1' => [
                 'identifier' => new Identifier(
                     IdentifierTypes::PAGE_MODEL_ELEMENT_REFERENCE,
                     new ObjectValue(
-                        ValueTypes::PAGE_MODEL_REFERENCE,
+                        ValueTypes::PAGE_ELEMENT_REFERENCE,
                         'page_model.elements.element_name',
                         'page_model',
                         'element_name'
@@ -156,7 +155,7 @@ class IdentifierTest extends \PHPUnit\Framework\TestCase
                 'identifier' => new Identifier(
                     IdentifierTypes::PAGE_MODEL_ELEMENT_REFERENCE,
                     new ObjectValue(
-                        ValueTypes::PAGE_MODEL_REFERENCE,
+                        ValueTypes::PAGE_ELEMENT_REFERENCE,
                         'page_model.elements.element_name',
                         'page_model',
                         'element_name'
@@ -231,54 +230,36 @@ class IdentifierTest extends \PHPUnit\Framework\TestCase
             'no name, no new name' => [
                 'identifier' => new Identifier(
                     IdentifierTypes::CSS_SELECTOR,
-                    new Value(
-                        ValueTypes::STRING,
-                        '.selector'
-                    )
+                    new LiteralValue('.selector')
                 ),
                 'name' => '',
                 'expectedIdentifier' => new Identifier(
                     IdentifierTypes::CSS_SELECTOR,
-                    new Value(
-                        ValueTypes::STRING,
-                        '.selector'
-                    )
+                    new LiteralValue('.selector')
                 ),
             ],
             'has name, no new name' => [
                 'identifier' => new Identifier(
                     IdentifierTypes::CSS_SELECTOR,
-                    new Value(
-                        ValueTypes::STRING,
-                        '.selector'
-                    ),
+                    new LiteralValue('.selector'),
                     null,
                     'identifier name'
                 ),
                 'name' => '',
                 'expectedIdentifier' => new Identifier(
                     IdentifierTypes::CSS_SELECTOR,
-                    new Value(
-                        ValueTypes::STRING,
-                        '.selector'
-                    )
+                    new LiteralValue('.selector')
                 ),
             ],
             'no name, has new name' => [
                 'identifier' => new Identifier(
                     IdentifierTypes::CSS_SELECTOR,
-                    new Value(
-                        ValueTypes::STRING,
-                        '.selector'
-                    )
+                    new LiteralValue('.selector')
                 ),
                 'name' => 'identifier name',
                 'expectedIdentifier' => new Identifier(
                     IdentifierTypes::CSS_SELECTOR,
-                    new Value(
-                        ValueTypes::STRING,
-                        '.selector'
-                    ),
+                    new LiteralValue('.selector'),
                     null,
                     'identifier name'
                 ),
@@ -286,20 +267,14 @@ class IdentifierTest extends \PHPUnit\Framework\TestCase
             'has name, has new name' => [
                 'identifier' => new Identifier(
                     IdentifierTypes::CSS_SELECTOR,
-                    new Value(
-                        ValueTypes::STRING,
-                        '.selector'
-                    ),
+                    new LiteralValue('.selector'),
                     null,
                     'current identifier name'
                 ),
                 'name' => 'new identifier name',
                 'expectedIdentifier' => new Identifier(
                     IdentifierTypes::CSS_SELECTOR,
-                    new Value(
-                        ValueTypes::STRING,
-                        '.selector'
-                    ),
+                    new LiteralValue('.selector'),
                     null,
                     'new identifier name'
                 ),
@@ -317,7 +292,7 @@ class IdentifierTest extends \PHPUnit\Framework\TestCase
 
     public function isActionableDataProvider(): array
     {
-        $value = new Value(ValueTypes::STRING, '');
+        $value = new LiteralValue('');
 
         return [
             'css selector is actionable' => [
@@ -357,7 +332,7 @@ class IdentifierTest extends \PHPUnit\Framework\TestCase
 
     public function isAssertableDataProvider(): array
     {
-        $value = new Value(ValueTypes::STRING, '');
+        $value = new LiteralValue('');
 
         return [
             'css selector is assertable' => [

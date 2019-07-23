@@ -6,8 +6,7 @@ use webignition\BasilModel\Action\ActionTypes;
 use webignition\BasilModel\Action\InputAction;
 use webignition\BasilModel\Identifier\Identifier;
 use webignition\BasilModel\Identifier\IdentifierTypes;
-use webignition\BasilModel\Value\Value;
-use webignition\BasilModel\Value\ValueTypes;
+use webignition\BasilModel\Value\LiteralValue;
 
 class InputActionTest extends \PHPUnit\Framework\TestCase
 {
@@ -15,49 +14,41 @@ class InputActionTest extends \PHPUnit\Framework\TestCase
     {
         $identifier = new Identifier(
             IdentifierTypes::CSS_SELECTOR,
-            new Value(ValueTypes::STRING, '.foo')
+            new LiteralValue('.selector')
         );
-        $value = new Value(ValueTypes::STRING, 'foo');
+        $value = new LiteralValue('.foo');
 
         $action = new InputAction(
-            'set ".foo" to "foo"',
+            'set ".selector" to "foo"',
             $identifier,
             $value,
-            '".foo" to "foo"'
+            '".selector" to "foo"'
         );
 
         $this->assertSame(ActionTypes::SET, $action->getType());
-        $this->assertSame('".foo" to "foo"', $action->getArguments());
+        $this->assertSame('".selector" to "foo"', $action->getArguments());
         $this->assertSame($identifier, $action->getIdentifier());
         $this->assertSame($value, $action->getValue());
         $this->assertTrue($action->isRecognised());
+        $this->assertSame('set ".selector" to "foo"', $action->getActionString());
     }
 
     public function testWithIdentifier()
     {
         $originalIdentifier = new Identifier(
             IdentifierTypes::CSS_SELECTOR,
-            new Value(
-                ValueTypes::STRING,
-                '.original'
-            )
+            new LiteralValue('.original')
         );
 
         $newIdentifier = new Identifier(
             IdentifierTypes::CSS_SELECTOR,
-            new Value(
-                ValueTypes::STRING,
-                '.new'
-            )
+            new LiteralValue('.new')
         );
 
         $action = new InputAction(
             'set ".original" to "value"',
             $originalIdentifier,
-            new Value(
-                ValueTypes::STRING,
-                'value'
-            ),
+            new LiteralValue('value'),
             '".original" to "value"'
         );
 

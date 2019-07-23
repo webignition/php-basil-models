@@ -14,43 +14,53 @@ class ObjectValueTest extends \PHPUnit\Framework\TestCase
      */
     public function testCreate(
         string $type,
-        string $valueString,
+        string $reference,
         string $objectName,
-        string $objectProperty,
-        string $expectedString
+        string $objectProperty
     ) {
-        $value = new ObjectValue($type, $valueString, $objectName, $objectProperty);
+        $value = new ObjectValue($type, $reference, $objectName, $objectProperty);
 
         $this->assertSame($type, $value->getType());
-        $this->assertSame($valueString, $value->getValue());
+        $this->assertSame($reference, $value->getReference());
         $this->assertSame($objectName, $value->getObjectName());
         $this->assertSame($objectProperty, $value->getObjectProperty());
-        $this->assertSame($expectedString, (string) $value);
+        $this->assertSame($reference, (string) $value);
+        $this->assertfalse($value->isEmpty());
+        $this->assertTrue($value->isActionable());
     }
 
     public function createDataProvider(): array
     {
         return [
-            'type: page object property' => [
+            'data parameter' => [
+                'type' => ValueTypes::DATA_PARAMETER,
+                'valueString' => '$data.key',
+                'objectName' => ObjectNames::DATA,
+                'objectProperty' => 'key',
+            ],
+            'page object property' => [
                 'type' => ValueTypes::PAGE_OBJECT_PROPERTY,
                 'valueString' => '$page.url',
                 'objectName' => ObjectNames::PAGE,
                 'objectProperty' => 'url',
-                'expectedString' => '$page.url',
             ],
-            'type: browser object property' => [
+            'browser object property' => [
                 'type' => ValueTypes::BROWSER_OBJECT_PROPERTY,
                 'valueString' => '$browser.title',
                 'objectName' => ObjectNames::BROWSER,
                 'objectProperty' => 'title',
-                'expectedString' => '$browser.title',
             ],
-            'type: element parameter' => [
+            'element parameter' => [
                 'type' => ValueTypes::ELEMENT_PARAMETER,
                 'valueString' => '$elements.element_name',
                 'objectName' => ObjectNames::ELEMENT,
                 'objectProperty' => 'element_name',
-                'expectedString' => '$elements.element_name',
+            ],
+            'page element reference' => [
+                'type' => ValueTypes::PAGE_ELEMENT_REFERENCE,
+                'valueString' => 'page_import_name.elements.element_name',
+                'objectName' => 'page_import_name',
+                'objectProperty' => 'element_name',
             ],
         ];
     }

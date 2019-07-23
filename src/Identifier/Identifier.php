@@ -2,6 +2,7 @@
 
 namespace webignition\BasilModel\Identifier;
 
+use webignition\BasilModel\Value\LiteralValue;
 use webignition\BasilModel\Value\ValueInterface;
 
 class Identifier implements IdentifierInterface
@@ -81,7 +82,11 @@ class Identifier implements IdentifierInterface
 
     public function __toString(): string
     {
-        $string = $this->value->getValue();
+        if ($this->value instanceof LiteralValue) {
+            $string = $this->value->getValue();
+        } else {
+            $string = (string) $this->value;
+        }
 
         if ($this->parentIdentifier instanceof IdentifierInterface) {
             $string = '{{ ' . $this->parentIdentifier->getName() . ' }} ' . $string;

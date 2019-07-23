@@ -12,42 +12,37 @@ class EnvironmentValueTest extends \PHPUnit\Framework\TestCase
     /**
      * @dataProvider createDataProvider
      */
-    public function testCreate(
-        string $valueString,
-        string $objectProperty,
-        ?string $default,
-        string $expectedString
-    ) {
-        $value = new EnvironmentValue($valueString, $objectProperty, $default);
+    public function testCreate(string $reference, string $objectProperty, ?string $default)
+    {
+        $value = new EnvironmentValue($reference, $objectProperty, $default);
 
         $this->assertSame(ValueTypes::ENVIRONMENT_PARAMETER, $value->getType());
-        $this->assertSame($valueString, $value->getValue());
+        $this->assertSame($reference, $value->getReference());
         $this->assertSame(ObjectNames::ENVIRONMENT, $value->getObjectName());
         $this->assertSame($objectProperty, $value->getObjectProperty());
         $this->assertSame($default, $value->getDefault());
-        $this->assertSame($expectedString, (string) $value);
+        $this->assertSame($reference, (string) $value);
+        $this->assertfalse($value->isEmpty());
+        $this->assertTrue($value->isActionable());
     }
 
     public function createDataProvider(): array
     {
         return [
             'no default' => [
-                'valueString' => '$env.KEY',
+                'reference' => '$env.KEY',
                 'objectProperty' => 'KEY',
-                'default' => null,
-                'expectedString' => '$env.KEY',
+                'default' => null
             ],
             'has default' => [
-                'valueString' => '$env.KEY',
+                'reference' => '$env.KEY|"default_value"',
                 'objectProperty' => 'KEY',
-                'default' => 'default_value',
-                'expectedString' => '$env.KEY|"default_value"',
+                'default' => 'default_value'
             ],
             'default contains double quotes' => [
-                'valueString' => '$env.KEY',
+                'reference' => '$env.KEY|"\"default\""',
                 'objectProperty' => 'KEY',
-                'default' => '"default"',
-                'expectedString' => '$env.KEY|"\"default\""',
+                'default' => '"default"'
             ],
         ];
     }
