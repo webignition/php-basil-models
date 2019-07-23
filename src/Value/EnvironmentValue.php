@@ -7,11 +7,11 @@ class EnvironmentValue extends ObjectValue implements EnvironmentValueInterface
     private $default;
 
     public function __construct(
-        string $value,
+        string $reference,
         string $objectProperty,
         ?string $default = null
     ) {
-        parent::__construct(ValueTypes::ENVIRONMENT_PARAMETER, $value, ObjectNames::ENVIRONMENT, $objectProperty);
+        parent::__construct(ValueTypes::ENVIRONMENT_PARAMETER, $reference, ObjectNames::ENVIRONMENT, $objectProperty);
 
         $this->default = $default;
     }
@@ -23,12 +23,6 @@ class EnvironmentValue extends ObjectValue implements EnvironmentValueInterface
 
     public function __toString(): string
     {
-        $string = parent::__toString();
-
-        if (null !== $this->default) {
-            $string .= '|"' . str_replace('"', '\"', $this->default) . '"';
-        }
-
-        return $string;
+        return $this->getReference();
     }
 }

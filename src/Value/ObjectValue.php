@@ -2,17 +2,24 @@
 
 namespace webignition\BasilModel\Value;
 
-class ObjectValue extends Value implements ObjectValueInterface
+class ObjectValue extends AbstractValue implements ObjectValueInterface
 {
+    private $reference;
     private $objectName;
     private $objectProperty;
 
-    public function __construct(string $type, string $value, string $objectName, string $objectProperty)
+    public function __construct(string $type, string $reference, string $objectName, string $objectProperty)
     {
-        parent::__construct($type, $value);
+        parent::__construct($type);
 
+        $this->reference = $reference;
         $this->objectName = $objectName;
         $this->objectProperty = $objectProperty;
+    }
+
+    public function getReference(): string
+    {
+        return $this->reference;
     }
 
     public function getObjectName(): string
@@ -23,5 +30,20 @@ class ObjectValue extends Value implements ObjectValueInterface
     public function getObjectProperty(): string
     {
         return $this->objectProperty;
+    }
+
+    public function isEmpty(): bool
+    {
+        return false;
+    }
+
+    public function isActionable(): bool
+    {
+        return true;
+    }
+
+    public function __toString(): string
+    {
+        return $this->reference;
     }
 }
