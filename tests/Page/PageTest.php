@@ -6,6 +6,8 @@ namespace webignition\BasilModel\Tests\Page;
 use Nyholm\Psr7\Uri;
 use Psr\Http\Message\UriInterface;
 use webignition\BasilModel\Identifier\Identifier;
+use webignition\BasilModel\Identifier\IdentifierCollection;
+use webignition\BasilModel\Identifier\IdentifierCollectionInterface;
 use webignition\BasilModel\Identifier\IdentifierTypes;
 use webignition\BasilModel\Page\Page;
 use webignition\BasilModel\Value\Value;
@@ -16,9 +18,12 @@ class PageTest extends \PHPUnit\Framework\TestCase
     /**
      * @dataProvider createDataProvider
      */
-    public function testCreate(UriInterface $uri, array $elementIdentifiers, Page $expectedPage)
-    {
-        $page = new Page($uri, $elementIdentifiers);
+    public function testCreate(
+        UriInterface $uri,
+        IdentifierCollectionInterface $identifierCollection,
+        Page $expectedPage
+    ) {
+        $page = new Page($uri, $identifierCollection);
 
         $this->assertEquals($expectedPage, $page);
     }
@@ -28,41 +33,25 @@ class PageTest extends \PHPUnit\Framework\TestCase
         return [
             'no elements' => [
                 'uri' => new Uri('http://example.com/'),
-                'elementIdentifiers' => [],
-                'expectedPage' => new Page(new Uri('http://example.com/'), []),
-            ],
-            'no valid elements' => [
-                'uri' => new Uri('http://example.com/'),
-                'elementIdentifiers' => [
-                    'foo',
-                    'bar',
-                ],
-                'expectedPage' => new Page(new Uri('http://example.com/'), []),
+                'identifierCollection' => new IdentifierCollection(),
+                'expectedPage' => new Page(new Uri('http://example.com/'), new IdentifierCollection()),
             ],
             'valid elements' => [
                 'uri' => new Uri('http://example.com/'),
-                'elementIdentifiers' => [
-                    'foo' => new Identifier(
+                'identifierCollection' => new IdentifierCollection([
+                    (new Identifier(
                         IdentifierTypes::CSS_SELECTOR,
                         new Value(ValueTypes::STRING, '.foo')
-                    ),
-                    'bar' => new Identifier(
-                        IdentifierTypes::CSS_SELECTOR,
-                        new Value(ValueTypes::STRING, '.bar')
-                    ),
-                ],
+                    ))->withName('foo'),
+                ]),
                 'expectedPage' => new Page(
                     new Uri('http://example.com/'),
-                    [
-                        'foo' => new Identifier(
+                    new IdentifierCollection([
+                        (new Identifier(
                             IdentifierTypes::CSS_SELECTOR,
                             new Value(ValueTypes::STRING, '.foo')
-                        ),
-                        'bar' => new Identifier(
-                            IdentifierTypes::CSS_SELECTOR,
-                            new Value(ValueTypes::STRING, '.bar')
-                        ),
-                    ]
+                        ))->withName('foo'),
+                    ])
                 ),
             ],
         ];
@@ -71,60 +60,31 @@ class PageTest extends \PHPUnit\Framework\TestCase
     public function testGetUri()
     {
         $uri = new Uri();
-        $page = new Page($uri, []);
+        $page = new Page($uri, new IdentifierCollection());
 
         $this->assertSame($uri, $page->getUri());
     }
 
-    public function testGetElementIdentifier()
-    {
-        $fooIdentifier = new Identifier(
-            IdentifierTypes::CSS_SELECTOR,
-            new Value(ValueTypes::STRING, '.foo')
-        );
-
-        $barIdentifier = new Identifier(
-            IdentifierTypes::CSS_SELECTOR,
-            new Value(ValueTypes::STRING, '.bar')
-        );
-
-        $page = new Page(
-            new Uri('http://example.com/'),
-            [
-                'foo' => $fooIdentifier,
-                'bar' => $barIdentifier,
-            ]
-        );
-
-        $this->assertSame($fooIdentifier, $page->getElementIdentifier('foo'));
-        $this->assertSame($barIdentifier, $page->getElementIdentifier('bar'));
-        $this->assertNull($page->getElementIdentifier('non-existent'));
-    }
-
     public function testGetElementNames()
     {
-        $fooIdentifier = new Identifier(
-            IdentifierTypes::CSS_SELECTOR,
-            new Value(ValueTypes::STRING, '.foo')
-        );
-
-        $barIdentifier = new Identifier(
-            IdentifierTypes::CSS_SELECTOR,
-            new Value(ValueTypes::STRING, '.bar')
-        );
-
         $page = new Page(
             new Uri('http://example.com/'),
-            [
-                'foo' => $fooIdentifier,
-                'bar' => $barIdentifier,
-            ]
+            new IdentifierCollection([
+                (new Identifier(
+                    IdentifierTypes::CSS_SELECTOR,
+                    new Value(ValueTypes::STRING, '.foo')
+                ))->withName('foo'),
+                (new Identifier(
+                    IdentifierTypes::CSS_SELECTOR,
+                    new Value(ValueTypes::STRING, '.bar')
+                ))->withName('bar')
+            ])
         );
 
         $this->assertEquals(
             [
-                'foo',
                 'bar',
+                'foo',
             ],
             $page->getElementNames()
         );
