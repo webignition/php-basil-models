@@ -20,6 +20,5 @@ class IdentifierTypes
         self::CSS_SELECTOR,
         self::XPATH_EXPRESSION,
         self::ELEMENT_PARAMETER,
-        self::PAGE_OBJECT_PARAMETER,
     ];
 }

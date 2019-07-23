@@ -39,11 +39,6 @@ class IdentifierTest extends \PHPUnit\Framework\TestCase
                 'expectedPosition' => 3,
                 'position' => 3,
             ],
-            'object value' => [
-                'type' => IdentifierTypes::PAGE_OBJECT_PARAMETER,
-                'value' => new ObjectValue(ValueTypes::PAGE_OBJECT_PROPERTY, '$page.url', 'page', 'url'),
-                'expectedPosition' => Identifier::DEFAULT_POSITION
-            ],
         ];
     }
 
@@ -311,10 +306,6 @@ class IdentifierTest extends \PHPUnit\Framework\TestCase
                 'identifier' => new Identifier(IdentifierTypes::ELEMENT_PARAMETER, $value),
                 'expectedIsActionable' => true,
             ],
-            'page object parameter is not actionable' => [
-                'identifier' => new Identifier(IdentifierTypes::PAGE_OBJECT_PARAMETER, $value),
-                'expectedIsActionable' => false,
-            ],
         ];
     }
 
@@ -345,10 +336,6 @@ class IdentifierTest extends \PHPUnit\Framework\TestCase
             ],
             'element parameter is not assertable' => [
                 'identifier' => new Identifier(IdentifierTypes::ELEMENT_PARAMETER, $value),
-                'expectedIsAssertable' => true,
-            ],
-            'page object parameter is assertable' => [
-                'identifier' => new Identifier(IdentifierTypes::PAGE_OBJECT_PARAMETER, $value),
                 'expectedIsAssertable' => true,
             ],
         ];
