@@ -315,10 +315,6 @@ class IdentifierTest extends \PHPUnit\Framework\TestCase
                 'identifier' => new Identifier(IdentifierTypes::PAGE_OBJECT_PARAMETER, $value),
                 'expectedIsActionable' => false,
             ],
-            'browser object parameter is not actionable' => [
-                'identifier' => new Identifier(IdentifierTypes::BROWSER_OBJECT_PARAMETER, $value),
-                'expectedIsActionable' => false,
-            ],
         ];
     }
 
@@ -353,10 +349,6 @@ class IdentifierTest extends \PHPUnit\Framework\TestCase
             ],
             'page object parameter is assertable' => [
                 'identifier' => new Identifier(IdentifierTypes::PAGE_OBJECT_PARAMETER, $value),
-                'expectedIsAssertable' => true,
-            ],
-            'browser object parameter is assertable' => [
-                'identifier' => new Identifier(IdentifierTypes::BROWSER_OBJECT_PARAMETER, $value),
                 'expectedIsAssertable' => true,
             ],
         ];
