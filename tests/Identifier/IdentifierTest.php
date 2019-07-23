@@ -159,44 +159,6 @@ class IdentifierTest extends \PHPUnit\Framework\TestCase
                 ),
                 'expectedString' => 'page_model.elements.element_name:2',
             ],
-            'element parameter, position null' => [
-                'identifier' => new Identifier(
-                    IdentifierTypes::ELEMENT_PARAMETER,
-                    new ObjectValue(
-                        ValueTypes::ELEMENT_PARAMETER,
-                        '$elements.element_name',
-                        'elements',
-                        'element_name'
-                    )
-                ),
-                'expectedString' => '$elements.element_name',
-            ],
-            'element parameter, position 1' => [
-                'identifier' => new Identifier(
-                    IdentifierTypes::ELEMENT_PARAMETER,
-                    new ObjectValue(
-                        ValueTypes::ELEMENT_PARAMETER,
-                        '$elements.element_name',
-                        'elements',
-                        'element_name'
-                    ),
-                    1
-                ),
-                'expectedString' => '$elements.element_name',
-            ],
-            'element parameter, position 2' => [
-                'identifier' => new Identifier(
-                    IdentifierTypes::ELEMENT_PARAMETER,
-                    new ObjectValue(
-                        ValueTypes::ELEMENT_PARAMETER,
-                        '$elements.element_name',
-                        'elements',
-                        'element_name'
-                    ),
-                    2
-                ),
-                'expectedString' => '$elements.element_name:2',
-            ],
             'css selector with element reference, position null' => [
                 'identifier' => $cssSelectorWithElementReference,
                 'expectedString' => '"{{ parent_identifier_name }} .selector"',
@@ -302,10 +264,6 @@ class IdentifierTest extends \PHPUnit\Framework\TestCase
                 'identifier' => new Identifier(IdentifierTypes::PAGE_MODEL_ELEMENT_REFERENCE, $value),
                 'expectedIsActionable' => false,
             ],
-            'element parameter is actionable' => [
-                'identifier' => new Identifier(IdentifierTypes::ELEMENT_PARAMETER, $value),
-                'expectedIsActionable' => true,
-            ],
         ];
     }
 
@@ -333,10 +291,6 @@ class IdentifierTest extends \PHPUnit\Framework\TestCase
             'page model element reference is not assertable' => [
                 'identifier' => new Identifier(IdentifierTypes::PAGE_MODEL_ELEMENT_REFERENCE, $value),
                 'expectedIsAssertable' => false,
-            ],
-            'element parameter is not assertable' => [
-                'identifier' => new Identifier(IdentifierTypes::ELEMENT_PARAMETER, $value),
-                'expectedIsAssertable' => true,
             ],
         ];
     }
