@@ -2,31 +2,25 @@
 
 namespace webignition\BasilModel\Assertion;
 
-use webignition\BasilModel\Identifier\IdentifierInterface;
-use webignition\BasilModel\IdentifierContainerInterface;
-use webignition\BasilModel\IdentifierContainerTrait;
 use webignition\BasilModel\Value\ValueInterface;
-use webignition\BasilModel\ValueContainerInterface;
-use webignition\BasilModel\ValueContainerTrait;
 
-class Assertion implements AssertionInterface, IdentifierContainerInterface, ValueContainerInterface
+class Assertion implements AssertionInterface
 {
-    use IdentifierContainerTrait;
-    use ValueContainerTrait;
-
     private $assertionString;
+    private $examinedValue;
     private $comparison;
+    private $expectedValue;
 
     public function __construct(
         string $assertionString,
-        ?IdentifierInterface $identifier,
+        ?ValueInterface $examinedValue,
         ?string $comparison,
-        ?ValueInterface $value = null
+        ?ValueInterface $expectedValue = null
     ) {
         $this->assertionString = $assertionString;
-        $this->identifier = $identifier;
+        $this->examinedValue = $examinedValue;
         $this->comparison = $comparison;
-        $this->value = $value;
+        $this->expectedValue = $expectedValue;
     }
 
     public function getAssertionString(): string
@@ -34,8 +28,18 @@ class Assertion implements AssertionInterface, IdentifierContainerInterface, Val
         return $this->assertionString;
     }
 
+    public function getExaminedValue(): ?ValueInterface
+    {
+        return $this->examinedValue;
+    }
+
     public function getComparison(): ?string
     {
         return $this->comparison;
+    }
+
+    public function getExpectedValue(): ?ValueInterface
+    {
+        return $this->expectedValue;
     }
 }

@@ -14,6 +14,7 @@ use webignition\BasilModel\Identifier\IdentifierCollectionInterface;
 use webignition\BasilModel\Identifier\IdentifierTypes;
 use webignition\BasilModel\Step\Step;
 use webignition\BasilModel\Step\StepInterface;
+use webignition\BasilModel\Value\ElementValue;
 use webignition\BasilModel\Value\LiteralValue;
 
 class StepTest extends \PHPUnit\Framework\TestCase
@@ -61,10 +62,10 @@ class StepTest extends \PHPUnit\Framework\TestCase
                     2,
                     new Assertion(
                         '".selector" is "foo"',
-                        new Identifier(
+                        new ElementValue(new Identifier(
                             IdentifierTypes::CSS_SELECTOR,
                             new LiteralValue('.selector')
-                        ),
+                        )),
                         AssertionComparisons::IS
                     ),
                 ],
@@ -74,10 +75,10 @@ class StepTest extends \PHPUnit\Framework\TestCase
                 'expectedAssertions' => [
                     new Assertion(
                         '".selector" is "foo"',
-                        new Identifier(
+                        new ElementValue(new Identifier(
                             IdentifierTypes::CSS_SELECTOR,
                             new LiteralValue('.selector')
-                        ),
+                        )),
                         AssertionComparisons::IS
                     ),
                 ],
