@@ -2,7 +2,6 @@
 
 namespace webignition\BasilModel\Tests\Action;
 
-use webignition\BasilModel\Action\ActionTypes;
 use webignition\BasilModel\Action\UnrecognisedAction;
 
 class UnrecognisedActionTest extends \PHPUnit\Framework\TestCase
@@ -14,5 +13,6 @@ class UnrecognisedActionTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('foo', $action->getType());
         $this->assertSame('', $action->getArguments());
         $this->assertFalse($action->isRecognised());
+        $this->assertSame('foo', $action->getActionString());
     }
 }

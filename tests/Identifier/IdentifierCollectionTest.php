@@ -7,8 +7,7 @@ use webignition\BasilModel\Identifier\Identifier;
 use webignition\BasilModel\Identifier\IdentifierCollection;
 use webignition\BasilModel\Identifier\IdentifierCollectionInterface;
 use webignition\BasilModel\Identifier\IdentifierTypes;
-use webignition\BasilModel\Value\Value;
-use webignition\BasilModel\Value\ValueTypes;
+use webignition\BasilModel\Value\LiteralValue;
 
 class IdentifierCollectionTest extends \PHPUnit\Framework\TestCase
 {
@@ -35,25 +34,25 @@ class IdentifierCollectionTest extends \PHPUnit\Framework\TestCase
             ],
             'invalid, lacking names' => [
                 'identifiers' => [
-                    new Identifier(IdentifierTypes::CSS_SELECTOR, new Value(ValueTypes::STRING, '.heading')),
-                    new Identifier(IdentifierTypes::XPATH_EXPRESSION, new Value(ValueTypes::STRING, '//button')),
+                    new Identifier(IdentifierTypes::CSS_SELECTOR, new LiteralValue('.heading')),
+                    new Identifier(IdentifierTypes::XPATH_EXPRESSION, new LiteralValue('//button')),
                 ],
                 'expectedIdentifierCollection' => new IdentifierCollection([
-                    new Identifier(IdentifierTypes::CSS_SELECTOR, new Value(ValueTypes::STRING, '.heading')),
-                    new Identifier(IdentifierTypes::XPATH_EXPRESSION, new Value(ValueTypes::STRING, '//button')),
+                    new Identifier(IdentifierTypes::CSS_SELECTOR, new LiteralValue('.heading')),
+                    new Identifier(IdentifierTypes::XPATH_EXPRESSION, new LiteralValue('//button')),
                 ]),
             ],
             'valid' => [
                 'identifiers' => [
                     new Identifier(
                         IdentifierTypes::CSS_SELECTOR,
-                        new Value(ValueTypes::STRING, '.heading'),
+                        new LiteralValue('.heading'),
                         1,
                         'heading'
                     ),
                     new Identifier(
                         IdentifierTypes::XPATH_EXPRESSION,
-                        new Value(ValueTypes::STRING, '//button'),
+                        new LiteralValue('//button'),
                         1,
                         'button'
                     ),
@@ -61,13 +60,13 @@ class IdentifierCollectionTest extends \PHPUnit\Framework\TestCase
                 'expectedIdentifierCollection' => new IdentifierCollection([
                     new Identifier(
                         IdentifierTypes::CSS_SELECTOR,
-                        new Value(ValueTypes::STRING, '.heading'),
+                        new LiteralValue('.heading'),
                         1,
                         'heading'
                     ),
                     new Identifier(
                         IdentifierTypes::XPATH_EXPRESSION,
-                        new Value(ValueTypes::STRING, '//button'),
+                        new LiteralValue('//button'),
                         1,
                         'button'
                     ),
@@ -80,14 +79,14 @@ class IdentifierCollectionTest extends \PHPUnit\Framework\TestCase
     {
         $headingIdentifier = new Identifier(
             IdentifierTypes::CSS_SELECTOR,
-            new Value(ValueTypes::STRING, '.heading'),
+            new LiteralValue('.heading'),
             1,
             'heading'
         );
 
         $buttonIdentifier = new Identifier(
             IdentifierTypes::XPATH_EXPRESSION,
-            new Value(ValueTypes::STRING, '//button'),
+            new LiteralValue('//button'),
             1,
             'button'
         );
@@ -106,14 +105,14 @@ class IdentifierCollectionTest extends \PHPUnit\Framework\TestCase
     {
         $headingIdentifier = new Identifier(
             IdentifierTypes::CSS_SELECTOR,
-            new Value(ValueTypes::STRING, '.heading'),
+            new LiteralValue('.heading'),
             1,
             'heading'
         );
 
         $buttonIdentifier = new Identifier(
             IdentifierTypes::XPATH_EXPRESSION,
-            new Value(ValueTypes::STRING, '//button'),
+            new LiteralValue('//button'),
             1,
             'button'
         );

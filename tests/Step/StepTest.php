@@ -14,8 +14,7 @@ use webignition\BasilModel\Identifier\IdentifierCollectionInterface;
 use webignition\BasilModel\Identifier\IdentifierTypes;
 use webignition\BasilModel\Step\Step;
 use webignition\BasilModel\Step\StepInterface;
-use webignition\BasilModel\Value\Value;
-use webignition\BasilModel\Value\ValueTypes;
+use webignition\BasilModel\Value\LiteralValue;
 
 class StepTest extends \PHPUnit\Framework\TestCase
 {
@@ -54,7 +53,7 @@ class StepTest extends \PHPUnit\Framework\TestCase
             'has actions, has assertions, some not correct types' => [
                 'actions' => [
                     'foo',
-                    new WaitAction('wait 5', new Value(ValueTypes::STRING, '5')),
+                    new WaitAction('wait 5', new LiteralValue('5')),
                     'bar',
                 ],
                 'assertions' => [
@@ -64,20 +63,20 @@ class StepTest extends \PHPUnit\Framework\TestCase
                         '".selector" is "foo"',
                         new Identifier(
                             IdentifierTypes::CSS_SELECTOR,
-                            new Value(ValueTypes::STRING, '.selector')
+                            new LiteralValue('.selector')
                         ),
                         AssertionComparisons::IS
                     ),
                 ],
                 'expectedActions' => [
-                    new WaitAction('wait 5', new Value(ValueTypes::STRING, '5')),
+                    new WaitAction('wait 5', new LiteralValue('5')),
                 ],
                 'expectedAssertions' => [
                     new Assertion(
                         '".selector" is "foo"',
                         new Identifier(
                             IdentifierTypes::CSS_SELECTOR,
-                            new Value(ValueTypes::STRING, '.selector')
+                            new LiteralValue('.selector')
                         ),
                         AssertionComparisons::IS
                     ),
@@ -136,13 +135,13 @@ class StepTest extends \PHPUnit\Framework\TestCase
                 'identifierCollection' => new IdentifierCollection([
                     'input' => new Identifier(
                         IdentifierTypes::CSS_SELECTOR,
-                        new Value(ValueTypes::STRING, '.input')
+                        new LiteralValue('.input')
                     ),
                 ]),
                 'expectedIdentifierCollection' => new IdentifierCollection([
                     'input' => new Identifier(
                         IdentifierTypes::CSS_SELECTOR,
-                        new Value(ValueTypes::STRING, '.input')
+                        new LiteralValue('.input')
                     ),
                 ]),
             ],
@@ -150,7 +149,7 @@ class StepTest extends \PHPUnit\Framework\TestCase
                 'step' => (new Step([], []))->withIdentifierCollection(new IdentifierCollection([
                     'input' => new Identifier(
                         IdentifierTypes::CSS_SELECTOR,
-                        new Value(ValueTypes::STRING, '.input')
+                        new LiteralValue('.input')
                     ),
                 ])),
                 'identifierCollection' => new IdentifierCollection(),
@@ -160,19 +159,19 @@ class StepTest extends \PHPUnit\Framework\TestCase
                 'step' => (new Step([], []))->withIdentifierCollection(new IdentifierCollection([
                     'input' => new Identifier(
                         IdentifierTypes::CSS_SELECTOR,
-                        new Value(ValueTypes::STRING, '.input')
+                        new LiteralValue('.input')
                     ),
                 ])),
                 'identifierCollection' => new IdentifierCollection([
                     'button' => new Identifier(
                         IdentifierTypes::CSS_SELECTOR,
-                        new Value(ValueTypes::STRING, '.button')
+                        new LiteralValue('.button')
                     ),
                 ]),
                 'expectedIdentifierCollection' => new IdentifierCollection([
                     'button' => new Identifier(
                         IdentifierTypes::CSS_SELECTOR,
-                        new Value(ValueTypes::STRING, '.button')
+                        new LiteralValue('.button')
                     ),
                 ]),
             ],
@@ -199,32 +198,32 @@ class StepTest extends \PHPUnit\Framework\TestCase
             ],
             'step has actions, empty prepended actions' => [
                 'step' => new Step([
-                    new WaitAction('wait 1', new Value(ValueTypes::STRING, '1')),
+                    new WaitAction('wait 1', new LiteralValue('1')),
                 ], []),
                 'actions' => [],
                 'expectedStep' => new Step([
-                    new WaitAction('wait 1', new Value(ValueTypes::STRING, '1')),
+                    new WaitAction('wait 1', new LiteralValue('1')),
                 ], []),
             ],
             'step has no actions, non-empty prepended actions' => [
                 'step' => new Step([], []),
                 'actions' => [
-                    new WaitAction('wait 2', new Value(ValueTypes::STRING, '2')),
+                    new WaitAction('wait 2', new LiteralValue('2')),
                 ],
                 'expectedStep' => new Step([
-                    new WaitAction('wait 2', new Value(ValueTypes::STRING, '2')),
+                    new WaitAction('wait 2', new LiteralValue('2')),
                 ], []),
             ],
             'step has actions, non-empty prepended actions' => [
                 'step' => new Step([
-                    new WaitAction('wait 1', new Value(ValueTypes::STRING, '1')),
+                    new WaitAction('wait 1', new LiteralValue('1')),
                 ], []),
                 'actions' => [
-                    new WaitAction('wait 2', new Value(ValueTypes::STRING, '2')),
+                    new WaitAction('wait 2', new LiteralValue('2')),
                 ],
                 'expectedStep' => new Step([
-                    new WaitAction('wait 2', new Value(ValueTypes::STRING, '2')),
-                    new WaitAction('wait 1', new Value(ValueTypes::STRING, '1')),
+                    new WaitAction('wait 2', new LiteralValue('2')),
+                    new WaitAction('wait 1', new LiteralValue('1')),
                 ], []),
             ],
             'step assertions are retained' => [
@@ -259,20 +258,14 @@ class StepTest extends \PHPUnit\Framework\TestCase
                 'step' => (new Step([], []))->withIdentifierCollection(new IdentifierCollection([
                     'heading1' => new Identifier(
                         IdentifierTypes::CSS_SELECTOR,
-                        new Value(
-                            ValueTypes::STRING,
-                            '.heading1'
-                        )
+                        new LiteralValue('.heading1')
                     )
                 ])),
                 'actions' => [],
                 'expectedStep' => (new Step([], []))->withIdentifierCollection(new IdentifierCollection([
                     'heading1' => new Identifier(
                         IdentifierTypes::CSS_SELECTOR,
-                        new Value(
-                            ValueTypes::STRING,
-                            '.heading1'
-                        )
+                        new LiteralValue('.heading1')
                     )
                 ])),
             ],
@@ -329,11 +322,11 @@ class StepTest extends \PHPUnit\Framework\TestCase
             ],
             'step actions are retained' => [
                 'step' => new Step([
-                    new WaitAction('wait 1', new Value(ValueTypes::STRING, '1')),
+                    new WaitAction('wait 1', new LiteralValue('1')),
                 ], []),
                 'assertions' => [],
                 'expectedStep' => new Step([
-                    new WaitAction('wait 1', new Value(ValueTypes::STRING, '1')),
+                    new WaitAction('wait 1', new LiteralValue('1')),
                 ], []),
             ],
             'step data sets are retained' => [
@@ -359,20 +352,14 @@ class StepTest extends \PHPUnit\Framework\TestCase
                 'step' => (new Step([], []))->withIdentifierCollection(new IdentifierCollection([
                     'heading1' => new Identifier(
                         IdentifierTypes::CSS_SELECTOR,
-                        new Value(
-                            ValueTypes::STRING,
-                            '.heading1'
-                        )
+                        new LiteralValue('.heading1')
                     )
                 ])),
                 'assertions' => [],
                 'expectedStep' => (new Step([], []))->withIdentifierCollection(new IdentifierCollection([
                     'heading1' => new Identifier(
                         IdentifierTypes::CSS_SELECTOR,
-                        new Value(
-                            ValueTypes::STRING,
-                            '.heading1'
-                        )
+                        new LiteralValue('.heading1')
                     )
                 ])),
             ],
@@ -399,22 +386,22 @@ class StepTest extends \PHPUnit\Framework\TestCase
             ],
             'has initial actions, no actions' => [
                 'step' => new Step([
-                    new WaitAction('wait 1', new Value(ValueTypes::STRING, '1')),
+                    new WaitAction('wait 1', new LiteralValue('1')),
                 ], []),
                 'actions' => [],
             ],
             'no initial actions, has actions' => [
                 'step' => new Step([], []),
                 'actions' => [
-                    new WaitAction('wait 1', new Value(ValueTypes::STRING, '1')),
+                    new WaitAction('wait 1', new LiteralValue('1')),
                 ],
             ],
             'has initial actions, has actions' => [
                 'step' => new Step([
-                    new WaitAction('wait 1', new Value(ValueTypes::STRING, '1')),
+                    new WaitAction('wait 1', new LiteralValue('1')),
                 ], []),
                 'actions' => [
-                    new WaitAction('wait 2', new Value(ValueTypes::STRING, '2')),
+                    new WaitAction('wait 2', new LiteralValue('2')),
                 ],
             ],
         ];
