@@ -7,9 +7,7 @@ use webignition\BasilModel\Identifier\Identifier;
 use webignition\BasilModel\Identifier\IdentifierInterface;
 use webignition\BasilModel\Identifier\IdentifierTypes;
 use webignition\BasilModel\Value\LiteralValue;
-use webignition\BasilModel\Value\ObjectValue;
 use webignition\BasilModel\Value\ValueInterface;
-use webignition\BasilModel\Value\ValueTypes;
 
 class IdentifierTest extends \PHPUnit\Framework\TestCase
 {
@@ -197,54 +195,6 @@ class IdentifierTest extends \PHPUnit\Framework\TestCase
                     null,
                     'new identifier name'
                 ),
-            ],
-        ];
-    }
-
-    /**
-     * @dataProvider isActionableDataProvider
-     */
-    public function testIsActionable(IdentifierInterface $identifier, bool $expectedIsActionable)
-    {
-        $this->assertSame($expectedIsActionable, $identifier->isActionable());
-    }
-
-    public function isActionableDataProvider(): array
-    {
-        $value = new LiteralValue('');
-
-        return [
-            'css selector is actionable' => [
-                'identifier' => new Identifier(IdentifierTypes::CSS_SELECTOR, $value),
-                'expectedIsActionable' => true,
-            ],
-            'xpath expression is actionable' => [
-                'identifier' => new Identifier(IdentifierTypes::XPATH_EXPRESSION, $value),
-                'expectedIsActionable' => true,
-            ],
-        ];
-    }
-
-    /**
-     * @dataProvider isAssertableDataProvider
-     */
-    public function testIsAssertable(IdentifierInterface $identifier, bool $expectedIsActionable)
-    {
-        $this->assertSame($expectedIsActionable, $identifier->isAssertable());
-    }
-
-    public function isAssertableDataProvider(): array
-    {
-        $value = new LiteralValue('');
-
-        return [
-            'css selector is assertable' => [
-                'identifier' => new Identifier(IdentifierTypes::CSS_SELECTOR, $value),
-                'expectedIsAssertable' => true,
-            ],
-            'xpath expression is assertable' => [
-                'identifier' => new Identifier(IdentifierTypes::XPATH_EXPRESSION, $value),
-                'expectedIsAssertable' => true,
             ],
         ];
     }
