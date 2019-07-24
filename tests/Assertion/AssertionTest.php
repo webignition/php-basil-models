@@ -22,7 +22,7 @@ class AssertionTest extends \PHPUnit\Framework\TestCase
         $examinedValue = new ElementValue($identifier);
 
         $comparison = AssertionComparisons::IS;
-        $expectedValue = new LiteralValue('foo');
+        $expectedValue = LiteralValue::createStringValue('foo');
 
         $assertion = new Assertion($assertionString, $examinedValue, $comparison, $expectedValue);
 
