@@ -79,7 +79,7 @@ class PendingImportResolutionStepTest extends \PHPUnit\Framework\TestCase
                             '".selector" exists',
                             new ElementValue(new ElementIdentifier(
                                 IdentifierTypes::CSS_SELECTOR,
-                                '.selector'
+                                LiteralValue::createCssSelectorValue('.selector')
                             )),
                             AssertionComparisons::EXISTS
                         ),
@@ -97,7 +97,7 @@ class PendingImportResolutionStepTest extends \PHPUnit\Framework\TestCase
                                 '".selector" exists',
                                 new ElementValue(new ElementIdentifier(
                                     IdentifierTypes::CSS_SELECTOR,
-                                    '.selector'
+                                    LiteralValue::createCssSelectorValue('.selector')
                                 )),
                                 AssertionComparisons::EXISTS
                             ),

@@ -6,6 +6,7 @@ namespace webignition\BasilModel\Tests\Value;
 use webignition\BasilModel\Identifier\ElementIdentifier;
 use webignition\BasilModel\Identifier\IdentifierTypes;
 use webignition\BasilModel\Value\ElementValue;
+use webignition\BasilModel\Value\LiteralValue;
 use webignition\BasilModel\Value\ValueTypes;
 
 class ElementValueTest extends \PHPUnit\Framework\TestCase
@@ -14,7 +15,7 @@ class ElementValueTest extends \PHPUnit\Framework\TestCase
     {
         $identifier = new ElementIdentifier(
             IdentifierTypes::CSS_SELECTOR,
-            '.selector'
+            LiteralValue::createCssSelectorValue('.selector')
         );
 
         $value = new ElementValue($identifier);
