@@ -5,7 +5,6 @@ namespace webignition\BasilModel\Tests\Action;
 use webignition\BasilModel\Action\ActionTypes;
 use webignition\BasilModel\Action\InteractionAction;
 use webignition\BasilModel\Identifier\ElementIdentifier;
-use webignition\BasilModel\Identifier\IdentifierTypes;
 use webignition\BasilModel\Value\LiteralValue;
 
 class InteractionActionTest extends \PHPUnit\Framework\TestCase
@@ -13,10 +12,7 @@ class InteractionActionTest extends \PHPUnit\Framework\TestCase
     public function testCreate()
     {
         $type = ActionTypes::CLICK;
-        $identifier = new ElementIdentifier(
-            IdentifierTypes::CSS_SELECTOR,
-            LiteralValue::createCssSelectorValue('.selector')
-        );
+        $identifier = new ElementIdentifier(LiteralValue::createCssSelectorValue('.selector'));
 
         $action = new InteractionAction(
             'click ".selector"',
@@ -34,15 +30,9 @@ class InteractionActionTest extends \PHPUnit\Framework\TestCase
 
     public function testWithIdentifier()
     {
-        $originalIdentifier = new ElementIdentifier(
-            IdentifierTypes::CSS_SELECTOR,
-            LiteralValue::createCssSelectorValue('.original')
-        );
+        $originalIdentifier = new ElementIdentifier(LiteralValue::createCssSelectorValue('.original'));
 
-        $newIdentifier = new ElementIdentifier(
-            IdentifierTypes::CSS_SELECTOR,
-            LiteralValue::createCssSelectorValue('.new')
-        );
+        $newIdentifier = new ElementIdentifier(LiteralValue::createCssSelectorValue('.new'));
 
         $action = new InteractionAction(
             'click ".original"',

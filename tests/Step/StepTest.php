@@ -11,7 +11,6 @@ use webignition\BasilModel\DataSet\DataSetCollection;
 use webignition\BasilModel\Identifier\ElementIdentifier;
 use webignition\BasilModel\Identifier\IdentifierCollection;
 use webignition\BasilModel\Identifier\IdentifierCollectionInterface;
-use webignition\BasilModel\Identifier\IdentifierTypes;
 use webignition\BasilModel\Step\Step;
 use webignition\BasilModel\Step\StepInterface;
 use webignition\BasilModel\Value\ElementValue;
@@ -63,7 +62,6 @@ class StepTest extends \PHPUnit\Framework\TestCase
                     new Assertion(
                         '".selector" is "foo"',
                         new ElementValue(new ElementIdentifier(
-                            IdentifierTypes::CSS_SELECTOR,
                             LiteralValue::createCssSelectorValue('.selector')
                         )),
                         AssertionComparisons::IS
@@ -76,7 +74,6 @@ class StepTest extends \PHPUnit\Framework\TestCase
                     new Assertion(
                         '".selector" is "foo"',
                         new ElementValue(new ElementIdentifier(
-                            IdentifierTypes::CSS_SELECTOR,
                             LiteralValue::createCssSelectorValue('.selector')
                         )),
                         AssertionComparisons::IS
@@ -134,46 +131,28 @@ class StepTest extends \PHPUnit\Framework\TestCase
             'no existing identifier collection, non-empty identifier collection' => [
                 'step' => new Step([], []),
                 'identifierCollection' => new IdentifierCollection([
-                    'input' => new ElementIdentifier(
-                        IdentifierTypes::CSS_SELECTOR,
-                        LiteralValue::createCssSelectorValue('.input')
-                    ),
+                    'input' => new ElementIdentifier(LiteralValue::createCssSelectorValue('.input')),
                 ]),
                 'expectedIdentifierCollection' => new IdentifierCollection([
-                    'input' => new ElementIdentifier(
-                        IdentifierTypes::CSS_SELECTOR,
-                        LiteralValue::createCssSelectorValue('.input')
-                    ),
+                    'input' => new ElementIdentifier(LiteralValue::createCssSelectorValue('.input')),
                 ]),
             ],
             'has existing identifier collection, empty identifier collection' => [
                 'step' => (new Step([], []))->withIdentifierCollection(new IdentifierCollection([
-                    'input' => new ElementIdentifier(
-                        IdentifierTypes::CSS_SELECTOR,
-                        LiteralValue::createCssSelectorValue('.input')
-                    ),
+                    'input' => new ElementIdentifier(LiteralValue::createCssSelectorValue('.input')),
                 ])),
                 'identifierCollection' => new IdentifierCollection(),
                 'expectedIdentifierCollection' => new IdentifierCollection(),
             ],
             'has existing identifier collection, non-empty identifier collection' => [
                 'step' => (new Step([], []))->withIdentifierCollection(new IdentifierCollection([
-                    'input' => new ElementIdentifier(
-                        IdentifierTypes::CSS_SELECTOR,
-                        LiteralValue::createCssSelectorValue('.input')
-                    ),
+                    'input' => new ElementIdentifier(LiteralValue::createCssSelectorValue('.input')),
                 ])),
                 'identifierCollection' => new IdentifierCollection([
-                    'button' => new ElementIdentifier(
-                        IdentifierTypes::CSS_SELECTOR,
-                        LiteralValue::createCssSelectorValue('.button')
-                    ),
+                    'button' => new ElementIdentifier(LiteralValue::createCssSelectorValue('.button')),
                 ]),
                 'expectedIdentifierCollection' => new IdentifierCollection([
-                    'button' => new ElementIdentifier(
-                        IdentifierTypes::CSS_SELECTOR,
-                        LiteralValue::createCssSelectorValue('.button')
-                    ),
+                    'button' => new ElementIdentifier(LiteralValue::createCssSelectorValue('.button')),
                 ]),
             ],
         ];
@@ -257,17 +236,11 @@ class StepTest extends \PHPUnit\Framework\TestCase
             ],
             'step identifier collection is retained' => [
                 'step' => (new Step([], []))->withIdentifierCollection(new IdentifierCollection([
-                    'heading1' => new ElementIdentifier(
-                        IdentifierTypes::CSS_SELECTOR,
-                        LiteralValue::createCssSelectorValue('.heading1')
-                    )
+                    'heading1' => new ElementIdentifier(LiteralValue::createCssSelectorValue('.heading1'))
                 ])),
                 'actions' => [],
                 'expectedStep' => (new Step([], []))->withIdentifierCollection(new IdentifierCollection([
-                    'heading1' => new ElementIdentifier(
-                        IdentifierTypes::CSS_SELECTOR,
-                        LiteralValue::createCssSelectorValue('.heading1')
-                    )
+                    'heading1' => new ElementIdentifier(LiteralValue::createCssSelectorValue('.heading1'))
                 ])),
             ],
         ];
@@ -351,17 +324,11 @@ class StepTest extends \PHPUnit\Framework\TestCase
             ],
             'step identifier collection is retained' => [
                 'step' => (new Step([], []))->withIdentifierCollection(new IdentifierCollection([
-                    'heading1' => new ElementIdentifier(
-                        IdentifierTypes::CSS_SELECTOR,
-                        LiteralValue::createCssSelectorValue('.heading1')
-                    )
+                    'heading1' => new ElementIdentifier(LiteralValue::createCssSelectorValue('.heading1'))
                 ])),
                 'assertions' => [],
                 'expectedStep' => (new Step([], []))->withIdentifierCollection(new IdentifierCollection([
-                    'heading1' => new ElementIdentifier(
-                        IdentifierTypes::CSS_SELECTOR,
-                        LiteralValue::createCssSelectorValue('.heading1')
-                    )
+                    'heading1' => new ElementIdentifier(LiteralValue::createCssSelectorValue('.heading1'))
                 ])),
             ],
         ];

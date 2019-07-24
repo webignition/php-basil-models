@@ -6,7 +6,6 @@ namespace webignition\BasilModel\Tests\Identifier;
 use webignition\BasilModel\Identifier\ElementIdentifier;
 use webignition\BasilModel\Identifier\IdentifierCollection;
 use webignition\BasilModel\Identifier\IdentifierCollectionInterface;
-use webignition\BasilModel\Identifier\IdentifierTypes;
 use webignition\BasilModel\Value\LiteralValue;
 
 class IdentifierCollectionTest extends \PHPUnit\Framework\TestCase
@@ -34,36 +33,22 @@ class IdentifierCollectionTest extends \PHPUnit\Framework\TestCase
             ],
             'invalid, lacking names' => [
                 'identifiers' => [
-                    new ElementIdentifier(
-                        IdentifierTypes::CSS_SELECTOR,
-                        LiteralValue::createStringValue('.heading')
-                    ),
-                    new ElementIdentifier(
-                        IdentifierTypes::XPATH_EXPRESSION,
-                        LiteralValue::createXpathExpressionValue('//button')
-                    ),
+                    new ElementIdentifier(LiteralValue::createStringValue('.heading')),
+                    new ElementIdentifier(LiteralValue::createXpathExpressionValue('//button')),
                 ],
                 'expectedIdentifierCollection' => new IdentifierCollection([
-                    new ElementIdentifier(
-                        IdentifierTypes::CSS_SELECTOR,
-                        LiteralValue::createStringValue('.heading')
-                    ),
-                    new ElementIdentifier(
-                        IdentifierTypes::XPATH_EXPRESSION,
-                        LiteralValue::createXpathExpressionValue('//button')
-                    ),
+                    new ElementIdentifier(LiteralValue::createStringValue('.heading')),
+                    new ElementIdentifier(LiteralValue::createXpathExpressionValue('//button')),
                 ]),
             ],
             'valid' => [
                 'identifiers' => [
                     new ElementIdentifier(
-                        IdentifierTypes::CSS_SELECTOR,
                         LiteralValue::createStringValue('.heading'),
                         1,
                         'heading'
                     ),
                     new ElementIdentifier(
-                        IdentifierTypes::XPATH_EXPRESSION,
                         LiteralValue::createXpathExpressionValue('//button'),
                         1,
                         'button'
@@ -71,13 +56,11 @@ class IdentifierCollectionTest extends \PHPUnit\Framework\TestCase
                 ],
                 'expectedIdentifierCollection' => new IdentifierCollection([
                     new ElementIdentifier(
-                        IdentifierTypes::CSS_SELECTOR,
                         LiteralValue::createStringValue('.heading'),
                         1,
                         'heading'
                     ),
                     new ElementIdentifier(
-                        IdentifierTypes::XPATH_EXPRESSION,
                         LiteralValue::createXpathExpressionValue('//button'),
                         1,
                         'button'
@@ -90,14 +73,12 @@ class IdentifierCollectionTest extends \PHPUnit\Framework\TestCase
     public function testGetIdentifier()
     {
         $headingIdentifier = new ElementIdentifier(
-            IdentifierTypes::CSS_SELECTOR,
             LiteralValue::createStringValue('.heading'),
             1,
             'heading'
         );
 
         $buttonIdentifier = new ElementIdentifier(
-            IdentifierTypes::XPATH_EXPRESSION,
             LiteralValue::createXpathExpressionValue('//button'),
             1,
             'button'
@@ -116,14 +97,12 @@ class IdentifierCollectionTest extends \PHPUnit\Framework\TestCase
     public function testIterator()
     {
         $headingIdentifier = new ElementIdentifier(
-            IdentifierTypes::CSS_SELECTOR,
             LiteralValue::createStringValue('.heading'),
             1,
             'heading'
         );
 
         $buttonIdentifier = new ElementIdentifier(
-            IdentifierTypes::XPATH_EXPRESSION,
             LiteralValue::createXpathExpressionValue('//button'),
             1,
             'button'
