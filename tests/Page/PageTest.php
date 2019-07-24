@@ -5,7 +5,7 @@ namespace webignition\BasilModel\Tests\Page;
 
 use Nyholm\Psr7\Uri;
 use Psr\Http\Message\UriInterface;
-use webignition\BasilModel\Identifier\Identifier;
+use webignition\BasilModel\Identifier\ElementIdentifier;
 use webignition\BasilModel\Identifier\IdentifierCollection;
 use webignition\BasilModel\Identifier\IdentifierCollectionInterface;
 use webignition\BasilModel\Identifier\IdentifierTypes;
@@ -37,7 +37,7 @@ class PageTest extends \PHPUnit\Framework\TestCase
             'valid elements' => [
                 'uri' => new Uri('http://example.com/'),
                 'identifierCollection' => new IdentifierCollection([
-                    (new Identifier(
+                    (new ElementIdentifier(
                         IdentifierTypes::CSS_SELECTOR,
                         '.foo'
                     ))->withName('foo'),
@@ -45,7 +45,7 @@ class PageTest extends \PHPUnit\Framework\TestCase
                 'expectedPage' => new Page(
                     new Uri('http://example.com/'),
                     new IdentifierCollection([
-                        (new Identifier(
+                        (new ElementIdentifier(
                             IdentifierTypes::CSS_SELECTOR,
                             '.foo'
                         ))->withName('foo'),
@@ -68,11 +68,11 @@ class PageTest extends \PHPUnit\Framework\TestCase
         $page = new Page(
             new Uri('http://example.com/'),
             new IdentifierCollection([
-                (new Identifier(
+                (new ElementIdentifier(
                     IdentifierTypes::CSS_SELECTOR,
                     '.foo'
                 ))->withName('foo'),
-                (new Identifier(
+                (new ElementIdentifier(
                     IdentifierTypes::CSS_SELECTOR,
                     '.bar'
                 ))->withName('bar')

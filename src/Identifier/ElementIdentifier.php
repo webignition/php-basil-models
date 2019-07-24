@@ -2,35 +2,26 @@
 
 namespace webignition\BasilModel\Identifier;
 
-use webignition\BasilModel\Value\LiteralValue;
-
-class Identifier implements IdentifierInterface
+class ElementIdentifier extends AbstractIdentifier implements ElementIdentifierInterface
 {
     const DEFAULT_POSITION = 1;
 
-    private $type = '';
     private $value = '';
     private $position = 1;
-    private $name;
 
     /**
-     * @var IdentifierInterface
+     * @var ElementIdentifierInterface
      */
     private $parentIdentifier;
 
     public function __construct(string $type, string $value, int $position = null, string $name = null)
     {
+        parent::__construct($type, $name);
+
         $position = $position ?? self::DEFAULT_POSITION;
 
-        $this->type = $type;
         $this->value = $value;
         $this->position = $position;
-        $this->name = $name;
-    }
-
-    public function getType(): string
-    {
-        return $this->type;
     }
 
     public function getValue(): string
@@ -43,17 +34,12 @@ class Identifier implements IdentifierInterface
         return $this->position;
     }
 
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function getParentIdentifier(): ?IdentifierInterface
+    public function getParentIdentifier(): ?ElementIdentifierInterface
     {
         return $this->parentIdentifier;
     }
 
-    public function withParentIdentifier(IdentifierInterface $parentIdentifier): IdentifierInterface
+    public function withParentIdentifier(ElementIdentifierInterface $parentIdentifier): ElementIdentifierInterface
     {
         $new = clone $this;
         $new->parentIdentifier = $parentIdentifier;
@@ -61,27 +47,25 @@ class Identifier implements IdentifierInterface
         return $new;
     }
 
+    /**
+     * @param string $name
+     *
+     * @return IdentifierInterface|ElementIdentifierInterface
+     */
     public function withName(string $name): IdentifierInterface
     {
-        $new = clone $this;
-        $new->name = $name;
-
-        return $new;
+        return parent::withName($name);
     }
 
     public function __toString(): string
     {
-        if ($this->value instanceof LiteralValue) {
-            $string = $this->value->getValue();
-        } else {
-            $string = (string) $this->value;
-        }
+        $string = $this->value;
 
-        if ($this->parentIdentifier instanceof IdentifierInterface) {
+        if ($this->parentIdentifier instanceof ElementIdentifierInterface) {
             $string = '{{ ' . $this->parentIdentifier->getName() . ' }} ' . $string;
         }
 
-        if (in_array($this->type, [IdentifierTypes::CSS_SELECTOR, IdentifierTypes::XPATH_EXPRESSION])) {
+        if (in_array($this->getType(), [IdentifierTypes::CSS_SELECTOR, IdentifierTypes::XPATH_EXPRESSION])) {
             $string = '"' . $string . '"';
         }
 

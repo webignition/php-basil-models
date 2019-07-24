@@ -4,7 +4,7 @@ namespace webignition\BasilModel\Tests\Action;
 
 use webignition\BasilModel\Action\ActionTypes;
 use webignition\BasilModel\Action\InteractionAction;
-use webignition\BasilModel\Identifier\Identifier;
+use webignition\BasilModel\Identifier\ElementIdentifier;
 use webignition\BasilModel\Identifier\IdentifierTypes;
 
 class InteractionActionTest extends \PHPUnit\Framework\TestCase
@@ -12,7 +12,7 @@ class InteractionActionTest extends \PHPUnit\Framework\TestCase
     public function testCreate()
     {
         $type = ActionTypes::CLICK;
-        $identifier = new Identifier(
+        $identifier = new ElementIdentifier(
             IdentifierTypes::CSS_SELECTOR,
             '.selector'
         );
@@ -33,12 +33,12 @@ class InteractionActionTest extends \PHPUnit\Framework\TestCase
 
     public function testWithIdentifier()
     {
-        $originalIdentifier = new Identifier(
+        $originalIdentifier = new ElementIdentifier(
             IdentifierTypes::CSS_SELECTOR,
             '.original'
         );
 
-        $newIdentifier = new Identifier(
+        $newIdentifier = new ElementIdentifier(
             IdentifierTypes::CSS_SELECTOR,
             '.new'
         );

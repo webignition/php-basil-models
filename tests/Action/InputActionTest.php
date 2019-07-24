@@ -4,7 +4,7 @@ namespace webignition\BasilModel\Tests\Action;
 
 use webignition\BasilModel\Action\ActionTypes;
 use webignition\BasilModel\Action\InputAction;
-use webignition\BasilModel\Identifier\Identifier;
+use webignition\BasilModel\Identifier\ElementIdentifier;
 use webignition\BasilModel\Identifier\IdentifierTypes;
 use webignition\BasilModel\Value\LiteralValue;
 
@@ -12,7 +12,7 @@ class InputActionTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {
-        $identifier = new Identifier(
+        $identifier = new ElementIdentifier(
             IdentifierTypes::CSS_SELECTOR,
             '.selector'
         );
@@ -35,12 +35,12 @@ class InputActionTest extends \PHPUnit\Framework\TestCase
 
     public function testWithIdentifier()
     {
-        $originalIdentifier = new Identifier(
+        $originalIdentifier = new ElementIdentifier(
             IdentifierTypes::CSS_SELECTOR,
             '.original'
         );
 
-        $newIdentifier = new Identifier(
+        $newIdentifier = new ElementIdentifier(
             IdentifierTypes::CSS_SELECTOR,
             '.new'
         );
