@@ -24,6 +24,7 @@ class PageTest extends \PHPUnit\Framework\TestCase
         $page = new Page($uri, $identifierCollection);
 
         $this->assertEquals($expectedPage, $page);
+        $this->assertSame($identifierCollection, $page->getIdentifierCollection());
     }
 
     public function createDataProvider(): array
