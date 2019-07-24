@@ -22,6 +22,11 @@ class Page implements PageInterface
         return $this->uri;
     }
 
+    public function getIdentifierCollection(): IdentifierCollectionInterface
+    {
+        return $this->identifierCollection;
+    }
+
     /**
      * @return string[]
      */
