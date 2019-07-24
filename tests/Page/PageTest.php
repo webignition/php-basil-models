@@ -88,4 +88,19 @@ class PageTest extends \PHPUnit\Framework\TestCase
             $page->getElementNames()
         );
     }
+
+    public function testGetElementIdentifier()
+    {
+        $fooIdentifier = (new ElementIdentifier(
+            IdentifierTypes::CSS_SELECTOR,
+            '.foo'
+        ))->withName('foo');
+
+        $page = new Page(new Uri(''), new IdentifierCollection([
+            $fooIdentifier,
+        ]));
+
+        $this->assertSame($fooIdentifier, $page->getIdentifier('foo'));
+        $this->assertNull($page->getIdentifier('invalid'));
+    }
 }

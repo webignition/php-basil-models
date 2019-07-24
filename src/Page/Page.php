@@ -27,6 +27,11 @@ class Page implements PageInterface
         return $this->identifierCollection;
     }
 
+    public function getIdentifier(string $name): ?IdentifierInterface
+    {
+        return $this->identifierCollection->getIdentifier($name);
+    }
+
     /**
      * @return string[]
      */
