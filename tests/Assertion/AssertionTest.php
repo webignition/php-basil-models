@@ -7,6 +7,8 @@ use webignition\BasilModel\Assertion\AssertionComparisons;
 use webignition\BasilModel\Value\ElementValue;
 use webignition\BasilModel\Value\LiteralValue;
 use webignition\BasilModel\Identifier\ElementIdentifier;
+use webignition\BasilModel\Value\ObjectValue;
+use webignition\BasilModel\Value\ValueTypes;
 
 class AssertionTest extends \PHPUnit\Framework\TestCase
 {
@@ -26,5 +28,40 @@ class AssertionTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($examinedValue, $assertion->getExaminedValue());
         $this->assertSame($comparison, $assertion->getComparison());
         $this->assertSame($expectedValue, $assertion->getExpectedValue());
+    }
+
+    public function testWithExaminedValue()
+    {
+        $assertionString = 'page_import_name.elements.element_name exists';
+        $comparison = AssertionComparisons::EXISTS;
+
+        $originalExaminedValue = new ObjectValue(
+            ValueTypes::PAGE_ELEMENT_REFERENCE,
+            'page_import_name.elements.element_name',
+            'page_import_name',
+            'element_name'
+        );
+
+        $assertion = new Assertion(
+            $assertionString,
+            $originalExaminedValue,
+            $comparison
+        );
+
+        $elementValue = new ElementValue(
+            new ElementIdentifier(
+                LiteralValue::createCssSelectorValue('.selector')
+            )
+        );
+
+        $mutatedAssertion = $assertion->withExaminedValue($elementValue);
+
+        $this->assertNotSame($assertion, $mutatedAssertion);
+        $this->assertEquals($assertionString, $assertion->getAssertionString());
+        $this->assertEquals($assertionString, $mutatedAssertion->getAssertionString());
+        $this->assertEquals($comparison, $assertion->getComparison());
+        $this->assertEquals($comparison, $mutatedAssertion->getComparison());
+        $this->assertSame($originalExaminedValue, $assertion->getExaminedValue());
+        $this->assertSame($elementValue, $mutatedAssertion->getExaminedValue());
     }
 }
