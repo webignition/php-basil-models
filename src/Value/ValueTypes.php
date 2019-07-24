@@ -20,6 +20,9 @@ class ValueTypes
     // ElementValue
     const ELEMENT_IDENTIFIER = 'element-identifier';
 
+    const CSS_SELECTOR = 'css-selector';
+    const XPATH_EXPRESSION = 'xpath-expression';
+
     const ALL = [
         self::DATA_PARAMETER,
         self::STRING,
