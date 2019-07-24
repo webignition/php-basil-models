@@ -12,6 +12,8 @@ interface PageInterface
 
     public function getIdentifierCollection(): IdentifierCollectionInterface;
 
+    public function getIdentifier(string $name): ?IdentifierInterface;
+
     /**
      * @return string[]
      */
