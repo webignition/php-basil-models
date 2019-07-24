@@ -4,7 +4,7 @@ namespace webignition\BasilModel\Identifier;
 
 use webignition\BasilModel\Value\LiteralValue;
 
-class Identifier implements IdentifierInterface
+class ElementIdentifier implements ElementIdentifierInterface
 {
     const DEFAULT_POSITION = 1;
 
@@ -14,7 +14,7 @@ class Identifier implements IdentifierInterface
     private $name;
 
     /**
-     * @var IdentifierInterface
+     * @var ElementIdentifierInterface
      */
     private $parentIdentifier;
 
@@ -48,12 +48,12 @@ class Identifier implements IdentifierInterface
         return $this->name;
     }
 
-    public function getParentIdentifier(): ?IdentifierInterface
+    public function getParentIdentifier(): ?ElementIdentifierInterface
     {
         return $this->parentIdentifier;
     }
 
-    public function withParentIdentifier(IdentifierInterface $parentIdentifier): IdentifierInterface
+    public function withParentIdentifier(ElementIdentifierInterface $parentIdentifier): ElementIdentifierInterface
     {
         $new = clone $this;
         $new->parentIdentifier = $parentIdentifier;
@@ -61,7 +61,7 @@ class Identifier implements IdentifierInterface
         return $new;
     }
 
-    public function withName(string $name): IdentifierInterface
+    public function withName(string $name): ElementIdentifierInterface
     {
         $new = clone $this;
         $new->name = $name;
@@ -77,7 +77,7 @@ class Identifier implements IdentifierInterface
             $string = (string) $this->value;
         }
 
-        if ($this->parentIdentifier instanceof IdentifierInterface) {
+        if ($this->parentIdentifier instanceof ElementIdentifierInterface) {
             $string = '{{ ' . $this->parentIdentifier->getName() . ' }} ' . $string;
         }
 

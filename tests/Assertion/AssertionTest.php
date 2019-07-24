@@ -6,7 +6,7 @@ use webignition\BasilModel\Assertion\Assertion;
 use webignition\BasilModel\Assertion\AssertionComparisons;
 use webignition\BasilModel\Value\ElementValue;
 use webignition\BasilModel\Value\LiteralValue;
-use webignition\BasilModel\Identifier\Identifier;
+use webignition\BasilModel\Identifier\ElementIdentifier;
 use webignition\BasilModel\Identifier\IdentifierTypes;
 
 class AssertionTest extends \PHPUnit\Framework\TestCase
@@ -14,7 +14,7 @@ class AssertionTest extends \PHPUnit\Framework\TestCase
     public function testCreate()
     {
         $assertionString = '.selector is "foo"';
-        $identifier = new Identifier(
+        $identifier = new ElementIdentifier(
             IdentifierTypes::CSS_SELECTOR,
             '.selector'
         );
