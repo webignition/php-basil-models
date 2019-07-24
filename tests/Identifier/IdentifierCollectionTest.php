@@ -7,7 +7,6 @@ use webignition\BasilModel\Identifier\ElementIdentifier;
 use webignition\BasilModel\Identifier\IdentifierCollection;
 use webignition\BasilModel\Identifier\IdentifierCollectionInterface;
 use webignition\BasilModel\Identifier\IdentifierTypes;
-use webignition\BasilModel\Value\LiteralValue;
 
 class IdentifierCollectionTest extends \PHPUnit\Framework\TestCase
 {
