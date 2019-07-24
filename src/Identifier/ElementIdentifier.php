@@ -2,11 +2,15 @@
 
 namespace webignition\BasilModel\Identifier;
 
+use webignition\BasilModel\Value\LiteralValueInterface;
+use webignition\BasilModel\Value\ValueInterface;
+use webignition\BasilModel\Value\ValueTypes;
+
 class ElementIdentifier extends AbstractIdentifier implements ElementIdentifierInterface
 {
     const DEFAULT_POSITION = 1;
 
-    private $value = '';
+    private $value;
     private $position = 1;
 
     /**
@@ -14,7 +18,7 @@ class ElementIdentifier extends AbstractIdentifier implements ElementIdentifierI
      */
     private $parentIdentifier;
 
-    public function __construct(string $type, string $value, int $position = null, string $name = null)
+    public function __construct(string $type, LiteralValueInterface $value, int $position = null, string $name = null)
     {
         parent::__construct($type, $name);
 
@@ -24,7 +28,7 @@ class ElementIdentifier extends AbstractIdentifier implements ElementIdentifierI
         $this->position = $position;
     }
 
-    public function getValue(): string
+    public function getValue(): ValueInterface
     {
         return $this->value;
     }
@@ -59,7 +63,7 @@ class ElementIdentifier extends AbstractIdentifier implements ElementIdentifierI
 
     public function __toString(): string
     {
-        $string = $this->value;
+        $string = $this->value->getValue();
 
         if ($this->parentIdentifier instanceof ElementIdentifierInterface) {
             $string = '{{ ' . $this->parentIdentifier->getName() . ' }} ' . $string;

@@ -6,6 +6,7 @@ use webignition\BasilModel\Action\ActionTypes;
 use webignition\BasilModel\Action\InteractionAction;
 use webignition\BasilModel\Identifier\ElementIdentifier;
 use webignition\BasilModel\Identifier\IdentifierTypes;
+use webignition\BasilModel\Value\LiteralValue;
 
 class InteractionActionTest extends \PHPUnit\Framework\TestCase
 {
@@ -14,7 +15,7 @@ class InteractionActionTest extends \PHPUnit\Framework\TestCase
         $type = ActionTypes::CLICK;
         $identifier = new ElementIdentifier(
             IdentifierTypes::CSS_SELECTOR,
-            '.selector'
+            LiteralValue::createCssSelectorValue('.selector')
         );
 
         $action = new InteractionAction(
@@ -35,12 +36,12 @@ class InteractionActionTest extends \PHPUnit\Framework\TestCase
     {
         $originalIdentifier = new ElementIdentifier(
             IdentifierTypes::CSS_SELECTOR,
-            '.original'
+            LiteralValue::createCssSelectorValue('.original')
         );
 
         $newIdentifier = new ElementIdentifier(
             IdentifierTypes::CSS_SELECTOR,
-            '.new'
+            LiteralValue::createCssSelectorValue('.new')
         );
 
         $action = new InteractionAction(

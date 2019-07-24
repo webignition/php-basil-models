@@ -6,6 +6,8 @@ class ValueTypes
 {
     // LiteralValue
     const STRING = 'string';
+    const CSS_SELECTOR = 'css-selector';
+    const XPATH_EXPRESSION = 'xpath-expression';
 
     // ObjectValue
     const DATA_PARAMETER = 'data-parameter';
@@ -19,9 +21,6 @@ class ValueTypes
 
     // ElementValue
     const ELEMENT_IDENTIFIER = 'element-identifier';
-
-    const CSS_SELECTOR = 'css-selector';
-    const XPATH_EXPRESSION = 'xpath-expression';
 
     const ALL = [
         self::DATA_PARAMETER,

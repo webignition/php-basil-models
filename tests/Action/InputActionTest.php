@@ -14,7 +14,7 @@ class InputActionTest extends \PHPUnit\Framework\TestCase
     {
         $identifier = new ElementIdentifier(
             IdentifierTypes::CSS_SELECTOR,
-            '.selector'
+            LiteralValue::createCssSelectorValue('.selector')
         );
         $value = LiteralValue::createCssSelectorValue('.foo');
 
@@ -37,12 +37,12 @@ class InputActionTest extends \PHPUnit\Framework\TestCase
     {
         $originalIdentifier = new ElementIdentifier(
             IdentifierTypes::CSS_SELECTOR,
-            '.original'
+            LiteralValue::createCssSelectorValue('.original')
         );
 
         $newIdentifier = new ElementIdentifier(
             IdentifierTypes::CSS_SELECTOR,
-            '.new'
+            LiteralValue::createCssSelectorValue('.new')
         );
 
         $action = new InputAction(

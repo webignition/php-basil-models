@@ -6,13 +6,15 @@ namespace webignition\BasilModel\Tests\Identifier;
 use webignition\BasilModel\Identifier\ElementIdentifier;
 use webignition\BasilModel\Identifier\ElementIdentifierInterface;
 use webignition\BasilModel\Identifier\IdentifierTypes;
+use webignition\BasilModel\Value\LiteralValue;
+use webignition\BasilModel\Value\LiteralValueInterface;
 
 class ElementIdentifierTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @dataProvider createDataProvider
      */
-    public function testCreate(string $type, string $value, int $expectedPosition, ?int $position = null)
+    public function testCreate(string $type, LiteralValueInterface $value, int $expectedPosition, ?int $position = null)
     {
         $identifier = new ElementIdentifier($type, $value, $position);
 
@@ -26,12 +28,12 @@ class ElementIdentifierTest extends \PHPUnit\Framework\TestCase
         return [
             'string value, no explicit position' => [
                 'type' => IdentifierTypes::CSS_SELECTOR,
-                'value' => '.selector',
+                'value' => LiteralValue::createCssSelectorValue('.selector'),
                 'expectedPosition' => ElementIdentifier::DEFAULT_POSITION,
             ],
             'string value, has explicit position' => [
                 'type' => IdentifierTypes::CSS_SELECTOR,
-                'value' => '.selector',
+                'value' => LiteralValue::createCssSelectorValue('.selector'),
                 'expectedPosition' => 3,
                 'position' => 3,
             ],
@@ -42,14 +44,14 @@ class ElementIdentifierTest extends \PHPUnit\Framework\TestCase
     {
         $identifier = new ElementIdentifier(
             IdentifierTypes::CSS_SELECTOR,
-            '.selector'
+            LiteralValue::createCssSelectorValue('.selector')
         );
 
         $this->assertNull($identifier->getParentIdentifier());
 
         $parentIdentifier = new ElementIdentifier(
             IdentifierTypes::CSS_SELECTOR,
-            '.parent',
+            LiteralValue::createCssSelectorValue('.parent'),
             null,
             'parent_name'
         );
@@ -72,46 +74,68 @@ class ElementIdentifierTest extends \PHPUnit\Framework\TestCase
     {
         $parentIdentifier = new ElementIdentifier(
             IdentifierTypes::CSS_SELECTOR,
-            '.parent',
-            null,
+            LiteralValue::createCssSelectorValue('.parent'),
+            1,
             'parent_identifier_name'
         );
 
         $cssSelectorWithElementReference =
             (new ElementIdentifier(
                 IdentifierTypes::CSS_SELECTOR,
-                '.selector'
+                LiteralValue::createCssSelectorValue('.selector')
             ))->withParentIdentifier($parentIdentifier);
 
         $xpathExpressionWithElementReference =
             (new ElementIdentifier(
                 IdentifierTypes::XPATH_EXPRESSION,
-                '//foo'
+                LiteralValue::createXpathExpressionValue('//foo')
             ))->withParentIdentifier($parentIdentifier);
 
         return [
             'css selector, position null' => [
-                'identifier' => new ElementIdentifier(IdentifierTypes::CSS_SELECTOR, '.selector'),
+                'identifier' => new ElementIdentifier(
+                    IdentifierTypes::CSS_SELECTOR,
+                    LiteralValue::createCssSelectorValue('.selector')
+                ),
                 'expectedString' => '".selector"',
             ],
             'css selector, position 1' => [
-                'identifier' => new ElementIdentifier(IdentifierTypes::CSS_SELECTOR, '.selector', 1),
+                'identifier' => new ElementIdentifier(
+                    IdentifierTypes::CSS_SELECTOR,
+                    LiteralValue::createCssSelectorValue('.selector'),
+                    1
+                ),
                 'expectedString' => '".selector"',
             ],
             'css selector, position 2' => [
-                'identifier' => new ElementIdentifier(IdentifierTypes::CSS_SELECTOR, '.selector', 2),
+                'identifier' => new ElementIdentifier(
+                    IdentifierTypes::CSS_SELECTOR,
+                    LiteralValue::createCssSelectorValue('.selector'),
+                    2
+                ),
                 'expectedString' => '".selector":2',
             ],
             'xpath expression, position null' => [
-                'identifier' => new ElementIdentifier(IdentifierTypes::XPATH_EXPRESSION, '//foo'),
+                'identifier' => new ElementIdentifier(
+                    IdentifierTypes::XPATH_EXPRESSION,
+                    LiteralValue::createXpathExpressionValue('//foo')
+                ),
                 'expectedString' => '"//foo"',
             ],
             'xpath expression, position 1' => [
-                'identifier' => new ElementIdentifier(IdentifierTypes::XPATH_EXPRESSION, '//foo', 1),
+                'identifier' => new ElementIdentifier(
+                    IdentifierTypes::XPATH_EXPRESSION,
+                    LiteralValue::createXpathExpressionValue('//foo'),
+                    1
+                ),
                 'expectedString' => '"//foo"',
             ],
             'xpath expression, position 2' => [
-                'identifier' => new ElementIdentifier(IdentifierTypes::XPATH_EXPRESSION, '//foo', 2),
+                'identifier' => new ElementIdentifier(
+                    IdentifierTypes::XPATH_EXPRESSION,
+                    LiteralValue::createXpathExpressionValue('//foo'),
+                    2
+                ),
                 'expectedString' => '"//foo":2',
             ],
             'css selector with element reference, position null' => [
@@ -143,7 +167,7 @@ class ElementIdentifierTest extends \PHPUnit\Framework\TestCase
     {
         $identifier = new ElementIdentifier(
             IdentifierTypes::CSS_SELECTOR,
-            '.selector'
+            LiteralValue::createCssSelectorValue('.selector')
         );
 
         return [
