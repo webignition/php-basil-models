@@ -9,5 +9,4 @@ interface ElementIdentifierInterface extends IdentifierInterface
     public function getName(): ?string;
     public function getParentIdentifier(): ?ElementIdentifierInterface;
     public function withParentIdentifier(ElementIdentifierInterface $identifier): ElementIdentifierInterface;
-    public function withName(string $name): ElementIdentifierInterface;
 }
