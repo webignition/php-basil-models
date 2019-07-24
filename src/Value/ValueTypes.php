@@ -20,7 +20,6 @@ class ValueTypes
     // ElementValue
     const ELEMENT_IDENTIFIER = 'element-identifier';
 
-
     const ALL = [
         self::DATA_PARAMETER,
         self::STRING,

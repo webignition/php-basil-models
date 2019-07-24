@@ -5,7 +5,6 @@ namespace webignition\BasilModel\Tests\Identifier;
 
 use webignition\BasilModel\Identifier\ElementIdentifier;
 use webignition\BasilModel\Identifier\ElementIdentifierInterface;
-use webignition\BasilModel\Identifier\IdentifierInterface;
 use webignition\BasilModel\Identifier\IdentifierTypes;
 
 class ElementIdentifierTest extends \PHPUnit\Framework\TestCase
@@ -64,7 +63,7 @@ class ElementIdentifierTest extends \PHPUnit\Framework\TestCase
     /**
      * @dataProvider toStringDataProvider
      */
-    public function testToString(IdentifierInterface $identifier, string $expectedString)
+    public function testToString(ElementIdentifierInterface $identifier, string $expectedString)
     {
         $this->assertSame($expectedString, (string) $identifier);
     }
@@ -142,58 +141,31 @@ class ElementIdentifierTest extends \PHPUnit\Framework\TestCase
 
     public function withNameDataProvider(): array
     {
+        $identifier = new ElementIdentifier(
+            IdentifierTypes::CSS_SELECTOR,
+            '.selector'
+        );
+
         return [
             'no name, no new name' => [
-                'identifier' => new ElementIdentifier(
-                    IdentifierTypes::CSS_SELECTOR,
-                    '.selector'
-                ),
+                'identifier' => $identifier,
                 'name' => '',
-                'expectedIdentifier' => new ElementIdentifier(
-                    IdentifierTypes::CSS_SELECTOR,
-                    '.selector'
-                ),
+                'expectedIdentifier' => $identifier,
             ],
             'has name, no new name' => [
-                'identifier' => new ElementIdentifier(
-                    IdentifierTypes::CSS_SELECTOR,
-                    '.selector',
-                    null,
-                    'identifier name'
-                ),
+                'identifier' => $identifier->withName('identifier name'),
                 'name' => '',
-                'expectedIdentifier' => new ElementIdentifier(
-                    IdentifierTypes::CSS_SELECTOR,
-                    '.selector'
-                ),
+                'expectedIdentifier' => $identifier,
             ],
             'no name, has new name' => [
-                'identifier' => new ElementIdentifier(
-                    IdentifierTypes::CSS_SELECTOR,
-                    '.selector'
-                ),
+                'identifier' => $identifier,
                 'name' => 'identifier name',
-                'expectedIdentifier' => new ElementIdentifier(
-                    IdentifierTypes::CSS_SELECTOR,
-                    '.selector',
-                    null,
-                    'identifier name'
-                ),
+                'expectedIdentifier' => $identifier->withName('identifier name'),
             ],
             'has name, has new name' => [
-                'identifier' => new ElementIdentifier(
-                    IdentifierTypes::CSS_SELECTOR,
-                    '.selector',
-                    null,
-                    'current identifier name'
-                ),
+                'identifier' => $identifier->withName('current identifier name'),
                 'name' => 'new identifier name',
-                'expectedIdentifier' => new ElementIdentifier(
-                    IdentifierTypes::CSS_SELECTOR,
-                    '.selector',
-                    null,
-                    'new identifier name'
-                ),
+                'expectedIdentifier' => $identifier->withName('new identifier name'),
             ],
         ];
     }
