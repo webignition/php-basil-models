@@ -54,7 +54,7 @@ class StepTest extends \PHPUnit\Framework\TestCase
             'has actions, has assertions, some not correct types' => [
                 'actions' => [
                     'foo',
-                    new WaitAction('wait 5', new LiteralValue('5')),
+                    new WaitAction('wait 5', LiteralValue::createStringValue('5')),
                     'bar',
                 ],
                 'assertions' => [
@@ -70,7 +70,7 @@ class StepTest extends \PHPUnit\Framework\TestCase
                     ),
                 ],
                 'expectedActions' => [
-                    new WaitAction('wait 5', new LiteralValue('5')),
+                    new WaitAction('wait 5', LiteralValue::createStringValue('5')),
                 ],
                 'expectedAssertions' => [
                     new Assertion(
@@ -166,13 +166,13 @@ class StepTest extends \PHPUnit\Framework\TestCase
                 'identifierCollection' => new IdentifierCollection([
                     'button' => new ElementIdentifier(
                         IdentifierTypes::CSS_SELECTOR,
-                        new LiteralValue('.button')
+                        LiteralValue::createCssSelectorValue('.button')
                     ),
                 ]),
                 'expectedIdentifierCollection' => new IdentifierCollection([
                     'button' => new ElementIdentifier(
                         IdentifierTypes::CSS_SELECTOR,
-                        new LiteralValue('.button')
+                        LiteralValue::createCssSelectorValue('.button')
                     ),
                 ]),
             ],
@@ -199,32 +199,32 @@ class StepTest extends \PHPUnit\Framework\TestCase
             ],
             'step has actions, empty prepended actions' => [
                 'step' => new Step([
-                    new WaitAction('wait 1', new LiteralValue('1')),
+                    new WaitAction('wait 1', LiteralValue::createStringValue('1')),
                 ], []),
                 'actions' => [],
                 'expectedStep' => new Step([
-                    new WaitAction('wait 1', new LiteralValue('1')),
+                    new WaitAction('wait 1', LiteralValue::createStringValue('1')),
                 ], []),
             ],
             'step has no actions, non-empty prepended actions' => [
                 'step' => new Step([], []),
                 'actions' => [
-                    new WaitAction('wait 2', new LiteralValue('2')),
+                    new WaitAction('wait 2', LiteralValue::createStringValue('2')),
                 ],
                 'expectedStep' => new Step([
-                    new WaitAction('wait 2', new LiteralValue('2')),
+                    new WaitAction('wait 2', LiteralValue::createStringValue('2')),
                 ], []),
             ],
             'step has actions, non-empty prepended actions' => [
                 'step' => new Step([
-                    new WaitAction('wait 1', new LiteralValue('1')),
+                    new WaitAction('wait 1', LiteralValue::createStringValue('1')),
                 ], []),
                 'actions' => [
-                    new WaitAction('wait 2', new LiteralValue('2')),
+                    new WaitAction('wait 2', LiteralValue::createStringValue('2')),
                 ],
                 'expectedStep' => new Step([
-                    new WaitAction('wait 2', new LiteralValue('2')),
-                    new WaitAction('wait 1', new LiteralValue('1')),
+                    new WaitAction('wait 2', LiteralValue::createStringValue('2')),
+                    new WaitAction('wait 1', LiteralValue::createStringValue('1')),
                 ], []),
             ],
             'step assertions are retained' => [
@@ -323,11 +323,11 @@ class StepTest extends \PHPUnit\Framework\TestCase
             ],
             'step actions are retained' => [
                 'step' => new Step([
-                    new WaitAction('wait 1', new LiteralValue('1')),
+                    new WaitAction('wait 1', LiteralValue::createStringValue('1')),
                 ], []),
                 'assertions' => [],
                 'expectedStep' => new Step([
-                    new WaitAction('wait 1', new LiteralValue('1')),
+                    new WaitAction('wait 1', LiteralValue::createStringValue('1')),
                 ], []),
             ],
             'step data sets are retained' => [
@@ -387,22 +387,22 @@ class StepTest extends \PHPUnit\Framework\TestCase
             ],
             'has initial actions, no actions' => [
                 'step' => new Step([
-                    new WaitAction('wait 1', new LiteralValue('1')),
+                    new WaitAction('wait 1', LiteralValue::createStringValue('1')),
                 ], []),
                 'actions' => [],
             ],
             'no initial actions, has actions' => [
                 'step' => new Step([], []),
                 'actions' => [
-                    new WaitAction('wait 1', new LiteralValue('1')),
+                    new WaitAction('wait 1', LiteralValue::createStringValue('1')),
                 ],
             ],
             'has initial actions, has actions' => [
                 'step' => new Step([
-                    new WaitAction('wait 1', new LiteralValue('1')),
+                    new WaitAction('wait 1', LiteralValue::createStringValue('1')),
                 ], []),
                 'actions' => [
-                    new WaitAction('wait 2', new LiteralValue('2')),
+                    new WaitAction('wait 2', LiteralValue::createStringValue('2')),
                 ],
             ],
         ];

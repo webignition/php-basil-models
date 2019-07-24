@@ -30,7 +30,7 @@ class ReferenceIdentifierTest extends \PHPUnit\Framework\TestCase
         return [
             'page element reference with literal value' => [
                 'type' => IdentifierTypes::PAGE_ELEMENT_REFERENCE,
-                'value' => new LiteralValue('invalid'),
+                'value' => LiteralValue::createStringValue('invalid'),
             ],
             'page element reference with object value' => [
                 'type' => IdentifierTypes::PAGE_ELEMENT_REFERENCE,
@@ -43,7 +43,7 @@ class ReferenceIdentifierTest extends \PHPUnit\Framework\TestCase
             ],
             'element parameter with literal value' => [
                 'type' => IdentifierTypes::ELEMENT_PARAMETER,
-                'value' => new LiteralValue('invalid'),
+                'value' => LiteralValue::createStringValue('invalid'),
             ],
             'element parameter with object value' => [
                 'type' => IdentifierTypes::ELEMENT_PARAMETER,
@@ -71,7 +71,7 @@ class ReferenceIdentifierTest extends \PHPUnit\Framework\TestCase
             'page element reference with literal value' => [
                 'identifier' => new ReferenceIdentifier(
                     IdentifierTypes::PAGE_ELEMENT_REFERENCE,
-                    new LiteralValue('invalid')
+                    LiteralValue::createStringValue('invalid')
                 ),
                 'expectedString' => 'invalid',
             ],
@@ -90,7 +90,7 @@ class ReferenceIdentifierTest extends \PHPUnit\Framework\TestCase
             'element parameter with literal value' => [
                 'identifier' => new ReferenceIdentifier(
                     IdentifierTypes::ELEMENT_PARAMETER,
-                    new LiteralValue('invalid')
+                    LiteralValue::createStringValue('invalid')
                 ),
                 'expectedString' => 'invalid',
             ],
@@ -127,7 +127,7 @@ class ReferenceIdentifierTest extends \PHPUnit\Framework\TestCase
     {
         $identifier = new ReferenceIdentifier(
             IdentifierTypes::PAGE_ELEMENT_REFERENCE,
-            new LiteralValue('invalid')
+            LiteralValue::createStringValue('invalid')
         );
 
         return [

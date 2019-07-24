@@ -72,7 +72,7 @@ class PendingImportResolutionStepTest extends \PHPUnit\Framework\TestCase
             'with actions and assertions' => [
                 'encapsulatedStep' => new Step(
                     [
-                        new WaitAction('wait 30', new LiteralValue('30')),
+                        new WaitAction('wait 30', LiteralValue::createStringValue('30')),
                     ],
                     [
                         new Assertion(
@@ -90,7 +90,7 @@ class PendingImportResolutionStepTest extends \PHPUnit\Framework\TestCase
                 'expectedStep' => new PendingImportResolutionStep(
                     new Step(
                         [
-                            new WaitAction('wait 30', new LiteralValue('30')),
+                            new WaitAction('wait 30', LiteralValue::createStringValue('30')),
                         ],
                         [
                             new Assertion(

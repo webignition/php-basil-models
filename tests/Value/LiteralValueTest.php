@@ -8,24 +8,42 @@ use webignition\BasilModel\Value\ValueTypes;
 
 class LiteralValueTest extends \PHPUnit\Framework\TestCase
 {
-    public function testCreate()
+    public function testCreateStringValue()
     {
-        $value = new LiteralValue('foo');
+        $value = LiteralValue::createStringValue('foo');
 
         $this->assertSame(ValueTypes::STRING, $value->getType());
         $this->assertSame('foo', $value->getValue());
         $this->assertSame('"foo"', (string) $value);
     }
 
+    public function testCreateCssSelectorValue()
+    {
+        $value = LiteralValue::createCssSelectorValue('.selector');
+
+        $this->assertSame(ValueTypes::CSS_SELECTOR, $value->getType());
+        $this->assertSame('.selector', $value->getValue());
+        $this->assertSame('".selector"', (string) $value);
+    }
+
+    public function testCreateXpathExpressionValue()
+    {
+        $value = LiteralValue::createXpathExpressionValue('//foo');
+
+        $this->assertSame(ValueTypes::XPATH_EXPRESSION, $value->getType());
+        $this->assertSame('//foo', $value->getValue());
+        $this->assertSame('"//foo"', (string) $value);
+    }
+
     public function testIsEmpty()
     {
-        $this->assertTrue((new LiteralValue(''))->isEmpty());
-        $this->assertFalse((new LiteralValue('non-empty'))->isEmpty());
+        $this->assertTrue((LiteralValue::createStringValue(''))->isEmpty());
+        $this->assertFalse((LiteralValue::createStringValue('non-empty'))->isEmpty());
     }
 
     public function testIsActionable()
     {
-        $value = new LiteralValue('');
+        $value = LiteralValue::createStringValue('');
 
         $this->assertTrue($value->isActionable());
     }

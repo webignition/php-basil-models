@@ -16,7 +16,7 @@ class InputActionTest extends \PHPUnit\Framework\TestCase
             IdentifierTypes::CSS_SELECTOR,
             '.selector'
         );
-        $value = new LiteralValue('.foo');
+        $value = LiteralValue::createCssSelectorValue('.foo');
 
         $action = new InputAction(
             'set ".selector" to "foo"',
@@ -48,7 +48,7 @@ class InputActionTest extends \PHPUnit\Framework\TestCase
         $action = new InputAction(
             'set ".original" to "value"',
             $originalIdentifier,
-            new LiteralValue('value'),
+            LiteralValue::createStringValue('value'),
             '".original" to "value"'
         );
 
