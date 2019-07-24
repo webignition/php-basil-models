@@ -2,11 +2,12 @@
 
 namespace webignition\BasilModel\Identifier;
 
-class ElementIdentifier extends AbstractIdentifier implements ElementIdentifierInterface
+use webignition\BasilModel\Value\LiteralValueInterface;
+
+class ElementIdentifier extends Identifier implements ElementIdentifierInterface
 {
     const DEFAULT_POSITION = 1;
 
-    private $value = '';
     private $position = 1;
 
     /**
@@ -14,19 +15,13 @@ class ElementIdentifier extends AbstractIdentifier implements ElementIdentifierI
      */
     private $parentIdentifier;
 
-    public function __construct(string $type, string $value, int $position = null, string $name = null)
+    public function __construct(LiteralValueInterface $value, int $position = null, string $name = null)
     {
-        parent::__construct($type, $name);
+        parent::__construct(IdentifierTypes::ELEMENT_SELECTOR, $value, $name);
 
         $position = $position ?? self::DEFAULT_POSITION;
 
-        $this->value = $value;
         $this->position = $position;
-    }
-
-    public function getValue(): string
-    {
-        return $this->value;
     }
 
     public function getPosition(): int
@@ -47,27 +42,15 @@ class ElementIdentifier extends AbstractIdentifier implements ElementIdentifierI
         return $new;
     }
 
-    /**
-     * @param string $name
-     *
-     * @return IdentifierInterface|ElementIdentifierInterface
-     */
-    public function withName(string $name): IdentifierInterface
-    {
-        return parent::withName($name);
-    }
-
     public function __toString(): string
     {
-        $string = $this->value;
+        $string = parent::__toString();
 
         if ($this->parentIdentifier instanceof ElementIdentifierInterface) {
             $string = '{{ ' . $this->parentIdentifier->getName() . ' }} ' . $string;
         }
 
-        if (in_array($this->getType(), [IdentifierTypes::CSS_SELECTOR, IdentifierTypes::XPATH_EXPRESSION])) {
-            $string = '"' . $string . '"';
-        }
+        $string = '"' . $string . '"';
 
         if (self::DEFAULT_POSITION !== $this->position) {
             $string .= ':' . $this->position;

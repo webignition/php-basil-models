@@ -33,7 +33,7 @@ class WaitActionTest extends \PHPUnit\Framework\TestCase
         return [
             'string value' => [
                 'actionString' => 'wait 10',
-                'duration' => new LiteralValue('10'),
+                'duration' => LiteralValue::createStringValue('10'),
                 'expectedArguments' => '10',
             ],
             'environment parameter value' => [

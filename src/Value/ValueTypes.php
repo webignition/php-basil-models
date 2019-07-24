@@ -6,6 +6,8 @@ class ValueTypes
 {
     // LiteralValue
     const STRING = 'string';
+    const CSS_SELECTOR = 'css-selector';
+    const XPATH_EXPRESSION = 'xpath-expression';
 
     // ObjectValue
     const DATA_PARAMETER = 'data-parameter';

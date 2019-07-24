@@ -2,6 +2,7 @@
 
 namespace webignition\BasilModel\Value;
 
+use webignition\BasilModel\Identifier\ElementIdentifier;
 use webignition\BasilModel\Identifier\IdentifierInterface;
 
 class ElementValue extends AbstractValue implements ElementValueInterface
@@ -27,7 +28,7 @@ class ElementValue extends AbstractValue implements ElementValueInterface
 
     public function isActionable(): bool
     {
-        return true;
+        return $this->identifier instanceof ElementIdentifier;
     }
 
     public function __toString(): string

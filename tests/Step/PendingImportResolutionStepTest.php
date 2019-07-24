@@ -7,7 +7,6 @@ use webignition\BasilModel\Action\WaitAction;
 use webignition\BasilModel\Assertion\Assertion;
 use webignition\BasilModel\Assertion\AssertionComparisons;
 use webignition\BasilModel\Identifier\ElementIdentifier;
-use webignition\BasilModel\Identifier\IdentifierTypes;
 use webignition\BasilModel\Step\PendingImportResolutionStep;
 use webignition\BasilModel\Step\PendingImportResolutionStepInterface;
 use webignition\BasilModel\Step\Step;
@@ -72,14 +71,13 @@ class PendingImportResolutionStepTest extends \PHPUnit\Framework\TestCase
             'with actions and assertions' => [
                 'encapsulatedStep' => new Step(
                     [
-                        new WaitAction('wait 30', new LiteralValue('30')),
+                        new WaitAction('wait 30', LiteralValue::createStringValue('30')),
                     ],
                     [
                         new Assertion(
                             '".selector" exists',
                             new ElementValue(new ElementIdentifier(
-                                IdentifierTypes::CSS_SELECTOR,
-                                '.selector'
+                                LiteralValue::createCssSelectorValue('.selector')
                             )),
                             AssertionComparisons::EXISTS
                         ),
@@ -90,14 +88,13 @@ class PendingImportResolutionStepTest extends \PHPUnit\Framework\TestCase
                 'expectedStep' => new PendingImportResolutionStep(
                     new Step(
                         [
-                            new WaitAction('wait 30', new LiteralValue('30')),
+                            new WaitAction('wait 30', LiteralValue::createStringValue('30')),
                         ],
                         [
                             new Assertion(
                                 '".selector" exists',
                                 new ElementValue(new ElementIdentifier(
-                                    IdentifierTypes::CSS_SELECTOR,
-                                    '.selector'
+                                    LiteralValue::createCssSelectorValue('.selector')
                                 )),
                                 AssertionComparisons::EXISTS
                             ),

@@ -5,18 +5,14 @@ namespace webignition\BasilModel\Tests\Action;
 use webignition\BasilModel\Action\ActionTypes;
 use webignition\BasilModel\Action\InputAction;
 use webignition\BasilModel\Identifier\ElementIdentifier;
-use webignition\BasilModel\Identifier\IdentifierTypes;
 use webignition\BasilModel\Value\LiteralValue;
 
 class InputActionTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {
-        $identifier = new ElementIdentifier(
-            IdentifierTypes::CSS_SELECTOR,
-            '.selector'
-        );
-        $value = new LiteralValue('.foo');
+        $identifier = new ElementIdentifier(LiteralValue::createCssSelectorValue('.selector'));
+        $value = LiteralValue::createCssSelectorValue('.foo');
 
         $action = new InputAction(
             'set ".selector" to "foo"',
@@ -35,20 +31,14 @@ class InputActionTest extends \PHPUnit\Framework\TestCase
 
     public function testWithIdentifier()
     {
-        $originalIdentifier = new ElementIdentifier(
-            IdentifierTypes::CSS_SELECTOR,
-            '.original'
-        );
+        $originalIdentifier = new ElementIdentifier(LiteralValue::createCssSelectorValue('.original'));
 
-        $newIdentifier = new ElementIdentifier(
-            IdentifierTypes::CSS_SELECTOR,
-            '.new'
-        );
+        $newIdentifier = new ElementIdentifier(LiteralValue::createCssSelectorValue('.new'));
 
         $action = new InputAction(
             'set ".original" to "value"',
             $originalIdentifier,
-            new LiteralValue('value'),
+            LiteralValue::createStringValue('value'),
             '".original" to "value"'
         );
 

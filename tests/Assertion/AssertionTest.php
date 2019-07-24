@@ -7,22 +7,18 @@ use webignition\BasilModel\Assertion\AssertionComparisons;
 use webignition\BasilModel\Value\ElementValue;
 use webignition\BasilModel\Value\LiteralValue;
 use webignition\BasilModel\Identifier\ElementIdentifier;
-use webignition\BasilModel\Identifier\IdentifierTypes;
 
 class AssertionTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {
         $assertionString = '.selector is "foo"';
-        $identifier = new ElementIdentifier(
-            IdentifierTypes::CSS_SELECTOR,
-            '.selector'
-        );
+        $identifier = new ElementIdentifier(LiteralValue::createCssSelectorValue('.selector'));
 
         $examinedValue = new ElementValue($identifier);
 
         $comparison = AssertionComparisons::IS;
-        $expectedValue = new LiteralValue('foo');
+        $expectedValue = LiteralValue::createStringValue('foo');
 
         $assertion = new Assertion($assertionString, $examinedValue, $comparison, $expectedValue);
 

@@ -8,8 +8,8 @@ use Psr\Http\Message\UriInterface;
 use webignition\BasilModel\Identifier\ElementIdentifier;
 use webignition\BasilModel\Identifier\IdentifierCollection;
 use webignition\BasilModel\Identifier\IdentifierCollectionInterface;
-use webignition\BasilModel\Identifier\IdentifierTypes;
 use webignition\BasilModel\Page\Page;
+use webignition\BasilModel\Value\LiteralValue;
 
 class PageTest extends \PHPUnit\Framework\TestCase
 {
@@ -39,16 +39,14 @@ class PageTest extends \PHPUnit\Framework\TestCase
                 'uri' => new Uri('http://example.com/'),
                 'identifierCollection' => new IdentifierCollection([
                     (new ElementIdentifier(
-                        IdentifierTypes::CSS_SELECTOR,
-                        '.foo'
+                        LiteralValue::createCssSelectorValue('.foo')
                     ))->withName('foo'),
                 ]),
                 'expectedPage' => new Page(
                     new Uri('http://example.com/'),
                     new IdentifierCollection([
                         (new ElementIdentifier(
-                            IdentifierTypes::CSS_SELECTOR,
-                            '.foo'
+                            LiteralValue::createCssSelectorValue('.foo')
                         ))->withName('foo'),
                     ])
                 ),
@@ -70,12 +68,10 @@ class PageTest extends \PHPUnit\Framework\TestCase
             new Uri('http://example.com/'),
             new IdentifierCollection([
                 (new ElementIdentifier(
-                    IdentifierTypes::CSS_SELECTOR,
-                    '.foo'
+                    LiteralValue::createCssSelectorValue('.foo')
                 ))->withName('foo'),
                 (new ElementIdentifier(
-                    IdentifierTypes::CSS_SELECTOR,
-                    '.bar'
+                    LiteralValue::createCssSelectorValue('.bar')
                 ))->withName('bar')
             ])
         );
@@ -92,8 +88,7 @@ class PageTest extends \PHPUnit\Framework\TestCase
     public function testGetElementIdentifier()
     {
         $fooIdentifier = (new ElementIdentifier(
-            IdentifierTypes::CSS_SELECTOR,
-            '.foo'
+            LiteralValue::createCssSelectorValue('.foo')
         ))->withName('foo');
 
         $page = new Page(new Uri(''), new IdentifierCollection([

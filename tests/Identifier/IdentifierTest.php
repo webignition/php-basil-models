@@ -3,23 +3,23 @@
 
 namespace webignition\BasilModel\Tests\Identifier;
 
+use webignition\BasilModel\Identifier\Identifier;
+use webignition\BasilModel\Identifier\IdentifierInterface;
 use webignition\BasilModel\Identifier\IdentifierTypes;
-use webignition\BasilModel\Identifier\ReferenceIdentifier;
-use webignition\BasilModel\Identifier\ReferenceIdentifierInterface;
 use webignition\BasilModel\Value\LiteralValue;
 use webignition\BasilModel\Value\ObjectNames;
 use webignition\BasilModel\Value\ObjectValue;
 use webignition\BasilModel\Value\ValueInterface;
 use webignition\BasilModel\Value\ValueTypes;
 
-class ReferenceIdentifierTest extends \PHPUnit\Framework\TestCase
+class IdentifierTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @dataProvider createDataProvider
      */
     public function testCreate(string $type, ValueInterface $value)
     {
-        $identifier = new ReferenceIdentifier($type, $value);
+        $identifier = new Identifier($type, $value);
 
         $this->assertSame($type, $identifier->getType());
         $this->assertSame($value, $identifier->getValue());
@@ -30,7 +30,7 @@ class ReferenceIdentifierTest extends \PHPUnit\Framework\TestCase
         return [
             'page element reference with literal value' => [
                 'type' => IdentifierTypes::PAGE_ELEMENT_REFERENCE,
-                'value' => new LiteralValue('invalid'),
+                'value' => LiteralValue::createStringValue('invalid'),
             ],
             'page element reference with object value' => [
                 'type' => IdentifierTypes::PAGE_ELEMENT_REFERENCE,
@@ -43,7 +43,7 @@ class ReferenceIdentifierTest extends \PHPUnit\Framework\TestCase
             ],
             'element parameter with literal value' => [
                 'type' => IdentifierTypes::ELEMENT_PARAMETER,
-                'value' => new LiteralValue('invalid'),
+                'value' => LiteralValue::createStringValue('invalid'),
             ],
             'element parameter with object value' => [
                 'type' => IdentifierTypes::ELEMENT_PARAMETER,
@@ -60,7 +60,7 @@ class ReferenceIdentifierTest extends \PHPUnit\Framework\TestCase
     /**
      * @dataProvider toStringDataProvider
      */
-    public function testToString(ReferenceIdentifierInterface $identifier, string $expectedString)
+    public function testToString(IdentifierInterface $identifier, string $expectedString)
     {
         $this->assertSame($expectedString, (string) $identifier);
     }
@@ -69,14 +69,14 @@ class ReferenceIdentifierTest extends \PHPUnit\Framework\TestCase
     {
         return [
             'page element reference with literal value' => [
-                'identifier' => new ReferenceIdentifier(
+                'identifier' => new Identifier(
                     IdentifierTypes::PAGE_ELEMENT_REFERENCE,
-                    new LiteralValue('invalid')
+                    LiteralValue::createStringValue('invalid')
                 ),
                 'expectedString' => 'invalid',
             ],
             'page element reference with object value' => [
-                'identifier' => new ReferenceIdentifier(
+                'identifier' => new Identifier(
                     IdentifierTypes::PAGE_ELEMENT_REFERENCE,
                     new ObjectValue(
                         ValueTypes::PAGE_ELEMENT_REFERENCE,
@@ -88,14 +88,14 @@ class ReferenceIdentifierTest extends \PHPUnit\Framework\TestCase
                 'expectedString' => 'page_import_name.elements.element_name',
             ],
             'element parameter with literal value' => [
-                'identifier' => new ReferenceIdentifier(
+                'identifier' => new Identifier(
                     IdentifierTypes::ELEMENT_PARAMETER,
-                    new LiteralValue('invalid')
+                    LiteralValue::createStringValue('invalid')
                 ),
                 'expectedString' => 'invalid',
             ],
             'element parameter with object value' => [
-                'identifier' => new ReferenceIdentifier(
+                'identifier' => new Identifier(
                     IdentifierTypes::ELEMENT_PARAMETER,
                     new ObjectValue(
                         ValueTypes::ELEMENT_PARAMETER,
@@ -113,9 +113,9 @@ class ReferenceIdentifierTest extends \PHPUnit\Framework\TestCase
      * @dataProvider withNameDataProvider
      */
     public function testWithName(
-        ReferenceIdentifierInterface $identifier,
+        IdentifierInterface $identifier,
         string $name,
-        ReferenceIdentifierInterface $expectedIdentifier
+        IdentifierInterface $expectedIdentifier
     ) {
         $updatedIdentifier = $identifier->withName($name);
 
@@ -125,9 +125,9 @@ class ReferenceIdentifierTest extends \PHPUnit\Framework\TestCase
 
     public function withNameDataProvider(): array
     {
-        $identifier = new ReferenceIdentifier(
+        $identifier = new Identifier(
             IdentifierTypes::PAGE_ELEMENT_REFERENCE,
-            new LiteralValue('invalid')
+            LiteralValue::createStringValue('invalid')
         );
 
         return [

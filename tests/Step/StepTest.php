@@ -11,7 +11,6 @@ use webignition\BasilModel\DataSet\DataSetCollection;
 use webignition\BasilModel\Identifier\ElementIdentifier;
 use webignition\BasilModel\Identifier\IdentifierCollection;
 use webignition\BasilModel\Identifier\IdentifierCollectionInterface;
-use webignition\BasilModel\Identifier\IdentifierTypes;
 use webignition\BasilModel\Step\Step;
 use webignition\BasilModel\Step\StepInterface;
 use webignition\BasilModel\Value\ElementValue;
@@ -54,7 +53,7 @@ class StepTest extends \PHPUnit\Framework\TestCase
             'has actions, has assertions, some not correct types' => [
                 'actions' => [
                     'foo',
-                    new WaitAction('wait 5', new LiteralValue('5')),
+                    new WaitAction('wait 5', LiteralValue::createStringValue('5')),
                     'bar',
                 ],
                 'assertions' => [
@@ -63,21 +62,19 @@ class StepTest extends \PHPUnit\Framework\TestCase
                     new Assertion(
                         '".selector" is "foo"',
                         new ElementValue(new ElementIdentifier(
-                            IdentifierTypes::CSS_SELECTOR,
-                            '.selector'
+                            LiteralValue::createCssSelectorValue('.selector')
                         )),
                         AssertionComparisons::IS
                     ),
                 ],
                 'expectedActions' => [
-                    new WaitAction('wait 5', new LiteralValue('5')),
+                    new WaitAction('wait 5', LiteralValue::createStringValue('5')),
                 ],
                 'expectedAssertions' => [
                     new Assertion(
                         '".selector" is "foo"',
                         new ElementValue(new ElementIdentifier(
-                            IdentifierTypes::CSS_SELECTOR,
-                            '.selector'
+                            LiteralValue::createCssSelectorValue('.selector')
                         )),
                         AssertionComparisons::IS
                     ),
@@ -134,46 +131,28 @@ class StepTest extends \PHPUnit\Framework\TestCase
             'no existing identifier collection, non-empty identifier collection' => [
                 'step' => new Step([], []),
                 'identifierCollection' => new IdentifierCollection([
-                    'input' => new ElementIdentifier(
-                        IdentifierTypes::CSS_SELECTOR,
-                        '.input'
-                    ),
+                    'input' => new ElementIdentifier(LiteralValue::createCssSelectorValue('.input')),
                 ]),
                 'expectedIdentifierCollection' => new IdentifierCollection([
-                    'input' => new ElementIdentifier(
-                        IdentifierTypes::CSS_SELECTOR,
-                        '.input'
-                    ),
+                    'input' => new ElementIdentifier(LiteralValue::createCssSelectorValue('.input')),
                 ]),
             ],
             'has existing identifier collection, empty identifier collection' => [
                 'step' => (new Step([], []))->withIdentifierCollection(new IdentifierCollection([
-                    'input' => new ElementIdentifier(
-                        IdentifierTypes::CSS_SELECTOR,
-                        '.input'
-                    ),
+                    'input' => new ElementIdentifier(LiteralValue::createCssSelectorValue('.input')),
                 ])),
                 'identifierCollection' => new IdentifierCollection(),
                 'expectedIdentifierCollection' => new IdentifierCollection(),
             ],
             'has existing identifier collection, non-empty identifier collection' => [
                 'step' => (new Step([], []))->withIdentifierCollection(new IdentifierCollection([
-                    'input' => new ElementIdentifier(
-                        IdentifierTypes::CSS_SELECTOR,
-                        '.input'
-                    ),
+                    'input' => new ElementIdentifier(LiteralValue::createCssSelectorValue('.input')),
                 ])),
                 'identifierCollection' => new IdentifierCollection([
-                    'button' => new ElementIdentifier(
-                        IdentifierTypes::CSS_SELECTOR,
-                        new LiteralValue('.button')
-                    ),
+                    'button' => new ElementIdentifier(LiteralValue::createCssSelectorValue('.button')),
                 ]),
                 'expectedIdentifierCollection' => new IdentifierCollection([
-                    'button' => new ElementIdentifier(
-                        IdentifierTypes::CSS_SELECTOR,
-                        new LiteralValue('.button')
-                    ),
+                    'button' => new ElementIdentifier(LiteralValue::createCssSelectorValue('.button')),
                 ]),
             ],
         ];
@@ -199,32 +178,32 @@ class StepTest extends \PHPUnit\Framework\TestCase
             ],
             'step has actions, empty prepended actions' => [
                 'step' => new Step([
-                    new WaitAction('wait 1', new LiteralValue('1')),
+                    new WaitAction('wait 1', LiteralValue::createStringValue('1')),
                 ], []),
                 'actions' => [],
                 'expectedStep' => new Step([
-                    new WaitAction('wait 1', new LiteralValue('1')),
+                    new WaitAction('wait 1', LiteralValue::createStringValue('1')),
                 ], []),
             ],
             'step has no actions, non-empty prepended actions' => [
                 'step' => new Step([], []),
                 'actions' => [
-                    new WaitAction('wait 2', new LiteralValue('2')),
+                    new WaitAction('wait 2', LiteralValue::createStringValue('2')),
                 ],
                 'expectedStep' => new Step([
-                    new WaitAction('wait 2', new LiteralValue('2')),
+                    new WaitAction('wait 2', LiteralValue::createStringValue('2')),
                 ], []),
             ],
             'step has actions, non-empty prepended actions' => [
                 'step' => new Step([
-                    new WaitAction('wait 1', new LiteralValue('1')),
+                    new WaitAction('wait 1', LiteralValue::createStringValue('1')),
                 ], []),
                 'actions' => [
-                    new WaitAction('wait 2', new LiteralValue('2')),
+                    new WaitAction('wait 2', LiteralValue::createStringValue('2')),
                 ],
                 'expectedStep' => new Step([
-                    new WaitAction('wait 2', new LiteralValue('2')),
-                    new WaitAction('wait 1', new LiteralValue('1')),
+                    new WaitAction('wait 2', LiteralValue::createStringValue('2')),
+                    new WaitAction('wait 1', LiteralValue::createStringValue('1')),
                 ], []),
             ],
             'step assertions are retained' => [
@@ -257,17 +236,11 @@ class StepTest extends \PHPUnit\Framework\TestCase
             ],
             'step identifier collection is retained' => [
                 'step' => (new Step([], []))->withIdentifierCollection(new IdentifierCollection([
-                    'heading1' => new ElementIdentifier(
-                        IdentifierTypes::CSS_SELECTOR,
-                        '.heading1'
-                    )
+                    'heading1' => new ElementIdentifier(LiteralValue::createCssSelectorValue('.heading1'))
                 ])),
                 'actions' => [],
                 'expectedStep' => (new Step([], []))->withIdentifierCollection(new IdentifierCollection([
-                    'heading1' => new ElementIdentifier(
-                        IdentifierTypes::CSS_SELECTOR,
-                        '.heading1'
-                    )
+                    'heading1' => new ElementIdentifier(LiteralValue::createCssSelectorValue('.heading1'))
                 ])),
             ],
         ];
@@ -323,11 +296,11 @@ class StepTest extends \PHPUnit\Framework\TestCase
             ],
             'step actions are retained' => [
                 'step' => new Step([
-                    new WaitAction('wait 1', new LiteralValue('1')),
+                    new WaitAction('wait 1', LiteralValue::createStringValue('1')),
                 ], []),
                 'assertions' => [],
                 'expectedStep' => new Step([
-                    new WaitAction('wait 1', new LiteralValue('1')),
+                    new WaitAction('wait 1', LiteralValue::createStringValue('1')),
                 ], []),
             ],
             'step data sets are retained' => [
@@ -351,17 +324,11 @@ class StepTest extends \PHPUnit\Framework\TestCase
             ],
             'step identifier collection is retained' => [
                 'step' => (new Step([], []))->withIdentifierCollection(new IdentifierCollection([
-                    'heading1' => new ElementIdentifier(
-                        IdentifierTypes::CSS_SELECTOR,
-                        '.heading1'
-                    )
+                    'heading1' => new ElementIdentifier(LiteralValue::createCssSelectorValue('.heading1'))
                 ])),
                 'assertions' => [],
                 'expectedStep' => (new Step([], []))->withIdentifierCollection(new IdentifierCollection([
-                    'heading1' => new ElementIdentifier(
-                        IdentifierTypes::CSS_SELECTOR,
-                        '.heading1'
-                    )
+                    'heading1' => new ElementIdentifier(LiteralValue::createCssSelectorValue('.heading1'))
                 ])),
             ],
         ];
@@ -387,22 +354,22 @@ class StepTest extends \PHPUnit\Framework\TestCase
             ],
             'has initial actions, no actions' => [
                 'step' => new Step([
-                    new WaitAction('wait 1', new LiteralValue('1')),
+                    new WaitAction('wait 1', LiteralValue::createStringValue('1')),
                 ], []),
                 'actions' => [],
             ],
             'no initial actions, has actions' => [
                 'step' => new Step([], []),
                 'actions' => [
-                    new WaitAction('wait 1', new LiteralValue('1')),
+                    new WaitAction('wait 1', LiteralValue::createStringValue('1')),
                 ],
             ],
             'has initial actions, has actions' => [
                 'step' => new Step([
-                    new WaitAction('wait 1', new LiteralValue('1')),
+                    new WaitAction('wait 1', LiteralValue::createStringValue('1')),
                 ], []),
                 'actions' => [
-                    new WaitAction('wait 2', new LiteralValue('2')),
+                    new WaitAction('wait 2', LiteralValue::createStringValue('2')),
                 ],
             ],
         ];
