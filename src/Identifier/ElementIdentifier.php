@@ -4,7 +4,6 @@ namespace webignition\BasilModel\Identifier;
 
 use webignition\BasilModel\Value\LiteralValueInterface;
 use webignition\BasilModel\Value\ValueInterface;
-use webignition\BasilModel\Value\ValueTypes;
 
 class ElementIdentifier extends AbstractIdentifier implements ElementIdentifierInterface
 {
@@ -18,9 +17,9 @@ class ElementIdentifier extends AbstractIdentifier implements ElementIdentifierI
      */
     private $parentIdentifier;
 
-    public function __construct(string $type, LiteralValueInterface $value, int $position = null, string $name = null)
+    public function __construct(LiteralValueInterface $value, int $position = null, string $name = null)
     {
-        parent::__construct($type, $name);
+        parent::__construct(IdentifierTypes::ELEMENT_SELECTOR, $name);
 
         $position = $position ?? self::DEFAULT_POSITION;
 
@@ -69,9 +68,7 @@ class ElementIdentifier extends AbstractIdentifier implements ElementIdentifierI
             $string = '{{ ' . $this->parentIdentifier->getName() . ' }} ' . $string;
         }
 
-        if (in_array($this->getType(), [IdentifierTypes::CSS_SELECTOR, IdentifierTypes::XPATH_EXPRESSION])) {
-            $string = '"' . $string . '"';
-        }
+        $string = '"' . $string . '"';
 
         if (self::DEFAULT_POSITION !== $this->position) {
             $string .= ':' . $this->position;
