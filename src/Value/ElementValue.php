@@ -9,7 +9,7 @@ class ElementValue extends AbstractValue implements ElementValueInterface
 {
     private $identifier;
 
-    public function __construct(IdentifierInterface $identifier)
+    public function __construct(ElementIdentifier $identifier)
     {
         parent::__construct(ValueTypes::ELEMENT_IDENTIFIER);
 
