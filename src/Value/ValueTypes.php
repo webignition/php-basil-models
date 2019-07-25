@@ -5,16 +5,16 @@ namespace webignition\BasilModel\Value;
 class ValueTypes
 {
     // LiteralValue
-    const STRING = 'string';
     const CSS_SELECTOR = 'css-selector';
+    const STRING = 'string';
     const XPATH_EXPRESSION = 'xpath-expression';
 
     // ObjectValue
-    const DATA_PARAMETER = 'data-parameter';
-    const PAGE_OBJECT_PROPERTY = 'page-object-property';
     const BROWSER_OBJECT_PROPERTY = 'browser-object-property';
+    const DATA_PARAMETER = 'data-parameter';
     const ELEMENT_PARAMETER = 'element-parameter';
     const PAGE_ELEMENT_REFERENCE = 'page-element-reference';
+    const PAGE_OBJECT_PROPERTY = 'page-object-property';
 
     // EnvironmentValue
     const ENVIRONMENT_PARAMETER = 'environment-parameter';
@@ -23,23 +23,27 @@ class ValueTypes
     const ELEMENT_IDENTIFIER = 'element-identifier';
 
     const ALL = [
-        self::DATA_PARAMETER,
+        self::CSS_SELECTOR,
         self::STRING,
-        self::ELEMENT_PARAMETER,
-        self::PAGE_OBJECT_PROPERTY,
+        self::XPATH_EXPRESSION,
         self::BROWSER_OBJECT_PROPERTY,
+        self::DATA_PARAMETER,
+        self::ELEMENT_PARAMETER,
         self::PAGE_ELEMENT_REFERENCE,
+        self::PAGE_OBJECT_PROPERTY,
         self::ENVIRONMENT_PARAMETER,
         self::ELEMENT_IDENTIFIER,
     ];
 
     const ACTIONABLE_TYPES = [
-        self::DATA_PARAMETER,
-        self::STRING,
-        self::ELEMENT_PARAMETER,
-        self::PAGE_OBJECT_PROPERTY,
         self::BROWSER_OBJECT_PROPERTY,
-        self::ENVIRONMENT_PARAMETER,
+        self::CSS_SELECTOR,
+        self::DATA_PARAMETER,
         self::ELEMENT_IDENTIFIER,
+        self::ELEMENT_PARAMETER,
+        self::ENVIRONMENT_PARAMETER,
+        self::PAGE_OBJECT_PROPERTY,
+        self::STRING,
+        self::XPATH_EXPRESSION,
     ];
 }
