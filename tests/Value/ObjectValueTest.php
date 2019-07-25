@@ -64,4 +64,25 @@ class ObjectValueTest extends \PHPUnit\Framework\TestCase
             ],
         ];
     }
+
+    public function testIsEmpty()
+    {
+        $emptyObjectValue = new ObjectValue(
+            ValueTypes::PAGE_ELEMENT_REFERENCE,
+            '',
+            'page_import_name',
+            'element_name'
+        );
+
+        $this->assertTrue($emptyObjectValue->isEmpty());
+
+        $nonEmptyObjectValue = new ObjectValue(
+            ValueTypes::PAGE_ELEMENT_REFERENCE,
+            'page_import_name.elements.element_name',
+            'page_import_name',
+            'element_name'
+        );
+
+        $this->assertFalse($nonEmptyObjectValue->isEmpty());
+    }
 }
