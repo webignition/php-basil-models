@@ -34,7 +34,7 @@ class ObjectValue extends AbstractValue implements ObjectValueInterface
 
     public function isEmpty(): bool
     {
-        return false;
+        return '' === trim($this->reference);
     }
 
     public function isActionable(): bool
