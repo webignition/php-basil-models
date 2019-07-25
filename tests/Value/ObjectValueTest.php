@@ -25,8 +25,6 @@ class ObjectValueTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($objectName, $value->getObjectName());
         $this->assertSame($objectProperty, $value->getObjectProperty());
         $this->assertSame($reference, (string) $value);
-        $this->assertfalse($value->isEmpty());
-        $this->assertTrue($value->isActionable());
     }
 
     public function createDataProvider(): array
@@ -84,5 +82,20 @@ class ObjectValueTest extends \PHPUnit\Framework\TestCase
         );
 
         $this->assertFalse($nonEmptyObjectValue->isEmpty());
+    }
+
+    public function testIsActionable()
+    {
+        $browserObjectParameterValue = new ObjectValue(ValueTypes::BROWSER_OBJECT_PROPERTY, '', '', '');
+        $dataParameterObjectValue = new ObjectValue(ValueTypes::DATA_PARAMETER, '', '', '');
+        $elementParameterObjectValue = new ObjectValue(ValueTypes::ELEMENT_PARAMETER, '', '', '');
+        $pageElementReferenceObjectValue = new ObjectValue(ValueTypes::PAGE_ELEMENT_REFERENCE, '', '', '');
+        $pageObjectPropertyObjectValue = new ObjectValue(ValueTypes::PAGE_OBJECT_PROPERTY, '', '', '');
+
+        $this->assertTrue($browserObjectParameterValue->isActionable());
+        $this->assertTrue($dataParameterObjectValue->isActionable());
+        $this->assertTrue($elementParameterObjectValue->isActionable());
+        $this->assertFalse($pageElementReferenceObjectValue->isActionable());
+        $this->assertTrue($pageObjectPropertyObjectValue->isActionable());
     }
 }
