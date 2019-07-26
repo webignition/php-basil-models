@@ -89,6 +89,12 @@ class ElementIdentifierTest extends \PHPUnit\Framework\TestCase
                 'identifier' => new ElementIdentifier(LiteralValue::createCssSelectorValue('.selector')),
                 'expectedString' => '".selector"',
             ],
+            'css selector, position null with attribute name' => [
+                'identifier' => (new ElementIdentifier(
+                    LiteralValue::createCssSelectorValue('.selector')
+                ))->withAttributeName('attribute_name'),
+                'expectedString' => '".selector".attribute_name',
+            ],
             'css selector, position 1' => [
                 'identifier' => new ElementIdentifier(
                     LiteralValue::createCssSelectorValue('.selector'),
@@ -96,12 +102,26 @@ class ElementIdentifierTest extends \PHPUnit\Framework\TestCase
                 ),
                 'expectedString' => '".selector"',
             ],
+            'css selector, position 1 with attribute name' => [
+                'identifier' => (new ElementIdentifier(
+                    LiteralValue::createCssSelectorValue('.selector'),
+                    1
+                ))->withAttributeName('attribute_name'),
+                'expectedString' => '".selector".attribute_name',
+            ],
             'css selector, position 2' => [
                 'identifier' => new ElementIdentifier(
                     LiteralValue::createCssSelectorValue('.selector'),
                     2
                 ),
                 'expectedString' => '".selector":2',
+            ],
+            'css selector, position 2 with attribute name' => [
+                'identifier' => (new ElementIdentifier(
+                    LiteralValue::createCssSelectorValue('.selector'),
+                    2
+                ))->withAttributeName('attribute_name'),
+                'expectedString' => '".selector":2.attribute_name',
             ],
             'xpath expression, position null' => [
                 'identifier' => new ElementIdentifier(LiteralValue::createXpathExpressionValue('//foo')),

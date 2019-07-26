@@ -70,6 +70,10 @@ class ElementIdentifier extends Identifier implements ElementIdentifierInterface
             $string .= ':' . $this->position;
         }
 
+        if (null !== $this->attributeName) {
+            $string .= '.' . $this->attributeName;
+        }
+
         return $string;
     }
 }
