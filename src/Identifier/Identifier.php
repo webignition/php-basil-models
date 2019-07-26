@@ -11,11 +11,10 @@ class Identifier implements IdentifierInterface
     private $type = '';
     private $name;
 
-    public function __construct(string $type, ValueInterface $value, string $name = null)
+    public function __construct(string $type, ValueInterface $value)
     {
         $this->type = $type;
         $this->value = $value;
-        $this->name = $name;
     }
 
     public function getType(): string

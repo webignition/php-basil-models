@@ -16,9 +16,9 @@ class ElementIdentifier extends Identifier implements ElementIdentifierInterface
      */
     private $parentIdentifier;
 
-    public function __construct(LiteralValueInterface $value, int $position = null, string $name = null)
+    public function __construct(LiteralValueInterface $value, int $position = null)
     {
-        parent::__construct(IdentifierTypes::ELEMENT_SELECTOR, $value, $name);
+        parent::__construct(IdentifierTypes::ELEMENT_SELECTOR, $value);
 
         $position = $position ?? self::DEFAULT_POSITION;
 
