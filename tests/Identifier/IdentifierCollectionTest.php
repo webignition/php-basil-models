@@ -43,28 +43,24 @@ class IdentifierCollectionTest extends \PHPUnit\Framework\TestCase
             ],
             'valid' => [
                 'identifiers' => [
-                    new ElementIdentifier(
+                    (new ElementIdentifier(
                         LiteralValue::createStringValue('.heading'),
-                        1,
-                        'heading'
-                    ),
-                    new ElementIdentifier(
+                        1
+                    ))->withName('heading'),
+                    (new ElementIdentifier(
                         LiteralValue::createXpathExpressionValue('//button'),
-                        1,
-                        'button'
-                    ),
+                        1
+                    ))->withName('button'),
                 ],
                 'expectedIdentifierCollection' => new IdentifierCollection([
-                    new ElementIdentifier(
+                    (new ElementIdentifier(
                         LiteralValue::createStringValue('.heading'),
-                        1,
-                        'heading'
-                    ),
-                    new ElementIdentifier(
+                        1
+                    ))->withName('heading'),
+                    (new ElementIdentifier(
                         LiteralValue::createXpathExpressionValue('//button'),
-                        1,
-                        'button'
-                    ),
+                        1
+                    ))->withName('button'),
                 ]),
             ],
         ];
@@ -72,17 +68,15 @@ class IdentifierCollectionTest extends \PHPUnit\Framework\TestCase
 
     public function testGetIdentifier()
     {
-        $headingIdentifier = new ElementIdentifier(
+        $headingIdentifier = (new ElementIdentifier(
             LiteralValue::createStringValue('.heading'),
-            1,
-            'heading'
-        );
+            1
+        ))->withName('heading');
 
-        $buttonIdentifier = new ElementIdentifier(
+        $buttonIdentifier = (new ElementIdentifier(
             LiteralValue::createXpathExpressionValue('//button'),
-            1,
-            'button'
-        );
+            1
+        ))->withName('button');
 
         $identifierCollection = new IdentifierCollection([
             $headingIdentifier,
@@ -96,17 +90,15 @@ class IdentifierCollectionTest extends \PHPUnit\Framework\TestCase
 
     public function testIterator()
     {
-        $headingIdentifier = new ElementIdentifier(
+        $headingIdentifier = (new ElementIdentifier(
             LiteralValue::createStringValue('.heading'),
-            1,
-            'heading'
-        );
+            1
+        ))->withName('heading');
 
-        $buttonIdentifier = new ElementIdentifier(
+        $buttonIdentifier = (new ElementIdentifier(
             LiteralValue::createXpathExpressionValue('//button'),
-            1,
-            'button'
-        );
+            1
+        ))->withName('button');
 
         $identifiers = [
             $headingIdentifier,

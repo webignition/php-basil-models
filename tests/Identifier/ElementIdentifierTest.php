@@ -6,8 +6,10 @@ namespace webignition\BasilModel\Tests\Identifier;
 use webignition\BasilModel\Identifier\ElementIdentifier;
 use webignition\BasilModel\Identifier\ElementIdentifierInterface;
 use webignition\BasilModel\Identifier\IdentifierTypes;
+use webignition\BasilModel\Tests\TestIdentifierFactory;
 use webignition\BasilModel\Value\LiteralValue;
 use webignition\BasilModel\Value\LiteralValueInterface;
+use webignition\BasilModel\Value\ValueTypes;
 
 class ElementIdentifierTest extends \PHPUnit\Framework\TestCase
 {
@@ -46,8 +48,9 @@ class ElementIdentifierTest extends \PHPUnit\Framework\TestCase
 
         $this->assertNull($identifier->getParentIdentifier());
 
-        $parentIdentifier = new ElementIdentifier(
-            LiteralValue::createCssSelectorValue('.parent'),
+        $parentIdentifier = TestIdentifierFactory::createElementIdentifier(
+            ValueTypes::CSS_SELECTOR,
+            '.parent',
             1,
             'parent_name'
         );
@@ -68,10 +71,11 @@ class ElementIdentifierTest extends \PHPUnit\Framework\TestCase
 
     public function toStringDataProvider(): array
     {
-        $parentIdentifier = new ElementIdentifier(
-            LiteralValue::createCssSelectorValue('.parent'),
+        $parentIdentifier = TestIdentifierFactory::createElementIdentifier(
+            ValueTypes::CSS_SELECTOR,
+            '.parent',
             1,
-            'parent_identifier_name'
+            'parent_name'
         );
 
         $cssSelectorWithElementReference =
@@ -143,11 +147,11 @@ class ElementIdentifierTest extends \PHPUnit\Framework\TestCase
             ],
             'css selector with element reference, position null' => [
                 'identifier' => $cssSelectorWithElementReference,
-                'expectedString' => '"{{ parent_identifier_name }} .selector"',
+                'expectedString' => '"{{ parent_name }} .selector"',
             ],
             'xpath expression with element reference, position null' => [
                 'identifier' => $xpathExpressionWithElementReference,
-                'expectedString' => '"{{ parent_identifier_name }} //foo"',
+                'expectedString' => '"{{ parent_name }} //foo"',
             ],
         ];
     }
