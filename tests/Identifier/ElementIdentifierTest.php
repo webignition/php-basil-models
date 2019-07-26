@@ -21,6 +21,8 @@ class ElementIdentifierTest extends \PHPUnit\Framework\TestCase
         $this->assertSame(IdentifierTypes::ELEMENT_SELECTOR, $identifier->getType());
         $this->assertSame($value, $identifier->getValue());
         $this->assertSame($expectedPosition, $identifier->getPosition());
+        $this->assertNull($identifier->getName());
+        $this->assertNull($identifier->getAttributeName());
     }
 
     public function createDataProvider(): array
@@ -87,6 +89,12 @@ class ElementIdentifierTest extends \PHPUnit\Framework\TestCase
                 'identifier' => new ElementIdentifier(LiteralValue::createCssSelectorValue('.selector')),
                 'expectedString' => '".selector"',
             ],
+            'css selector, position null with attribute name' => [
+                'identifier' => (new ElementIdentifier(
+                    LiteralValue::createCssSelectorValue('.selector')
+                ))->withAttributeName('attribute_name'),
+                'expectedString' => '".selector".attribute_name',
+            ],
             'css selector, position 1' => [
                 'identifier' => new ElementIdentifier(
                     LiteralValue::createCssSelectorValue('.selector'),
@@ -94,12 +102,26 @@ class ElementIdentifierTest extends \PHPUnit\Framework\TestCase
                 ),
                 'expectedString' => '".selector"',
             ],
+            'css selector, position 1 with attribute name' => [
+                'identifier' => (new ElementIdentifier(
+                    LiteralValue::createCssSelectorValue('.selector'),
+                    1
+                ))->withAttributeName('attribute_name'),
+                'expectedString' => '".selector".attribute_name',
+            ],
             'css selector, position 2' => [
                 'identifier' => new ElementIdentifier(
                     LiteralValue::createCssSelectorValue('.selector'),
                     2
                 ),
                 'expectedString' => '".selector":2',
+            ],
+            'css selector, position 2 with attribute name' => [
+                'identifier' => (new ElementIdentifier(
+                    LiteralValue::createCssSelectorValue('.selector'),
+                    2
+                ))->withAttributeName('attribute_name'),
+                'expectedString' => '".selector":2.attribute_name',
             ],
             'xpath expression, position null' => [
                 'identifier' => new ElementIdentifier(LiteralValue::createXpathExpressionValue('//foo')),
@@ -168,6 +190,48 @@ class ElementIdentifierTest extends \PHPUnit\Framework\TestCase
                 'identifier' => $identifier->withName('current identifier name'),
                 'name' => 'new identifier name',
                 'expectedIdentifier' => $identifier->withName('new identifier name'),
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider withAttributeNameDataProvider
+     */
+    public function testWithAttributeName(
+        ElementIdentifierInterface $identifier,
+        string $attributeName,
+        ElementIdentifierInterface $expectedIdentifier
+    ) {
+        $updatedIdentifier = $identifier->withAttributeName($attributeName);
+
+        $this->assertNotSame($identifier, $updatedIdentifier);
+        $this->assertEquals($expectedIdentifier, $updatedIdentifier);
+    }
+
+    public function withAttributeNameDataProvider(): array
+    {
+        $identifier = new ElementIdentifier(LiteralValue::createCssSelectorValue('.selector'));
+
+        return [
+            'no attribute name, no new attribute name' => [
+                'identifier' => $identifier,
+                'attributeName' => '',
+                'expectedIdentifier' => $identifier,
+            ],
+            'has attribute name, no new attribute name' => [
+                'identifier' => $identifier->withAttributeName('attribute_name'),
+                'attributeName' => '',
+                'expectedIdentifier' => $identifier,
+            ],
+            'no attribute name, has new attribute name' => [
+                'identifier' => $identifier,
+                'attributeName' => 'attribute_name',
+                'expectedIdentifier' => $identifier->withAttributeName('attribute_name'),
+            ],
+            'has attribute name, has new attribute name' => [
+                'identifier' => $identifier->withAttributeName('current_attribute_name'),
+                'attributeName' => 'new_attribute_name',
+                'expectedIdentifier' => $identifier->withAttributeName('new_attribute_name'),
             ],
         ];
     }
