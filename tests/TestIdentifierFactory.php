@@ -14,7 +14,6 @@ class TestIdentifierFactory
         string $selector,
         int $position,
         ?string $name,
-        ?string $attributeName = null,
         ?ElementIdentifierInterface $parentIdentifier = null
     ): ElementIdentifierInterface {
         $value = $type === ValueTypes::CSS_SELECTOR
@@ -25,10 +24,6 @@ class TestIdentifierFactory
 
         if (null !== $name) {
             $identifier = $identifier->withName($name);
-        }
-
-        if (null !== $attributeName && $identifier instanceof ElementIdentifierInterface) {
-            $identifier = $identifier->withAttributeName($attributeName);
         }
 
         if ($identifier instanceof ElementIdentifierInterface &&
