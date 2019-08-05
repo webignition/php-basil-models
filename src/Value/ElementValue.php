@@ -3,13 +3,14 @@
 namespace webignition\BasilModel\Value;
 
 use webignition\BasilModel\Identifier\ElementIdentifier;
+use webignition\BasilModel\Identifier\ElementIdentifierInterface;
 use webignition\BasilModel\Identifier\IdentifierInterface;
 
 class ElementValue extends AbstractValue implements ElementValueInterface
 {
     private $identifier;
 
-    public function __construct(ElementIdentifier $identifier)
+    public function __construct(ElementIdentifierInterface $identifier)
     {
         parent::__construct(ValueTypes::ELEMENT_IDENTIFIER);
 
