@@ -9,7 +9,6 @@ class ElementIdentifier extends Identifier implements ElementIdentifierInterface
     const DEFAULT_POSITION = 1;
 
     private $position = 1;
-    private $attributeName = null;
 
     /**
      * @var ElementIdentifierInterface
@@ -43,19 +42,6 @@ class ElementIdentifier extends Identifier implements ElementIdentifierInterface
         return $new;
     }
 
-    public function getAttributeName(): ?string
-    {
-        return $this->attributeName;
-    }
-
-    public function withAttributeName(string $attributeName): ElementIdentifierInterface
-    {
-        $new = clone $this;
-        $new->attributeName = $attributeName;
-
-        return $new;
-    }
-
     public function __toString(): string
     {
         $string = parent::__toString();
@@ -68,10 +54,6 @@ class ElementIdentifier extends Identifier implements ElementIdentifierInterface
 
         if (self::DEFAULT_POSITION !== $this->position) {
             $string .= ':' . $this->position;
-        }
-
-        if (null !== $this->attributeName) {
-            $string .= '.' . $this->attributeName;
         }
 
         return $string;
