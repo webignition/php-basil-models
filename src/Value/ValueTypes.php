@@ -22,6 +22,9 @@ class ValueTypes
     // ElementValue
     const ELEMENT_IDENTIFIER = 'element-identifier';
 
+    // AttributeValue
+    const ATTRIBUTE_IDENTIFIER = 'attribute-identifier';
+
     const ALL = [
         self::CSS_SELECTOR,
         self::STRING,
