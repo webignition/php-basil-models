@@ -60,6 +60,12 @@ class ObjectValueTest extends \PHPUnit\Framework\TestCase
                 'objectName' => 'page_import_name',
                 'objectProperty' => 'element_name',
             ],
+            'attribute parameter' => [
+                'type' => ValueTypes::ATTRIBUTE_PARAMETER,
+                'valueString' => '$elements.element_name.attribute_name',
+                'objectName' => ObjectNames::ELEMENT,
+                'objectProperty' => 'element_name.attribute_name',
+            ],
         ];
     }
 
