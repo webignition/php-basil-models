@@ -15,6 +15,7 @@ class ValueTypes
     const ELEMENT_PARAMETER = 'element-parameter';
     const PAGE_ELEMENT_REFERENCE = 'page-element-reference';
     const PAGE_OBJECT_PROPERTY = 'page-object-property';
+    const ATTRIBUTE_PARAMETER = 'attribute-parameter';
 
     // EnvironmentValue
     const ENVIRONMENT_PARAMETER = 'environment-parameter';
