@@ -36,7 +36,9 @@ class ValueTypes
         self::PAGE_ELEMENT_REFERENCE,
         self::PAGE_OBJECT_PROPERTY,
         self::ENVIRONMENT_PARAMETER,
+        self::ATTRIBUTE_PARAMETER,
         self::ELEMENT_IDENTIFIER,
+        self::ATTRIBUTE_IDENTIFIER
     ];
 
     const ACTIONABLE_TYPES = [
