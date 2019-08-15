@@ -2,7 +2,6 @@
 
 namespace webignition\BasilModel\Assertion;
 
-use webignition\BasilModel\Value\ElementValueInterface;
 use webignition\BasilModel\Value\ValueInterface;
 
 class Assertion implements AssertionInterface
@@ -44,7 +43,7 @@ class Assertion implements AssertionInterface
         return $this->expectedValue;
     }
 
-    public function withExaminedValue(ElementValueInterface $elementValue): AssertionInterface
+    public function withExaminedValue(ValueInterface $elementValue): AssertionInterface
     {
         $new = clone $this;
         $new->examinedValue = $elementValue;
@@ -52,7 +51,7 @@ class Assertion implements AssertionInterface
         return $new;
     }
 
-    public function withExpectedValue(ElementValueInterface $elementValue): AssertionInterface
+    public function withExpectedValue(ValueInterface $elementValue): AssertionInterface
     {
         $new = clone $this;
         $new->expectedValue = $elementValue;
