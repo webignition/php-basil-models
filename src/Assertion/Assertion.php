@@ -51,4 +51,12 @@ class Assertion implements AssertionInterface
 
         return $new;
     }
+
+    public function withExpectedValue(ElementValueInterface $elementValue): AssertionInterface
+    {
+        $new = clone $this;
+        $new->expectedValue = $elementValue;
+
+        return $new;
+    }
 }
