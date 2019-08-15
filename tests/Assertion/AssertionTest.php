@@ -64,4 +64,42 @@ class AssertionTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($originalExaminedValue, $assertion->getExaminedValue());
         $this->assertSame($elementValue, $mutatedAssertion->getExaminedValue());
     }
+
+    public function testWithExpectedValue()
+    {
+        $assertionString = '".selector" is page_import_name.elements.element_name';
+        $comparison = AssertionComparisons::EXISTS;
+
+        $originalExpectedValue = new ObjectValue(
+            ValueTypes::PAGE_ELEMENT_REFERENCE,
+            'page_import_name.elements.element_name',
+            'page_import_name',
+            'element_name'
+        );
+
+        $examinedValue = LiteralValue::createCssSelectorValue('.selector');
+
+        $assertion = new Assertion(
+            $assertionString,
+            $examinedValue,
+            $comparison,
+            $originalExpectedValue
+        );
+
+        $newExpectedValue = new ElementValue(
+            new ElementIdentifier(
+                LiteralValue::createCssSelectorValue('.selector')
+            )
+        );
+
+        $mutatedAssertion = $assertion->withExpectedValue($newExpectedValue);
+
+        $this->assertNotSame($assertion, $mutatedAssertion);
+        $this->assertEquals($assertionString, $assertion->getAssertionString());
+        $this->assertEquals($assertionString, $mutatedAssertion->getAssertionString());
+        $this->assertEquals($comparison, $assertion->getComparison());
+        $this->assertEquals($comparison, $mutatedAssertion->getComparison());
+        $this->assertSame($originalExpectedValue, $assertion->getExpectedValue());
+        $this->assertSame($newExpectedValue, $mutatedAssertion->getExpectedValue());
+    }
 }
