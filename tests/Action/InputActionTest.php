@@ -48,4 +48,45 @@ class InputActionTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($originalIdentifier, $action->getIdentifier());
         $this->assertSame($newIdentifier, $mutatedAction->getIdentifier());
     }
+
+    public function testWithValueReturnsSameInstance()
+    {
+        $originalValue = LiteralValue::createStringValue('original-value');
+
+        $action = new InputAction(
+            'set ".selector" to "original-value"',
+            new ElementIdentifier(
+                LiteralValue::createCssSelectorValue('.selector')
+            ),
+            $originalValue,
+            '".selector" to "original-value"'
+        );
+
+        $newAction = $action->withValue($originalValue);
+
+        $this->assertSame($newAction, $action);
+    }
+
+    public function testWithValueReturnsNewInstance()
+    {
+        $actionString = 'set ".selector" to "original-value';
+        $identifier = new ElementIdentifier(
+            LiteralValue::createCssSelectorValue('.selector')
+        );
+
+        $originalValue = LiteralValue::createStringValue('original-value');
+        $newValue = LiteralValue::createStringValue('new-value');
+        $arguments = '".selector" to "original-value"';
+
+        $action = new InputAction($actionString, $identifier, $originalValue, $arguments);
+        $newAction = $action->withValue($newValue);
+
+        $this->assertNotSame($action, $newAction);
+        $this->assertEquals($identifier, $action->getIdentifier());
+        $this->assertEquals($identifier, $newAction->getIdentifier());
+        $this->assertEquals($actionString, $action->getActionString());
+        $this->assertEquals($actionString, $newAction->getActionString());
+        $this->assertEquals($originalValue, $action->getValue());
+        $this->assertEquals($newValue, $newAction->getValue());
+    }
 }
