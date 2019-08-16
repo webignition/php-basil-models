@@ -107,4 +107,27 @@ class PendingImportResolutionStepTest extends \PHPUnit\Framework\TestCase
             ],
         ];
     }
+
+    /**
+     * @dataProvider clearImportNameDataProvider
+     */
+    public function testClearImportName(PendingImportResolutionStepInterface $step)
+    {
+        $newStep = $step->clearImportName();
+
+        $this->assertNotSame($newStep, $step);
+        $this->assertSame('', $newStep->getImportName());
+    }
+
+    public function clearImportNameDataProvider(): array
+    {
+        return [
+            'no import name' => [
+                'step' => new PendingImportResolutionStep(new Step([], []), '', ''),
+            ],
+            'has import name' => [
+                'step' => new PendingImportResolutionStep(new Step([], []), 'step_import_name', ''),
+            ],
+        ];
+    }
 }
