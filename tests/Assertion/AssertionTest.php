@@ -28,22 +28,7 @@ class AssertionTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($expectedValue, $assertion->getExpectedValue());
     }
 
-    public function testWithExaminedValueReturnsSameInstance()
-    {
-        $originalValue = LiteralValue::createStringValue('value');
-
-        $assertion = new Assertion(
-            '"value" exists',
-            $originalValue,
-            AssertionComparisons::EXISTS
-        );
-
-        $newAssertion = $assertion->withExaminedValue($originalValue);
-
-        $this->assertSame($newAssertion, $assertion);
-    }
-
-    public function testWithExaminedValueReturnsNewInstance()
+    public function testWithExaminedValue()
     {
         $assertionString = '"value" exists';
         $comparison = AssertionComparisons::EXISTS;
@@ -66,22 +51,6 @@ class AssertionTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($comparison, $newAssertion->getComparison());
         $this->assertSame($originalValue, $assertion->getExaminedValue());
         $this->assertSame($newValue, $newAssertion->getExaminedValue());
-    }
-
-    public function testWithExpectedValueReturnsSameInstance()
-    {
-        $originalValue = LiteralValue::createStringValue('expected-value');
-
-        $assertion = new Assertion(
-            '"examined-value" is "expected-value"',
-            LiteralValue::createStringValue('examined-value'),
-            AssertionComparisons::IS,
-            $originalValue
-        );
-
-        $newAssertion = $assertion->withExpectedValue($originalValue);
-
-        $this->assertSame($newAssertion, $assertion);
     }
 
     public function testWithExpectedValue()

@@ -45,10 +45,6 @@ class Assertion implements AssertionInterface
 
     public function withExaminedValue(ValueInterface $value): AssertionInterface
     {
-        if ($value === $this->examinedValue) {
-            return $this;
-        }
-
         $new = clone $this;
         $new->examinedValue = $value;
 
@@ -57,10 +53,6 @@ class Assertion implements AssertionInterface
 
     public function withExpectedValue(ValueInterface $value): AssertionInterface
     {
-        if ($value === $this->expectedValue) {
-            return $this;
-        }
-
         $new = clone $this;
         $new->expectedValue = $value;
 
