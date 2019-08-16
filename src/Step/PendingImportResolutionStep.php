@@ -115,4 +115,12 @@ class PendingImportResolutionStep implements StepInterface, PendingImportResolut
 
         return $new;
     }
+
+    public function clearDataProviderImportName(): PendingImportResolutionStepInterface
+    {
+        $new = clone $this;
+        $new->dataProviderImportName = '';
+
+        return $new;
+    }
 }

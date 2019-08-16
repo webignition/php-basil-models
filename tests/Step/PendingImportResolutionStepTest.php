@@ -130,4 +130,27 @@ class PendingImportResolutionStepTest extends \PHPUnit\Framework\TestCase
             ],
         ];
     }
+
+    /**
+     * @dataProvider clearDataProviderImportNameDataProvider
+     */
+    public function testClearDataProviderImportName(PendingImportResolutionStepInterface $step)
+    {
+        $newStep = $step->clearDataProviderImportName();
+
+        $this->assertNotSame($newStep, $step);
+        $this->assertSame('', $newStep->getDataProviderImportName());
+    }
+
+    public function clearDataProviderImportNameDataProvider(): array
+    {
+        return [
+            'no data provider name' => [
+                'step' => new PendingImportResolutionStep(new Step([], []), '', ''),
+            ],
+            'has data provider name' => [
+                'step' => new PendingImportResolutionStep(new Step([], []), '', 'data_provider_import_name'),
+            ],
+        ];
+    }
 }
