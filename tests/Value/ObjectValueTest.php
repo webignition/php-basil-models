@@ -3,8 +3,15 @@
 
 namespace webignition\BasilModel\Tests\Value;
 
+use webignition\BasilModel\Identifier\AttributeIdentifier;
+use webignition\BasilModel\Identifier\ElementIdentifier;
+use webignition\BasilModel\Value\AttributeValue;
+use webignition\BasilModel\Value\ElementValue;
+use webignition\BasilModel\Value\EnvironmentValue;
+use webignition\BasilModel\Value\LiteralValue;
 use webignition\BasilModel\Value\ObjectNames;
 use webignition\BasilModel\Value\ObjectValue;
+use webignition\BasilModel\Value\ValueInterface;
 use webignition\BasilModel\Value\ValueTypes;
 
 class ObjectValueTest extends \PHPUnit\Framework\TestCase
@@ -90,18 +97,76 @@ class ObjectValueTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse($nonEmptyObjectValue->isEmpty());
     }
 
-    public function testIsActionable()
+    /**
+     * @dataProvider isActionableDataProvider
+     */
+    public function testIsActionable(ValueInterface $value, bool $expectedIsActionable)
     {
-        $browserObjectParameterValue = new ObjectValue(ValueTypes::BROWSER_OBJECT_PROPERTY, '', '', '');
-        $dataParameterObjectValue = new ObjectValue(ValueTypes::DATA_PARAMETER, '', '', '');
-        $elementParameterObjectValue = new ObjectValue(ValueTypes::ELEMENT_PARAMETER, '', '', '');
-        $pageElementReferenceObjectValue = new ObjectValue(ValueTypes::PAGE_ELEMENT_REFERENCE, '', '', '');
-        $pageObjectPropertyObjectValue = new ObjectValue(ValueTypes::PAGE_OBJECT_PROPERTY, '', '', '');
+        $this->assertSame($expectedIsActionable, $value->isActionable());
+    }
 
-        $this->assertTrue($browserObjectParameterValue->isActionable());
-        $this->assertTrue($dataParameterObjectValue->isActionable());
-        $this->assertTrue($elementParameterObjectValue->isActionable());
-        $this->assertFalse($pageElementReferenceObjectValue->isActionable());
-        $this->assertTrue($pageObjectPropertyObjectValue->isActionable());
+    public function isActionableDataProvider(): array
+    {
+        return [
+            'literal css selector' => [
+                'value' => LiteralValue::createCssSelectorValue('.selector'),
+                'expectedIsActionable' => true,
+            ],
+            'literal string' => [
+                'value' => LiteralValue::createStringValue('value'),
+                'expectedIsActionable' => true,
+            ],
+            'literal xpath expression' => [
+                'value' => LiteralValue::createXpathExpressionValue('//h1'),
+                'expectedIsActionable' => true,
+            ],
+            'browser object property' => [
+                'value' => new ObjectValue(ValueTypes::BROWSER_OBJECT_PROPERTY, '', '', ''),
+                'expectedIsActionable' => true,
+            ],
+            'data parameter' => [
+                'value' => new ObjectValue(ValueTypes::DATA_PARAMETER, '', '', ''),
+                'expectedIsActionable' => true,
+            ],
+            'element parameter' => [
+                'value' => new ObjectValue(ValueTypes::ELEMENT_PARAMETER, '', '', ''),
+                'expectedIsActionable' => false,
+            ],
+            'page element reference' => [
+                'value' => new ObjectValue(ValueTypes::PAGE_ELEMENT_REFERENCE, '', '', ''),
+                'expectedIsActionable' => false,
+            ],
+            'page object property' => [
+                'value' => new ObjectValue(ValueTypes::PAGE_OBJECT_PROPERTY, '', '', ''),
+                'expectedIsActionable' => true,
+            ],
+            'attribute parameter' => [
+                'value' => new ObjectValue(ValueTypes::ATTRIBUTE_PARAMETER, '', '', ''),
+                'expectedIsActionable' => false,
+            ],
+            'environment parameter' => [
+                'value' => new EnvironmentValue('', ''),
+                'expectedIsActionable' => true,
+            ],
+            'element identifier value' => [
+                'value' => new ElementValue(
+                    new ElementIdentifier(
+                        LiteralValue::createCssSelectorValue('.selector')
+                    )
+                ),
+                'expectedIsActionable' => true,
+            ],
+            'attribute identifier value' => [
+                'value' => new AttributeValue(
+                    new AttributeIdentifier(
+                        new ElementIdentifier(
+                            LiteralValue::createCssSelectorValue('.selector')
+                        ),
+                        'attribute_name'
+                    )
+                ),
+                'expectedIsActionable' => true,
+            ],
+        ];
     }
 }

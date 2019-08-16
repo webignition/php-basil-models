@@ -39,7 +39,13 @@ class ObjectValue extends AbstractValue implements ObjectValueInterface
 
     public function isActionable(): bool
     {
-        return $this->getType() !== ValueTypes::PAGE_ELEMENT_REFERENCE;
+        $nonActionableTypes = [
+            ValueTypes::PAGE_ELEMENT_REFERENCE,
+            ValueTypes::ATTRIBUTE_PARAMETER,
+            ValueTypes::ELEMENT_PARAMETER,
+        ];
+
+        return !in_array($this->getType(), $nonActionableTypes);
     }
 
     public function __toString(): string
