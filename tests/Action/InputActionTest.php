@@ -49,25 +49,7 @@ class InputActionTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($newIdentifier, $mutatedAction->getIdentifier());
     }
 
-    public function testWithValueReturnsSameInstance()
-    {
-        $originalValue = LiteralValue::createStringValue('original-value');
-
-        $action = new InputAction(
-            'set ".selector" to "original-value"',
-            new ElementIdentifier(
-                LiteralValue::createCssSelectorValue('.selector')
-            ),
-            $originalValue,
-            '".selector" to "original-value"'
-        );
-
-        $newAction = $action->withValue($originalValue);
-
-        $this->assertSame($newAction, $action);
-    }
-
-    public function testWithValueReturnsNewInstance()
+    public function testWithValue()
     {
         $actionString = 'set ".selector" to "original-value';
         $identifier = new ElementIdentifier(

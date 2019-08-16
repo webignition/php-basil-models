@@ -27,10 +27,6 @@ class InputAction extends InteractionAction implements InputActionInterface
 
     public function withValue(ValueInterface $value): InputActionInterface
     {
-        if ($value === $this->value) {
-            return $this;
-        }
-
         $new = clone $this;
         $new->value = $value;
 
