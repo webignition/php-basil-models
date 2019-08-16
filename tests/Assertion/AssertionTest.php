@@ -7,8 +7,6 @@ use webignition\BasilModel\Assertion\AssertionComparisons;
 use webignition\BasilModel\Value\ElementValue;
 use webignition\BasilModel\Value\LiteralValue;
 use webignition\BasilModel\Identifier\ElementIdentifier;
-use webignition\BasilModel\Value\ObjectValue;
-use webignition\BasilModel\Value\ValueTypes;
 
 class AssertionTest extends \PHPUnit\Framework\TestCase
 {
@@ -30,76 +28,85 @@ class AssertionTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($expectedValue, $assertion->getExpectedValue());
     }
 
-    public function testWithExaminedValue()
+    public function testWithExaminedValueReturnsSameInstance()
     {
-        $assertionString = 'page_import_name.elements.element_name exists';
-        $comparison = AssertionComparisons::EXISTS;
-
-        $originalExaminedValue = new ObjectValue(
-            ValueTypes::PAGE_ELEMENT_REFERENCE,
-            'page_import_name.elements.element_name',
-            'page_import_name',
-            'element_name'
-        );
+        $originalValue = LiteralValue::createStringValue('value');
 
         $assertion = new Assertion(
-            $assertionString,
-            $originalExaminedValue,
-            $comparison
+            '"value" exists',
+            $originalValue,
+            AssertionComparisons::EXISTS
         );
 
-        $elementValue = new ElementValue(
-            new ElementIdentifier(
-                LiteralValue::createCssSelectorValue('.selector')
-            )
+        $newAssertion = $assertion->withExaminedValue($originalValue);
+
+        $this->assertSame($newAssertion, $assertion);
+    }
+
+    public function testWithExaminedValueReturnsNewInstance()
+    {
+        $assertionString = '"value" exists';
+        $comparison = AssertionComparisons::EXISTS;
+
+        $originalValue = LiteralValue::createStringValue('value');
+        $newValue = LiteralValue::createStringValue('new value');
+
+        $assertion = new Assertion(
+            '"value" exists',
+            $originalValue,
+            AssertionComparisons::EXISTS
         );
 
-        $mutatedAssertion = $assertion->withExaminedValue($elementValue);
+        $newAssertion = $assertion->withExaminedValue($newValue);
 
-        $this->assertNotSame($assertion, $mutatedAssertion);
+        $this->assertNotSame($assertion, $newAssertion);
         $this->assertEquals($assertionString, $assertion->getAssertionString());
-        $this->assertEquals($assertionString, $mutatedAssertion->getAssertionString());
+        $this->assertEquals($assertionString, $newAssertion->getAssertionString());
         $this->assertEquals($comparison, $assertion->getComparison());
-        $this->assertEquals($comparison, $mutatedAssertion->getComparison());
-        $this->assertSame($originalExaminedValue, $assertion->getExaminedValue());
-        $this->assertSame($elementValue, $mutatedAssertion->getExaminedValue());
+        $this->assertEquals($comparison, $newAssertion->getComparison());
+        $this->assertSame($originalValue, $assertion->getExaminedValue());
+        $this->assertSame($newValue, $newAssertion->getExaminedValue());
+    }
+
+    public function testWithExpectedValueReturnsSameInstance()
+    {
+        $originalValue = LiteralValue::createStringValue('expected-value');
+
+        $assertion = new Assertion(
+            '"examined-value" is "expected-value"',
+            LiteralValue::createStringValue('examined-value'),
+            AssertionComparisons::IS,
+            $originalValue
+        );
+
+        $newAssertion = $assertion->withExpectedValue($originalValue);
+
+        $this->assertSame($newAssertion, $assertion);
     }
 
     public function testWithExpectedValue()
     {
-        $assertionString = '".selector" is page_import_name.elements.element_name';
-        $comparison = AssertionComparisons::EXISTS;
+        $assertionString = '"examined-value" is "expected-value"';
+        $comparison = AssertionComparisons::IS;
 
-        $originalExpectedValue = new ObjectValue(
-            ValueTypes::PAGE_ELEMENT_REFERENCE,
-            'page_import_name.elements.element_name',
-            'page_import_name',
-            'element_name'
-        );
-
-        $examinedValue = LiteralValue::createCssSelectorValue('.selector');
+        $originalValue = LiteralValue::createStringValue('expected-value');
+        $newValue = LiteralValue::createStringValue('new expected-value');
 
         $assertion = new Assertion(
             $assertionString,
-            $examinedValue,
+            LiteralValue::createStringValue('examined-value'),
             $comparison,
-            $originalExpectedValue
+            $originalValue
         );
 
-        $newExpectedValue = new ElementValue(
-            new ElementIdentifier(
-                LiteralValue::createCssSelectorValue('.selector')
-            )
-        );
+        $newAssertion = $assertion->withExpectedValue($newValue);
 
-        $mutatedAssertion = $assertion->withExpectedValue($newExpectedValue);
-
-        $this->assertNotSame($assertion, $mutatedAssertion);
+        $this->assertNotSame($assertion, $newAssertion);
         $this->assertEquals($assertionString, $assertion->getAssertionString());
-        $this->assertEquals($assertionString, $mutatedAssertion->getAssertionString());
+        $this->assertEquals($assertionString, $newAssertion->getAssertionString());
         $this->assertEquals($comparison, $assertion->getComparison());
-        $this->assertEquals($comparison, $mutatedAssertion->getComparison());
-        $this->assertSame($originalExpectedValue, $assertion->getExpectedValue());
-        $this->assertSame($newExpectedValue, $mutatedAssertion->getExpectedValue());
+        $this->assertEquals($comparison, $newAssertion->getComparison());
+        $this->assertSame($originalValue, $assertion->getExpectedValue());
+        $this->assertSame($newValue, $newAssertion->getExpectedValue());
     }
 }

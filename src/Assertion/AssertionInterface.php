@@ -10,6 +10,6 @@ interface AssertionInterface
     public function getExaminedValue(): ?ValueInterface;
     public function getComparison(): ?string;
     public function getExpectedValue(): ?ValueInterface;
-    public function withExaminedValue(ValueInterface $elementValue): AssertionInterface;
-    public function withExpectedValue(ValueInterface $elementValue): AssertionInterface;
+    public function withExaminedValue(ValueInterface $value): AssertionInterface;
+    public function withExpectedValue(ValueInterface $value): AssertionInterface;
 }

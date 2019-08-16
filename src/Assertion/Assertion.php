@@ -43,18 +43,26 @@ class Assertion implements AssertionInterface
         return $this->expectedValue;
     }
 
-    public function withExaminedValue(ValueInterface $elementValue): AssertionInterface
+    public function withExaminedValue(ValueInterface $value): AssertionInterface
     {
+        if ($value === $this->examinedValue) {
+            return $this;
+        }
+
         $new = clone $this;
-        $new->examinedValue = $elementValue;
+        $new->examinedValue = $value;
 
         return $new;
     }
 
-    public function withExpectedValue(ValueInterface $elementValue): AssertionInterface
+    public function withExpectedValue(ValueInterface $value): AssertionInterface
     {
+        if ($value === $this->expectedValue) {
+            return $this;
+        }
+
         $new = clone $this;
-        $new->expectedValue = $elementValue;
+        $new->expectedValue = $value;
 
         return $new;
     }
