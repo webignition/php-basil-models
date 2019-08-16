@@ -8,4 +8,5 @@ interface PendingImportResolutionStepInterface extends StepInterface
     public function getDataProviderImportName(): string;
     public function requiresResolution(): bool;
     public function getStep(): StepInterface;
+    public function clearImportName(): PendingImportResolutionStepInterface;
 }

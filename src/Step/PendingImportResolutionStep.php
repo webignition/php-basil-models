@@ -107,4 +107,12 @@ class PendingImportResolutionStep implements StepInterface, PendingImportResolut
 
         return $this;
     }
+
+    public function clearImportName(): PendingImportResolutionStepInterface
+    {
+        $new = clone $this;
+        $new->importName = '';
+
+        return $new;
+    }
 }
