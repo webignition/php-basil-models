@@ -6,7 +6,7 @@ class LiteralValue extends AbstractValue implements LiteralValueInterface
 {
     private $value;
 
-    private function __construct(string $type, string $value)
+    protected function __construct(string $type, string $value)
     {
         parent::__construct($type);
 
