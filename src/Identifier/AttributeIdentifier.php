@@ -17,7 +17,7 @@ class AttributeIdentifier extends Identifier implements AttributeIdentifierInter
         $this->attributeName = $attributeName;
     }
 
-    public function getElementIdentifier(): ?ElementIdentifierInterface
+    public function getElementIdentifier(): ElementIdentifierInterface
     {
         return $this->identifier;
     }
