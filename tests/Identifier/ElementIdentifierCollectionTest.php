@@ -4,17 +4,17 @@
 namespace webignition\BasilModel\Tests\Identifier;
 
 use webignition\BasilModel\Identifier\ElementIdentifier;
-use webignition\BasilModel\Identifier\IdentifierCollection;
+use webignition\BasilModel\Identifier\ElementIdentifierCollection;
 use webignition\BasilModel\Value\LiteralValue;
 
-class IdentifierCollectionTest extends \PHPUnit\Framework\TestCase
+class ElementIdentifierCollectionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @dataProvider createDataProvider
      */
-    public function testCreate(array $identifiers, IdentifierCollection $expectedIdentifierCollection)
+    public function testCreate(array $identifiers, ElementIdentifierCollection $expectedIdentifierCollection)
     {
-        $identifierCollection = new IdentifierCollection($identifiers);
+        $identifierCollection = new ElementIdentifierCollection($identifiers);
 
         $this->assertEquals($expectedIdentifierCollection, $identifierCollection);
     }
@@ -28,13 +28,13 @@ class IdentifierCollectionTest extends \PHPUnit\Framework\TestCase
                     'string',
                     true
                 ],
-                'expectedIdentifierCollection' => new IdentifierCollection(),
+                'expectedIdentifierCollection' => new ElementIdentifierCollection(),
             ],
             'invalid, lacking names' => [
                 'identifiers' => [
                     new ElementIdentifier(LiteralValue::createStringValue('.heading')),
                 ],
-                'expectedIdentifierCollection' => new IdentifierCollection([
+                'expectedIdentifierCollection' => new ElementIdentifierCollection([
                     new ElementIdentifier(LiteralValue::createStringValue('.heading')),
                 ]),
             ],
@@ -45,7 +45,7 @@ class IdentifierCollectionTest extends \PHPUnit\Framework\TestCase
                         1
                     ))->withName('heading'),
                 ],
-                'expectedIdentifierCollection' => new IdentifierCollection([
+                'expectedIdentifierCollection' => new ElementIdentifierCollection([
                     (new ElementIdentifier(
                         LiteralValue::createStringValue('.heading'),
                         1
@@ -62,7 +62,7 @@ class IdentifierCollectionTest extends \PHPUnit\Framework\TestCase
             1
         ))->withName('heading');
 
-        $identifierCollection = new IdentifierCollection([
+        $identifierCollection = new ElementIdentifierCollection([
             $headingIdentifier,
         ]);
 
@@ -81,7 +81,7 @@ class IdentifierCollectionTest extends \PHPUnit\Framework\TestCase
             $headingIdentifier,
         ];
 
-        $identifierCollection = new IdentifierCollection($identifiers);
+        $identifierCollection = new ElementIdentifierCollection($identifiers);
 
         foreach ($identifierCollection as $index => $identifier) {
             $this->assertSame($identifiers[$index], $identifier);
