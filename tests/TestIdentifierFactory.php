@@ -12,7 +12,7 @@ class TestIdentifierFactory
     public static function createElementIdentifier(
         string $type,
         string $selector,
-        int $position,
+        ?int $position,
         ?string $name,
         ?ElementIdentifierInterface $parentIdentifier = null
     ): ElementIdentifierInterface {
