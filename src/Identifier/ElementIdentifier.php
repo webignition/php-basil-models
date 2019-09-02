@@ -6,25 +6,21 @@ use webignition\BasilModel\Value\LiteralValueInterface;
 
 class ElementIdentifier extends Identifier implements ElementIdentifierInterface
 {
-    const DEFAULT_POSITION = 1;
-
-    private $position = 1;
+    private $position = null;
 
     /**
      * @var ElementIdentifierInterface
      */
     private $parentIdentifier;
 
-    public function __construct(LiteralValueInterface $value, int $position = null)
+    public function __construct(LiteralValueInterface $value, ?int $position = null)
     {
         parent::__construct(IdentifierTypes::ELEMENT_SELECTOR, $value);
-
-        $position = $position ?? self::DEFAULT_POSITION;
 
         $this->position = $position;
     }
 
-    public function getPosition(): int
+    public function getPosition(): ?int
     {
         return $this->position;
     }
@@ -52,7 +48,7 @@ class ElementIdentifier extends Identifier implements ElementIdentifierInterface
 
         $string = '"' . $string . '"';
 
-        if (self::DEFAULT_POSITION !== $this->position) {
+        if (null !== $this->position) {
             $string .= ':' . $this->position;
         }
 
