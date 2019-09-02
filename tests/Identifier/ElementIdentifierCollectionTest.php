@@ -5,7 +5,9 @@ namespace webignition\BasilModel\Tests\Identifier;
 
 use webignition\BasilModel\Identifier\ElementIdentifier;
 use webignition\BasilModel\Identifier\ElementIdentifierCollection;
+use webignition\BasilModel\Tests\TestIdentifierFactory;
 use webignition\BasilModel\Value\LiteralValue;
+use webignition\BasilModel\Value\ValueTypes;
 
 class ElementIdentifierCollectionTest extends \PHPUnit\Framework\TestCase
 {
@@ -86,5 +88,48 @@ class ElementIdentifierCollectionTest extends \PHPUnit\Framework\TestCase
         foreach ($identifierCollection as $index => $identifier) {
             $this->assertSame($identifiers[$index], $identifier);
         }
+    }
+
+    public function testReplace()
+    {
+        $oldParentIdentifier = TestIdentifierFactory::createElementIdentifier(
+            ValueTypes::CSS_SELECTOR,
+            '.parent',
+            null,
+            'parent'
+        );
+
+        $childIdentifier = TestIdentifierFactory::createElementIdentifier(
+            ValueTypes::CSS_SELECTOR,
+            '.child',
+            null,
+            'child',
+            $oldParentIdentifier
+        );
+
+        $collection = new ElementIdentifierCollection([
+            $oldParentIdentifier,
+            $childIdentifier,
+        ]);
+
+        $newParentIdentifier = TestIdentifierFactory::createElementIdentifier(
+            ValueTypes::CSS_SELECTOR,
+            '.parent',
+            1,
+            'parent'
+        );
+
+        $expectedNewChildIdentifier = TestIdentifierFactory::createElementIdentifier(
+            ValueTypes::CSS_SELECTOR,
+            '.child',
+            null,
+            'child',
+            $newParentIdentifier
+        );
+
+        $mutatedCollection = $collection->replace($oldParentIdentifier, $newParentIdentifier);
+
+        $this->assertSame($newParentIdentifier, $mutatedCollection->getIdentifier('parent'));
+        $this->assertEquals($expectedNewChildIdentifier, $mutatedCollection->getIdentifier('child'));
     }
 }
