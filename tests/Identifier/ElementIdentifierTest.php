@@ -16,7 +16,7 @@ class ElementIdentifierTest extends \PHPUnit\Framework\TestCase
     /**
      * @dataProvider createDataProvider
      */
-    public function testCreate(LiteralValueInterface $value, int $expectedPosition, ?int $position = null)
+    public function testCreate(LiteralValueInterface $value, ?int $position, ?int $expectedPosition)
     {
         $identifier = new ElementIdentifier($value, $position);
 
@@ -31,12 +31,13 @@ class ElementIdentifierTest extends \PHPUnit\Framework\TestCase
         return [
             'string value, no explicit position' => [
                 'value' => LiteralValue::createCssSelectorValue('.selector'),
-                'expectedPosition' => ElementIdentifier::DEFAULT_POSITION,
+                'position' => null,
+                'expectedPosition' => null,
             ],
             'string value, has explicit position' => [
                 'value' => LiteralValue::createCssSelectorValue('.selector'),
-                'expectedPosition' => 3,
                 'position' => 3,
+                'expectedPosition' => 3,
             ],
         ];
     }
@@ -97,7 +98,7 @@ class ElementIdentifierTest extends \PHPUnit\Framework\TestCase
                     LiteralValue::createCssSelectorValue('.selector'),
                     1
                 ),
-                'expectedString' => '".selector"',
+                'expectedString' => '".selector":1',
             ],
             'css selector, position 2' => [
                 'identifier' => new ElementIdentifier(
@@ -115,7 +116,7 @@ class ElementIdentifierTest extends \PHPUnit\Framework\TestCase
                     LiteralValue::createXpathExpressionValue('//foo'),
                     1
                 ),
-                'expectedString' => '"//foo"',
+                'expectedString' => '"//foo":1',
             ],
             'xpath expression, position 2' => [
                 'identifier' => new ElementIdentifier(
