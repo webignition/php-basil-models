@@ -25,6 +25,14 @@ class ElementIdentifier extends Identifier implements ElementIdentifierInterface
         return $this->position;
     }
 
+    public function withPosition(int $position): ElementIdentifierInterface
+    {
+        $new = clone $this;
+        $new->position = $position;
+
+        return $new;
+    }
+
     public function getParentIdentifier(): ?ElementIdentifierInterface
     {
         return $this->parentIdentifier;

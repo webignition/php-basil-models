@@ -177,4 +177,20 @@ class ElementIdentifierTest extends \PHPUnit\Framework\TestCase
             ],
         ];
     }
+
+    public function testWithPosition()
+    {
+        $identifier = new ElementIdentifier(
+            LiteralValue::createCssSelectorValue('.selector')
+        );
+
+        $this->assertNull($identifier->getPosition());
+
+        $position = 1;
+
+        $mutatedIdentifier = $identifier->withPosition($position);
+
+        $this->assertNotSame($identifier, $mutatedIdentifier);
+        $this->assertSame($position, $mutatedIdentifier->getPosition());
+    }
 }
