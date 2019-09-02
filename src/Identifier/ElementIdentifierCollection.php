@@ -2,11 +2,11 @@
 
 namespace webignition\BasilModel\Identifier;
 
-class IdentifierCollection extends AbstractIdentifierCollection implements IdentifierCollectionInterface
+class ElementIdentifierCollection extends AbstractIdentifierCollection implements IdentifierCollectionInterface
 {
     protected function canBeAdded($identifier): bool
     {
-        return $identifier instanceof IdentifierInterface;
+        return $identifier instanceof ElementIdentifierInterface;
     }
 
     public function getIdentifier(string $name): ?IdentifierInterface
@@ -14,7 +14,7 @@ class IdentifierCollection extends AbstractIdentifierCollection implements Ident
         return $this->getIdentifierByName($name);
     }
 
-    public function current(): IdentifierInterface
+    public function current(): ElementIdentifierInterface
     {
         return parent::current();
     }
