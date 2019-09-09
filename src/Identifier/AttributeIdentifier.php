@@ -4,7 +4,7 @@ namespace webignition\BasilModel\Identifier;
 
 use webignition\BasilModel\Value\LiteralValue;
 
-class AttributeIdentifier extends Identifier implements AttributeIdentifierInterface
+class AttributeIdentifier extends ReferenceIdentifier implements AttributeIdentifierInterface
 {
     private $identifier;
     private $attributeName = null;

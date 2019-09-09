@@ -5,7 +5,7 @@ namespace webignition\BasilModel\Identifier;
 use webignition\BasilModel\Value\LiteralValue;
 use webignition\BasilModel\Value\ValueInterface;
 
-class Identifier implements IdentifierInterface
+class ReferenceIdentifier implements IdentifierInterface
 {
     private $value;
     private $type = '';
