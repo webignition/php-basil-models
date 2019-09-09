@@ -4,7 +4,7 @@ namespace webignition\BasilModel\Identifier;
 
 use webignition\BasilModel\Value\LiteralValueInterface;
 
-class ElementIdentifier extends Identifier implements ElementIdentifierInterface
+class ElementIdentifier extends ReferenceIdentifier implements ElementIdentifierInterface
 {
     private $position = null;
 
