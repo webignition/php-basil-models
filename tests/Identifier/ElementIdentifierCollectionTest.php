@@ -7,7 +7,6 @@ use webignition\BasilModel\Identifier\ElementIdentifier;
 use webignition\BasilModel\Identifier\ElementIdentifierCollection;
 use webignition\BasilModel\Tests\TestIdentifierFactory;
 use webignition\BasilModel\Value\CssSelector;
-use webignition\BasilModel\Value\ValueTypes;
 
 class ElementIdentifierCollectionTest extends \PHPUnit\Framework\TestCase
 {
@@ -93,15 +92,13 @@ class ElementIdentifierCollectionTest extends \PHPUnit\Framework\TestCase
     public function testReplace()
     {
         $oldParentIdentifier = TestIdentifierFactory::createElementIdentifier(
-            ValueTypes::CSS_SELECTOR,
-            '.parent',
+            new CssSelector('.parent'),
             null,
             'parent'
         );
 
         $childIdentifier = TestIdentifierFactory::createElementIdentifier(
-            ValueTypes::CSS_SELECTOR,
-            '.child',
+            new CssSelector('.child'),
             null,
             'child',
             $oldParentIdentifier
@@ -113,15 +110,13 @@ class ElementIdentifierCollectionTest extends \PHPUnit\Framework\TestCase
         ]);
 
         $newParentIdentifier = TestIdentifierFactory::createElementIdentifier(
-            ValueTypes::CSS_SELECTOR,
-            '.parent',
+            new CssSelector('.parent'),
             1,
             'parent'
         );
 
         $expectedNewChildIdentifier = TestIdentifierFactory::createElementIdentifier(
-            ValueTypes::CSS_SELECTOR,
-            '.child',
+            new CssSelector('.child'),
             null,
             'child',
             $newParentIdentifier

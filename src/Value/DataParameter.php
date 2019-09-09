@@ -6,7 +6,7 @@ class DataParameter extends AbstractObjectValue implements ObjectValueInterface
 {
     public function __construct(string $reference, string $objectProperty)
     {
-        parent::__construct(ValueTypes::DATA_PARAMETER, $reference, ObjectNames::DATA, $objectProperty);
+        parent::__construct($reference, $objectProperty);
     }
 
     public function isActionable(): bool

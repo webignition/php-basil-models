@@ -3,8 +3,6 @@
 namespace webignition\BasilModel\Tests\Value;
 
 use webignition\BasilModel\Value\DataParameter;
-use webignition\BasilModel\Value\ObjectNames;
-use webignition\BasilModel\Value\ValueTypes;
 
 class DataParameterTest extends \PHPUnit\Framework\TestCase
 {
@@ -12,10 +10,8 @@ class DataParameterTest extends \PHPUnit\Framework\TestCase
     {
         $value = new DataParameter('$data.key', 'key');
 
-        $this->assertSame(ValueTypes::DATA_PARAMETER, $value->getType());
         $this->assertSame('$data.key', $value->getReference());
-        $this->assertSame(ObjectNames::DATA, $value->getObjectName());
-        $this->assertSame('key', $value->getObjectProperty());
+        $this->assertSame('key', $value->getProperty());
         $this->assertTrue($value->isActionable());
     }
 

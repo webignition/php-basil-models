@@ -4,7 +4,6 @@
 namespace webignition\BasilModel\Tests\Value;
 
 use webignition\BasilModel\Value\LiteralValue;
-use webignition\BasilModel\Value\ValueTypes;
 
 class LiteralValueTest extends \PHPUnit\Framework\TestCase
 {
@@ -12,7 +11,6 @@ class LiteralValueTest extends \PHPUnit\Framework\TestCase
     {
         $value = new LiteralValue('foo');
 
-        $this->assertSame(ValueTypes::STRING, $value->getType());
         $this->assertSame('foo', $value->getValue());
         $this->assertSame('"foo"', (string) $value);
     }

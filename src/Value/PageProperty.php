@@ -6,7 +6,7 @@ class PageProperty extends AbstractObjectValue implements ObjectValueInterface
 {
     public function __construct(string $reference, string $objectProperty)
     {
-        parent::__construct(ValueTypes::PAGE_OBJECT_PROPERTY, $reference, ObjectNames::PAGE, $objectProperty);
+        parent::__construct($reference, $objectProperty);
     }
 
     public function isActionable(): bool

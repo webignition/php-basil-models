@@ -7,7 +7,6 @@ use webignition\BasilModel\Identifier\AttributeIdentifier;
 use webignition\BasilModel\Identifier\ElementIdentifier;
 use webignition\BasilModel\Value\AttributeValue;
 use webignition\BasilModel\Value\CssSelector;
-use webignition\BasilModel\Value\ValueTypes;
 
 class AttributeValueTest extends \PHPUnit\Framework\TestCase
 {
@@ -20,7 +19,6 @@ class AttributeValueTest extends \PHPUnit\Framework\TestCase
 
         $value = new AttributeValue($identifier);
 
-        $this->assertSame(ValueTypes::ATTRIBUTE_IDENTIFIER, $value->getType());
         $this->assertSame($identifier, $value->getIdentifier());
         $this->assertfalse($value->isEmpty());
         $this->assertTrue($value->isActionable());

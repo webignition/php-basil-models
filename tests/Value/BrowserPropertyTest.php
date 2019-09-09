@@ -3,8 +3,6 @@
 namespace webignition\BasilModel\Tests\Value;
 
 use webignition\BasilModel\Value\BrowserProperty;
-use webignition\BasilModel\Value\ObjectNames;
-use webignition\BasilModel\Value\ValueTypes;
 
 class BrowserPropertyTest extends \PHPUnit\Framework\TestCase
 {
@@ -12,10 +10,8 @@ class BrowserPropertyTest extends \PHPUnit\Framework\TestCase
     {
         $value = new BrowserProperty('$browser.size', 'size');
 
-        $this->assertSame(ValueTypes::BROWSER_OBJECT_PROPERTY, $value->getType());
         $this->assertSame('$browser.size', $value->getReference());
-        $this->assertSame(ObjectNames::BROWSER, $value->getObjectName());
-        $this->assertSame('size', $value->getObjectProperty());
+        $this->assertSame('size', $value->getProperty());
         $this->assertTrue($value->isActionable());
     }
 

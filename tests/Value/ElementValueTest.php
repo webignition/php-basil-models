@@ -6,7 +6,6 @@ namespace webignition\BasilModel\Tests\Value;
 use webignition\BasilModel\Identifier\ElementIdentifier;
 use webignition\BasilModel\Value\CssSelector;
 use webignition\BasilModel\Value\ElementValue;
-use webignition\BasilModel\Value\ValueTypes;
 
 class ElementValueTest extends \PHPUnit\Framework\TestCase
 {
@@ -16,7 +15,6 @@ class ElementValueTest extends \PHPUnit\Framework\TestCase
 
         $value = new ElementValue($identifier);
 
-        $this->assertSame(ValueTypes::ELEMENT_IDENTIFIER, $value->getType());
         $this->assertSame($identifier, $value->getIdentifier());
         $this->assertfalse($value->isEmpty());
         $this->assertTrue($value->isActionable());

@@ -6,7 +6,7 @@ class BrowserProperty extends AbstractObjectValue implements ObjectValueInterfac
 {
     public function __construct(string $reference, string $objectProperty)
     {
-        parent::__construct(ValueTypes::BROWSER_OBJECT_PROPERTY, $reference, ObjectNames::BROWSER, $objectProperty);
+        parent::__construct($reference, $objectProperty);
     }
 
     public function isActionable(): bool

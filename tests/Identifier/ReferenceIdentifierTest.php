@@ -7,10 +7,8 @@ use webignition\BasilModel\Identifier\ReferenceIdentifier;
 use webignition\BasilModel\Identifier\IdentifierInterface;
 use webignition\BasilModel\Identifier\IdentifierTypes;
 use webignition\BasilModel\Value\ElementReference;
-use webignition\BasilModel\Value\ObjectNames;
 use webignition\BasilModel\Value\PageElementReference;
 use webignition\BasilModel\Value\ReferenceValueInterface;
-use webignition\BasilModel\Value\ValueTypes;
 
 class ReferenceIdentifierTest extends \PHPUnit\Framework\TestCase
 {
@@ -31,7 +29,6 @@ class ReferenceIdentifierTest extends \PHPUnit\Framework\TestCase
             'page element reference' => [
                 'type' => IdentifierTypes::PAGE_ELEMENT_REFERENCE,
                 'value' => new PageElementReference(
-                    ValueTypes::PAGE_ELEMENT_REFERENCE,
                     'page_import_name.elements.element_name',
                     'page_import_name',
                     'element_name'
@@ -40,9 +37,7 @@ class ReferenceIdentifierTest extends \PHPUnit\Framework\TestCase
             'element reference' => [
                 'type' => IdentifierTypes::ELEMENT_PARAMETER,
                 'value' => new ElementReference(
-                    ValueTypes::ELEMENT_PARAMETER,
                     '$elements.element_name',
-                    ObjectNames::ELEMENT,
                     'element_name'
                 ),
             ],
@@ -64,7 +59,6 @@ class ReferenceIdentifierTest extends \PHPUnit\Framework\TestCase
                 'identifier' => new ReferenceIdentifier(
                     IdentifierTypes::PAGE_ELEMENT_REFERENCE,
                     new PageElementReference(
-                        ValueTypes::PAGE_ELEMENT_REFERENCE,
                         'page_import_name.elements.element_name',
                         'page_import_name',
                         'element_name'
@@ -76,9 +70,7 @@ class ReferenceIdentifierTest extends \PHPUnit\Framework\TestCase
                 'identifier' => new ReferenceIdentifier(
                     IdentifierTypes::ELEMENT_PARAMETER,
                     new ElementReference(
-                        ValueTypes::ELEMENT_PARAMETER,
                         '$elements.element_name',
-                        ObjectNames::ELEMENT,
                         'element_name'
                     )
                 ),
@@ -106,9 +98,7 @@ class ReferenceIdentifierTest extends \PHPUnit\Framework\TestCase
         $identifier = new ReferenceIdentifier(
             IdentifierTypes::PAGE_ELEMENT_REFERENCE,
             new ElementReference(
-                ValueTypes::ELEMENT_PARAMETER,
                 '$elements.element_name',
-                ObjectNames::ELEMENT,
                 'element_name'
             )
         );
