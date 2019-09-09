@@ -20,7 +20,7 @@ class AttributeReferenceTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('$elements.element_name.attribute_name', $reference->getReference());
         $this->assertSame(ObjectNames::ELEMENT, $reference->getObject());
         $this->assertSame('element_name.attribute_name', $reference->getProperty());
-        $this->assertTrue($reference->isActionable());
+        $this->assertFalse($reference->isActionable());
         $this->assertSame('$elements.element_name.attribute_name', (string) $reference);
     }
 
