@@ -96,7 +96,7 @@ class ElementIdentifierTest extends \PHPUnit\Framework\TestCase
                     new CssSelector('.selector'),
                     1
                 ),
-                'expectedString' => '".selector":1',
+                'expectedString' => '".selector"',
             ],
             'css selector, position 2' => [
                 'identifier' => new ElementIdentifier(
@@ -114,7 +114,7 @@ class ElementIdentifierTest extends \PHPUnit\Framework\TestCase
                     new XpathExpression('//foo'),
                     1
                 ),
-                'expectedString' => '"//foo":1',
+                'expectedString' => '"//foo"',
             ],
             'xpath expression, position 2' => [
                 'identifier' => new ElementIdentifier(
