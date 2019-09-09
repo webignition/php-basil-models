@@ -2,24 +2,22 @@
 
 namespace webignition\BasilModel\Identifier;
 
-use webignition\BasilModel\Value\LiteralValue;
-
-class AttributeIdentifier extends ReferenceIdentifier implements AttributeIdentifierInterface
+class AttributeIdentifier extends AbstractIdentifier implements AttributeIdentifierInterface
 {
-    private $identifier;
+    private $elementIdentifier;
     private $attributeName = null;
 
-    public function __construct(ElementIdentifierInterface $identifier, string $attributeName)
+    public function __construct(ElementIdentifierInterface $elementIdentifier, string $attributeName)
     {
-        parent::__construct(IdentifierTypes::ATTRIBUTE, LiteralValue::createStringValue($attributeName));
+        parent::__construct(IdentifierTypes::ATTRIBUTE);
 
-        $this->identifier = $identifier;
+        $this->elementIdentifier = $elementIdentifier;
         $this->attributeName = $attributeName;
     }
 
     public function getElementIdentifier(): ElementIdentifierInterface
     {
-        return $this->identifier;
+        return $this->elementIdentifier;
     }
 
     public function getAttributeName(): ?string
@@ -29,7 +27,7 @@ class AttributeIdentifier extends ReferenceIdentifier implements AttributeIdenti
 
     public function __toString(): string
     {
-        $string = (string) $this->identifier;
+        $string = (string) $this->elementIdentifier;
 
         if ('' !== $this->attributeName) {
             $string .= '.' . $this->attributeName;

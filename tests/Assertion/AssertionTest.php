@@ -4,21 +4,22 @@ namespace webignition\BasilModel\Tests\Assertion;
 
 use webignition\BasilModel\Assertion\Assertion;
 use webignition\BasilModel\Assertion\AssertionComparisons;
+use webignition\BasilModel\Value\CssSelector;
 use webignition\BasilModel\Value\ElementValue;
-use webignition\BasilModel\Value\LiteralValue;
 use webignition\BasilModel\Identifier\ElementIdentifier;
+use webignition\BasilModel\Value\LiteralValue;
 
 class AssertionTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {
         $assertionString = '.selector is "foo"';
-        $identifier = new ElementIdentifier(LiteralValue::createCssSelectorValue('.selector'));
+        $identifier = new ElementIdentifier(new CssSelector('.selector'));
 
         $examinedValue = new ElementValue($identifier);
 
         $comparison = AssertionComparisons::IS;
-        $expectedValue = LiteralValue::createStringValue('foo');
+        $expectedValue = new LiteralValue('foo');
 
         $assertion = new Assertion($assertionString, $examinedValue, $comparison, $expectedValue);
 
@@ -33,8 +34,8 @@ class AssertionTest extends \PHPUnit\Framework\TestCase
         $assertionString = '"value" exists';
         $comparison = AssertionComparisons::EXISTS;
 
-        $originalValue = LiteralValue::createStringValue('value');
-        $newValue = LiteralValue::createStringValue('new value');
+        $originalValue = new LiteralValue('value');
+        $newValue = new LiteralValue('new value');
 
         $assertion = new Assertion(
             '"value" exists',
@@ -58,12 +59,12 @@ class AssertionTest extends \PHPUnit\Framework\TestCase
         $assertionString = '"examined-value" is "expected-value"';
         $comparison = AssertionComparisons::IS;
 
-        $originalValue = LiteralValue::createStringValue('expected-value');
-        $newValue = LiteralValue::createStringValue('new expected-value');
+        $originalValue = new LiteralValue('expected-value');
+        $newValue = new LiteralValue('new expected-value');
 
         $assertion = new Assertion(
             $assertionString,
-            LiteralValue::createStringValue('examined-value'),
+            new LiteralValue('examined-value'),
             $comparison,
             $originalValue
         );

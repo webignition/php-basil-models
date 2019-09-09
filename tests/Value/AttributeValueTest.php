@@ -6,7 +6,7 @@ namespace webignition\BasilModel\Tests\Value;
 use webignition\BasilModel\Identifier\AttributeIdentifier;
 use webignition\BasilModel\Identifier\ElementIdentifier;
 use webignition\BasilModel\Value\AttributeValue;
-use webignition\BasilModel\Value\LiteralValue;
+use webignition\BasilModel\Value\CssSelector;
 use webignition\BasilModel\Value\ValueTypes;
 
 class AttributeValueTest extends \PHPUnit\Framework\TestCase
@@ -14,7 +14,7 @@ class AttributeValueTest extends \PHPUnit\Framework\TestCase
     public function testCreate()
     {
         $identifier = new AttributeIdentifier(
-            new ElementIdentifier(LiteralValue::createCssSelectorValue('.selector')),
+            new ElementIdentifier(new CssSelector('.selector')),
             'attribute_name'
         );
 

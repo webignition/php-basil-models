@@ -6,7 +6,7 @@ namespace webignition\BasilModel\Tests\Identifier;
 use webignition\BasilModel\Identifier\ElementIdentifier;
 use webignition\BasilModel\Identifier\ElementIdentifierCollection;
 use webignition\BasilModel\Tests\TestIdentifierFactory;
-use webignition\BasilModel\Value\LiteralValue;
+use webignition\BasilModel\Value\CssSelector;
 use webignition\BasilModel\Value\ValueTypes;
 
 class ElementIdentifierCollectionTest extends \PHPUnit\Framework\TestCase
@@ -34,22 +34,22 @@ class ElementIdentifierCollectionTest extends \PHPUnit\Framework\TestCase
             ],
             'invalid, lacking names' => [
                 'identifiers' => [
-                    new ElementIdentifier(LiteralValue::createStringValue('.heading')),
+                    new ElementIdentifier(new CssSelector('.heading')),
                 ],
                 'expectedIdentifierCollection' => new ElementIdentifierCollection([
-                    new ElementIdentifier(LiteralValue::createStringValue('.heading')),
+                    new ElementIdentifier(new CssSelector('.heading')),
                 ]),
             ],
             'valid' => [
                 'identifiers' => [
                     (new ElementIdentifier(
-                        LiteralValue::createStringValue('.heading'),
+                        new CssSelector('.heading'),
                         1
                     ))->withName('heading'),
                 ],
                 'expectedIdentifierCollection' => new ElementIdentifierCollection([
                     (new ElementIdentifier(
-                        LiteralValue::createStringValue('.heading'),
+                        new CssSelector('.heading'),
                         1
                     ))->withName('heading'),
                 ]),
@@ -60,7 +60,7 @@ class ElementIdentifierCollectionTest extends \PHPUnit\Framework\TestCase
     public function testGetIdentifier()
     {
         $headingIdentifier = (new ElementIdentifier(
-            LiteralValue::createStringValue('.heading'),
+            new CssSelector('.heading'),
             1
         ))->withName('heading');
 
@@ -75,7 +75,7 @@ class ElementIdentifierCollectionTest extends \PHPUnit\Framework\TestCase
     public function testIterator()
     {
         $headingIdentifier = (new ElementIdentifier(
-            LiteralValue::createStringValue('.heading'),
+            new CssSelector('.heading'),
             1
         ))->withName('heading');
 

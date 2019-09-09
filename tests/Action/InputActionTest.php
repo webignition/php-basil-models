@@ -5,14 +5,15 @@ namespace webignition\BasilModel\Tests\Action;
 use webignition\BasilModel\Action\ActionTypes;
 use webignition\BasilModel\Action\InputAction;
 use webignition\BasilModel\Identifier\ElementIdentifier;
+use webignition\BasilModel\Value\CssSelector;
 use webignition\BasilModel\Value\LiteralValue;
 
 class InputActionTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {
-        $identifier = new ElementIdentifier(LiteralValue::createCssSelectorValue('.selector'));
-        $value = LiteralValue::createCssSelectorValue('.foo');
+        $identifier = new ElementIdentifier(new CssSelector('.selector'));
+        $value = new CssSelector('.foo');
 
         $action = new InputAction(
             'set ".selector" to "foo"',
@@ -31,14 +32,14 @@ class InputActionTest extends \PHPUnit\Framework\TestCase
 
     public function testWithIdentifier()
     {
-        $originalIdentifier = new ElementIdentifier(LiteralValue::createCssSelectorValue('.original'));
+        $originalIdentifier = new ElementIdentifier(new CssSelector('.original'));
 
-        $newIdentifier = new ElementIdentifier(LiteralValue::createCssSelectorValue('.new'));
+        $newIdentifier = new ElementIdentifier(new CssSelector('.new'));
 
         $action = new InputAction(
             'set ".original" to "value"',
             $originalIdentifier,
-            LiteralValue::createStringValue('value'),
+            new LiteralValue('value'),
             '".original" to "value"'
         );
 
@@ -53,11 +54,11 @@ class InputActionTest extends \PHPUnit\Framework\TestCase
     {
         $actionString = 'set ".selector" to "original-value';
         $identifier = new ElementIdentifier(
-            LiteralValue::createCssSelectorValue('.selector')
+            new CssSelector('.selector')
         );
 
-        $originalValue = LiteralValue::createStringValue('original-value');
-        $newValue = LiteralValue::createStringValue('new-value');
+        $originalValue = new LiteralValue('original-value');
+        $newValue = new LiteralValue('new-value');
         $arguments = '".selector" to "original-value"';
 
         $action = new InputAction($actionString, $identifier, $originalValue, $arguments);

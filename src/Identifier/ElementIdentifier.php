@@ -2,10 +2,11 @@
 
 namespace webignition\BasilModel\Identifier;
 
-use webignition\BasilModel\Value\LiteralValueInterface;
+use webignition\BasilModel\Value\ElementExpressionInterface;
 
-class ElementIdentifier extends ReferenceIdentifier implements ElementIdentifierInterface
+class ElementIdentifier extends AbstractIdentifier implements ElementIdentifierInterface
 {
+    private $elementExpression;
     private $position = null;
 
     /**
@@ -13,10 +14,11 @@ class ElementIdentifier extends ReferenceIdentifier implements ElementIdentifier
      */
     private $parentIdentifier;
 
-    public function __construct(LiteralValueInterface $value, ?int $position = null)
+    public function __construct(ElementExpressionInterface $elementExpression, ?int $position = null)
     {
-        parent::__construct(IdentifierTypes::ELEMENT_SELECTOR, $value);
+        parent::__construct(IdentifierTypes::ELEMENT_SELECTOR);
 
+        $this->elementExpression = $elementExpression;
         $this->position = $position;
     }
 
@@ -46,9 +48,14 @@ class ElementIdentifier extends ReferenceIdentifier implements ElementIdentifier
         return $new;
     }
 
+    public function getElementExpression(): ElementExpressionInterface
+    {
+        return $this->elementExpression;
+    }
+
     public function __toString(): string
     {
-        $string = parent::__toString();
+        $string = $this->elementExpression->getExpression();
 
         if ($this->parentIdentifier instanceof ElementIdentifierInterface) {
             $string = '{{ ' . $this->parentIdentifier->getName() . ' }} ' . $string;
