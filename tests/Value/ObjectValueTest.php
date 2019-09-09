@@ -6,9 +6,9 @@ namespace webignition\BasilModel\Tests\Value;
 use webignition\BasilModel\Identifier\AttributeIdentifier;
 use webignition\BasilModel\Identifier\ElementIdentifier;
 use webignition\BasilModel\Value\AttributeValue;
+use webignition\BasilModel\Value\CssSelector;
 use webignition\BasilModel\Value\ElementValue;
 use webignition\BasilModel\Value\EnvironmentValue;
-use webignition\BasilModel\Value\LiteralValue;
 use webignition\BasilModel\Value\ObjectNames;
 use webignition\BasilModel\Value\ObjectValue;
 use webignition\BasilModel\Value\ValueInterface;
@@ -108,18 +108,6 @@ class ObjectValueTest extends \PHPUnit\Framework\TestCase
     public function isActionableDataProvider(): array
     {
         return [
-            'literal css selector' => [
-                'value' => LiteralValue::createCssSelectorValue('.selector'),
-                'expectedIsActionable' => true,
-            ],
-            'literal string' => [
-                'value' => LiteralValue::createStringValue('value'),
-                'expectedIsActionable' => true,
-            ],
-            'literal xpath expression' => [
-                'value' => LiteralValue::createXpathExpressionValue('//h1'),
-                'expectedIsActionable' => true,
-            ],
             'browser object property' => [
                 'value' => new ObjectValue(ValueTypes::BROWSER_OBJECT_PROPERTY, '', '', ''),
                 'expectedIsActionable' => true,
@@ -146,25 +134,6 @@ class ObjectValueTest extends \PHPUnit\Framework\TestCase
             ],
             'environment parameter' => [
                 'value' => new EnvironmentValue('', ''),
-                'expectedIsActionable' => true,
-            ],
-            'element identifier value' => [
-                'value' => new ElementValue(
-                    new ElementIdentifier(
-                        LiteralValue::createCssSelectorValue('.selector')
-                    )
-                ),
-                'expectedIsActionable' => true,
-            ],
-            'attribute identifier value' => [
-                'value' => new AttributeValue(
-                    new AttributeIdentifier(
-                        new ElementIdentifier(
-                            LiteralValue::createCssSelectorValue('.selector')
-                        ),
-                        'attribute_name'
-                    )
-                ),
                 'expectedIsActionable' => true,
             ],
         ];

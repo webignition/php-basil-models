@@ -5,14 +5,14 @@ namespace webignition\BasilModel\Tests\Action;
 use webignition\BasilModel\Action\ActionTypes;
 use webignition\BasilModel\Action\InteractionAction;
 use webignition\BasilModel\Identifier\ElementIdentifier;
-use webignition\BasilModel\Value\LiteralValue;
+use webignition\BasilModel\Value\CssSelector;
 
 class InteractionActionTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {
         $type = ActionTypes::CLICK;
-        $identifier = new ElementIdentifier(LiteralValue::createCssSelectorValue('.selector'));
+        $identifier = new ElementIdentifier(new CssSelector('.selector'));
 
         $action = new InteractionAction(
             'click ".selector"',
@@ -30,9 +30,9 @@ class InteractionActionTest extends \PHPUnit\Framework\TestCase
 
     public function testWithIdentifier()
     {
-        $originalIdentifier = new ElementIdentifier(LiteralValue::createCssSelectorValue('.original'));
+        $originalIdentifier = new ElementIdentifier(new CssSelector('.original'));
 
-        $newIdentifier = new ElementIdentifier(LiteralValue::createCssSelectorValue('.new'));
+        $newIdentifier = new ElementIdentifier(new CssSelector('.new'));
 
         $action = new InteractionAction(
             'click ".original"',

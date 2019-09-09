@@ -11,6 +11,7 @@ use webignition\BasilModel\Step\PendingImportResolutionStep;
 use webignition\BasilModel\Step\PendingImportResolutionStepInterface;
 use webignition\BasilModel\Step\Step;
 use webignition\BasilModel\Step\StepInterface;
+use webignition\BasilModel\Value\CssSelector;
 use webignition\BasilModel\Value\ElementValue;
 use webignition\BasilModel\Value\LiteralValue;
 
@@ -71,13 +72,13 @@ class PendingImportResolutionStepTest extends \PHPUnit\Framework\TestCase
             'with actions and assertions' => [
                 'encapsulatedStep' => new Step(
                     [
-                        new WaitAction('wait 30', LiteralValue::createStringValue('30')),
+                        new WaitAction('wait 30', new LiteralValue('30')),
                     ],
                     [
                         new Assertion(
                             '".selector" exists',
                             new ElementValue(new ElementIdentifier(
-                                LiteralValue::createCssSelectorValue('.selector')
+                                new CssSelector('.selector')
                             )),
                             AssertionComparisons::EXISTS
                         ),
@@ -88,13 +89,13 @@ class PendingImportResolutionStepTest extends \PHPUnit\Framework\TestCase
                 'expectedStep' => new PendingImportResolutionStep(
                     new Step(
                         [
-                            new WaitAction('wait 30', LiteralValue::createStringValue('30')),
+                            new WaitAction('wait 30', new LiteralValue('30')),
                         ],
                         [
                             new Assertion(
                                 '".selector" exists',
                                 new ElementValue(new ElementIdentifier(
-                                    LiteralValue::createCssSelectorValue('.selector')
+                                    new CssSelector('.selector')
                                 )),
                                 AssertionComparisons::EXISTS
                             ),

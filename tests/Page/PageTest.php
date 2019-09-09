@@ -9,7 +9,7 @@ use webignition\BasilModel\Identifier\ElementIdentifier;
 use webignition\BasilModel\Identifier\IdentifierCollection;
 use webignition\BasilModel\Identifier\IdentifierCollectionInterface;
 use webignition\BasilModel\Page\Page;
-use webignition\BasilModel\Value\LiteralValue;
+use webignition\BasilModel\Value\CssSelector;
 
 class PageTest extends \PHPUnit\Framework\TestCase
 {
@@ -39,14 +39,14 @@ class PageTest extends \PHPUnit\Framework\TestCase
                 'uri' => new Uri('http://example.com/'),
                 'identifierCollection' => new IdentifierCollection([
                     (new ElementIdentifier(
-                        LiteralValue::createCssSelectorValue('.foo')
+                        new CssSelector('.foo')
                     ))->withName('foo'),
                 ]),
                 'expectedPage' => new Page(
                     new Uri('http://example.com/'),
                     new IdentifierCollection([
                         (new ElementIdentifier(
-                            LiteralValue::createCssSelectorValue('.foo')
+                            new CssSelector('.foo')
                         ))->withName('foo'),
                     ])
                 ),
@@ -68,10 +68,10 @@ class PageTest extends \PHPUnit\Framework\TestCase
             new Uri('http://example.com/'),
             new IdentifierCollection([
                 (new ElementIdentifier(
-                    LiteralValue::createCssSelectorValue('.foo')
+                    new CssSelector('.foo')
                 ))->withName('foo'),
                 (new ElementIdentifier(
-                    LiteralValue::createCssSelectorValue('.bar')
+                    new CssSelector('.bar')
                 ))->withName('bar')
             ])
         );
@@ -88,7 +88,7 @@ class PageTest extends \PHPUnit\Framework\TestCase
     public function testGetElementIdentifier()
     {
         $fooIdentifier = (new ElementIdentifier(
-            LiteralValue::createCssSelectorValue('.foo')
+            new CssSelector('.foo')
         ))->withName('foo');
 
         $page = new Page(new Uri(''), new IdentifierCollection([

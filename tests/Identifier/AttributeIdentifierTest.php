@@ -8,7 +8,7 @@ use webignition\BasilModel\Identifier\AttributeIdentifierInterface;
 use webignition\BasilModel\Identifier\ElementIdentifier;
 use webignition\BasilModel\Identifier\ElementIdentifierInterface;
 use webignition\BasilModel\Identifier\IdentifierTypes;
-use webignition\BasilModel\Value\LiteralValue;
+use webignition\BasilModel\Value\CssSelector;
 
 class AttributeIdentifierTest extends \PHPUnit\Framework\TestCase
 {
@@ -29,13 +29,13 @@ class AttributeIdentifierTest extends \PHPUnit\Framework\TestCase
         return [
             'empty attribute name' => [
                 'elementIdentifier' => new ElementIdentifier(
-                    LiteralValue::createCssSelectorValue('.selector')
+                    new CssSelector('.selector')
                 ),
                 'attributeName' => '',
             ],
             'non-empty attribute name' => [
                 'elementIdentifier' => new ElementIdentifier(
-                    LiteralValue::createCssSelectorValue('.selector')
+                    new CssSelector('.selector')
                 ),
                 'attributeName' => 'attribute-name',
             ],
@@ -56,7 +56,7 @@ class AttributeIdentifierTest extends \PHPUnit\Framework\TestCase
             'empty attribute name' => [
                 'attributeIdentifier' => new AttributeIdentifier(
                     new ElementIdentifier(
-                        LiteralValue::createCssSelectorValue('.selector')
+                        new CssSelector('.selector')
                     ),
                     ''
                 ),
@@ -65,7 +65,7 @@ class AttributeIdentifierTest extends \PHPUnit\Framework\TestCase
             'non-empty attribute name' => [
                 'attributeIdentifier' => new AttributeIdentifier(
                     new ElementIdentifier(
-                        LiteralValue::createCssSelectorValue('.selector')
+                        new CssSelector('.selector')
                     ),
                     'attribute-name'
                 ),

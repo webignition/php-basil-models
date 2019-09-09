@@ -4,8 +4,9 @@ namespace webignition\BasilModel\Tests;
 
 use webignition\BasilModel\Identifier\ElementIdentifier;
 use webignition\BasilModel\Identifier\ElementIdentifierInterface;
-use webignition\BasilModel\Value\LiteralValue;
+use webignition\BasilModel\Value\CssSelector;
 use webignition\BasilModel\Value\ValueTypes;
+use webignition\BasilModel\Value\XpathExpression;
 
 class TestIdentifierFactory
 {
@@ -17,8 +18,8 @@ class TestIdentifierFactory
         ?ElementIdentifierInterface $parentIdentifier = null
     ): ElementIdentifierInterface {
         $value = $type === ValueTypes::CSS_SELECTOR
-            ? LiteralValue::createCssSelectorValue($selector)
-            : LiteralValue::createXpathExpressionValue($selector);
+            ? new CssSelector($selector)
+            : new XpathExpression($selector);
 
         $identifier = new ElementIdentifier($value, $position);
 
