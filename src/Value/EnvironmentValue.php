@@ -11,7 +11,7 @@ class EnvironmentValue extends AbstractObjectValue implements EnvironmentValueIn
         string $objectProperty,
         ?string $default = null
     ) {
-        parent::__construct(ValueTypes::ENVIRONMENT_PARAMETER, $reference, ObjectNames::ENVIRONMENT, $objectProperty);
+        parent::__construct($reference, $objectProperty);
 
         $this->default = $default;
     }

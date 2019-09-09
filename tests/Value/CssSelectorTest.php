@@ -1,10 +1,8 @@
 <?php
-/** @noinspection PhpDocSignatureInspection */
 
 namespace webignition\BasilModel\Tests\Value;
 
 use webignition\BasilModel\Value\CssSelector;
-use webignition\BasilModel\Value\ValueTypes;
 
 class CssSelectorTest extends \PHPUnit\Framework\TestCase
 {
@@ -13,7 +11,6 @@ class CssSelectorTest extends \PHPUnit\Framework\TestCase
         $expression = new CssSelector('.selector');
 
         $this->assertSame('.selector', $expression->getExpression());
-        $this->assertSame(ValueTypes::CSS_SELECTOR, $expression->getType());
         $this->assertTrue($expression->isActionable());
     }
 

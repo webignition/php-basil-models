@@ -4,14 +4,12 @@ namespace webignition\BasilModel\Value;
 
 use webignition\BasilModel\Identifier\AttributeIdentifierInterface;
 
-class AttributeValue extends AbstractValue implements AttributeValueInterface
+class AttributeValue implements AttributeValueInterface
 {
     private $identifier;
 
     public function __construct(AttributeIdentifierInterface $identifier)
     {
-        parent::__construct(ValueTypes::ATTRIBUTE_IDENTIFIER);
-
         $this->identifier = $identifier;
     }
 

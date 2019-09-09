@@ -9,7 +9,6 @@ use webignition\BasilModel\Identifier\IdentifierTypes;
 use webignition\BasilModel\Tests\TestIdentifierFactory;
 use webignition\BasilModel\Value\CssSelector;
 use webignition\BasilModel\Value\ElementExpressionInterface;
-use webignition\BasilModel\Value\ValueTypes;
 use webignition\BasilModel\Value\XpathExpression;
 
 class ElementIdentifierTest extends \PHPUnit\Framework\TestCase
@@ -50,8 +49,7 @@ class ElementIdentifierTest extends \PHPUnit\Framework\TestCase
         $this->assertNull($identifier->getParentIdentifier());
 
         $parentIdentifier = TestIdentifierFactory::createElementIdentifier(
-            ValueTypes::CSS_SELECTOR,
-            '.parent',
+            new CssSelector('.parent'),
             1,
             'parent_name'
         );
@@ -73,8 +71,7 @@ class ElementIdentifierTest extends \PHPUnit\Framework\TestCase
     public function toStringDataProvider(): array
     {
         $parentIdentifier = TestIdentifierFactory::createElementIdentifier(
-            ValueTypes::CSS_SELECTOR,
-            '.parent',
+            new CssSelector('.parent'),
             1,
             'parent_name'
         );

@@ -2,19 +2,15 @@
 
 namespace webignition\BasilModel\Value;
 
-abstract class AbstractObjectValue extends AbstractValue implements ObjectValueInterface
+abstract class AbstractObjectValue implements ObjectValueInterface
 {
     private $reference;
-    private $objectName;
-    private $objectProperty;
+    private $property;
 
-    public function __construct(string $type, string $reference, string $objectName, string $objectProperty)
+    public function __construct(string $reference, string $property)
     {
-        parent::__construct($type);
-
         $this->reference = $reference;
-        $this->objectName = $objectName;
-        $this->objectProperty = $objectProperty;
+        $this->property = $property;
     }
 
     public function getReference(): string
@@ -22,14 +18,9 @@ abstract class AbstractObjectValue extends AbstractValue implements ObjectValueI
         return $this->reference;
     }
 
-    public function getObjectName(): string
+    public function getProperty(): string
     {
-        return $this->objectName;
-    }
-
-    public function getObjectProperty(): string
-    {
-        return $this->objectProperty;
+        return $this->property;
     }
 
     public function isEmpty(): bool

@@ -4,8 +4,6 @@
 namespace webignition\BasilModel\Tests\Value;
 
 use webignition\BasilModel\Value\EnvironmentValue;
-use webignition\BasilModel\Value\ObjectNames;
-use webignition\BasilModel\Value\ValueTypes;
 
 class EnvironmentValueTest extends \PHPUnit\Framework\TestCase
 {
@@ -16,10 +14,8 @@ class EnvironmentValueTest extends \PHPUnit\Framework\TestCase
     {
         $value = new EnvironmentValue($reference, $objectProperty, $default);
 
-        $this->assertSame(ValueTypes::ENVIRONMENT_PARAMETER, $value->getType());
         $this->assertSame($reference, $value->getReference());
-        $this->assertSame(ObjectNames::ENVIRONMENT, $value->getObjectName());
-        $this->assertSame($objectProperty, $value->getObjectProperty());
+        $this->assertSame($objectProperty, $value->getProperty());
         $this->assertSame($default, $value->getDefault());
         $this->assertSame($reference, (string) $value);
         $this->assertfalse($value->isEmpty());

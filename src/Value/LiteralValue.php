@@ -11,11 +11,6 @@ class LiteralValue implements LiteralValueInterface
         $this->value = $value;
     }
 
-    public function getType(): string
-    {
-        return ValueTypes::STRING;
-    }
-
     public function getValue(): string
     {
         return $this->value;

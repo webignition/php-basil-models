@@ -3,7 +3,6 @@
 
 namespace webignition\BasilModel\Tests\Value;
 
-use webignition\BasilModel\Value\ValueTypes;
 use webignition\BasilModel\Value\XpathExpression;
 
 class XpathExpressionTest extends \PHPUnit\Framework\TestCase
@@ -13,7 +12,6 @@ class XpathExpressionTest extends \PHPUnit\Framework\TestCase
         $expression = new XpathExpression('//foo');
 
         $this->assertSame('//foo', $expression->getExpression());
-        $this->assertSame(ValueTypes::XPATH_EXPRESSION, $expression->getType());
         $this->assertTrue($expression->isActionable());
     }
 
