@@ -6,6 +6,8 @@ use webignition\BasilModel\Value\ElementExpressionInterface;
 
 class ElementIdentifier extends AbstractIdentifier implements ElementIdentifierInterface
 {
+    const DEFAULT_POSITION = 1;
+
     private $elementExpression;
     private $position = null;
 
@@ -63,7 +65,7 @@ class ElementIdentifier extends AbstractIdentifier implements ElementIdentifierI
 
         $string = '"' . $string . '"';
 
-        if (null !== $this->position) {
+        if (null !== $this->position && self::DEFAULT_POSITION !== $this->position) {
             $string .= ':' . $this->position;
         }
 
