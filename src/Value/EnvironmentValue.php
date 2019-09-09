@@ -2,7 +2,7 @@
 
 namespace webignition\BasilModel\Value;
 
-class EnvironmentValue extends ObjectValue implements EnvironmentValueInterface
+class EnvironmentValue extends AbstractObjectValue implements EnvironmentValueInterface
 {
     private $default;
 
@@ -19,6 +19,11 @@ class EnvironmentValue extends ObjectValue implements EnvironmentValueInterface
     public function getDefault(): ?string
     {
         return $this->default;
+    }
+
+    public function isActionable(): bool
+    {
+        return true;
     }
 
     public function __toString(): string

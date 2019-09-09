@@ -2,7 +2,7 @@
 
 namespace webignition\BasilModel\Value;
 
-class ObjectValue extends AbstractValue implements ObjectValueInterface
+abstract class AbstractObjectValue extends AbstractValue implements ObjectValueInterface
 {
     private $reference;
     private $objectName;
@@ -35,17 +35,6 @@ class ObjectValue extends AbstractValue implements ObjectValueInterface
     public function isEmpty(): bool
     {
         return '' === trim($this->reference);
-    }
-
-    public function isActionable(): bool
-    {
-        $nonActionableTypes = [
-            ValueTypes::PAGE_ELEMENT_REFERENCE,
-            ValueTypes::ATTRIBUTE_PARAMETER,
-            ValueTypes::ELEMENT_PARAMETER,
-        ];
-
-        return !in_array($this->getType(), $nonActionableTypes);
     }
 
     public function __toString(): string

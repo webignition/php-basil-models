@@ -39,7 +39,7 @@ abstract class AbstractReferenceValue extends AbstractValue implements Reference
 
     public function isActionable(): bool
     {
-        return true;
+        return false;
     }
 
     public function __toString(): string
