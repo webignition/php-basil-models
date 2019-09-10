@@ -7,7 +7,7 @@ use webignition\BasilModel\Exception\InvalidAssertionExaminedValueException;
 class AssertionExaminedValue implements AssertionExaminedValueInterface
 {
     /**
-     * @var AttributeValueInterface|BrowserProperty|ElementValueInterface|EnvironmentValueInterface|PageElementReference|ReferenceValueInterface
+     * @var AttributeValueInterface|BrowserProperty|DataParameter|ElementValueInterface|EnvironmentValueInterface|PageElementReference|ReferenceValueInterface
      */
     private $examinedValue;
 
@@ -20,6 +20,7 @@ class AssertionExaminedValue implements AssertionExaminedValueInterface
     {
         if (!($value instanceof AttributeValueInterface ||
             $value instanceof BrowserProperty ||
+            $value instanceof DataParameter ||
             $value instanceof ElementValueInterface ||
             $value instanceof EnvironmentValueInterface ||
             $value instanceof PageElementReference ||
@@ -32,7 +33,7 @@ class AssertionExaminedValue implements AssertionExaminedValueInterface
     }
 
     /**
-     * @return AttributeValueInterface|BrowserProperty|ElementValueInterface|EnvironmentValueInterface|PageElementReference|ReferenceValueInterface
+     * @return AttributeValueInterface|BrowserProperty|DataParameter|ElementValueInterface|EnvironmentValueInterface|PageElementReference|ReferenceValueInterface
      */
     public function getExaminedValue()
     {
