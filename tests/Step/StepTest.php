@@ -1,11 +1,11 @@
-<?php
+<?php /** @noinspection PhpUnhandledExceptionInspection */
+
 /** @noinspection PhpDocSignatureInspection */
 
 namespace webignition\BasilModel\Tests\Step;
 
 use webignition\BasilModel\Action\WaitAction;
-use webignition\BasilModel\Assertion\Assertion;
-use webignition\BasilModel\Assertion\AssertionComparisons;
+use webignition\BasilModel\Assertion\ExistsAssertion;
 use webignition\BasilModel\DataSet\DataSet;
 use webignition\BasilModel\DataSet\DataSetCollection;
 use webignition\BasilModel\Identifier\ElementIdentifier;
@@ -13,6 +13,7 @@ use webignition\BasilModel\Identifier\IdentifierCollection;
 use webignition\BasilModel\Identifier\IdentifierCollectionInterface;
 use webignition\BasilModel\Step\Step;
 use webignition\BasilModel\Step\StepInterface;
+use webignition\BasilModel\Value\AssertionExaminedValue;
 use webignition\BasilModel\Value\CssSelector;
 use webignition\BasilModel\Value\ElementValue;
 use webignition\BasilModel\Value\LiteralValue;
@@ -32,6 +33,15 @@ class StepTest extends \PHPUnit\Framework\TestCase
 
     public function createDataProvider(): array
     {
+        $assertion = new ExistsAssertion(
+            '".selector" exists',
+            new AssertionExaminedValue(
+                new ElementValue(new ElementIdentifier(
+                    new CssSelector('.selector')
+                ))
+            )
+        );
+
         return [
             'no actions, no assertions' => [
                 'actions' => [],
@@ -60,25 +70,13 @@ class StepTest extends \PHPUnit\Framework\TestCase
                 'assertions' => [
                     1,
                     2,
-                    new Assertion(
-                        '".selector" is "foo"',
-                        new ElementValue(new ElementIdentifier(
-                            new CssSelector('.selector')
-                        )),
-                        AssertionComparisons::IS
-                    ),
+                    $assertion,
                 ],
                 'expectedActions' => [
                     new WaitAction('wait 5', new LiteralValue('5')),
                 ],
                 'expectedAssertions' => [
-                    new Assertion(
-                        '".selector" is "foo"',
-                        new ElementValue(new ElementIdentifier(
-                            new CssSelector('.selector')
-                        )),
-                        AssertionComparisons::IS
-                    ),
+                    $assertion,
                 ],
             ],
         ];
@@ -171,6 +169,15 @@ class StepTest extends \PHPUnit\Framework\TestCase
 
     public function withPrependedActionsDataProvider(): array
     {
+        $assertion = new ExistsAssertion(
+            '".selector" exists',
+            new AssertionExaminedValue(
+                new ElementValue(new ElementIdentifier(
+                    new CssSelector('.selector')
+                ))
+            )
+        );
+
         return [
             'step has no actions, empty prepended actions' => [
                 'step' => new Step([], []),
@@ -209,11 +216,11 @@ class StepTest extends \PHPUnit\Framework\TestCase
             ],
             'step assertions are retained' => [
                 'step' => new Step([], [
-                    new Assertion('".selector1" exists', null, null),
+                    $assertion,
                 ]),
                 'actions' => [],
                 'expectedStep' => new Step([], [
-                    new Assertion('".selector1" exists', null, null),
+                    $assertion,
                 ]),
             ],
             'step data sets are retained' => [
@@ -259,6 +266,24 @@ class StepTest extends \PHPUnit\Framework\TestCase
 
     public function withPrependedAssertionsDataProvider(): array
     {
+        $assertion1 = new ExistsAssertion(
+            '".selector1" exists',
+            new AssertionExaminedValue(
+                new ElementValue(new ElementIdentifier(
+                    new CssSelector('.selector1')
+                ))
+            )
+        );
+
+        $assertion2 = new ExistsAssertion(
+            '".selector2" exists',
+            new AssertionExaminedValue(
+                new ElementValue(new ElementIdentifier(
+                    new CssSelector('.selector2')
+                ))
+            )
+        );
+
         return [
             'step has no assertions, empty prepended assertions' => [
                 'step' => new Step([], []),
@@ -267,32 +292,32 @@ class StepTest extends \PHPUnit\Framework\TestCase
             ],
             'step has assertions, empty prepended assertions' => [
                 'step' => new Step([], [
-                    new Assertion('".selector" exists', null, null),
+                    $assertion1,
                 ]),
                 'assertions' => [],
                 'expectedStep' => new Step([], [
-                    new Assertion('".selector" exists', null, null),
+                    $assertion1,
                 ]),
             ],
             'step has no assertions, non-empty prepended assertions' => [
                 'step' => new Step([], []),
                 'assertions' => [
-                    new Assertion('".selector" exists', null, null),
+                    $assertion1,
                 ],
                 'expectedStep' => new Step([], [
-                    new Assertion('".selector" exists', null, null),
+                    $assertion1,
                 ]),
             ],
             'step has assertions, non-empty prepended assertions' => [
                 'step' => new Step([], [
-                    new Assertion('".selector1" exists', null, null),
+                    $assertion1,
                 ]),
                 'assertions' => [
-                    new Assertion('".selector2" exists', null, null),
+                    $assertion2,
                 ],
                 'expectedStep' => new Step([], [
-                    new Assertion('".selector2" exists', null, null),
-                    new Assertion('".selector1" exists', null, null),
+                    $assertion2,
+                    $assertion1,
                 ]),
             ],
             'step actions are retained' => [
@@ -389,6 +414,24 @@ class StepTest extends \PHPUnit\Framework\TestCase
 
     public function withAssertionsDataProvider(): array
     {
+        $assertion1 = new ExistsAssertion(
+            '".selector1" exists',
+            new AssertionExaminedValue(
+                new ElementValue(new ElementIdentifier(
+                    new CssSelector('.selector1')
+                ))
+            )
+        );
+
+        $assertion2 = new ExistsAssertion(
+            '".selector2" exists',
+            new AssertionExaminedValue(
+                new ElementValue(new ElementIdentifier(
+                    new CssSelector('.selector2')
+                ))
+            )
+        );
+
         return [
             'no initial assertions, no assertions' => [
                 'step' => new Step([], []),
@@ -396,22 +439,22 @@ class StepTest extends \PHPUnit\Framework\TestCase
             ],
             'has initial assertions, no assertions' => [
                 'step' => new Step([], [
-                    new Assertion('".selector" exists', null, null),
+                    $assertion1,
                 ]),
                 'assertions' => [],
             ],
             'no initial assertions, has assertions' => [
                 'step' => new Step([], []),
                 'assertions' => [
-                    new Assertion('".selector" exists', null, null),
+                    $assertion1,
                 ],
             ],
             'has initial assertions, has assertions' => [
                 'step' => new Step([], [
-                    new Assertion('".selector1" exists', null, null),
+                    $assertion1,
                 ]),
                 'assertions' => [
-                    new Assertion('".selector2" exists', null, null),
+                    $assertion2,
                 ],
             ],
         ];

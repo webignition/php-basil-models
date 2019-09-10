@@ -1,16 +1,17 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
 /** @noinspection PhpDocSignatureInspection */
 
 namespace webignition\BasilModel\Tests\Step;
 
 use webignition\BasilModel\Action\WaitAction;
-use webignition\BasilModel\Assertion\Assertion;
-use webignition\BasilModel\Assertion\AssertionComparisons;
+use webignition\BasilModel\Assertion\ExistsAssertion;
 use webignition\BasilModel\Identifier\ElementIdentifier;
 use webignition\BasilModel\Step\PendingImportResolutionStep;
 use webignition\BasilModel\Step\PendingImportResolutionStepInterface;
 use webignition\BasilModel\Step\Step;
 use webignition\BasilModel\Step\StepInterface;
+use webignition\BasilModel\Value\AssertionExaminedValue;
 use webignition\BasilModel\Value\CssSelector;
 use webignition\BasilModel\Value\ElementValue;
 use webignition\BasilModel\Value\LiteralValue;
@@ -75,12 +76,13 @@ class PendingImportResolutionStepTest extends \PHPUnit\Framework\TestCase
                         new WaitAction('wait 30', new LiteralValue('30')),
                     ],
                     [
-                        new Assertion(
+                        new ExistsAssertion(
                             '".selector" exists',
-                            new ElementValue(new ElementIdentifier(
-                                new CssSelector('.selector')
-                            )),
-                            AssertionComparisons::EXISTS
+                            new AssertionExaminedValue(
+                                new ElementValue(new ElementIdentifier(
+                                    new CssSelector('.selector')
+                                ))
+                            )
                         ),
                     ]
                 ),
@@ -92,12 +94,13 @@ class PendingImportResolutionStepTest extends \PHPUnit\Framework\TestCase
                             new WaitAction('wait 30', new LiteralValue('30')),
                         ],
                         [
-                            new Assertion(
+                            new ExistsAssertion(
                                 '".selector" exists',
-                                new ElementValue(new ElementIdentifier(
-                                    new CssSelector('.selector')
-                                )),
-                                AssertionComparisons::EXISTS
+                                new AssertionExaminedValue(
+                                    new ElementValue(new ElementIdentifier(
+                                        new CssSelector('.selector')
+                                    ))
+                                )
                             ),
                         ]
                     ),
