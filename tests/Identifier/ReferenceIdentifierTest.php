@@ -6,6 +6,7 @@ namespace webignition\BasilModel\Tests\Identifier;
 use webignition\BasilModel\Identifier\ReferenceIdentifier;
 use webignition\BasilModel\Identifier\IdentifierInterface;
 use webignition\BasilModel\Identifier\ReferenceIdentifierInterface;
+use webignition\BasilModel\Identifier\ReferenceIdentifierTypes;
 use webignition\BasilModel\Value\ElementReference;
 use webignition\BasilModel\Value\PageElementReference;
 
@@ -22,6 +23,7 @@ class ReferenceIdentifierTest extends \PHPUnit\Framework\TestCase
         $identifier = ReferenceIdentifier::createPageElementReferenceIdentifier($value);
 
         $this->assertInstanceOf(ReferenceIdentifierInterface::class, $identifier);
+        $this->assertSame(ReferenceIdentifierTypes::PAGE_ELEMENT_REFERENCE, $identifier->getType());
         $this->assertSame($value, $identifier->getValue());
     }
 
@@ -32,11 +34,27 @@ class ReferenceIdentifierTest extends \PHPUnit\Framework\TestCase
             'element_name'
         );
 
-        $identifier = ReferenceIdentifier::createPageElementReferenceIdentifier($value);
+        $identifier = ReferenceIdentifier::createElementReferenceIdentifier($value);
 
         $this->assertInstanceOf(ReferenceIdentifierInterface::class, $identifier);
+        $this->assertSame(ReferenceIdentifierTypes::ELEMENT_REFERENCE, $identifier->getType());
         $this->assertSame($value, $identifier->getValue());
     }
+
+    public function testCreateAttributeReferenceIdentifier()
+    {
+        $value = new ElementReference(
+            '$elements.element_name',
+            'element_name'
+        );
+
+        $identifier = ReferenceIdentifier::createAttributeReferenceIdentifier($value);
+
+        $this->assertInstanceOf(ReferenceIdentifierInterface::class, $identifier);
+        $this->assertSame(ReferenceIdentifierTypes::ATTRIBUTE_REFERENCE, $identifier->getType());
+        $this->assertSame($value, $identifier->getValue());
+    }
+
     /**
      * @dataProvider toStringDataProvider
      */

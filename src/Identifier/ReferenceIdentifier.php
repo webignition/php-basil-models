@@ -16,19 +16,32 @@ class ReferenceIdentifier extends AbstractIdentifier implements ReferenceIdentif
         $this->value = $value;
     }
 
-    public static function createPageElementReferenceIdentifier(ReferenceValueInterface $value)
-    {
+    public static function createPageElementReferenceIdentifier(
+        ReferenceValueInterface $value
+    ): ReferenceIdentifierInterface {
         return new ReferenceIdentifier(ReferenceIdentifierTypes::PAGE_ELEMENT_REFERENCE, $value);
     }
 
-    public static function createElementReferenceIdentifier(ReferenceValueInterface $value)
-    {
-        return new ReferenceIdentifier(ReferenceIdentifierTypes::ELEMENT_PARAMETER, $value);
+    public static function createElementReferenceIdentifier(
+        ReferenceValueInterface $value
+    ): ReferenceIdentifierInterface {
+        return new ReferenceIdentifier(ReferenceIdentifierTypes::ELEMENT_REFERENCE, $value);
+    }
+
+    public static function createAttributeReferenceIdentifier(
+        ReferenceValueInterface $value
+    ): ReferenceIdentifierInterface {
+        return new ReferenceIdentifier(ReferenceIdentifierTypes::ATTRIBUTE_REFERENCE, $value);
     }
 
     public function getValue(): ValueInterface
     {
         return $this->value;
+    }
+
+    public function getType(): string
+    {
+        return $this->type;
     }
 
     public function __toString(): string
