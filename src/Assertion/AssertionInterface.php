@@ -2,14 +2,12 @@
 
 namespace webignition\BasilModel\Assertion;
 
-use webignition\BasilModel\Value\ValueInterface;
+use webignition\BasilModel\Value\AssertionExaminedValueInterface;
 
 interface AssertionInterface
 {
     public function getAssertionString(): string;
-    public function getExaminedValue(): ?ValueInterface;
-    public function getComparison(): ?string;
-    public function getExpectedValue(): ?ValueInterface;
-    public function withExaminedValue(ValueInterface $value): AssertionInterface;
-    public function withExpectedValue(ValueInterface $value): AssertionInterface;
+    public function getExaminedValue(): AssertionExaminedValueInterface;
+    public function getComparison(): string;
+    public function withExaminedValue(AssertionExaminedValueInterface $value): AssertionInterface;
 }
