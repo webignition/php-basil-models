@@ -13,6 +13,7 @@ use webignition\BasilModel\Value\ElementReference;
 use webignition\BasilModel\Value\ElementValue;
 use webignition\BasilModel\Value\EnvironmentValue;
 use webignition\BasilModel\Value\PageElementReference;
+use webignition\BasilModel\Value\PageProperty;
 
 trait AssertionExaminedValueDataProviderTrait
 {
@@ -65,6 +66,12 @@ trait AssertionExaminedValueDataProviderTrait
                 'value' => new DataParameter(
                     '$data.key',
                     'key'
+                ),
+            ],
+            'page property' => [
+                'value' => new PageProperty(
+                    '$page.url',
+                    'url'
                 ),
             ],
         ];

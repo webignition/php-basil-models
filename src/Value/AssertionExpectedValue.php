@@ -7,7 +7,7 @@ use webignition\BasilModel\Exception\InvalidAssertionExpectedValueException;
 class AssertionExpectedValue implements AssertionExpectedValueInterface
 {
     /**
-     * @var AttributeValueInterface|BrowserProperty|DataParameter|ElementValueInterface|EnvironmentValueInterface|LiteralValueInterface|PageElementReference|ReferenceValueInterface
+     * @var AttributeValueInterface|BrowserProperty|DataParameter|ElementValueInterface|EnvironmentValueInterface|LiteralValueInterface|PageProperty|PageElementReference|ReferenceValueInterface
      */
     private $expectedValue;
 
@@ -24,6 +24,7 @@ class AssertionExpectedValue implements AssertionExpectedValueInterface
             $value instanceof ElementValueInterface ||
             $value instanceof EnvironmentValueInterface ||
             $value instanceof LiteralValueInterface ||
+            $value instanceof PageProperty ||
             $value instanceof PageElementReference ||
             $value instanceof ReferenceValueInterface
         )) {
@@ -34,7 +35,7 @@ class AssertionExpectedValue implements AssertionExpectedValueInterface
     }
 
     /**
-     * @return AttributeValueInterface|BrowserProperty|DataParameter|ElementValueInterface|EnvironmentValueInterface|LiteralValueInterface|PageElementReference|ReferenceValueInterface
+     * @return AttributeValueInterface|BrowserProperty|DataParameter|ElementValueInterface|EnvironmentValueInterface|LiteralValueInterface|PageProperty|PageElementReference|ReferenceValueInterface
      */
     public function getExpectedValue()
     {
