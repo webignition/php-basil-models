@@ -18,8 +18,6 @@ class ElementIdentifier extends AbstractIdentifier implements ElementIdentifierI
 
     public function __construct(ElementExpressionInterface $elementExpression, ?int $position = null)
     {
-        parent::__construct(IdentifierTypes::ELEMENT_SELECTOR);
-
         $this->elementExpression = $elementExpression;
         $this->position = $position;
     }

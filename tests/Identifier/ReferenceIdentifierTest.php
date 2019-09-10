@@ -5,45 +5,38 @@ namespace webignition\BasilModel\Tests\Identifier;
 
 use webignition\BasilModel\Identifier\ReferenceIdentifier;
 use webignition\BasilModel\Identifier\IdentifierInterface;
-use webignition\BasilModel\Identifier\IdentifierTypes;
+use webignition\BasilModel\Identifier\ReferenceIdentifierInterface;
 use webignition\BasilModel\Value\ElementReference;
 use webignition\BasilModel\Value\PageElementReference;
-use webignition\BasilModel\Value\ReferenceValueInterface;
 
 class ReferenceIdentifierTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @dataProvider createDataProvider
-     */
-    public function testCreate(string $type, ReferenceValueInterface $value)
+    public function testCreatePageElementReferenceIdentifier()
     {
-        $identifier = new ReferenceIdentifier($type, $value);
+        $value = new PageElementReference(
+            'page_import_name.elements.element_name',
+            'page_import_name',
+            'element_name'
+        );
 
-        $this->assertSame($type, $identifier->getType());
+        $identifier = ReferenceIdentifier::createPageElementReferenceIdentifier($value);
+
+        $this->assertInstanceOf(ReferenceIdentifierInterface::class, $identifier);
         $this->assertSame($value, $identifier->getValue());
     }
 
-    public function createDataProvider(): array
+    public function testCreateElementReferenceIdentifier()
     {
-        return [
-            'page element reference' => [
-                'type' => IdentifierTypes::PAGE_ELEMENT_REFERENCE,
-                'value' => new PageElementReference(
-                    'page_import_name.elements.element_name',
-                    'page_import_name',
-                    'element_name'
-                ),
-            ],
-            'element reference' => [
-                'type' => IdentifierTypes::ELEMENT_PARAMETER,
-                'value' => new ElementReference(
-                    '$elements.element_name',
-                    'element_name'
-                ),
-            ],
-        ];
-    }
+        $value = new ElementReference(
+            '$elements.element_name',
+            'element_name'
+        );
 
+        $identifier = ReferenceIdentifier::createPageElementReferenceIdentifier($value);
+
+        $this->assertInstanceOf(ReferenceIdentifierInterface::class, $identifier);
+        $this->assertSame($value, $identifier->getValue());
+    }
     /**
      * @dataProvider toStringDataProvider
      */
@@ -56,8 +49,7 @@ class ReferenceIdentifierTest extends \PHPUnit\Framework\TestCase
     {
         return [
             'page element reference' => [
-                'identifier' => new ReferenceIdentifier(
-                    IdentifierTypes::PAGE_ELEMENT_REFERENCE,
+                'identifier' => ReferenceIdentifier::createPageElementReferenceIdentifier(
                     new PageElementReference(
                         'page_import_name.elements.element_name',
                         'page_import_name',
@@ -67,8 +59,7 @@ class ReferenceIdentifierTest extends \PHPUnit\Framework\TestCase
                 'expectedString' => 'page_import_name.elements.element_name',
             ],
             'element reference' => [
-                'identifier' => new ReferenceIdentifier(
-                    IdentifierTypes::ELEMENT_PARAMETER,
+                'identifier' => ReferenceIdentifier::createElementReferenceIdentifier(
                     new ElementReference(
                         '$elements.element_name',
                         'element_name'
@@ -95,8 +86,7 @@ class ReferenceIdentifierTest extends \PHPUnit\Framework\TestCase
 
     public function withNameDataProvider(): array
     {
-        $identifier = new ReferenceIdentifier(
-            IdentifierTypes::PAGE_ELEMENT_REFERENCE,
+        $identifier = ReferenceIdentifier::createElementReferenceIdentifier(
             new ElementReference(
                 '$elements.element_name',
                 'element_name'

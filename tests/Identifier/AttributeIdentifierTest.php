@@ -7,7 +7,6 @@ use webignition\BasilModel\Identifier\AttributeIdentifier;
 use webignition\BasilModel\Identifier\AttributeIdentifierInterface;
 use webignition\BasilModel\Identifier\ElementIdentifier;
 use webignition\BasilModel\Identifier\ElementIdentifierInterface;
-use webignition\BasilModel\Identifier\IdentifierTypes;
 use webignition\BasilModel\Value\CssSelector;
 
 class AttributeIdentifierTest extends \PHPUnit\Framework\TestCase
@@ -19,7 +18,6 @@ class AttributeIdentifierTest extends \PHPUnit\Framework\TestCase
     {
         $identifier = new AttributeIdentifier($elementIdentifier, $attributeName);
 
-        $this->assertSame(IdentifierTypes::ATTRIBUTE, $identifier->getType());
         $this->assertSame($elementIdentifier, $identifier->getElementIdentifier());
         $this->assertSame($attributeName, $identifier->getAttributeName());
     }

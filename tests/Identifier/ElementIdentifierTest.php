@@ -5,7 +5,6 @@ namespace webignition\BasilModel\Tests\Identifier;
 
 use webignition\BasilModel\Identifier\ElementIdentifier;
 use webignition\BasilModel\Identifier\ElementIdentifierInterface;
-use webignition\BasilModel\Identifier\IdentifierTypes;
 use webignition\BasilModel\Tests\TestIdentifierFactory;
 use webignition\BasilModel\Value\CssSelector;
 use webignition\BasilModel\Value\ElementExpressionInterface;
@@ -20,7 +19,6 @@ class ElementIdentifierTest extends \PHPUnit\Framework\TestCase
     {
         $identifier = new ElementIdentifier($elementExpression, $position);
 
-        $this->assertSame(IdentifierTypes::ELEMENT_SELECTOR, $identifier->getType());
         $this->assertSame($elementExpression, $identifier->getElementExpression());
         $this->assertSame($expectedPosition, $identifier->getPosition());
         $this->assertNull($identifier->getName());
