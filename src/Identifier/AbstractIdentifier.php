@@ -5,12 +5,6 @@ namespace webignition\BasilModel\Identifier;
 abstract class AbstractIdentifier implements IdentifierInterface
 {
     private $name;
-    private $type = '';
-
-    public function __construct(string $type)
-    {
-        $this->type = $type;
-    }
 
     public function getName(): ?string
     {
@@ -23,10 +17,5 @@ abstract class AbstractIdentifier implements IdentifierInterface
         $new->name = $name;
 
         return $new;
-    }
-
-    public function getType(): string
-    {
-        return $this->type;
     }
 }

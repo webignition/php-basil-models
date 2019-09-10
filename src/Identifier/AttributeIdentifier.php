@@ -9,8 +9,6 @@ class AttributeIdentifier extends AbstractIdentifier implements AttributeIdentif
 
     public function __construct(ElementIdentifierInterface $elementIdentifier, string $attributeName)
     {
-        parent::__construct(IdentifierTypes::ATTRIBUTE);
-
         $this->elementIdentifier = $elementIdentifier;
         $this->attributeName = $attributeName;
     }
