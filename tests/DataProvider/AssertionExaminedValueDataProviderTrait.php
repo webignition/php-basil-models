@@ -8,6 +8,7 @@ use webignition\BasilModel\Value\AttributeReference;
 use webignition\BasilModel\Value\AttributeValue;
 use webignition\BasilModel\Value\BrowserProperty;
 use webignition\BasilModel\Value\CssSelector;
+use webignition\BasilModel\Value\DataParameter;
 use webignition\BasilModel\Value\ElementReference;
 use webignition\BasilModel\Value\ElementValue;
 use webignition\BasilModel\Value\EnvironmentValue;
@@ -58,6 +59,12 @@ trait AssertionExaminedValueDataProviderTrait
                 'value' => new AttributeReference(
                     '$elements.element_name.attribute_name',
                     'element_name.attribute_name'
+                ),
+            ],
+            'data parameter' => [
+                'value' => new DataParameter(
+                    '$data.key',
+                    'key'
                 ),
             ],
         ];
