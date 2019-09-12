@@ -17,7 +17,7 @@ class AssertionExaminedValueTest extends \PHPUnit\Framework\TestCase
     /**
      * @dataProvider assertionExaminedValueDataProvider
      */
-    public function testCreateSuccess(ValueInterface $value)
+    public function testCreate(ValueInterface $value)
     {
         $assertionExaminedValue = new AssertionExaminedValue($value);
 
@@ -27,10 +27,12 @@ class AssertionExaminedValueTest extends \PHPUnit\Framework\TestCase
         $this->assertSame((string) $value, (string) $assertionExaminedValue);
     }
 
-    public function testCreateThrowsException()
+    public function testGetExaminedValueThrowsException()
     {
+        $assertionExaminedValue = new AssertionExaminedValue(new LiteralValue('value'));
+
         $this->expectException(InvalidAssertionExaminedValueException::class);
 
-        new AssertionExaminedValue(new LiteralValue('value'));
+        $assertionExaminedValue->getExaminedValue();
     }
 }
