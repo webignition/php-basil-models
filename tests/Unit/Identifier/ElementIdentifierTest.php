@@ -6,9 +6,9 @@ namespace webignition\BasilModel\Tests\Unit\Identifier;
 use webignition\BasilModel\Identifier\ElementIdentifier;
 use webignition\BasilModel\Identifier\ElementIdentifierInterface;
 use webignition\BasilModel\Tests\TestIdentifierFactory;
-use webignition\BasilModel\Value\CssSelector;
+use webignition\BasilModel\Value\ElementExpression;
 use webignition\BasilModel\Value\ElementExpressionInterface;
-use webignition\BasilModel\Value\XpathExpression;
+use webignition\BasilModel\Value\ElementExpressionType;
 
 class ElementIdentifierTest extends \PHPUnit\Framework\TestCase
 {
@@ -28,12 +28,12 @@ class ElementIdentifierTest extends \PHPUnit\Framework\TestCase
     {
         return [
             'no explicit position' => [
-                'elementExpression' => new CssSelector('.selector'),
+                'elementExpression' => new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR),
                 'position' => null,
                 'expectedPosition' => null,
             ],
             'has explicit position' => [
-                'elementExpression' => new CssSelector('.selector'),
+                'elementExpression' => new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR),
                 'position' => 3,
                 'expectedPosition' => 3,
             ],
@@ -42,12 +42,12 @@ class ElementIdentifierTest extends \PHPUnit\Framework\TestCase
 
     public function testWithParentIdentifier()
     {
-        $identifier = new ElementIdentifier(new CssSelector('.selector'));
+        $identifier = new ElementIdentifier(new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR));
 
         $this->assertNull($identifier->getParentIdentifier());
 
         $parentIdentifier = TestIdentifierFactory::createElementIdentifier(
-            new CssSelector('.parent'),
+            new ElementExpression('.parent', ElementExpressionType::CSS_SELECTOR),
             1,
             'parent_name'
         );
@@ -69,54 +69,58 @@ class ElementIdentifierTest extends \PHPUnit\Framework\TestCase
     public function toStringDataProvider(): array
     {
         $parentIdentifier = TestIdentifierFactory::createElementIdentifier(
-            new CssSelector('.parent'),
+            new ElementExpression('.parent', ElementExpressionType::CSS_SELECTOR),
             1,
             'parent_name'
         );
 
         $cssSelectorWithElementReference =
             (new ElementIdentifier(
-                new CssSelector('.selector')
+                new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
             ))->withParentIdentifier($parentIdentifier);
 
         $xpathExpressionWithElementReference =
             (new ElementIdentifier(
-                new XpathExpression('//foo')
+                new ElementExpression('//foo', ElementExpressionType::XPATH_EXPRESSION)
             ))->withParentIdentifier($parentIdentifier);
 
         return [
             'css selector, position null' => [
-                'identifier' => new ElementIdentifier(new CssSelector('.selector')),
+                'identifier' => new ElementIdentifier(
+                    new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
+                ),
                 'expectedString' => '".selector"',
             ],
             'css selector, position 1' => [
                 'identifier' => new ElementIdentifier(
-                    new CssSelector('.selector'),
+                    new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR),
                     1
                 ),
                 'expectedString' => '".selector"',
             ],
             'css selector, position 2' => [
                 'identifier' => new ElementIdentifier(
-                    new CssSelector('.selector'),
+                    new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR),
                     2
                 ),
                 'expectedString' => '".selector":2',
             ],
             'xpath expression, position null' => [
-                'identifier' => new ElementIdentifier(new XpathExpression('//foo')),
+                'identifier' => new ElementIdentifier(
+                    new ElementExpression('//foo', ElementExpressionType::XPATH_EXPRESSION)
+                ),
                 'expectedString' => '"//foo"',
             ],
             'xpath expression, position 1' => [
                 'identifier' => new ElementIdentifier(
-                    new XpathExpression('//foo'),
+                    new ElementExpression('//foo', ElementExpressionType::XPATH_EXPRESSION),
                     1
                 ),
                 'expectedString' => '"//foo"',
             ],
             'xpath expression, position 2' => [
                 'identifier' => new ElementIdentifier(
-                    new XpathExpression('//foo'),
+                    new ElementExpression('//foo', ElementExpressionType::XPATH_EXPRESSION),
                     2
                 ),
                 'expectedString' => '"//foo":2',
@@ -148,7 +152,7 @@ class ElementIdentifierTest extends \PHPUnit\Framework\TestCase
 
     public function withNameDataProvider(): array
     {
-        $identifier = new ElementIdentifier(new CssSelector('.selector'));
+        $identifier = new ElementIdentifier(new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR));
 
         return [
             'no name, no new name' => [
@@ -177,7 +181,7 @@ class ElementIdentifierTest extends \PHPUnit\Framework\TestCase
     public function testWithPosition()
     {
         $identifier = new ElementIdentifier(
-            new CssSelector('.selector')
+            new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
         );
 
         $this->assertNull($identifier->getPosition());

@@ -8,7 +8,8 @@ use webignition\BasilModel\Assertion\AssertionComparison;
 use webignition\BasilModel\Assertion\ExaminationAssertion;
 use webignition\BasilModel\Value\AssertionExaminedValue;
 use webignition\BasilModel\Value\AssertionExaminedValueInterface;
-use webignition\BasilModel\Value\CssSelector;
+use webignition\BasilModel\Value\ElementExpression;
+use webignition\BasilModel\Value\ElementExpressionType;
 use webignition\BasilModel\Value\ElementValue;
 use webignition\BasilModel\Identifier\ElementIdentifier;
 
@@ -34,7 +35,7 @@ class ExaminationAssertionTest extends \PHPUnit\Framework\TestCase
         $examinedValue = new AssertionExaminedValue(
             new ElementValue(
                 new ElementIdentifier(
-                    new CssSelector('.examined')
+                    new ElementExpression('.examined', ElementExpressionType::CSS_SELECTOR)
                 )
             )
         );

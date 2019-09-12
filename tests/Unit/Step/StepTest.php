@@ -15,7 +15,8 @@ use webignition\BasilModel\Identifier\IdentifierCollectionInterface;
 use webignition\BasilModel\Step\Step;
 use webignition\BasilModel\Step\StepInterface;
 use webignition\BasilModel\Value\AssertionExaminedValue;
-use webignition\BasilModel\Value\CssSelector;
+use webignition\BasilModel\Value\ElementExpression;
+use webignition\BasilModel\Value\ElementExpressionType;
 use webignition\BasilModel\Value\ElementValue;
 use webignition\BasilModel\Value\LiteralValue;
 
@@ -38,7 +39,7 @@ class StepTest extends \PHPUnit\Framework\TestCase
             '".selector" exists',
             new AssertionExaminedValue(
                 new ElementValue(new ElementIdentifier(
-                    new CssSelector('.selector')
+                    new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
                 ))
             ),
             AssertionComparison::EXISTS
@@ -132,28 +133,40 @@ class StepTest extends \PHPUnit\Framework\TestCase
             'no existing identifier collection, non-empty identifier collection' => [
                 'step' => new Step([], []),
                 'identifierCollection' => new IdentifierCollection([
-                    'input' => new ElementIdentifier(new CssSelector('.input')),
+                    'input' => new ElementIdentifier(
+                        new ElementExpression('.input', ElementExpressionType::CSS_SELECTOR)
+                    ),
                 ]),
                 'expectedIdentifierCollection' => new IdentifierCollection([
-                    'input' => new ElementIdentifier(new CssSelector('.input')),
+                    'input' => new ElementIdentifier(
+                        new ElementExpression('.input', ElementExpressionType::CSS_SELECTOR)
+                    ),
                 ]),
             ],
             'has existing identifier collection, empty identifier collection' => [
                 'step' => (new Step([], []))->withIdentifierCollection(new IdentifierCollection([
-                    'input' => new ElementIdentifier(new CssSelector('.input')),
+                    'input' => new ElementIdentifier(
+                        new ElementExpression('.input', ElementExpressionType::CSS_SELECTOR)
+                    ),
                 ])),
                 'identifierCollection' => new IdentifierCollection(),
                 'expectedIdentifierCollection' => new IdentifierCollection(),
             ],
             'has existing identifier collection, non-empty identifier collection' => [
                 'step' => (new Step([], []))->withIdentifierCollection(new IdentifierCollection([
-                    'input' => new ElementIdentifier(new CssSelector('.input')),
+                    'input' => new ElementIdentifier(
+                        new ElementExpression('.input', ElementExpressionType::CSS_SELECTOR)
+                    ),
                 ])),
                 'identifierCollection' => new IdentifierCollection([
-                    'button' => new ElementIdentifier(new CssSelector('.button')),
+                    'button' => new ElementIdentifier(
+                        new ElementExpression('.button', ElementExpressionType::CSS_SELECTOR)
+                    ),
                 ]),
                 'expectedIdentifierCollection' => new IdentifierCollection([
-                    'button' => new ElementIdentifier(new CssSelector('.button')),
+                    'button' => new ElementIdentifier(
+                        new ElementExpression('.button', ElementExpressionType::CSS_SELECTOR)
+                    ),
                 ]),
             ],
         ];
@@ -175,7 +188,7 @@ class StepTest extends \PHPUnit\Framework\TestCase
             '".selector" exists',
             new AssertionExaminedValue(
                 new ElementValue(new ElementIdentifier(
-                    new CssSelector('.selector')
+                    new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
                 ))
             ),
             AssertionComparison::EXISTS
@@ -247,11 +260,15 @@ class StepTest extends \PHPUnit\Framework\TestCase
             ],
             'step identifier collection is retained' => [
                 'step' => (new Step([], []))->withIdentifierCollection(new IdentifierCollection([
-                    'heading1' => new ElementIdentifier(new CssSelector('.heading1'))
+                    'heading1' => new ElementIdentifier(
+                        new ElementExpression('.heading1', ElementExpressionType::CSS_SELECTOR)
+                    )
                 ])),
                 'actions' => [],
                 'expectedStep' => (new Step([], []))->withIdentifierCollection(new IdentifierCollection([
-                    'heading1' => new ElementIdentifier(new CssSelector('.heading1'))
+                    'heading1' => new ElementIdentifier(
+                        new ElementExpression('.heading1', ElementExpressionType::CSS_SELECTOR)
+                    )
                 ])),
             ],
         ];
@@ -273,7 +290,7 @@ class StepTest extends \PHPUnit\Framework\TestCase
             '".selector1" exists',
             new AssertionExaminedValue(
                 new ElementValue(new ElementIdentifier(
-                    new CssSelector('.selector1')
+                    new ElementExpression('.selector1', ElementExpressionType::CSS_SELECTOR)
                 ))
             ),
             AssertionComparison::EXISTS
@@ -283,7 +300,7 @@ class StepTest extends \PHPUnit\Framework\TestCase
             '".selector2" exists',
             new AssertionExaminedValue(
                 new ElementValue(new ElementIdentifier(
-                    new CssSelector('.selector2')
+                    new ElementExpression('.selector2', ElementExpressionType::CSS_SELECTOR)
                 ))
             ),
             AssertionComparison::EXISTS
@@ -355,11 +372,15 @@ class StepTest extends \PHPUnit\Framework\TestCase
             ],
             'step identifier collection is retained' => [
                 'step' => (new Step([], []))->withIdentifierCollection(new IdentifierCollection([
-                    'heading1' => new ElementIdentifier(new CssSelector('.heading1'))
+                    'heading1' => new ElementIdentifier(
+                        new ElementExpression('.heading1', ElementExpressionType::CSS_SELECTOR)
+                    )
                 ])),
                 'assertions' => [],
                 'expectedStep' => (new Step([], []))->withIdentifierCollection(new IdentifierCollection([
-                    'heading1' => new ElementIdentifier(new CssSelector('.heading1'))
+                    'heading1' => new ElementIdentifier(
+                        new ElementExpression('.heading1', ElementExpressionType::CSS_SELECTOR)
+                    )
                 ])),
             ],
         ];
@@ -423,7 +444,7 @@ class StepTest extends \PHPUnit\Framework\TestCase
             '".selector1" exists',
             new AssertionExaminedValue(
                 new ElementValue(new ElementIdentifier(
-                    new CssSelector('.selector1')
+                    new ElementExpression('.selector1', ElementExpressionType::CSS_SELECTOR)
                 ))
             ),
             AssertionComparison::EXISTS
@@ -433,7 +454,7 @@ class StepTest extends \PHPUnit\Framework\TestCase
             '".selector2" exists',
             new AssertionExaminedValue(
                 new ElementValue(new ElementIdentifier(
-                    new CssSelector('.selector2')
+                    new ElementExpression('.selector2', ElementExpressionType::CSS_SELECTOR)
                 ))
             ),
             AssertionComparison::EXISTS

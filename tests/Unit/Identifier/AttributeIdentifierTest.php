@@ -7,7 +7,8 @@ use webignition\BasilModel\Identifier\AttributeIdentifier;
 use webignition\BasilModel\Identifier\AttributeIdentifierInterface;
 use webignition\BasilModel\Identifier\ElementIdentifier;
 use webignition\BasilModel\Identifier\ElementIdentifierInterface;
-use webignition\BasilModel\Value\CssSelector;
+use webignition\BasilModel\Value\ElementExpression;
+use webignition\BasilModel\Value\ElementExpressionType;
 
 class AttributeIdentifierTest extends \PHPUnit\Framework\TestCase
 {
@@ -27,13 +28,13 @@ class AttributeIdentifierTest extends \PHPUnit\Framework\TestCase
         return [
             'empty attribute name' => [
                 'elementIdentifier' => new ElementIdentifier(
-                    new CssSelector('.selector')
+                    new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
                 ),
                 'attributeName' => '',
             ],
             'non-empty attribute name' => [
                 'elementIdentifier' => new ElementIdentifier(
-                    new CssSelector('.selector')
+                    new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
                 ),
                 'attributeName' => 'attribute-name',
             ],
@@ -54,7 +55,7 @@ class AttributeIdentifierTest extends \PHPUnit\Framework\TestCase
             'empty attribute name' => [
                 'attributeIdentifier' => new AttributeIdentifier(
                     new ElementIdentifier(
-                        new CssSelector('.selector')
+                        new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
                     ),
                     ''
                 ),
@@ -63,7 +64,7 @@ class AttributeIdentifierTest extends \PHPUnit\Framework\TestCase
             'non-empty attribute name' => [
                 'attributeIdentifier' => new AttributeIdentifier(
                     new ElementIdentifier(
-                        new CssSelector('.selector')
+                        new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
                     ),
                     'attribute-name'
                 ),
