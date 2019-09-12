@@ -2,8 +2,8 @@
 
 namespace webignition\BasilModel\Assertion;
 
-use webignition\BasilModel\Value\AssertionExaminedValueInterface;
-use webignition\BasilModel\Value\AssertionExpectedValueInterface;
+use webignition\BasilModel\Value\Assertion\AssertionExaminedValueInterface;
+use webignition\BasilModel\Value\Assertion\AssertionExpectedValueInterface;
 
 class ComparisonAssertion extends ExaminationAssertion implements
     AssertionInterface,

@@ -2,7 +2,7 @@
 
 namespace webignition\BasilModel\Assertion;
 
-use webignition\BasilModel\Value\AssertionExpectedValueInterface;
+use webignition\BasilModel\Value\Assertion\AssertionExpectedValueInterface;
 
 interface ComparisonAssertionInterface extends ExaminationAssertionInterface
 {

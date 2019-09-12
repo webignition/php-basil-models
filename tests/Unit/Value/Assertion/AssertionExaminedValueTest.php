@@ -2,11 +2,11 @@
 /** @noinspection PhpDocSignatureInspection */
 /** @noinspection PhpUnhandledExceptionInspection */
 
-namespace webignition\BasilModel\Tests\Unit\Value;
+namespace webignition\BasilModel\Tests\Unit\Value\Assertion;
 
 use webignition\BasilModel\Exception\InvalidAssertionExaminedValueException;
 use webignition\BasilModel\Tests\DataProvider\AssertionExaminedValueDataProviderTrait;
-use webignition\BasilModel\Value\AssertionExaminedValue;
+use webignition\BasilModel\Value\Assertion\AssertionExaminedValue;
 use webignition\BasilModel\Value\LiteralValue;
 use webignition\BasilModel\Value\ValueInterface;
 
