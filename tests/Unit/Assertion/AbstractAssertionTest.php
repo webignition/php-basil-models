@@ -4,7 +4,7 @@
 namespace webignition\BasilModel\Tests\Unit\Assertion;
 
 use webignition\BasilModel\Assertion\AssertionInterface;
-use webignition\BasilModel\Assertion\ValueComparisonAssertionInterface;
+use webignition\BasilModel\Assertion\ComparisonAssertionInterface;
 use webignition\BasilModel\Value\AssertionExaminedValue;
 use webignition\BasilModel\Value\CssSelector;
 use webignition\BasilModel\Value\ElementValue;
@@ -23,7 +23,7 @@ abstract class AbstractAssertionTest extends \PHPUnit\Framework\TestCase
     protected $examinedValue;
 
     /**
-     * @var AssertionInterface|ValueComparisonAssertionInterface
+     * @var AssertionInterface|ComparisonAssertionInterface
      */
     protected $assertion;
 

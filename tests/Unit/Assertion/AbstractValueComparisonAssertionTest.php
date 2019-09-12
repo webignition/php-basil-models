@@ -3,7 +3,7 @@
 
 namespace webignition\BasilModel\Tests\Unit\Assertion;
 
-use webignition\BasilModel\Assertion\ValueComparisonAssertionInterface;
+use webignition\BasilModel\Assertion\ComparisonAssertionInterface;
 use webignition\BasilModel\Value\AssertionExpectedValue;
 use webignition\BasilModel\Value\LiteralValue;
 
@@ -26,7 +26,7 @@ abstract class AbstractValueComparisonAssertionTest extends AbstractAssertionTes
         $this->assertSame($this->assertionString, $this->assertion->getAssertionString());
         $this->assertSame($this->examinedValue, $this->assertion->getExaminedValue());
 
-        if ($this->assertion instanceof ValueComparisonAssertionInterface) {
+        if ($this->assertion instanceof ComparisonAssertionInterface) {
             $this->assertSame($this->expectedValue, $this->assertion->getExpectedValue());
         }
     }
@@ -35,7 +35,7 @@ abstract class AbstractValueComparisonAssertionTest extends AbstractAssertionTes
     {
         $newExpectedValue = new AssertionExpectedValue(new LiteralValue('bar'));
 
-        if ($this->assertion instanceof ValueComparisonAssertionInterface) {
+        if ($this->assertion instanceof ComparisonAssertionInterface) {
             $newAssertion = $this->assertion->withExpectedValue($newExpectedValue);
 
             $this->assertNotSame($this->assertion, $newAssertion);

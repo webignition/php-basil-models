@@ -4,8 +4,8 @@ namespace webignition\BasilModel\Assertion;
 
 use webignition\BasilModel\Value\AssertionExpectedValueInterface;
 
-interface ValueComparisonAssertionInterface extends AssertionInterface
+interface ComparisonAssertionInterface extends ExaminationAssertionInterface
 {
     public function getExpectedValue(): AssertionExpectedValueInterface;
-    public function withExpectedValue(AssertionExpectedValueInterface $value): ValueComparisonAssertionInterface;
+    public function withExpectedValue(AssertionExpectedValueInterface $value): ComparisonAssertionInterface;
 }
