@@ -2,7 +2,7 @@
 
 namespace webignition\BasilModel\Tests\Unit\Assertion;
 
-use webignition\BasilModel\Assertion\AssertionComparisons;
+use webignition\BasilModel\Assertion\AssertionComparison;
 use webignition\BasilModel\Assertion\IsNotAssertion;
 
 class IsNotAssertionTest extends AbstractValueComparisonAssertionTest
@@ -19,6 +19,6 @@ class IsNotAssertionTest extends AbstractValueComparisonAssertionTest
     {
         parent::testCreate();
 
-        $this->assertSame(AssertionComparisons::IS_NOT, $this->assertion->getComparison());
+        $this->assertEquals(AssertionComparison::IS_NOT, $this->assertion->getComparison());
     }
 }

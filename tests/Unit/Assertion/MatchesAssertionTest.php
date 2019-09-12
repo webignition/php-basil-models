@@ -2,7 +2,7 @@
 
 namespace webignition\BasilModel\Tests\Unit\Assertion;
 
-use webignition\BasilModel\Assertion\AssertionComparisons;
+use webignition\BasilModel\Assertion\AssertionComparison;
 use webignition\BasilModel\Assertion\MatchesAssertion;
 
 class MatchesAssertionTest extends AbstractValueComparisonAssertionTest
@@ -19,6 +19,6 @@ class MatchesAssertionTest extends AbstractValueComparisonAssertionTest
     {
         parent::testCreate();
 
-        $this->assertSame(AssertionComparisons::MATCHES, $this->assertion->getComparison());
+        $this->assertEquals(AssertionComparison::MATCHES, $this->assertion->getComparison());
     }
 }

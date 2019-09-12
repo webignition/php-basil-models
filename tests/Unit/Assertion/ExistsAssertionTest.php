@@ -3,7 +3,7 @@
 
 namespace webignition\BasilModel\Tests\Unit\Assertion;
 
-use webignition\BasilModel\Assertion\AssertionComparisons;
+use webignition\BasilModel\Assertion\AssertionComparison;
 use webignition\BasilModel\Assertion\ExistsAssertion;
 
 class ExistsAssertionTest extends AbstractAssertionTest
@@ -20,6 +20,6 @@ class ExistsAssertionTest extends AbstractAssertionTest
     {
         parent::testCreate();
 
-        $this->assertSame(AssertionComparisons::EXISTS, $this->assertion->getComparison());
+        $this->assertEquals(AssertionComparison::EXISTS, $this->assertion->getComparison());
     }
 }

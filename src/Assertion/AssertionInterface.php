@@ -8,6 +8,6 @@ interface AssertionInterface
 {
     public function getAssertionString(): string;
     public function getExaminedValue(): AssertionExaminedValueInterface;
-    public function getComparison(): string;
+    public function getComparison(): AssertionComparison;
     public function withExaminedValue(AssertionExaminedValueInterface $value): AssertionInterface;
 }

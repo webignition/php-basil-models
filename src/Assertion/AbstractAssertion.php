@@ -8,11 +8,16 @@ abstract class AbstractAssertion implements AssertionInterface
 {
     private $assertionString;
     private $examinedValue;
+    private $comparison;
 
-    public function __construct(string $assertionString, AssertionExaminedValueInterface $examinedValue)
-    {
+    public function __construct(
+        string $assertionString,
+        AssertionExaminedValueInterface $examinedValue,
+        AssertionComparisonInterface $comparison
+    ) {
         $this->assertionString = $assertionString;
         $this->examinedValue = $examinedValue;
+        $this->comparison = $comparison;
     }
 
     public function getAssertionString(): string
@@ -31,5 +36,10 @@ abstract class AbstractAssertion implements AssertionInterface
         $new->examinedValue = $value;
 
         return $new;
+    }
+
+    public function getComparison(): AssertionComparison
+    {
+        return $this->comparison;
     }
 }
