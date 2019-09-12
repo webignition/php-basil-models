@@ -2,7 +2,7 @@
 
 namespace webignition\BasilModel\Tests\Unit\Assertion;
 
-use webignition\BasilModel\Assertion\AssertionComparisons;
+use webignition\BasilModel\Assertion\AssertionComparison;
 use webignition\BasilModel\Assertion\IncludesAssertion;
 
 class IncludesAssertionTest extends AbstractValueComparisonAssertionTest
@@ -19,6 +19,6 @@ class IncludesAssertionTest extends AbstractValueComparisonAssertionTest
     {
         parent::testCreate();
 
-        $this->assertSame(AssertionComparisons::INCLUDES, $this->assertion->getComparison());
+        $this->assertEquals(AssertionComparison::INCLUDES, $this->assertion->getComparison());
     }
 }

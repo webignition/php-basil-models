@@ -14,9 +14,10 @@ abstract class AbstractValueComparisonAssertion extends AbstractAssertion implem
     public function __construct(
         string $assertionString,
         AssertionExaminedValueInterface $examinedValue,
+        AssertionComparisonInterface $comparison,
         AssertionExpectedValueInterface $expectedValue
     ) {
-        parent::__construct($assertionString, $examinedValue);
+        parent::__construct($assertionString, $examinedValue, $comparison);
 
         $this->expectedValue = $expectedValue;
     }

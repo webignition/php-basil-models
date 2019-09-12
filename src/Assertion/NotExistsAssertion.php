@@ -2,10 +2,14 @@
 
 namespace webignition\BasilModel\Assertion;
 
+use webignition\BasilModel\Value\AssertionExaminedValueInterface;
+
 class NotExistsAssertion extends AbstractAssertion implements AssertionInterface
 {
-    public function getComparison(): string
+    public function __construct(string $assertionString, AssertionExaminedValueInterface $examinedValue)
     {
-        return AssertionComparisons::NOT_EXISTS;
+        $comparison = new AssertionComparison(AssertionComparison::NOT_EXISTS);
+
+        parent::__construct($assertionString, $examinedValue, $comparison);
     }
 }

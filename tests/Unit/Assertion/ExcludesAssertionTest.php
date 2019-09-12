@@ -3,7 +3,7 @@
 
 namespace webignition\BasilModel\Tests\Unit\Assertion;
 
-use webignition\BasilModel\Assertion\AssertionComparisons;
+use webignition\BasilModel\Assertion\AssertionComparison;
 use webignition\BasilModel\Assertion\ExcludesAssertion;
 
 class ExcludesAssertionTest extends AbstractValueComparisonAssertionTest
@@ -20,6 +20,6 @@ class ExcludesAssertionTest extends AbstractValueComparisonAssertionTest
     {
         parent::testCreate();
 
-        $this->assertSame(AssertionComparisons::EXCLUDES, $this->assertion->getComparison());
+        $this->assertEquals(AssertionComparison::EXCLUDES, $this->assertion->getComparison());
     }
 }
