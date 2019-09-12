@@ -1,10 +1,19 @@
 <?php
 
-namespace webignition\BasilModel\Value;
+namespace webignition\BasilModel\Value\Assertion;
 
 use webignition\BasilModel\Exception\InvalidAssertionExaminedValueException;
+use webignition\BasilModel\Value\AttributeValueInterface;
+use webignition\BasilModel\Value\BrowserProperty;
+use webignition\BasilModel\Value\DataParameter;
+use webignition\BasilModel\Value\ElementValueInterface;
+use webignition\BasilModel\Value\EnvironmentValueInterface;
+use webignition\BasilModel\Value\PageElementReference;
+use webignition\BasilModel\Value\PageProperty;
+use webignition\BasilModel\Value\ReferenceValueInterface;
+use webignition\BasilModel\Value\WrappedValue;
 
-class AssertionExaminedValue extends WrappedValue implements AssertionExaminedValueInterface
+class ExaminedValue extends WrappedValue implements ExaminedValueInterface
 {
     /**
      * @return AttributeValueInterface|BrowserProperty|DataParameter|ElementValueInterface|EnvironmentValueInterface|PageProperty|PageElementReference|ReferenceValueInterface

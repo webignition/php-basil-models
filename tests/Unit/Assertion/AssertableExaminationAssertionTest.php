@@ -4,26 +4,26 @@
 
 namespace webignition\BasilModel\Tests\Unit\Assertion;
 
+use webignition\BasilModel\Assertion\AssertableExaminationAssertion;
 use webignition\BasilModel\Assertion\AssertionComparison;
-use webignition\BasilModel\Assertion\ExaminationAssertion;
-use webignition\BasilModel\Value\Assertion\ExaminedValue;
-use webignition\BasilModel\Value\Assertion\ExaminedValueInterface;
+use webignition\BasilModel\Value\Assertion\AssertableExaminedValue;
+use webignition\BasilModel\Value\Assertion\AssertableExaminedValueInterface;
 use webignition\BasilModel\Value\ElementExpression;
 use webignition\BasilModel\Value\ElementExpressionType;
 use webignition\BasilModel\Value\ElementValue;
 use webignition\BasilModel\Identifier\ElementIdentifier;
 
-class ExaminationAssertionTest extends \PHPUnit\Framework\TestCase
+class AssertableExaminationAssertionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @dataProvider createDataProvider
      */
     public function testCreate(
         string $assertionString,
-        ExaminedValueInterface $examinedValue,
+        AssertableExaminedValueInterface $examinedValue,
         string $comparison
     ) {
-        $assertion = new ExaminationAssertion($assertionString, $examinedValue, $comparison);
+        $assertion = new AssertableExaminationAssertion($assertionString, $examinedValue, $comparison);
 
         $this->assertSame($assertionString, $assertion->getAssertionString());
         $this->assertSame($examinedValue, $assertion->getExaminedValue());
@@ -32,7 +32,7 @@ class ExaminationAssertionTest extends \PHPUnit\Framework\TestCase
 
     public function createDataProvider(): array
     {
-        $examinedValue = new ExaminedValue(
+        $examinedValue = new AssertableExaminedValue(
             new ElementValue(
                 new ElementIdentifier(
                     new ElementExpression('.examined', ElementExpressionType::CSS_SELECTOR)
@@ -52,35 +52,5 @@ class ExaminationAssertionTest extends \PHPUnit\Framework\TestCase
                 'comparison' => AssertionComparison::NOT_EXISTS,
             ],
         ];
-    }
-
-    public function testWithExaminedValue()
-    {
-        $originalExaminedValue = new ExaminedValue(
-            new ElementValue(
-                new ElementIdentifier(
-                    new ElementExpression('.original', ElementExpressionType::CSS_SELECTOR)
-                )
-            )
-        );
-
-        $newExaminedValue = new ExaminedValue(
-            new ElementValue(
-                new ElementIdentifier(
-                    new ElementExpression('.new', ElementExpressionType::CSS_SELECTOR)
-                )
-            )
-        );
-
-        $assertion = new ExaminationAssertion(
-            '".selector" exists',
-            $originalExaminedValue,
-            AssertionComparison::IS
-        );
-
-        $mutatedAssertion = $assertion->withExaminedValue($newExaminedValue);
-
-        $this->assertNotSame($assertion, $mutatedAssertion);
-        $this->assertSame($newExaminedValue, $mutatedAssertion->getExaminedValue());
     }
 }

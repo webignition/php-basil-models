@@ -14,7 +14,7 @@ use webignition\BasilModel\Identifier\IdentifierCollection;
 use webignition\BasilModel\Identifier\IdentifierCollectionInterface;
 use webignition\BasilModel\Step\Step;
 use webignition\BasilModel\Step\StepInterface;
-use webignition\BasilModel\Value\AssertionExaminedValue;
+use webignition\BasilModel\Value\Assertion\ExaminedValue;
 use webignition\BasilModel\Value\ElementExpression;
 use webignition\BasilModel\Value\ElementExpressionType;
 use webignition\BasilModel\Value\ElementValue;
@@ -37,7 +37,7 @@ class StepTest extends \PHPUnit\Framework\TestCase
     {
         $assertion = new ExaminationAssertion(
             '".selector" exists',
-            new AssertionExaminedValue(
+            new ExaminedValue(
                 new ElementValue(new ElementIdentifier(
                     new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
                 ))
@@ -186,7 +186,7 @@ class StepTest extends \PHPUnit\Framework\TestCase
     {
         $assertion = new ExaminationAssertion(
             '".selector" exists',
-            new AssertionExaminedValue(
+            new ExaminedValue(
                 new ElementValue(new ElementIdentifier(
                     new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
                 ))
@@ -288,7 +288,7 @@ class StepTest extends \PHPUnit\Framework\TestCase
     {
         $assertion1 = new ExaminationAssertion(
             '".selector1" exists',
-            new AssertionExaminedValue(
+            new ExaminedValue(
                 new ElementValue(new ElementIdentifier(
                     new ElementExpression('.selector1', ElementExpressionType::CSS_SELECTOR)
                 ))
@@ -298,7 +298,7 @@ class StepTest extends \PHPUnit\Framework\TestCase
 
         $assertion2 = new ExaminationAssertion(
             '".selector2" exists',
-            new AssertionExaminedValue(
+            new ExaminedValue(
                 new ElementValue(new ElementIdentifier(
                     new ElementExpression('.selector2', ElementExpressionType::CSS_SELECTOR)
                 ))
@@ -442,7 +442,7 @@ class StepTest extends \PHPUnit\Framework\TestCase
     {
         $assertion1 = new ExaminationAssertion(
             '".selector1" exists',
-            new AssertionExaminedValue(
+            new ExaminedValue(
                 new ElementValue(new ElementIdentifier(
                     new ElementExpression('.selector1', ElementExpressionType::CSS_SELECTOR)
                 ))
@@ -452,7 +452,7 @@ class StepTest extends \PHPUnit\Framework\TestCase
 
         $assertion2 = new ExaminationAssertion(
             '".selector2" exists',
-            new AssertionExaminedValue(
+            new ExaminedValue(
                 new ElementValue(new ElementIdentifier(
                     new ElementExpression('.selector2', ElementExpressionType::CSS_SELECTOR)
                 ))

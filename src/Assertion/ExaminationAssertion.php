@@ -2,7 +2,7 @@
 
 namespace webignition\BasilModel\Assertion;
 
-use webignition\BasilModel\Value\AssertionExaminedValueInterface;
+use webignition\BasilModel\Value\Assertion\ExaminedValueInterface;
 
 class ExaminationAssertion extends AbstractAssertion implements ExaminationAssertionInterface
 {
@@ -10,7 +10,7 @@ class ExaminationAssertion extends AbstractAssertion implements ExaminationAsser
 
     public function __construct(
         string $assertionString,
-        AssertionExaminedValueInterface $examinedValue,
+        ExaminedValueInterface $examinedValue,
         string $comparison
     ) {
         parent::__construct($assertionString, $comparison);
@@ -18,12 +18,12 @@ class ExaminationAssertion extends AbstractAssertion implements ExaminationAsser
         $this->examinedValue = $examinedValue;
     }
 
-    public function getExaminedValue(): AssertionExaminedValueInterface
+    public function getExaminedValue(): ExaminedValueInterface
     {
         return $this->examinedValue;
     }
 
-    public function withExaminedValue(AssertionExaminedValueInterface $value): ExaminationAssertionInterface
+    public function withExaminedValue(ExaminedValueInterface $value): ExaminationAssertionInterface
     {
         $new = clone $this;
         $new->examinedValue = $value;

@@ -2,24 +2,24 @@
 /** @noinspection PhpDocSignatureInspection */
 /** @noinspection PhpUnhandledExceptionInspection */
 
-namespace webignition\BasilModel\Tests\Unit\Value;
+namespace webignition\BasilModel\Tests\Unit\Value\Assertion;
 
 use webignition\BasilModel\Exception\InvalidAssertionExaminedValueException;
-use webignition\BasilModel\Tests\DataProvider\AssertionExaminedValueDataProviderTrait;
-use webignition\BasilModel\Value\AssertionExaminedValue;
+use webignition\BasilModel\Tests\DataProvider\Assertion\ExaminedValueDataProviderTrait;
+use webignition\BasilModel\Value\Assertion\ExaminedValue;
 use webignition\BasilModel\Value\LiteralValue;
 use webignition\BasilModel\Value\ValueInterface;
 
-class AssertionExaminedValueTest extends \PHPUnit\Framework\TestCase
+class ExaminedValueTest extends \PHPUnit\Framework\TestCase
 {
-    use AssertionExaminedValueDataProviderTrait;
+    use ExaminedValueDataProviderTrait;
 
     /**
      * @dataProvider assertionExaminedValueDataProvider
      */
     public function testCreate(ValueInterface $value)
     {
-        $assertionExaminedValue = new AssertionExaminedValue($value);
+        $assertionExaminedValue = new ExaminedValue($value);
 
         $this->assertSame($value, $assertionExaminedValue->getExaminedValue());
         $this->assertSame($value->isEmpty(), $assertionExaminedValue->isEmpty());
@@ -29,7 +29,7 @@ class AssertionExaminedValueTest extends \PHPUnit\Framework\TestCase
 
     public function testGetExaminedValueThrowsException()
     {
-        $assertionExaminedValue = new AssertionExaminedValue(new LiteralValue('value'));
+        $assertionExaminedValue = new ExaminedValue(new LiteralValue('value'));
 
         $this->expectException(InvalidAssertionExaminedValueException::class);
 

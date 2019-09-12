@@ -2,27 +2,27 @@
 /** @noinspection PhpDocSignatureInspection */
 /** @noinspection PhpUnhandledExceptionInspection */
 
-namespace webignition\BasilModel\Tests\Unit\Value;
+namespace webignition\BasilModel\Tests\Unit\Value\Assertion;
 
-use webignition\BasilModel\Exception\InvalidAssertionExpectedValueException;
-use webignition\BasilModel\Tests\DataProvider\AssertionExaminedValueDataProviderTrait;
-use webignition\BasilModel\Value\AssertionExpectedValue;
+use webignition\BasilModel\Exception\InvalidAssertableExpectedValueException;
+use webignition\BasilModel\Tests\DataProvider\Assertion\AssertableExaminedValueDataProviderTrait;
+use webignition\BasilModel\Value\Assertion\AssertableExpectedValue;
 use webignition\BasilModel\Value\ElementExpression;
 use webignition\BasilModel\Value\ElementExpressionType;
 use webignition\BasilModel\Value\LiteralValue;
 use webignition\BasilModel\Value\ValueInterface;
 
-class AssertionExpectedValueTest extends \PHPUnit\Framework\TestCase
+class AssertableExpectedValueTest extends \PHPUnit\Framework\TestCase
 {
-    use AssertionExaminedValueDataProviderTrait;
+    use AssertableExaminedValueDataProviderTrait;
 
     /**
-     * @dataProvider assertionExaminedValueDataProvider
+     * @dataProvider assertableExaminedValueDataProvider
      * @dataProvider createSuccessDataProvider
      */
     public function testCreate(ValueInterface $value)
     {
-        $assertionExaminedValue = new AssertionExpectedValue($value);
+        $assertionExaminedValue = new AssertableExpectedValue($value);
 
         $this->assertSame($value, $assertionExaminedValue->getExpectedValue());
         $this->assertSame($value->isEmpty(), $assertionExaminedValue->isEmpty());
@@ -42,11 +42,11 @@ class AssertionExpectedValueTest extends \PHPUnit\Framework\TestCase
 
     public function testGetExpectedValueThrowsException()
     {
-        $assertionExpectedValue = new AssertionExpectedValue(
+        $assertionExpectedValue = new AssertableExpectedValue(
             new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
         );
 
-        $this->expectException(InvalidAssertionExpectedValueException::class);
+        $this->expectException(InvalidAssertableExpectedValueException::class);
 
         $assertionExpectedValue->getExpectedValue();
     }
