@@ -4,29 +4,29 @@
 
 namespace webignition\BasilModel\Tests\Unit\Assertion;
 
+use webignition\BasilModel\Assertion\AssertableComparisonAssertion;
 use webignition\BasilModel\Assertion\AssertionComparison;
-use webignition\BasilModel\Assertion\ComparisonAssertion;
-use webignition\BasilModel\Value\Assertion\ExaminedValue;
-use webignition\BasilModel\Value\Assertion\ExaminedValueInterface;
-use webignition\BasilModel\Value\Assertion\ExpectedValue;
+use webignition\BasilModel\Value\Assertion\AssertableExaminedValue;
+use webignition\BasilModel\Value\Assertion\AssertableExaminedValueInterface;
+use webignition\BasilModel\Value\Assertion\AssertableExpectedValue;
+use webignition\BasilModel\Value\Assertion\AssertableExpectedValueInterface;
 use webignition\BasilModel\Value\ElementExpression;
 use webignition\BasilModel\Value\ElementExpressionType;
 use webignition\BasilModel\Value\ElementValue;
 use webignition\BasilModel\Identifier\ElementIdentifier;
-use webignition\BasilModel\Value\LiteralValue;
 
-class ComparisonAssertionTest extends \PHPUnit\Framework\TestCase
+class AssertableComparisonAssertionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @dataProvider createDataProvider
      */
     public function testCreate(
         string $assertionString,
-        ExaminedValueInterface $examinedValue,
+        AssertableExaminedValueInterface $examinedValue,
         string $comparison,
-        ExpectedValue $expectedValue
+        AssertableExpectedValueInterface $expectedValue
     ) {
-        $assertion = new ComparisonAssertion($assertionString, $examinedValue, $comparison, $expectedValue);
+        $assertion = new AssertableComparisonAssertion($assertionString, $examinedValue, $comparison, $expectedValue);
 
         $this->assertSame($assertionString, $assertion->getAssertionString());
         $this->assertSame($examinedValue, $assertion->getExaminedValue());
@@ -36,7 +36,7 @@ class ComparisonAssertionTest extends \PHPUnit\Framework\TestCase
 
     public function createDataProvider(): array
     {
-        $examinedValue = new ExaminedValue(
+        $examinedValue = new AssertableExaminedValue(
             new ElementValue(
                 new ElementIdentifier(
                     new ElementExpression('.examined', ElementExpressionType::CSS_SELECTOR)
@@ -44,7 +44,7 @@ class ComparisonAssertionTest extends \PHPUnit\Framework\TestCase
             )
         );
 
-        $expectedValue = new ExpectedValue(
+        $expectedValue = new AssertableExpectedValue(
             new ElementValue(
                 new ElementIdentifier(
                     new ElementExpression('.expected', ElementExpressionType::CSS_SELECTOR)
@@ -84,71 +84,5 @@ class ComparisonAssertionTest extends \PHPUnit\Framework\TestCase
                 'expectedValue' => $expectedValue,
             ],
         ];
-    }
-
-    public function testWithExaminedValue()
-    {
-        $originalExaminedValue = new ExaminedValue(
-            new ElementValue(
-                new ElementIdentifier(
-                    new ElementExpression('.original', ElementExpressionType::CSS_SELECTOR)
-                )
-            )
-        );
-
-        $newExaminedValue = new ExaminedValue(
-            new ElementValue(
-                new ElementIdentifier(
-                    new ElementExpression('.new', ElementExpressionType::CSS_SELECTOR)
-                )
-            )
-        );
-
-        $expectedValue = new ExpectedValue(
-            new LiteralValue("value")
-        );
-
-        $assertion = new ComparisonAssertion(
-            '".selector" is "value"',
-            $originalExaminedValue,
-            AssertionComparison::IS,
-            $expectedValue
-        );
-
-        $mutatedAssertion = $assertion->withExaminedValue($newExaminedValue);
-
-        $this->assertNotSame($assertion, $mutatedAssertion);
-        $this->assertSame($newExaminedValue, $mutatedAssertion->getExaminedValue());
-    }
-
-    public function testWithExpectedValue()
-    {
-        $examinedValue = new ExaminedValue(
-            new ElementValue(
-                new ElementIdentifier(
-                    new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
-                )
-            )
-        );
-
-        $originalExpectedValue = new ExpectedValue(
-            new LiteralValue("value")
-        );
-
-        $newExpectedValue = new ExpectedValue(
-            new LiteralValue("value")
-        );
-
-        $assertion = new ComparisonAssertion(
-            '".selector" is "value"',
-            $examinedValue,
-            AssertionComparison::IS,
-            $originalExpectedValue
-        );
-
-        $mutatedAssertion = $assertion->withExpectedValue($newExpectedValue);
-
-        $this->assertNotSame($assertion, $mutatedAssertion);
-        $this->assertSame($newExpectedValue, $mutatedAssertion->getExpectedValue());
     }
 }
