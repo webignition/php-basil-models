@@ -12,14 +12,32 @@ use webignition\BasilModel\Value\LiteralValueInterface;
 use webignition\BasilModel\Value\PageElementReference;
 use webignition\BasilModel\Value\PageProperty;
 use webignition\BasilModel\Value\ReferenceValueInterface;
-use webignition\BasilModel\Value\ValueInterface;
+use webignition\BasilModel\Value\WrappedValue;
 
-interface AssertionExpectedValueInterface extends ValueInterface
+class ExpectedValue extends WrappedValue implements ExpectedValueInterface
 {
     /**
      * @return AttributeValueInterface|BrowserProperty|DataParameter|ElementValueInterface|EnvironmentValueInterface|LiteralValueInterface|PageProperty|PageElementReference|ReferenceValueInterface
      *
      * @throws InvalidAssertionExpectedValueException
      */
-    public function getExpectedValue();
+    public function getExpectedValue()
+    {
+        $value = $this->getWrappedValue();
+
+        if ($value instanceof AttributeValueInterface ||
+            $value instanceof BrowserProperty ||
+            $value instanceof DataParameter ||
+            $value instanceof ElementValueInterface ||
+            $value instanceof EnvironmentValueInterface ||
+            $value instanceof LiteralValueInterface ||
+            $value instanceof PageProperty ||
+            $value instanceof PageElementReference ||
+            $value instanceof ReferenceValueInterface
+        ) {
+            return $value;
+        }
+
+        throw new InvalidAssertionExpectedValueException($value);
+    }
 }

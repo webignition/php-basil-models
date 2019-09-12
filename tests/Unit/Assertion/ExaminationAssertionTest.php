@@ -6,8 +6,8 @@ namespace webignition\BasilModel\Tests\Unit\Assertion;
 
 use webignition\BasilModel\Assertion\AssertionComparison;
 use webignition\BasilModel\Assertion\ExaminationAssertion;
-use webignition\BasilModel\Value\Assertion\AssertionExaminedValue;
-use webignition\BasilModel\Value\Assertion\AssertionExaminedValueInterface;
+use webignition\BasilModel\Value\Assertion\ExaminedValue;
+use webignition\BasilModel\Value\Assertion\ExaminedValueInterface;
 use webignition\BasilModel\Value\ElementExpression;
 use webignition\BasilModel\Value\ElementExpressionType;
 use webignition\BasilModel\Value\ElementValue;
@@ -20,7 +20,7 @@ class ExaminationAssertionTest extends \PHPUnit\Framework\TestCase
      */
     public function testCreate(
         string $assertionString,
-        AssertionExaminedValueInterface $examinedValue,
+        ExaminedValueInterface $examinedValue,
         string $comparison
     ) {
         $assertion = new ExaminationAssertion($assertionString, $examinedValue, $comparison);
@@ -32,7 +32,7 @@ class ExaminationAssertionTest extends \PHPUnit\Framework\TestCase
 
     public function createDataProvider(): array
     {
-        $examinedValue = new AssertionExaminedValue(
+        $examinedValue = new ExaminedValue(
             new ElementValue(
                 new ElementIdentifier(
                     new ElementExpression('.examined', ElementExpressionType::CSS_SELECTOR)

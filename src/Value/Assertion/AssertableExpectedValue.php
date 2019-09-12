@@ -2,24 +2,21 @@
 
 namespace webignition\BasilModel\Value\Assertion;
 
-use webignition\BasilModel\Exception\InvalidAssertionExpectedValueException;
+use webignition\BasilModel\Exception\InvalidAssertableExpectedValueException;
 use webignition\BasilModel\Value\AttributeValueInterface;
 use webignition\BasilModel\Value\BrowserProperty;
-use webignition\BasilModel\Value\DataParameter;
 use webignition\BasilModel\Value\ElementValueInterface;
 use webignition\BasilModel\Value\EnvironmentValueInterface;
 use webignition\BasilModel\Value\LiteralValueInterface;
-use webignition\BasilModel\Value\PageElementReference;
 use webignition\BasilModel\Value\PageProperty;
-use webignition\BasilModel\Value\ReferenceValueInterface;
 use webignition\BasilModel\Value\WrappedValue;
 
-class AssertionExpectedValue extends WrappedValue implements AssertionExpectedValueInterface
+class AssertableExpectedValue extends WrappedValue implements AssertableExpectedValueInterface
 {
     /**
-     * @return AttributeValueInterface|BrowserProperty|DataParameter|ElementValueInterface|EnvironmentValueInterface|LiteralValueInterface|PageProperty|PageElementReference|ReferenceValueInterface
+     * @return AttributeValueInterface|BrowserProperty|ElementValueInterface|EnvironmentValueInterface|LiteralValueInterface|PageProperty
      *
-     * @throws InvalidAssertionExpectedValueException
+     * @throws InvalidAssertableExpectedValueException
      */
     public function getExpectedValue()
     {
@@ -27,17 +24,14 @@ class AssertionExpectedValue extends WrappedValue implements AssertionExpectedVa
 
         if ($value instanceof AttributeValueInterface ||
             $value instanceof BrowserProperty ||
-            $value instanceof DataParameter ||
             $value instanceof ElementValueInterface ||
             $value instanceof EnvironmentValueInterface ||
             $value instanceof LiteralValueInterface ||
-            $value instanceof PageProperty ||
-            $value instanceof PageElementReference ||
-            $value instanceof ReferenceValueInterface
+            $value instanceof PageProperty
         ) {
             return $value;
         }
 
-        throw new InvalidAssertionExpectedValueException($value);
+        throw new InvalidAssertableExpectedValueException($value);
     }
 }

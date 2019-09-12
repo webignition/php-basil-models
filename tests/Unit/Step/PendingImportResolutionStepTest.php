@@ -12,7 +12,7 @@ use webignition\BasilModel\Step\PendingImportResolutionStep;
 use webignition\BasilModel\Step\PendingImportResolutionStepInterface;
 use webignition\BasilModel\Step\Step;
 use webignition\BasilModel\Step\StepInterface;
-use webignition\BasilModel\Value\Assertion\AssertionExaminedValue;
+use webignition\BasilModel\Value\Assertion\ExaminedValue;
 use webignition\BasilModel\Value\ElementExpression;
 use webignition\BasilModel\Value\ElementExpressionType;
 use webignition\BasilModel\Value\ElementValue;
@@ -80,7 +80,7 @@ class PendingImportResolutionStepTest extends \PHPUnit\Framework\TestCase
                     [
                         new ExaminationAssertion(
                             '".selector" exists',
-                            new AssertionExaminedValue(
+                            new ExaminedValue(
                                 new ElementValue(new ElementIdentifier(
                                     new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
                                 ))
@@ -99,7 +99,7 @@ class PendingImportResolutionStepTest extends \PHPUnit\Framework\TestCase
                         [
                             new ExaminationAssertion(
                                 '".selector" exists',
-                                new AssertionExaminedValue(
+                                new ExaminedValue(
                                     new ElementValue(new ElementIdentifier(
                                         new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
                                     ))
