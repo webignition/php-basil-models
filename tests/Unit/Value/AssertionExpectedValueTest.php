@@ -19,7 +19,7 @@ class AssertionExpectedValueTest extends \PHPUnit\Framework\TestCase
      * @dataProvider assertionExaminedValueDataProvider
      * @dataProvider createSuccessDataProvider
      */
-    public function testCreateSuccess(ValueInterface $value)
+    public function testCreate(ValueInterface $value)
     {
         $assertionExaminedValue = new AssertionExpectedValue($value);
 
@@ -39,10 +39,12 @@ class AssertionExpectedValueTest extends \PHPUnit\Framework\TestCase
     }
 
 
-    public function testCreateThrowsException()
+    public function testGetExpectedValueThrowsException()
     {
+        $assertionExpectedValue = new AssertionExpectedValue(new CssSelector('.selector'));
+
         $this->expectException(InvalidAssertionExpectedValueException::class);
 
-        new AssertionExpectedValue(new CssSelector('.selector'));
+        $assertionExpectedValue->getExpectedValue();
     }
 }
