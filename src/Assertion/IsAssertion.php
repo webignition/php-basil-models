@@ -2,20 +2,8 @@
 
 namespace webignition\BasilModel\Assertion;
 
-use webignition\BasilModel\Value\AssertionExaminedValueInterface;
-use webignition\BasilModel\Value\AssertionExpectedValueInterface;
-
 class IsAssertion extends AbstractValueComparisonAssertion implements
     AssertionInterface,
     ValueComparisonAssertionInterface
 {
-    public function __construct(
-        string $assertionString,
-        AssertionExaminedValueInterface $examinedValue,
-        AssertionExpectedValueInterface $expectedValue
-    ) {
-        $comparison = new AssertionComparison(AssertionComparison::IS);
-
-        parent::__construct($assertionString, $examinedValue, $comparison, $expectedValue);
-    }
 }

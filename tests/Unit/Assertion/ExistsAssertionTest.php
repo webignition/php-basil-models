@@ -3,7 +3,6 @@
 
 namespace webignition\BasilModel\Tests\Unit\Assertion;
 
-use webignition\BasilModel\Assertion\AssertionComparison;
 use webignition\BasilModel\Assertion\ExistsAssertion;
 
 class ExistsAssertionTest extends AbstractAssertionTest
@@ -14,12 +13,5 @@ class ExistsAssertionTest extends AbstractAssertionTest
 
         $this->assertionString = '".selector" exists';
         $this->assertion = new ExistsAssertion($this->assertionString, $this->examinedValue);
-    }
-
-    public function testCreate()
-    {
-        parent::testCreate();
-
-        $this->assertEquals(AssertionComparison::EXISTS, $this->assertion->getComparison());
     }
 }
