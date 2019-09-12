@@ -5,7 +5,8 @@
 namespace webignition\BasilModel\Tests\Unit\Step;
 
 use webignition\BasilModel\Action\WaitAction;
-use webignition\BasilModel\Assertion\ExistsAssertion;
+use webignition\BasilModel\Assertion\AssertionComparison;
+use webignition\BasilModel\Assertion\ExaminationAssertion;
 use webignition\BasilModel\DataSet\DataSet;
 use webignition\BasilModel\DataSet\DataSetCollection;
 use webignition\BasilModel\Identifier\ElementIdentifier;
@@ -33,13 +34,14 @@ class StepTest extends \PHPUnit\Framework\TestCase
 
     public function createDataProvider(): array
     {
-        $assertion = new ExistsAssertion(
+        $assertion = new ExaminationAssertion(
             '".selector" exists',
             new AssertionExaminedValue(
                 new ElementValue(new ElementIdentifier(
                     new CssSelector('.selector')
                 ))
-            )
+            ),
+            AssertionComparison::EXISTS
         );
 
         return [
@@ -169,13 +171,14 @@ class StepTest extends \PHPUnit\Framework\TestCase
 
     public function withPrependedActionsDataProvider(): array
     {
-        $assertion = new ExistsAssertion(
+        $assertion = new ExaminationAssertion(
             '".selector" exists',
             new AssertionExaminedValue(
                 new ElementValue(new ElementIdentifier(
                     new CssSelector('.selector')
                 ))
-            )
+            ),
+            AssertionComparison::EXISTS
         );
 
         return [
@@ -266,22 +269,24 @@ class StepTest extends \PHPUnit\Framework\TestCase
 
     public function withPrependedAssertionsDataProvider(): array
     {
-        $assertion1 = new ExistsAssertion(
+        $assertion1 = new ExaminationAssertion(
             '".selector1" exists',
             new AssertionExaminedValue(
                 new ElementValue(new ElementIdentifier(
                     new CssSelector('.selector1')
                 ))
-            )
+            ),
+            AssertionComparison::EXISTS
         );
 
-        $assertion2 = new ExistsAssertion(
+        $assertion2 = new ExaminationAssertion(
             '".selector2" exists',
             new AssertionExaminedValue(
                 new ElementValue(new ElementIdentifier(
                     new CssSelector('.selector2')
                 ))
-            )
+            ),
+            AssertionComparison::EXISTS
         );
 
         return [
@@ -414,22 +419,24 @@ class StepTest extends \PHPUnit\Framework\TestCase
 
     public function withAssertionsDataProvider(): array
     {
-        $assertion1 = new ExistsAssertion(
+        $assertion1 = new ExaminationAssertion(
             '".selector1" exists',
             new AssertionExaminedValue(
                 new ElementValue(new ElementIdentifier(
                     new CssSelector('.selector1')
                 ))
-            )
+            ),
+            AssertionComparison::EXISTS
         );
 
-        $assertion2 = new ExistsAssertion(
+        $assertion2 = new ExaminationAssertion(
             '".selector2" exists',
             new AssertionExaminedValue(
                 new ElementValue(new ElementIdentifier(
                     new CssSelector('.selector2')
                 ))
-            )
+            ),
+            AssertionComparison::EXISTS
         );
 
         return [

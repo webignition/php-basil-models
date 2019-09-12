@@ -5,7 +5,8 @@
 namespace webignition\BasilModel\Tests\Unit\Step;
 
 use webignition\BasilModel\Action\WaitAction;
-use webignition\BasilModel\Assertion\ExistsAssertion;
+use webignition\BasilModel\Assertion\AssertionComparison;
+use webignition\BasilModel\Assertion\ExaminationAssertion;
 use webignition\BasilModel\Identifier\ElementIdentifier;
 use webignition\BasilModel\Step\PendingImportResolutionStep;
 use webignition\BasilModel\Step\PendingImportResolutionStepInterface;
@@ -76,13 +77,14 @@ class PendingImportResolutionStepTest extends \PHPUnit\Framework\TestCase
                         new WaitAction('wait 30', new LiteralValue('30')),
                     ],
                     [
-                        new ExistsAssertion(
+                        new ExaminationAssertion(
                             '".selector" exists',
                             new AssertionExaminedValue(
                                 new ElementValue(new ElementIdentifier(
                                     new CssSelector('.selector')
                                 ))
-                            )
+                            ),
+                            AssertionComparison::EXISTS
                         ),
                     ]
                 ),
@@ -94,13 +96,14 @@ class PendingImportResolutionStepTest extends \PHPUnit\Framework\TestCase
                             new WaitAction('wait 30', new LiteralValue('30')),
                         ],
                         [
-                            new ExistsAssertion(
+                            new ExaminationAssertion(
                                 '".selector" exists',
                                 new AssertionExaminedValue(
                                     new ElementValue(new ElementIdentifier(
                                         new CssSelector('.selector')
                                     ))
-                                )
+                                ),
+                                AssertionComparison::EXISTS
                             ),
                         ]
                     ),
