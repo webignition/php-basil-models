@@ -6,7 +6,8 @@ namespace webignition\BasilModel\Tests\Unit\Identifier;
 use webignition\BasilModel\Identifier\ElementIdentifier;
 use webignition\BasilModel\Identifier\ElementIdentifierCollection;
 use webignition\BasilModel\Tests\TestIdentifierFactory;
-use webignition\BasilModel\Value\CssSelector;
+use webignition\BasilModel\Value\ElementExpression;
+use webignition\BasilModel\Value\ElementExpressionType;
 
 class ElementIdentifierCollectionTest extends \PHPUnit\Framework\TestCase
 {
@@ -33,22 +34,22 @@ class ElementIdentifierCollectionTest extends \PHPUnit\Framework\TestCase
             ],
             'invalid, lacking names' => [
                 'identifiers' => [
-                    new ElementIdentifier(new CssSelector('.heading')),
+                    new ElementIdentifier(new ElementExpression('.heading', ElementExpressionType::CSS_SELECTOR)),
                 ],
                 'expectedIdentifierCollection' => new ElementIdentifierCollection([
-                    new ElementIdentifier(new CssSelector('.heading')),
+                    new ElementIdentifier(new ElementExpression('.heading', ElementExpressionType::CSS_SELECTOR)),
                 ]),
             ],
             'valid' => [
                 'identifiers' => [
                     (new ElementIdentifier(
-                        new CssSelector('.heading'),
+                        new ElementExpression('.heading', ElementExpressionType::CSS_SELECTOR),
                         1
                     ))->withName('heading'),
                 ],
                 'expectedIdentifierCollection' => new ElementIdentifierCollection([
                     (new ElementIdentifier(
-                        new CssSelector('.heading'),
+                        new ElementExpression('.heading', ElementExpressionType::CSS_SELECTOR),
                         1
                     ))->withName('heading'),
                 ]),
@@ -59,7 +60,7 @@ class ElementIdentifierCollectionTest extends \PHPUnit\Framework\TestCase
     public function testGetIdentifier()
     {
         $headingIdentifier = (new ElementIdentifier(
-            new CssSelector('.heading'),
+            new ElementExpression('.heading', ElementExpressionType::CSS_SELECTOR),
             1
         ))->withName('heading');
 
@@ -74,7 +75,7 @@ class ElementIdentifierCollectionTest extends \PHPUnit\Framework\TestCase
     public function testIterator()
     {
         $headingIdentifier = (new ElementIdentifier(
-            new CssSelector('.heading'),
+            new ElementExpression('.heading', ElementExpressionType::CSS_SELECTOR),
             1
         ))->withName('heading');
 
@@ -92,13 +93,13 @@ class ElementIdentifierCollectionTest extends \PHPUnit\Framework\TestCase
     public function testReplace()
     {
         $oldParentIdentifier = TestIdentifierFactory::createElementIdentifier(
-            new CssSelector('.parent'),
+            new ElementExpression('.parent', ElementExpressionType::CSS_SELECTOR),
             null,
             'parent'
         );
 
         $childIdentifier = TestIdentifierFactory::createElementIdentifier(
-            new CssSelector('.child'),
+            new ElementExpression('.child', ElementExpressionType::CSS_SELECTOR),
             null,
             'child',
             $oldParentIdentifier
@@ -110,13 +111,13 @@ class ElementIdentifierCollectionTest extends \PHPUnit\Framework\TestCase
         ]);
 
         $newParentIdentifier = TestIdentifierFactory::createElementIdentifier(
-            new CssSelector('.parent'),
+            new ElementExpression('.parent', ElementExpressionType::CSS_SELECTOR),
             1,
             'parent'
         );
 
         $expectedNewChildIdentifier = TestIdentifierFactory::createElementIdentifier(
-            new CssSelector('.child'),
+            new ElementExpression('.child', ElementExpressionType::CSS_SELECTOR),
             null,
             'child',
             $newParentIdentifier

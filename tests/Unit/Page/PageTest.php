@@ -9,7 +9,8 @@ use webignition\BasilModel\Identifier\ElementIdentifier;
 use webignition\BasilModel\Identifier\IdentifierCollection;
 use webignition\BasilModel\Identifier\IdentifierCollectionInterface;
 use webignition\BasilModel\Page\Page;
-use webignition\BasilModel\Value\CssSelector;
+use webignition\BasilModel\Value\ElementExpression;
+use webignition\BasilModel\Value\ElementExpressionType;
 
 class PageTest extends \PHPUnit\Framework\TestCase
 {
@@ -39,14 +40,14 @@ class PageTest extends \PHPUnit\Framework\TestCase
                 'uri' => new Uri('http://example.com/'),
                 'identifierCollection' => new IdentifierCollection([
                     (new ElementIdentifier(
-                        new CssSelector('.foo')
+                        new ElementExpression('.foo', ElementExpressionType::CSS_SELECTOR)
                     ))->withName('foo'),
                 ]),
                 'expectedPage' => new Page(
                     new Uri('http://example.com/'),
                     new IdentifierCollection([
                         (new ElementIdentifier(
-                            new CssSelector('.foo')
+                            new ElementExpression('.foo', ElementExpressionType::CSS_SELECTOR)
                         ))->withName('foo'),
                     ])
                 ),
@@ -68,10 +69,10 @@ class PageTest extends \PHPUnit\Framework\TestCase
             new Uri('http://example.com/'),
             new IdentifierCollection([
                 (new ElementIdentifier(
-                    new CssSelector('.foo')
+                    new ElementExpression('.foo', ElementExpressionType::CSS_SELECTOR)
                 ))->withName('foo'),
                 (new ElementIdentifier(
-                    new CssSelector('.bar')
+                    new ElementExpression('.bar', ElementExpressionType::CSS_SELECTOR)
                 ))->withName('bar')
             ])
         );
@@ -88,7 +89,7 @@ class PageTest extends \PHPUnit\Framework\TestCase
     public function testGetElementIdentifier()
     {
         $fooIdentifier = (new ElementIdentifier(
-            new CssSelector('.foo')
+            new ElementExpression('.foo', ElementExpressionType::CSS_SELECTOR)
         ))->withName('foo');
 
         $page = new Page(new Uri(''), new IdentifierCollection([

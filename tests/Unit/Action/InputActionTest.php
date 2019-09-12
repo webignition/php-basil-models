@@ -5,15 +5,16 @@ namespace webignition\BasilModel\Tests\Unit\Action;
 use webignition\BasilModel\Action\ActionTypes;
 use webignition\BasilModel\Action\InputAction;
 use webignition\BasilModel\Identifier\ElementIdentifier;
-use webignition\BasilModel\Value\CssSelector;
+use webignition\BasilModel\Value\ElementExpression;
+use webignition\BasilModel\Value\ElementExpressionType;
 use webignition\BasilModel\Value\LiteralValue;
 
 class InputActionTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {
-        $identifier = new ElementIdentifier(new CssSelector('.selector'));
-        $value = new CssSelector('.foo');
+        $identifier = new ElementIdentifier(new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR));
+        $value = new LiteralValue('foo');
 
         $action = new InputAction(
             'set ".selector" to "foo"',
@@ -32,9 +33,11 @@ class InputActionTest extends \PHPUnit\Framework\TestCase
 
     public function testWithIdentifier()
     {
-        $originalIdentifier = new ElementIdentifier(new CssSelector('.original'));
+        $originalIdentifier = new ElementIdentifier(
+            new ElementExpression('.original', ElementExpressionType::CSS_SELECTOR)
+        );
 
-        $newIdentifier = new ElementIdentifier(new CssSelector('.new'));
+        $newIdentifier = new ElementIdentifier(new ElementExpression('.new', ElementExpressionType::CSS_SELECTOR));
 
         $action = new InputAction(
             'set ".original" to "value"',
@@ -54,7 +57,7 @@ class InputActionTest extends \PHPUnit\Framework\TestCase
     {
         $actionString = 'set ".selector" to "original-value';
         $identifier = new ElementIdentifier(
-            new CssSelector('.selector')
+            new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
         );
 
         $originalValue = new LiteralValue('original-value');
