@@ -11,8 +11,8 @@ class InputAction extends InteractionAction implements InputActionInterface
 
     public function __construct(
         string $actionString,
-        ?IdentifierInterface $identifier,
-        ?ValueInterface $value,
+        IdentifierInterface $identifier,
+        ValueInterface $value,
         string $arguments
     ) {
         parent::__construct($actionString, ActionTypes::SET, $identifier, $arguments);
@@ -20,7 +20,7 @@ class InputAction extends InteractionAction implements InputActionInterface
         $this->value = $value;
     }
 
-    public function getValue(): ?ValueInterface
+    public function getValue(): ValueInterface
     {
         return $this->value;
     }
