@@ -2,8 +2,6 @@
 
 namespace webignition\BasilModel\Value;
 
-use webignition\BasilModel\Exception\InvalidAssertionExaminedValueException;
-
 class WrappedValue implements WrappedValueInterface
 {
     private $wrappedValue;
