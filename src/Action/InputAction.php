@@ -2,7 +2,7 @@
 
 namespace webignition\BasilModel\Action;
 
-use webignition\BasilModel\Identifier\IdentifierInterface;
+use webignition\BasilModel\Identifier\ActionIdentifierInterface;
 use webignition\BasilModel\Value\ValueInterface;
 
 class InputAction extends InteractionAction implements InputActionInterface
@@ -11,7 +11,7 @@ class InputAction extends InteractionAction implements InputActionInterface
 
     public function __construct(
         string $actionString,
-        IdentifierInterface $identifier,
+        ActionIdentifierInterface $identifier,
         ValueInterface $value,
         string $arguments
     ) {

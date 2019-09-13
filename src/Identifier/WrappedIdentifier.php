@@ -30,6 +30,4 @@ class WrappedIdentifier implements WrappedIdentifierInterface
     {
         return $this->wrappedIdentifier->__toString();
     }
-
-
 }
