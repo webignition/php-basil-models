@@ -25,7 +25,7 @@ class ElementValue implements ElementValueInterface
 
     public function isActionable(): bool
     {
-        return $this->identifier instanceof ElementIdentifierInterface;
+        return true;
     }
 
     public function __toString(): string
