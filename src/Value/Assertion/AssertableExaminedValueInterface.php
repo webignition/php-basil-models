@@ -2,7 +2,7 @@
 
 namespace webignition\BasilModel\Value\Assertion;
 
-use webignition\BasilModel\Exception\InvalidAssertionExaminedValueException;
+use webignition\BasilModel\Exception\InvalidAssertableExaminedValueException;
 use webignition\BasilModel\Value\AttributeValueInterface;
 use webignition\BasilModel\Value\BrowserProperty;
 use webignition\BasilModel\Value\ElementValueInterface;
@@ -16,7 +16,7 @@ interface AssertableExaminedValueInterface extends ValueInterface, WrappedValueI
     /**
      * @return AttributeValueInterface|BrowserProperty|ElementValueInterface|EnvironmentValueInterface|PageProperty
      *
-     * @throws InvalidAssertionExaminedValueException
+     * @throws InvalidAssertableExaminedValueException
      */
     public function getExaminedValue();
 }
