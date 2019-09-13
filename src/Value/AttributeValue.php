@@ -25,7 +25,7 @@ class AttributeValue implements AttributeValueInterface
 
     public function isActionable(): bool
     {
-        return $this->identifier instanceof AttributeIdentifierInterface;
+        return true;
     }
 
     public function __toString(): string
