@@ -2,7 +2,7 @@
 
 namespace webignition\BasilModel\Action;
 
-use webignition\BasilModel\Identifier\ActionIdentifierInterface;
+use webignition\BasilModel\Identifier\IdentifierInterface;
 
 class InteractionAction extends AbstractAction implements InteractionActionInterface
 {
@@ -11,7 +11,7 @@ class InteractionAction extends AbstractAction implements InteractionActionInter
     public function __construct(
         string $actionString,
         string $type,
-        ActionIdentifierInterface $identifier,
+        IdentifierInterface $identifier,
         string $arguments
     ) {
         parent::__construct($actionString, $type, $arguments, true);
@@ -19,12 +19,12 @@ class InteractionAction extends AbstractAction implements InteractionActionInter
         $this->identifier = $identifier;
     }
 
-    public function getIdentifier(): ActionIdentifierInterface
+    public function getIdentifier(): IdentifierInterface
     {
         return $this->identifier;
     }
 
-    public function withIdentifier(ActionIdentifierInterface $identifier): InteractionActionInterface
+    public function withIdentifier(IdentifierInterface $identifier): InteractionActionInterface
     {
         $new = clone $this;
         $new->identifier = $identifier;

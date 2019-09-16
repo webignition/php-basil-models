@@ -6,12 +6,12 @@ namespace webignition\BasilModel\Tests\Unit\Assertion;
 
 use webignition\BasilModel\Assertion\AssertionComparison;
 use webignition\BasilModel\Assertion\ExaminationAssertion;
+use webignition\BasilModel\Identifier\PageObjectIdentifier;
 use webignition\BasilModel\Value\Assertion\ExaminedValue;
 use webignition\BasilModel\Value\Assertion\ExaminedValueInterface;
 use webignition\BasilModel\Value\ElementExpression;
 use webignition\BasilModel\Value\ElementExpressionType;
 use webignition\BasilModel\Value\ElementValue;
-use webignition\BasilModel\Identifier\ElementIdentifier;
 
 class ExaminationAssertionTest extends \PHPUnit\Framework\TestCase
 {
@@ -34,7 +34,7 @@ class ExaminationAssertionTest extends \PHPUnit\Framework\TestCase
     {
         $examinedValue = new ExaminedValue(
             new ElementValue(
-                new ElementIdentifier(
+                new PageObjectIdentifier(
                     new ElementExpression('.examined', ElementExpressionType::CSS_SELECTOR)
                 )
             )
@@ -58,7 +58,7 @@ class ExaminationAssertionTest extends \PHPUnit\Framework\TestCase
     {
         $originalExaminedValue = new ExaminedValue(
             new ElementValue(
-                new ElementIdentifier(
+                new PageObjectIdentifier(
                     new ElementExpression('.original', ElementExpressionType::CSS_SELECTOR)
                 )
             )
@@ -66,7 +66,7 @@ class ExaminationAssertionTest extends \PHPUnit\Framework\TestCase
 
         $newExaminedValue = new ExaminedValue(
             new ElementValue(
-                new ElementIdentifier(
+                new PageObjectIdentifier(
                     new ElementExpression('.new', ElementExpressionType::CSS_SELECTOR)
                 )
             )

@@ -2,30 +2,34 @@
 
 namespace webignition\BasilModel\Tests;
 
-use webignition\BasilModel\Identifier\ElementIdentifier;
-use webignition\BasilModel\Identifier\ElementIdentifierInterface;
+use webignition\BasilModel\Identifier\PageObjectIdentifier;
+use webignition\BasilModel\Identifier\PageObjectIdentifierInterface;
 use webignition\BasilModel\Value\ElementExpressionInterface;
 
 class TestIdentifierFactory
 {
-    public static function createElementIdentifier(
+    public static function createObjectIdentifier(
         ElementExpressionInterface $elementExpression,
         ?int $position,
-        ?string $name,
-        ?ElementIdentifierInterface $parentIdentifier = null
-    ): ElementIdentifierInterface {
-        $identifier = new ElementIdentifier($elementExpression, $position);
+        ?string $name = '',
+        ?PageObjectIdentifierInterface $parentIdentifier = null
+    ): PageObjectIdentifierInterface {
+        $identifier = new PageObjectIdentifier($elementExpression);
+
+        if (null !== $position) {
+            $identifier = $identifier->withPosition($position);
+        }
 
         if (null !== $name) {
             $identifier = $identifier->withName($name);
         }
 
-        if ($identifier instanceof ElementIdentifierInterface &&
-            $parentIdentifier instanceof ElementIdentifierInterface) {
+        if ($identifier instanceof PageObjectIdentifierInterface &&
+            $parentIdentifier instanceof PageObjectIdentifierInterface) {
             $identifier = $identifier->withParentIdentifier($parentIdentifier);
         }
 
-        if ($identifier instanceof ElementIdentifierInterface) {
+        if ($identifier instanceof PageObjectIdentifierInterface) {
             return $identifier;
         }
 

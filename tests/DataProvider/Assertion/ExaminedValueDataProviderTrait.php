@@ -2,8 +2,7 @@
 
 namespace webignition\BasilModel\Tests\DataProvider\Assertion;
 
-use webignition\BasilModel\Identifier\AttributeIdentifier;
-use webignition\BasilModel\Identifier\ElementIdentifier;
+use webignition\BasilModel\Identifier\PageObjectIdentifier;
 use webignition\BasilModel\Value\AttributeReference;
 use webignition\BasilModel\Value\AttributeValue;
 use webignition\BasilModel\Value\ElementExpression;
@@ -21,12 +20,9 @@ trait ExaminedValueDataProviderTrait
         return [
             'attribute value' => [
                 'value' => new AttributeValue(
-                    new AttributeIdentifier(
-                        new ElementIdentifier(
-                            new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
-                        ),
-                        'attribute_name'
-                    )
+                    (new PageObjectIdentifier(
+                        new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
+                    ))->withAttributeName('attribute_name')
                 ),
             ],
             'browser property' => [
@@ -34,7 +30,7 @@ trait ExaminedValueDataProviderTrait
             ],
             'element value' => [
                 'value' => new ElementValue(
-                    new ElementIdentifier(
+                    new PageObjectIdentifier(
                         new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
                     )
                 ),

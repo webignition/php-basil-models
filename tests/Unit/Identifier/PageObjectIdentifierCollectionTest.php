@@ -3,26 +3,32 @@
 
 namespace webignition\BasilModel\Tests\Unit\Identifier;
 
-use webignition\BasilModel\Identifier\ElementIdentifier;
-use webignition\BasilModel\Identifier\ElementIdentifierCollection;
+use webignition\BasilModel\Identifier\PageObjectIdentifier;
+use webignition\BasilModel\Identifier\PageObjectIdentifierCollection;
 use webignition\BasilModel\Tests\TestIdentifierFactory;
 use webignition\BasilModel\Value\ElementExpression;
 use webignition\BasilModel\Value\ElementExpressionType;
 
-class ElementIdentifierCollectionTest extends \PHPUnit\Framework\TestCase
+class PageObjectIdentifierCollectionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @dataProvider createDataProvider
      */
-    public function testCreate(array $identifiers, ElementIdentifierCollection $expectedIdentifierCollection)
+    public function testCreate(array $identifiers, PageObjectIdentifierCollection $expectedIdentifierCollection)
     {
-        $identifierCollection = new ElementIdentifierCollection($identifiers);
+        $identifierCollection = new PageObjectIdentifierCollection($identifiers);
 
         $this->assertEquals($expectedIdentifierCollection, $identifierCollection);
     }
 
     public function createDataProvider(): array
     {
+        $validIdentifier = TestIdentifierFactory::createObjectIdentifier(
+            new ElementExpression('.heading', ElementExpressionType::CSS_SELECTOR),
+            1,
+            'heading'
+        );
+
         return [
             'invalid, not correct object type' => [
                 'identifiers' => [
@@ -30,28 +36,22 @@ class ElementIdentifierCollectionTest extends \PHPUnit\Framework\TestCase
                     'string',
                     true
                 ],
-                'expectedIdentifierCollection' => new ElementIdentifierCollection(),
+                'expectedIdentifierCollection' => new PageObjectIdentifierCollection(),
             ],
             'invalid, lacking names' => [
                 'identifiers' => [
-                    new ElementIdentifier(new ElementExpression('.heading', ElementExpressionType::CSS_SELECTOR)),
+                    new PageObjectIdentifier(new ElementExpression('.heading', ElementExpressionType::CSS_SELECTOR)),
                 ],
-                'expectedIdentifierCollection' => new ElementIdentifierCollection([
-                    new ElementIdentifier(new ElementExpression('.heading', ElementExpressionType::CSS_SELECTOR)),
+                'expectedIdentifierCollection' => new PageObjectIdentifierCollection([
+                    new PageObjectIdentifier(new ElementExpression('.heading', ElementExpressionType::CSS_SELECTOR)),
                 ]),
             ],
             'valid' => [
                 'identifiers' => [
-                    (new ElementIdentifier(
-                        new ElementExpression('.heading', ElementExpressionType::CSS_SELECTOR),
-                        1
-                    ))->withName('heading'),
+                    $validIdentifier,
                 ],
-                'expectedIdentifierCollection' => new ElementIdentifierCollection([
-                    (new ElementIdentifier(
-                        new ElementExpression('.heading', ElementExpressionType::CSS_SELECTOR),
-                        1
-                    ))->withName('heading'),
+                'expectedIdentifierCollection' => new PageObjectIdentifierCollection([
+                    $validIdentifier,
                 ]),
             ],
         ];
@@ -59,12 +59,13 @@ class ElementIdentifierCollectionTest extends \PHPUnit\Framework\TestCase
 
     public function testGetIdentifier()
     {
-        $headingIdentifier = (new ElementIdentifier(
+        $headingIdentifier = TestIdentifierFactory::createObjectIdentifier(
             new ElementExpression('.heading', ElementExpressionType::CSS_SELECTOR),
-            1
-        ))->withName('heading');
+            1,
+            'heading'
+        );
 
-        $identifierCollection = new ElementIdentifierCollection([
+        $identifierCollection = new PageObjectIdentifierCollection([
             $headingIdentifier,
         ]);
 
@@ -74,16 +75,17 @@ class ElementIdentifierCollectionTest extends \PHPUnit\Framework\TestCase
 
     public function testIterator()
     {
-        $headingIdentifier = (new ElementIdentifier(
+        $headingIdentifier = TestIdentifierFactory::createObjectIdentifier(
             new ElementExpression('.heading', ElementExpressionType::CSS_SELECTOR),
-            1
-        ))->withName('heading');
+            1,
+            'heading'
+        );
 
         $identifiers = [
             $headingIdentifier,
         ];
 
-        $identifierCollection = new ElementIdentifierCollection($identifiers);
+        $identifierCollection = new PageObjectIdentifierCollection($identifiers);
 
         foreach ($identifierCollection as $index => $identifier) {
             $this->assertSame($identifiers[$index], $identifier);
@@ -92,31 +94,31 @@ class ElementIdentifierCollectionTest extends \PHPUnit\Framework\TestCase
 
     public function testReplace()
     {
-        $oldParentIdentifier = TestIdentifierFactory::createElementIdentifier(
+        $oldParentIdentifier = TestIdentifierFactory::createObjectIdentifier(
             new ElementExpression('.parent', ElementExpressionType::CSS_SELECTOR),
             null,
             'parent'
         );
 
-        $childIdentifier = TestIdentifierFactory::createElementIdentifier(
+        $childIdentifier = TestIdentifierFactory::createObjectIdentifier(
             new ElementExpression('.child', ElementExpressionType::CSS_SELECTOR),
             null,
             'child',
             $oldParentIdentifier
         );
 
-        $collection = new ElementIdentifierCollection([
+        $collection = new PageObjectIdentifierCollection([
             $oldParentIdentifier,
             $childIdentifier,
         ]);
 
-        $newParentIdentifier = TestIdentifierFactory::createElementIdentifier(
+        $newParentIdentifier = TestIdentifierFactory::createObjectIdentifier(
             new ElementExpression('.parent', ElementExpressionType::CSS_SELECTOR),
             1,
             'parent'
         );
 
-        $expectedNewChildIdentifier = TestIdentifierFactory::createElementIdentifier(
+        $expectedNewChildIdentifier = TestIdentifierFactory::createObjectIdentifier(
             new ElementExpression('.child', ElementExpressionType::CSS_SELECTOR),
             null,
             'child',

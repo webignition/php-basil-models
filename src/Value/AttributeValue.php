@@ -2,18 +2,18 @@
 
 namespace webignition\BasilModel\Value;
 
-use webignition\BasilModel\Identifier\AttributeIdentifierInterface;
+use webignition\BasilModel\Identifier\PageObjectIdentifierInterface;
 
 class AttributeValue implements AttributeValueInterface
 {
     private $identifier;
 
-    public function __construct(AttributeIdentifierInterface $identifier)
+    public function __construct(PageObjectIdentifierInterface $identifier)
     {
         $this->identifier = $identifier;
     }
 
-    public function getIdentifier(): AttributeIdentifierInterface
+    public function getIdentifier(): PageObjectIdentifierInterface
     {
         return $this->identifier;
     }

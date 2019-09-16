@@ -3,8 +3,9 @@
 
 namespace webignition\BasilModel\Tests\Unit\Identifier;
 
-use webignition\BasilModel\Identifier\ElementIdentifier;
 use webignition\BasilModel\Identifier\IdentifierCollection;
+use webignition\BasilModel\Identifier\PageObjectIdentifier;
+use webignition\BasilModel\Tests\TestIdentifierFactory;
 use webignition\BasilModel\Value\ElementExpression;
 use webignition\BasilModel\Value\ElementExpressionType;
 
@@ -22,6 +23,12 @@ class IdentifierCollectionTest extends \PHPUnit\Framework\TestCase
 
     public function createDataProvider(): array
     {
+        $validIdentifier = TestIdentifierFactory::createObjectIdentifier(
+            new ElementExpression('.heading', ElementExpressionType::CSS_SELECTOR),
+            1,
+            'heading'
+        );
+
         return [
             'invalid, not correct object type' => [
                 'identifiers' => [
@@ -33,24 +40,18 @@ class IdentifierCollectionTest extends \PHPUnit\Framework\TestCase
             ],
             'invalid, lacking names' => [
                 'identifiers' => [
-                    new ElementIdentifier(new ElementExpression('.heading', ElementExpressionType::CSS_SELECTOR)),
+                    new PageObjectIdentifier(new ElementExpression('.heading', ElementExpressionType::CSS_SELECTOR)),
                 ],
                 'expectedIdentifierCollection' => new IdentifierCollection([
-                    new ElementIdentifier(new ElementExpression('.heading', ElementExpressionType::CSS_SELECTOR)),
+                    new PageObjectIdentifier(new ElementExpression('.heading', ElementExpressionType::CSS_SELECTOR)),
                 ]),
             ],
             'valid' => [
                 'identifiers' => [
-                    (new ElementIdentifier(
-                        new ElementExpression('.heading', ElementExpressionType::CSS_SELECTOR),
-                        1
-                    ))->withName('heading'),
+                    $validIdentifier,
                 ],
                 'expectedIdentifierCollection' => new IdentifierCollection([
-                    (new ElementIdentifier(
-                        new ElementExpression('.heading', ElementExpressionType::CSS_SELECTOR),
-                        1
-                    ))->withName('heading'),
+                    $validIdentifier,
                 ]),
             ],
         ];
@@ -58,10 +59,11 @@ class IdentifierCollectionTest extends \PHPUnit\Framework\TestCase
 
     public function testGetIdentifier()
     {
-        $headingIdentifier = (new ElementIdentifier(
+        $headingIdentifier = TestIdentifierFactory::createObjectIdentifier(
             new ElementExpression('.heading', ElementExpressionType::CSS_SELECTOR),
-            1
-        ))->withName('heading');
+            1,
+            'heading'
+        );
 
         $identifierCollection = new IdentifierCollection([
             $headingIdentifier,
@@ -73,10 +75,11 @@ class IdentifierCollectionTest extends \PHPUnit\Framework\TestCase
 
     public function testIterator()
     {
-        $headingIdentifier = (new ElementIdentifier(
+        $headingIdentifier = TestIdentifierFactory::createObjectIdentifier(
             new ElementExpression('.heading', ElementExpressionType::CSS_SELECTOR),
-            1
-        ))->withName('heading');
+            1,
+            'heading'
+        );
 
         $identifiers = [
             $headingIdentifier,

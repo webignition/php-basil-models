@@ -4,22 +4,22 @@ namespace webignition\BasilModel\Identifier;
 
 use webignition\BasilModel\Value\ElementExpressionInterface;
 
-class ElementIdentifier extends AbstractIdentifier implements ElementIdentifierInterface
+class PageObjectIdentifier extends AbstractIdentifier implements PageObjectIdentifierInterface
 {
     const DEFAULT_POSITION = 1;
 
     private $elementExpression;
     private $position = null;
+    private $attributeName = null;
 
     /**
-     * @var ElementIdentifierInterface
+     * @var PageObjectIdentifierInterface
      */
     private $parentIdentifier;
 
-    public function __construct(ElementExpressionInterface $elementExpression, ?int $position = null)
+    public function __construct(ElementExpressionInterface $elementExpression)
     {
         $this->elementExpression = $elementExpression;
-        $this->position = $position;
     }
 
     public function getPosition(): ?int
@@ -27,7 +27,7 @@ class ElementIdentifier extends AbstractIdentifier implements ElementIdentifierI
         return $this->position;
     }
 
-    public function withPosition(int $position): ElementIdentifierInterface
+    public function withPosition(int $position): PageObjectIdentifierInterface
     {
         $new = clone $this;
         $new->position = $position;
@@ -35,12 +35,12 @@ class ElementIdentifier extends AbstractIdentifier implements ElementIdentifierI
         return $new;
     }
 
-    public function getParentIdentifier(): ?ElementIdentifierInterface
+    public function getParentIdentifier(): ?PageObjectIdentifierInterface
     {
         return $this->parentIdentifier;
     }
 
-    public function withParentIdentifier(ElementIdentifierInterface $parentIdentifier): ElementIdentifierInterface
+    public function withParentIdentifier(PageObjectIdentifierInterface $parentIdentifier): PageObjectIdentifierInterface
     {
         $new = clone $this;
         $new->parentIdentifier = $parentIdentifier;
@@ -53,11 +53,24 @@ class ElementIdentifier extends AbstractIdentifier implements ElementIdentifierI
         return $this->elementExpression;
     }
 
+    public function getAttributeName(): ?string
+    {
+        return $this->attributeName;
+    }
+
+    public function withAttributeName(string $attributeName): PageObjectIdentifierInterface
+    {
+        $new = clone $this;
+        $new->attributeName = $attributeName;
+
+        return $new;
+    }
+
     public function __toString(): string
     {
         $string = $this->elementExpression->getExpression();
 
-        if ($this->parentIdentifier instanceof ElementIdentifierInterface) {
+        if ($this->parentIdentifier instanceof PageObjectIdentifierInterface) {
             $string = '{{ ' . $this->parentIdentifier->getName() . ' }} ' . $string;
         }
 
@@ -65,6 +78,10 @@ class ElementIdentifier extends AbstractIdentifier implements ElementIdentifierI
 
         if (null !== $this->position && self::DEFAULT_POSITION !== $this->position) {
             $string .= ':' . $this->position;
+        }
+
+        if (null !== $this->attributeName && '' !== $this->attributeName) {
+            $string .= '.' . $this->attributeName;
         }
 
         return $string;
