@@ -3,10 +3,10 @@
 namespace webignition\BasilModel\Tests\DataProvider\Assertion;
 
 use webignition\BasilModel\Identifier\PageObjectIdentifier;
-use webignition\BasilModel\Value\AttributeReference;
 use webignition\BasilModel\Value\ElementExpression;
 use webignition\BasilModel\Value\ElementExpressionType;
-use webignition\BasilModel\Value\ElementReference;
+use webignition\BasilModel\Value\PageObjectReference;
+use webignition\BasilModel\Value\PageObjectReferenceType;
 use webignition\BasilModel\Value\PageObjectValue;
 use webignition\BasilModel\Value\ObjectValue;
 use webignition\BasilModel\Value\ObjectValueType;
@@ -45,13 +45,15 @@ trait ExaminedValueDataProviderTrait
                 ),
             ],
             'element reference' => [
-                'value' => new ElementReference(
+                'value' => new PageObjectReference(
+                    PageObjectReferenceType::ELEMENT,
                     '$elements.element_name',
                     'element_name'
                 ),
             ],
             'attribute reference' => [
-                'value' => new AttributeReference(
+                'value' => new PageObjectReference(
+                    PageObjectReferenceType::ATTRIBUTE,
                     '$elements.element_name.attribute_name',
                     'element_name.attribute_name'
                 ),

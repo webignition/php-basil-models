@@ -7,8 +7,9 @@ use webignition\BasilModel\Identifier\ReferenceIdentifier;
 use webignition\BasilModel\Identifier\IdentifierInterface;
 use webignition\BasilModel\Identifier\ReferenceIdentifierInterface;
 use webignition\BasilModel\Identifier\ReferenceIdentifierTypes;
-use webignition\BasilModel\Value\ElementReference;
 use webignition\BasilModel\Value\PageElementReference;
+use webignition\BasilModel\Value\PageObjectReference;
+use webignition\BasilModel\Value\PageObjectReferenceType;
 
 class ReferenceIdentifierTest extends \PHPUnit\Framework\TestCase
 {
@@ -29,7 +30,8 @@ class ReferenceIdentifierTest extends \PHPUnit\Framework\TestCase
 
     public function testCreateElementReferenceIdentifier()
     {
-        $value = new ElementReference(
+        $value = new PageObjectReference(
+            PageObjectReferenceType::ELEMENT,
             '$elements.element_name',
             'element_name'
         );
@@ -43,7 +45,8 @@ class ReferenceIdentifierTest extends \PHPUnit\Framework\TestCase
 
     public function testCreateAttributeReferenceIdentifier()
     {
-        $value = new ElementReference(
+        $value = new PageObjectReference(
+            PageObjectReferenceType::ELEMENT,
             '$elements.element_name',
             'element_name'
         );
@@ -78,7 +81,8 @@ class ReferenceIdentifierTest extends \PHPUnit\Framework\TestCase
             ],
             'element reference' => [
                 'identifier' => ReferenceIdentifier::createElementReferenceIdentifier(
-                    new ElementReference(
+                    new PageObjectReference(
+                        PageObjectReferenceType::ELEMENT,
                         '$elements.element_name',
                         'element_name'
                     )
@@ -105,7 +109,8 @@ class ReferenceIdentifierTest extends \PHPUnit\Framework\TestCase
     public function withNameDataProvider(): array
     {
         $identifier = ReferenceIdentifier::createElementReferenceIdentifier(
-            new ElementReference(
+            new PageObjectReference(
+                PageObjectReferenceType::ELEMENT,
                 '$elements.element_name',
                 'element_name'
             )
