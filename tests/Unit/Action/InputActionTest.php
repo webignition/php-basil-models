@@ -4,8 +4,7 @@ namespace webignition\BasilModel\Tests\Unit\Action;
 
 use webignition\BasilModel\Action\ActionTypes;
 use webignition\BasilModel\Action\InputAction;
-use webignition\BasilModel\Identifier\ActionIdentifier;
-use webignition\BasilModel\Identifier\ElementIdentifier;
+use webignition\BasilModel\Identifier\PageObjectIdentifier;
 use webignition\BasilModel\Value\ElementExpression;
 use webignition\BasilModel\Value\ElementExpressionType;
 use webignition\BasilModel\Value\LiteralValue;
@@ -14,10 +13,8 @@ class InputActionTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {
-        $identifier = new ActionIdentifier(
-            new ElementIdentifier(
-                new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
-            )
+        $identifier = new PageObjectIdentifier(
+            new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
         );
         $value = new LiteralValue('foo');
 
@@ -38,15 +35,11 @@ class InputActionTest extends \PHPUnit\Framework\TestCase
 
     public function testWithIdentifier()
     {
-        $originalIdentifier = new ActionIdentifier(
-            new ElementIdentifier(
-                new ElementExpression('.original', ElementExpressionType::CSS_SELECTOR)
-            )
+        $originalIdentifier = new PageObjectIdentifier(
+            new ElementExpression('.original', ElementExpressionType::CSS_SELECTOR)
         );
 
-        $newIdentifier = new ActionIdentifier(
-            new ElementIdentifier(new ElementExpression('.new', ElementExpressionType::CSS_SELECTOR))
-        );
+        $newIdentifier = new PageObjectIdentifier(new ElementExpression('.new', ElementExpressionType::CSS_SELECTOR));
 
         $action = new InputAction(
             'set ".original" to "value"',
@@ -65,10 +58,8 @@ class InputActionTest extends \PHPUnit\Framework\TestCase
     public function testWithValue()
     {
         $actionString = 'set ".selector" to "original-value';
-        $identifier = new ActionIdentifier(
-            new ElementIdentifier(
-                new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
-            )
+        $identifier = new PageObjectIdentifier(
+            new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
         );
 
         $originalValue = new LiteralValue('original-value');

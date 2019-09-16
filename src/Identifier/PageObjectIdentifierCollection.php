@@ -2,11 +2,11 @@
 
 namespace webignition\BasilModel\Identifier;
 
-class ElementIdentifierCollection extends AbstractIdentifierCollection implements IdentifierCollectionInterface
+class PageObjectIdentifierCollection extends AbstractIdentifierCollection implements IdentifierCollectionInterface
 {
     protected function canBeAdded($identifier): bool
     {
-        return $identifier instanceof ElementIdentifierInterface;
+        return $identifier instanceof PageObjectIdentifierInterface;
     }
 
     public function getIdentifier(string $name): ?IdentifierInterface
@@ -14,15 +14,15 @@ class ElementIdentifierCollection extends AbstractIdentifierCollection implement
         return $this->getIdentifierByName($name);
     }
 
-    public function current(): ElementIdentifierInterface
+    public function current(): PageObjectIdentifierInterface
     {
         return parent::current();
     }
 
     public function replace(
-        ElementIdentifierInterface $old,
-        ElementIdentifierInterface $new
-    ): ElementIdentifierCollection {
+        PageObjectIdentifierInterface $old,
+        PageObjectIdentifierInterface $new
+    ): PageObjectIdentifierCollection {
         $identifiers = [];
 
         foreach ($this as $index => $identifier) {
@@ -38,6 +38,6 @@ class ElementIdentifierCollection extends AbstractIdentifierCollection implement
             $identifiers[] = $identifier;
         }
 
-        return new ElementIdentifierCollection($identifiers);
+        return new PageObjectIdentifierCollection($identifiers);
     }
 }

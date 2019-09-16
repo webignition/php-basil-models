@@ -6,12 +6,12 @@ namespace webignition\BasilModel\Tests\Unit\Assertion;
 
 use webignition\BasilModel\Assertion\AssertableExaminationAssertion;
 use webignition\BasilModel\Assertion\AssertionComparison;
+use webignition\BasilModel\Identifier\PageObjectIdentifier;
 use webignition\BasilModel\Value\Assertion\AssertableExaminedValue;
 use webignition\BasilModel\Value\Assertion\AssertableExaminedValueInterface;
 use webignition\BasilModel\Value\ElementExpression;
 use webignition\BasilModel\Value\ElementExpressionType;
 use webignition\BasilModel\Value\ElementValue;
-use webignition\BasilModel\Identifier\ElementIdentifier;
 
 class AssertableExaminationAssertionTest extends \PHPUnit\Framework\TestCase
 {
@@ -34,7 +34,7 @@ class AssertableExaminationAssertionTest extends \PHPUnit\Framework\TestCase
     {
         $examinedValue = new AssertableExaminedValue(
             new ElementValue(
-                new ElementIdentifier(
+                new PageObjectIdentifier(
                     new ElementExpression('.examined', ElementExpressionType::CSS_SELECTOR)
                 )
             )

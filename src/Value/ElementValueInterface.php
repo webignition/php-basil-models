@@ -2,9 +2,9 @@
 
 namespace webignition\BasilModel\Value;
 
-use webignition\BasilModel\Identifier\ElementIdentifierInterface;
+use webignition\BasilModel\Identifier\PageObjectIdentifierInterface;
 
 interface ElementValueInterface extends ValueInterface
 {
-    public function getIdentifier(): ElementIdentifierInterface;
+    public function getIdentifier(): PageObjectIdentifierInterface;
 }

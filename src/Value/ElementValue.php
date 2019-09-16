@@ -2,18 +2,18 @@
 
 namespace webignition\BasilModel\Value;
 
-use webignition\BasilModel\Identifier\ElementIdentifierInterface;
+use webignition\BasilModel\Identifier\PageObjectIdentifierInterface;
 
 class ElementValue implements ElementValueInterface
 {
     private $identifier;
 
-    public function __construct(ElementIdentifierInterface $identifier)
+    public function __construct(PageObjectIdentifierInterface $identifier)
     {
         $this->identifier = $identifier;
     }
 
-    public function getIdentifier(): ElementIdentifierInterface
+    public function getIdentifier(): PageObjectIdentifierInterface
     {
         return $this->identifier;
     }

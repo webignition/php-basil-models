@@ -5,9 +5,9 @@ namespace webignition\BasilModel\Tests\Unit\Page;
 
 use Nyholm\Psr7\Uri;
 use Psr\Http\Message\UriInterface;
-use webignition\BasilModel\Identifier\ElementIdentifier;
 use webignition\BasilModel\Identifier\IdentifierCollection;
 use webignition\BasilModel\Identifier\IdentifierCollectionInterface;
+use webignition\BasilModel\Identifier\PageObjectIdentifier;
 use webignition\BasilModel\Page\Page;
 use webignition\BasilModel\Value\ElementExpression;
 use webignition\BasilModel\Value\ElementExpressionType;
@@ -39,14 +39,14 @@ class PageTest extends \PHPUnit\Framework\TestCase
             'valid elements' => [
                 'uri' => new Uri('http://example.com/'),
                 'identifierCollection' => new IdentifierCollection([
-                    (new ElementIdentifier(
+                    (new PageObjectIdentifier(
                         new ElementExpression('.foo', ElementExpressionType::CSS_SELECTOR)
                     ))->withName('foo'),
                 ]),
                 'expectedPage' => new Page(
                     new Uri('http://example.com/'),
                     new IdentifierCollection([
-                        (new ElementIdentifier(
+                        (new PageObjectIdentifier(
                             new ElementExpression('.foo', ElementExpressionType::CSS_SELECTOR)
                         ))->withName('foo'),
                     ])
@@ -68,10 +68,10 @@ class PageTest extends \PHPUnit\Framework\TestCase
         $page = new Page(
             new Uri('http://example.com/'),
             new IdentifierCollection([
-                (new ElementIdentifier(
+                (new PageObjectIdentifier(
                     new ElementExpression('.foo', ElementExpressionType::CSS_SELECTOR)
                 ))->withName('foo'),
-                (new ElementIdentifier(
+                (new PageObjectIdentifier(
                     new ElementExpression('.bar', ElementExpressionType::CSS_SELECTOR)
                 ))->withName('bar')
             ])
@@ -88,7 +88,7 @@ class PageTest extends \PHPUnit\Framework\TestCase
 
     public function testGetElementIdentifier()
     {
-        $fooIdentifier = (new ElementIdentifier(
+        $fooIdentifier = (new PageObjectIdentifier(
             new ElementExpression('.foo', ElementExpressionType::CSS_SELECTOR)
         ))->withName('foo');
 
