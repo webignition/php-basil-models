@@ -12,7 +12,7 @@ use webignition\BasilModel\Value\Assertion\ExaminedValueInterface;
 use webignition\BasilModel\Value\Assertion\ExpectedValue;
 use webignition\BasilModel\Value\ElementExpression;
 use webignition\BasilModel\Value\ElementExpressionType;
-use webignition\BasilModel\Value\ElementValue;
+use webignition\BasilModel\Value\PageObjectValue;
 use webignition\BasilModel\Value\LiteralValue;
 
 class ComparisonAssertionTest extends \PHPUnit\Framework\TestCase
@@ -37,7 +37,7 @@ class ComparisonAssertionTest extends \PHPUnit\Framework\TestCase
     public function createDataProvider(): array
     {
         $examinedValue = new ExaminedValue(
-            new ElementValue(
+            new PageObjectValue(
                 new PageObjectIdentifier(
                     new ElementExpression('.examined', ElementExpressionType::CSS_SELECTOR)
                 )
@@ -45,7 +45,7 @@ class ComparisonAssertionTest extends \PHPUnit\Framework\TestCase
         );
 
         $expectedValue = new ExpectedValue(
-            new ElementValue(
+            new PageObjectValue(
                 new PageObjectIdentifier(
                     new ElementExpression('.expected', ElementExpressionType::CSS_SELECTOR)
                 )
@@ -89,7 +89,7 @@ class ComparisonAssertionTest extends \PHPUnit\Framework\TestCase
     public function testWithExaminedValue()
     {
         $originalExaminedValue = new ExaminedValue(
-            new ElementValue(
+            new PageObjectValue(
                 new PageObjectIdentifier(
                     new ElementExpression('.original', ElementExpressionType::CSS_SELECTOR)
                 )
@@ -97,7 +97,7 @@ class ComparisonAssertionTest extends \PHPUnit\Framework\TestCase
         );
 
         $newExaminedValue = new ExaminedValue(
-            new ElementValue(
+            new PageObjectValue(
                 new PageObjectIdentifier(
                     new ElementExpression('.new', ElementExpressionType::CSS_SELECTOR)
                 )
@@ -124,7 +124,7 @@ class ComparisonAssertionTest extends \PHPUnit\Framework\TestCase
     public function testWithExpectedValue()
     {
         $examinedValue = new ExaminedValue(
-            new ElementValue(
+            new PageObjectValue(
                 new PageObjectIdentifier(
                     new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
                 )

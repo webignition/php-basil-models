@@ -11,7 +11,7 @@ use webignition\BasilModel\Value\Assertion\ExaminedValue;
 use webignition\BasilModel\Value\Assertion\ExaminedValueInterface;
 use webignition\BasilModel\Value\ElementExpression;
 use webignition\BasilModel\Value\ElementExpressionType;
-use webignition\BasilModel\Value\ElementValue;
+use webignition\BasilModel\Value\PageObjectValue;
 
 class ExaminationAssertionTest extends \PHPUnit\Framework\TestCase
 {
@@ -33,7 +33,7 @@ class ExaminationAssertionTest extends \PHPUnit\Framework\TestCase
     public function createDataProvider(): array
     {
         $examinedValue = new ExaminedValue(
-            new ElementValue(
+            new PageObjectValue(
                 new PageObjectIdentifier(
                     new ElementExpression('.examined', ElementExpressionType::CSS_SELECTOR)
                 )
@@ -57,7 +57,7 @@ class ExaminationAssertionTest extends \PHPUnit\Framework\TestCase
     public function testWithExaminedValue()
     {
         $originalExaminedValue = new ExaminedValue(
-            new ElementValue(
+            new PageObjectValue(
                 new PageObjectIdentifier(
                     new ElementExpression('.original', ElementExpressionType::CSS_SELECTOR)
                 )
@@ -65,7 +65,7 @@ class ExaminationAssertionTest extends \PHPUnit\Framework\TestCase
         );
 
         $newExaminedValue = new ExaminedValue(
-            new ElementValue(
+            new PageObjectValue(
                 new PageObjectIdentifier(
                     new ElementExpression('.new', ElementExpressionType::CSS_SELECTOR)
                 )

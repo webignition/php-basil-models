@@ -4,7 +4,7 @@ namespace webignition\BasilModel\Value;
 
 use webignition\BasilModel\Identifier\PageObjectIdentifierInterface;
 
-interface AttributeValueInterface extends ValueInterface
+interface PageObjectValueInterface extends ValueInterface
 {
     public function getIdentifier(): PageObjectIdentifierInterface;
 }

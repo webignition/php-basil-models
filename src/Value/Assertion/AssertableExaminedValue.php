@@ -3,15 +3,14 @@
 namespace webignition\BasilModel\Value\Assertion;
 
 use webignition\BasilModel\Exception\InvalidAssertableExaminedValueException;
-use webignition\BasilModel\Value\AttributeValueInterface;
-use webignition\BasilModel\Value\ElementValueInterface;
 use webignition\BasilModel\Value\ObjectValueInterface;
+use webignition\BasilModel\Value\PageObjectValueInterface;
 use webignition\BasilModel\Value\WrappedValue;
 
 class AssertableExaminedValue extends WrappedValue implements AssertableExaminedValueInterface
 {
     /**
-     * @return AttributeValueInterface|ElementValueInterface|ObjectValueInterface
+     * @return ObjectValueInterface|PageObjectValueInterface
      *
      * @throws InvalidAssertableExaminedValueException
      */
@@ -19,10 +18,7 @@ class AssertableExaminedValue extends WrappedValue implements AssertableExamined
     {
         $value = $this->getWrappedValue();
 
-        if ($value instanceof AttributeValueInterface ||
-            $value instanceof ElementValueInterface ||
-            $value instanceof ObjectValueInterface
-        ) {
+        if ($value instanceof ObjectValueInterface || $value instanceof PageObjectValueInterface) {
             return $value;
         }
 

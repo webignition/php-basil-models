@@ -4,7 +4,7 @@ namespace webignition\BasilModel\Value;
 
 use webignition\BasilModel\Identifier\PageObjectIdentifierInterface;
 
-class ElementValue implements ElementValueInterface
+class PageObjectValue implements PageObjectValueInterface
 {
     private $identifier;
 

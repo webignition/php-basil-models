@@ -4,11 +4,11 @@
 namespace webignition\BasilModel\Tests\Unit\Value;
 
 use webignition\BasilModel\Identifier\PageObjectIdentifier;
-use webignition\BasilModel\Value\AttributeValue;
 use webignition\BasilModel\Value\ElementExpression;
 use webignition\BasilModel\Value\ElementExpressionType;
+use webignition\BasilModel\Value\PageObjectValue;
 
-class AttributeValueTest extends \PHPUnit\Framework\TestCase
+class PageObjectValueTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {
@@ -16,7 +16,7 @@ class AttributeValueTest extends \PHPUnit\Framework\TestCase
             new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
         ))->withAttributeName('attribute_name');
 
-        $value = new AttributeValue($identifier);
+        $value = new PageObjectValue($identifier);
 
         $this->assertSame($identifier, $value->getIdentifier());
         $this->assertfalse($value->isEmpty());
