@@ -4,17 +4,17 @@
 
 namespace webignition\BasilModel\Tests\Unit\Value;
 
-use webignition\BasilModel\Value\PageObjectReference;
+use webignition\BasilModel\Value\DomIdentifierReference;
 use webignition\BasilModel\Value\PageObjectReferenceType;
 
-class PageObjectReferenceTest extends \PHPUnit\Framework\TestCase
+class DomIdentifierReferenceTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @dataProvider createDataProvider
      */
     public function testCreate(string $type, string $reference, string $property)
     {
-        $pageObjectReference = new PageObjectReference(
+        $pageObjectReference = new DomIdentifierReference(
             $type,
             $reference,
             $property

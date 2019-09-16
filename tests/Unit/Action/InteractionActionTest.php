@@ -4,7 +4,7 @@ namespace webignition\BasilModel\Tests\Unit\Action;
 
 use webignition\BasilModel\Action\ActionTypes;
 use webignition\BasilModel\Action\InteractionAction;
-use webignition\BasilModel\Identifier\PageObjectIdentifier;
+use webignition\BasilModel\Identifier\DomIdentifier;
 use webignition\BasilModel\Value\ElementExpression;
 use webignition\BasilModel\Value\ElementExpressionType;
 
@@ -13,7 +13,7 @@ class InteractionActionTest extends \PHPUnit\Framework\TestCase
     public function testCreate()
     {
         $type = ActionTypes::CLICK;
-        $identifier = new PageObjectIdentifier(
+        $identifier = new DomIdentifier(
             new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
         );
 
@@ -33,11 +33,11 @@ class InteractionActionTest extends \PHPUnit\Framework\TestCase
 
     public function testWithIdentifier()
     {
-        $originalIdentifier = new PageObjectIdentifier(
+        $originalIdentifier = new DomIdentifier(
             new ElementExpression('.original', ElementExpressionType::CSS_SELECTOR)
         );
 
-        $newIdentifier = new PageObjectIdentifier(
+        $newIdentifier = new DomIdentifier(
             new ElementExpression('.new', ElementExpressionType::CSS_SELECTOR)
         );
 

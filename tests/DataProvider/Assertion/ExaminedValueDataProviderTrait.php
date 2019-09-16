@@ -2,12 +2,12 @@
 
 namespace webignition\BasilModel\Tests\DataProvider\Assertion;
 
-use webignition\BasilModel\Identifier\PageObjectIdentifier;
+use webignition\BasilModel\Identifier\DomIdentifier;
 use webignition\BasilModel\Value\ElementExpression;
 use webignition\BasilModel\Value\ElementExpressionType;
-use webignition\BasilModel\Value\PageObjectReference;
+use webignition\BasilModel\Value\DomIdentifierReference;
 use webignition\BasilModel\Value\PageObjectReferenceType;
-use webignition\BasilModel\Value\PageObjectValue;
+use webignition\BasilModel\Value\DomIdentifierValue;
 use webignition\BasilModel\Value\ObjectValue;
 use webignition\BasilModel\Value\ObjectValueType;
 use webignition\BasilModel\Value\PageElementReference;
@@ -18,8 +18,8 @@ trait ExaminedValueDataProviderTrait
     {
         return [
             'attribute value' => [
-                'value' => new PageObjectValue(
-                    (new PageObjectIdentifier(
+                'value' => new DomIdentifierValue(
+                    (new DomIdentifier(
                         new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
                     ))->withAttributeName('attribute_name')
                 ),
@@ -28,8 +28,8 @@ trait ExaminedValueDataProviderTrait
                 'value' => new ObjectValue(ObjectValueType::BROWSER_PROPERTY, '$browser.size', 'size'),
             ],
             'element value' => [
-                'value' => new PageObjectValue(
-                    new PageObjectIdentifier(
+                'value' => new DomIdentifierValue(
+                    new DomIdentifier(
                         new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
                     )
                 ),
@@ -45,14 +45,14 @@ trait ExaminedValueDataProviderTrait
                 ),
             ],
             'element reference' => [
-                'value' => new PageObjectReference(
+                'value' => new DomIdentifierReference(
                     PageObjectReferenceType::ELEMENT,
                     '$elements.element_name',
                     'element_name'
                 ),
             ],
             'attribute reference' => [
-                'value' => new PageObjectReference(
+                'value' => new DomIdentifierReference(
                     PageObjectReferenceType::ATTRIBUTE,
                     '$elements.element_name.attribute_name',
                     'element_name.attribute_name'

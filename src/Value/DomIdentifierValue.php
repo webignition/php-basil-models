@@ -2,18 +2,18 @@
 
 namespace webignition\BasilModel\Value;
 
-use webignition\BasilModel\Identifier\PageObjectIdentifierInterface;
+use webignition\BasilModel\Identifier\DomIdentifierInterface;
 
-class PageObjectValue implements PageObjectValueInterface
+class DomIdentifierValue implements DomIdentifierValueInterface
 {
     private $identifier;
 
-    public function __construct(PageObjectIdentifierInterface $identifier)
+    public function __construct(DomIdentifierInterface $identifier)
     {
         $this->identifier = $identifier;
     }
 
-    public function getIdentifier(): PageObjectIdentifierInterface
+    public function getIdentifier(): DomIdentifierInterface
     {
         return $this->identifier;
     }

@@ -4,7 +4,7 @@
 namespace webignition\BasilModel\Tests\Unit\Identifier;
 
 use webignition\BasilModel\Identifier\IdentifierCollection;
-use webignition\BasilModel\Identifier\PageObjectIdentifier;
+use webignition\BasilModel\Identifier\DomIdentifier;
 use webignition\BasilModel\Tests\TestIdentifierFactory;
 use webignition\BasilModel\Value\ElementExpression;
 use webignition\BasilModel\Value\ElementExpressionType;
@@ -40,10 +40,10 @@ class IdentifierCollectionTest extends \PHPUnit\Framework\TestCase
             ],
             'invalid, lacking names' => [
                 'identifiers' => [
-                    new PageObjectIdentifier(new ElementExpression('.heading', ElementExpressionType::CSS_SELECTOR)),
+                    new DomIdentifier(new ElementExpression('.heading', ElementExpressionType::CSS_SELECTOR)),
                 ],
                 'expectedIdentifierCollection' => new IdentifierCollection([
-                    new PageObjectIdentifier(new ElementExpression('.heading', ElementExpressionType::CSS_SELECTOR)),
+                    new DomIdentifier(new ElementExpression('.heading', ElementExpressionType::CSS_SELECTOR)),
                 ]),
             ],
             'valid' => [

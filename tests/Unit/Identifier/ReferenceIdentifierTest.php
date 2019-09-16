@@ -8,7 +8,7 @@ use webignition\BasilModel\Identifier\IdentifierInterface;
 use webignition\BasilModel\Identifier\ReferenceIdentifierInterface;
 use webignition\BasilModel\Identifier\ReferenceIdentifierTypes;
 use webignition\BasilModel\Value\PageElementReference;
-use webignition\BasilModel\Value\PageObjectReference;
+use webignition\BasilModel\Value\DomIdentifierReference;
 use webignition\BasilModel\Value\PageObjectReferenceType;
 
 class ReferenceIdentifierTest extends \PHPUnit\Framework\TestCase
@@ -30,7 +30,7 @@ class ReferenceIdentifierTest extends \PHPUnit\Framework\TestCase
 
     public function testCreateElementReferenceIdentifier()
     {
-        $value = new PageObjectReference(
+        $value = new DomIdentifierReference(
             PageObjectReferenceType::ELEMENT,
             '$elements.element_name',
             'element_name'
@@ -45,7 +45,7 @@ class ReferenceIdentifierTest extends \PHPUnit\Framework\TestCase
 
     public function testCreateAttributeReferenceIdentifier()
     {
-        $value = new PageObjectReference(
+        $value = new DomIdentifierReference(
             PageObjectReferenceType::ELEMENT,
             '$elements.element_name',
             'element_name'
@@ -81,7 +81,7 @@ class ReferenceIdentifierTest extends \PHPUnit\Framework\TestCase
             ],
             'element reference' => [
                 'identifier' => ReferenceIdentifier::createElementReferenceIdentifier(
-                    new PageObjectReference(
+                    new DomIdentifierReference(
                         PageObjectReferenceType::ELEMENT,
                         '$elements.element_name',
                         'element_name'
@@ -109,7 +109,7 @@ class ReferenceIdentifierTest extends \PHPUnit\Framework\TestCase
     public function withNameDataProvider(): array
     {
         $identifier = ReferenceIdentifier::createElementReferenceIdentifier(
-            new PageObjectReference(
+            new DomIdentifierReference(
                 PageObjectReferenceType::ELEMENT,
                 '$elements.element_name',
                 'element_name'

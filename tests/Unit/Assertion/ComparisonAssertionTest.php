@@ -6,13 +6,13 @@ namespace webignition\BasilModel\Tests\Unit\Assertion;
 
 use webignition\BasilModel\Assertion\AssertionComparison;
 use webignition\BasilModel\Assertion\ComparisonAssertion;
-use webignition\BasilModel\Identifier\PageObjectIdentifier;
+use webignition\BasilModel\Identifier\DomIdentifier;
 use webignition\BasilModel\Value\Assertion\ExaminedValue;
 use webignition\BasilModel\Value\Assertion\ExaminedValueInterface;
 use webignition\BasilModel\Value\Assertion\ExpectedValue;
 use webignition\BasilModel\Value\ElementExpression;
 use webignition\BasilModel\Value\ElementExpressionType;
-use webignition\BasilModel\Value\PageObjectValue;
+use webignition\BasilModel\Value\DomIdentifierValue;
 use webignition\BasilModel\Value\LiteralValue;
 
 class ComparisonAssertionTest extends \PHPUnit\Framework\TestCase
@@ -37,16 +37,16 @@ class ComparisonAssertionTest extends \PHPUnit\Framework\TestCase
     public function createDataProvider(): array
     {
         $examinedValue = new ExaminedValue(
-            new PageObjectValue(
-                new PageObjectIdentifier(
+            new DomIdentifierValue(
+                new DomIdentifier(
                     new ElementExpression('.examined', ElementExpressionType::CSS_SELECTOR)
                 )
             )
         );
 
         $expectedValue = new ExpectedValue(
-            new PageObjectValue(
-                new PageObjectIdentifier(
+            new DomIdentifierValue(
+                new DomIdentifier(
                     new ElementExpression('.expected', ElementExpressionType::CSS_SELECTOR)
                 )
             )
@@ -89,16 +89,16 @@ class ComparisonAssertionTest extends \PHPUnit\Framework\TestCase
     public function testWithExaminedValue()
     {
         $originalExaminedValue = new ExaminedValue(
-            new PageObjectValue(
-                new PageObjectIdentifier(
+            new DomIdentifierValue(
+                new DomIdentifier(
                     new ElementExpression('.original', ElementExpressionType::CSS_SELECTOR)
                 )
             )
         );
 
         $newExaminedValue = new ExaminedValue(
-            new PageObjectValue(
-                new PageObjectIdentifier(
+            new DomIdentifierValue(
+                new DomIdentifier(
                     new ElementExpression('.new', ElementExpressionType::CSS_SELECTOR)
                 )
             )
@@ -124,8 +124,8 @@ class ComparisonAssertionTest extends \PHPUnit\Framework\TestCase
     public function testWithExpectedValue()
     {
         $examinedValue = new ExaminedValue(
-            new PageObjectValue(
-                new PageObjectIdentifier(
+            new DomIdentifierValue(
+                new DomIdentifier(
                     new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
                 )
             )

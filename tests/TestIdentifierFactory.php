@@ -2,8 +2,8 @@
 
 namespace webignition\BasilModel\Tests;
 
-use webignition\BasilModel\Identifier\PageObjectIdentifier;
-use webignition\BasilModel\Identifier\PageObjectIdentifierInterface;
+use webignition\BasilModel\Identifier\DomIdentifier;
+use webignition\BasilModel\Identifier\DomIdentifierInterface;
 use webignition\BasilModel\Value\ElementExpressionInterface;
 
 class TestIdentifierFactory
@@ -12,9 +12,9 @@ class TestIdentifierFactory
         ElementExpressionInterface $elementExpression,
         ?int $position,
         ?string $name = '',
-        ?PageObjectIdentifierInterface $parentIdentifier = null
-    ): PageObjectIdentifierInterface {
-        $identifier = new PageObjectIdentifier($elementExpression);
+        ?DomIdentifierInterface $parentIdentifier = null
+    ): DomIdentifierInterface {
+        $identifier = new DomIdentifier($elementExpression);
 
         if (null !== $position) {
             $identifier = $identifier->withPosition($position);
@@ -24,12 +24,12 @@ class TestIdentifierFactory
             $identifier = $identifier->withName($name);
         }
 
-        if ($identifier instanceof PageObjectIdentifierInterface &&
-            $parentIdentifier instanceof PageObjectIdentifierInterface) {
+        if ($identifier instanceof DomIdentifierInterface &&
+            $parentIdentifier instanceof DomIdentifierInterface) {
             $identifier = $identifier->withParentIdentifier($parentIdentifier);
         }
 
-        if ($identifier instanceof PageObjectIdentifierInterface) {
+        if ($identifier instanceof DomIdentifierInterface) {
             return $identifier;
         }
 

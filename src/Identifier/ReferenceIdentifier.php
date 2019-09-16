@@ -3,7 +3,7 @@
 namespace webignition\BasilModel\Identifier;
 
 use webignition\BasilModel\Value\PageElementReference;
-use webignition\BasilModel\Value\PageObjectReferenceInterface;
+use webignition\BasilModel\Value\DomIdentifierReferenceInterface;
 use webignition\BasilModel\Value\ReferenceValueInterface;
 use webignition\BasilModel\Value\ValueInterface;
 
@@ -25,13 +25,13 @@ class ReferenceIdentifier extends AbstractIdentifier implements ReferenceIdentif
     }
 
     public static function createElementReferenceIdentifier(
-        PageObjectReferenceInterface $value
+        DomIdentifierReferenceInterface $value
     ): ReferenceIdentifierInterface {
         return new ReferenceIdentifier(ReferenceIdentifierTypes::ELEMENT_REFERENCE, $value);
     }
 
     public static function createAttributeReferenceIdentifier(
-        PageObjectReferenceInterface $value
+        DomIdentifierReferenceInterface $value
     ): ReferenceIdentifierInterface {
         return new ReferenceIdentifier(ReferenceIdentifierTypes::ATTRIBUTE_REFERENCE, $value);
     }

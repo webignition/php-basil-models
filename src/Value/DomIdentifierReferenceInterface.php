@@ -2,7 +2,7 @@
 
 namespace webignition\BasilModel\Value;
 
-interface PageObjectReferenceInterface extends ReferenceValueInterface
+interface DomIdentifierReferenceInterface extends ReferenceValueInterface
 {
     public function getType();
 }

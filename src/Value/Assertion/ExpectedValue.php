@@ -6,14 +6,14 @@ use webignition\BasilModel\Exception\InvalidAssertionExpectedValueException;
 use webignition\BasilModel\Value\LiteralValueInterface;
 use webignition\BasilModel\Value\ObjectValueInterface;
 use webignition\BasilModel\Value\PageElementReference;
-use webignition\BasilModel\Value\PageObjectValueInterface;
+use webignition\BasilModel\Value\DomIdentifierValueInterface;
 use webignition\BasilModel\Value\ReferenceValueInterface;
 use webignition\BasilModel\Value\WrappedValue;
 
 class ExpectedValue extends WrappedValue implements ExpectedValueInterface
 {
     /**
-     * @return LiteralValueInterface|ObjectValueInterface|PageElementReference|PageObjectValueInterface|ReferenceValueInterface
+     * @return LiteralValueInterface|ObjectValueInterface|PageElementReference|DomIdentifierValueInterface|ReferenceValueInterface
      *
      * @throws InvalidAssertionExpectedValueException
      */
@@ -24,7 +24,7 @@ class ExpectedValue extends WrappedValue implements ExpectedValueInterface
         if ($value instanceof LiteralValueInterface ||
             $value instanceof ObjectValueInterface ||
             $value instanceof PageElementReference ||
-            $value instanceof PageObjectValueInterface ||
+            $value instanceof DomIdentifierValueInterface ||
             $value instanceof ReferenceValueInterface
         ) {
             return $value;

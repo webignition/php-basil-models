@@ -3,20 +3,20 @@
 
 namespace webignition\BasilModel\Tests\Unit\Value;
 
-use webignition\BasilModel\Identifier\PageObjectIdentifier;
+use webignition\BasilModel\Identifier\DomIdentifier;
 use webignition\BasilModel\Value\ElementExpression;
 use webignition\BasilModel\Value\ElementExpressionType;
-use webignition\BasilModel\Value\PageObjectValue;
+use webignition\BasilModel\Value\DomIdentifierValue;
 
-class PageObjectValueTest extends \PHPUnit\Framework\TestCase
+class DomIdentifierValueTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {
-        $identifier = (new PageObjectIdentifier(
+        $identifier = (new DomIdentifier(
             new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
         ))->withAttributeName('attribute_name');
 
-        $value = new PageObjectValue($identifier);
+        $value = new DomIdentifierValue($identifier);
 
         $this->assertSame($identifier, $value->getIdentifier());
         $this->assertfalse($value->isEmpty());

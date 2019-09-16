@@ -3,19 +3,19 @@
 
 namespace webignition\BasilModel\Tests\Unit\Identifier;
 
-use webignition\BasilModel\Identifier\PageObjectIdentifier;
-use webignition\BasilModel\Identifier\PageObjectIdentifierInterface;
+use webignition\BasilModel\Identifier\DomIdentifier;
+use webignition\BasilModel\Identifier\DomIdentifierInterface;
 use webignition\BasilModel\Tests\TestIdentifierFactory;
 use webignition\BasilModel\Value\ElementExpression;
 use webignition\BasilModel\Value\ElementExpressionType;
 
-class PageObjectIdentifierTest extends \PHPUnit\Framework\TestCase
+class DomIdentifierTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {
         $elementExpression = new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR);
 
-        $identifier = new PageObjectIdentifier($elementExpression);
+        $identifier = new DomIdentifier($elementExpression);
 
         $this->assertSame($elementExpression, $identifier->getElementExpression());
         $this->assertNull($identifier->getPosition());
@@ -26,7 +26,7 @@ class PageObjectIdentifierTest extends \PHPUnit\Framework\TestCase
     public function testWithPosition()
     {
         $position = 1;
-        $identifier = new PageObjectIdentifier(new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR));
+        $identifier = new DomIdentifier(new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR));
         $identifierWithPosition = $identifier->withPosition($position);
 
         $this->assertNull($identifier->getPosition());
@@ -36,7 +36,7 @@ class PageObjectIdentifierTest extends \PHPUnit\Framework\TestCase
 
     public function testWithParentIdentifier()
     {
-        $identifier = new PageObjectIdentifier(new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR));
+        $identifier = new DomIdentifier(new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR));
 
         $this->assertNull($identifier->getParentIdentifier());
 
@@ -55,7 +55,7 @@ class PageObjectIdentifierTest extends \PHPUnit\Framework\TestCase
     public function testWithAttributeName()
     {
         $attributeName = 'attribute_name';
-        $identifier = new PageObjectIdentifier(new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR));
+        $identifier = new DomIdentifier(new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR));
         $identifierWithAttributeName = $identifier->withAttributeName($attributeName);
 
         $this->assertNull($identifier->getPosition());
@@ -66,7 +66,7 @@ class PageObjectIdentifierTest extends \PHPUnit\Framework\TestCase
     /**
      * @dataProvider toStringDataProvider
      */
-    public function testToString(PageObjectIdentifierInterface $identifier, string $expectedString)
+    public function testToString(DomIdentifierInterface $identifier, string $expectedString)
     {
         $this->assertSame($expectedString, (string) $identifier);
     }
@@ -95,31 +95,31 @@ class PageObjectIdentifierTest extends \PHPUnit\Framework\TestCase
 
         return [
             'css selector, no position, no attribute name, no parent identifier' => [
-                'identifier' => new PageObjectIdentifier(
+                'identifier' => new DomIdentifier(
                     new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
                 ),
                 'expectedString' => '".selector"',
             ],
             'css selector with position 1' => [
-                'identifier' => (new PageObjectIdentifier(
+                'identifier' => (new DomIdentifier(
                     new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
                 ))->withPosition(1),
                 'expectedString' => '".selector"',
             ],
             'css selector with position 2' => [
-                'identifier' => (new PageObjectIdentifier(
+                'identifier' => (new DomIdentifier(
                     new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
                 ))->withPosition(2),
                 'expectedString' => '".selector":2',
             ],
             'css selector with attribute name' => [
-                'identifier' => (new PageObjectIdentifier(
+                'identifier' => (new DomIdentifier(
                     new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
                 ))->withAttributeName('attribute_name'),
                 'expectedString' => '".selector".attribute_name',
             ],
             'xpath expression' => [
-                'identifier' => new PageObjectIdentifier(
+                'identifier' => new DomIdentifier(
                     new ElementExpression('//foo', ElementExpressionType::XPATH_EXPRESSION)
                 ),
                 'expectedString' => '"//foo"',
@@ -139,9 +139,9 @@ class PageObjectIdentifierTest extends \PHPUnit\Framework\TestCase
      * @dataProvider withNameDataProvider
      */
     public function testWithName(
-        PageObjectIdentifierInterface $identifier,
+        DomIdentifierInterface $identifier,
         string $name,
-        PageObjectIdentifierInterface $expectedIdentifier
+        DomIdentifierInterface $expectedIdentifier
     ) {
         $updatedIdentifier = $identifier->withName($name);
 
@@ -151,7 +151,7 @@ class PageObjectIdentifierTest extends \PHPUnit\Framework\TestCase
 
     public function withNameDataProvider(): array
     {
-        $identifier = new PageObjectIdentifier(new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR));
+        $identifier = new DomIdentifier(new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR));
 
         return [
             'no name, no new name' => [

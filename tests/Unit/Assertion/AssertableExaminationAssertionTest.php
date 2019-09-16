@@ -6,12 +6,12 @@ namespace webignition\BasilModel\Tests\Unit\Assertion;
 
 use webignition\BasilModel\Assertion\AssertableExaminationAssertion;
 use webignition\BasilModel\Assertion\AssertionComparison;
-use webignition\BasilModel\Identifier\PageObjectIdentifier;
+use webignition\BasilModel\Identifier\DomIdentifier;
 use webignition\BasilModel\Value\Assertion\AssertableExaminedValue;
 use webignition\BasilModel\Value\Assertion\AssertableExaminedValueInterface;
 use webignition\BasilModel\Value\ElementExpression;
 use webignition\BasilModel\Value\ElementExpressionType;
-use webignition\BasilModel\Value\PageObjectValue;
+use webignition\BasilModel\Value\DomIdentifierValue;
 
 class AssertableExaminationAssertionTest extends \PHPUnit\Framework\TestCase
 {
@@ -33,8 +33,8 @@ class AssertableExaminationAssertionTest extends \PHPUnit\Framework\TestCase
     public function createDataProvider(): array
     {
         $examinedValue = new AssertableExaminedValue(
-            new PageObjectValue(
-                new PageObjectIdentifier(
+            new DomIdentifierValue(
+                new DomIdentifier(
                     new ElementExpression('.examined', ElementExpressionType::CSS_SELECTOR)
                 )
             )

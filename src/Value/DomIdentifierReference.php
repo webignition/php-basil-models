@@ -2,9 +2,9 @@
 
 namespace webignition\BasilModel\Value;
 
-class PageObjectReference extends AbstractReferenceValue implements
+class DomIdentifierReference extends AbstractReferenceValue implements
     ReferenceValueInterface,
-    PageObjectReferenceInterface
+    DomIdentifierReferenceInterface
 {
     private $type;
 
