@@ -3,20 +3,20 @@
 
 namespace webignition\BasilModel\Tests\Unit\Identifier;
 
-use webignition\BasilModel\Identifier\PageObjectIdentifier;
-use webignition\BasilModel\Identifier\PageObjectIdentifierCollection;
+use webignition\BasilModel\Identifier\DomIdentifier;
+use webignition\BasilModel\Identifier\DomIdentifierCollection;
 use webignition\BasilModel\Tests\TestIdentifierFactory;
 use webignition\BasilModel\Value\ElementExpression;
 use webignition\BasilModel\Value\ElementExpressionType;
 
-class PageObjectIdentifierCollectionTest extends \PHPUnit\Framework\TestCase
+class DomIdentifierCollectionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @dataProvider createDataProvider
      */
-    public function testCreate(array $identifiers, PageObjectIdentifierCollection $expectedIdentifierCollection)
+    public function testCreate(array $identifiers, DomIdentifierCollection $expectedIdentifierCollection)
     {
-        $identifierCollection = new PageObjectIdentifierCollection($identifiers);
+        $identifierCollection = new DomIdentifierCollection($identifiers);
 
         $this->assertEquals($expectedIdentifierCollection, $identifierCollection);
     }
@@ -36,21 +36,21 @@ class PageObjectIdentifierCollectionTest extends \PHPUnit\Framework\TestCase
                     'string',
                     true
                 ],
-                'expectedIdentifierCollection' => new PageObjectIdentifierCollection(),
+                'expectedIdentifierCollection' => new DomIdentifierCollection(),
             ],
             'invalid, lacking names' => [
                 'identifiers' => [
-                    new PageObjectIdentifier(new ElementExpression('.heading', ElementExpressionType::CSS_SELECTOR)),
+                    new DomIdentifier(new ElementExpression('.heading', ElementExpressionType::CSS_SELECTOR)),
                 ],
-                'expectedIdentifierCollection' => new PageObjectIdentifierCollection([
-                    new PageObjectIdentifier(new ElementExpression('.heading', ElementExpressionType::CSS_SELECTOR)),
+                'expectedIdentifierCollection' => new DomIdentifierCollection([
+                    new DomIdentifier(new ElementExpression('.heading', ElementExpressionType::CSS_SELECTOR)),
                 ]),
             ],
             'valid' => [
                 'identifiers' => [
                     $validIdentifier,
                 ],
-                'expectedIdentifierCollection' => new PageObjectIdentifierCollection([
+                'expectedIdentifierCollection' => new DomIdentifierCollection([
                     $validIdentifier,
                 ]),
             ],
@@ -65,7 +65,7 @@ class PageObjectIdentifierCollectionTest extends \PHPUnit\Framework\TestCase
             'heading'
         );
 
-        $identifierCollection = new PageObjectIdentifierCollection([
+        $identifierCollection = new DomIdentifierCollection([
             $headingIdentifier,
         ]);
 
@@ -85,7 +85,7 @@ class PageObjectIdentifierCollectionTest extends \PHPUnit\Framework\TestCase
             $headingIdentifier,
         ];
 
-        $identifierCollection = new PageObjectIdentifierCollection($identifiers);
+        $identifierCollection = new DomIdentifierCollection($identifiers);
 
         foreach ($identifierCollection as $index => $identifier) {
             $this->assertSame($identifiers[$index], $identifier);
@@ -107,7 +107,7 @@ class PageObjectIdentifierCollectionTest extends \PHPUnit\Framework\TestCase
             $oldParentIdentifier
         );
 
-        $collection = new PageObjectIdentifierCollection([
+        $collection = new DomIdentifierCollection([
             $oldParentIdentifier,
             $childIdentifier,
         ]);

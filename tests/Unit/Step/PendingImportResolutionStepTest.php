@@ -7,7 +7,7 @@ namespace webignition\BasilModel\Tests\Unit\Step;
 use webignition\BasilModel\Action\WaitAction;
 use webignition\BasilModel\Assertion\AssertionComparison;
 use webignition\BasilModel\Assertion\ExaminationAssertion;
-use webignition\BasilModel\Identifier\PageObjectIdentifier;
+use webignition\BasilModel\Identifier\DomIdentifier;
 use webignition\BasilModel\Step\PendingImportResolutionStep;
 use webignition\BasilModel\Step\PendingImportResolutionStepInterface;
 use webignition\BasilModel\Step\Step;
@@ -15,7 +15,7 @@ use webignition\BasilModel\Step\StepInterface;
 use webignition\BasilModel\Value\Assertion\ExaminedValue;
 use webignition\BasilModel\Value\ElementExpression;
 use webignition\BasilModel\Value\ElementExpressionType;
-use webignition\BasilModel\Value\PageObjectValue;
+use webignition\BasilModel\Value\DomIdentifierValue;
 use webignition\BasilModel\Value\LiteralValue;
 
 class PendingImportResolutionStepTest extends \PHPUnit\Framework\TestCase
@@ -81,7 +81,7 @@ class PendingImportResolutionStepTest extends \PHPUnit\Framework\TestCase
                         new ExaminationAssertion(
                             '".selector" exists',
                             new ExaminedValue(
-                                new PageObjectValue(new PageObjectIdentifier(
+                                new DomIdentifierValue(new DomIdentifier(
                                     new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
                                 ))
                             ),
@@ -100,7 +100,7 @@ class PendingImportResolutionStepTest extends \PHPUnit\Framework\TestCase
                             new ExaminationAssertion(
                                 '".selector" exists',
                                 new ExaminedValue(
-                                    new PageObjectValue(new PageObjectIdentifier(
+                                    new DomIdentifierValue(new DomIdentifier(
                                         new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
                                     ))
                                 ),

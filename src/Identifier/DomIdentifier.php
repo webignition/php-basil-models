@@ -4,7 +4,7 @@ namespace webignition\BasilModel\Identifier;
 
 use webignition\BasilModel\Value\ElementExpressionInterface;
 
-class PageObjectIdentifier extends AbstractIdentifier implements PageObjectIdentifierInterface
+class DomIdentifier extends AbstractIdentifier implements DomIdentifierInterface
 {
     const DEFAULT_POSITION = 1;
 
@@ -13,7 +13,7 @@ class PageObjectIdentifier extends AbstractIdentifier implements PageObjectIdent
     private $attributeName = null;
 
     /**
-     * @var PageObjectIdentifierInterface
+     * @var DomIdentifierInterface
      */
     private $parentIdentifier;
 
@@ -27,7 +27,7 @@ class PageObjectIdentifier extends AbstractIdentifier implements PageObjectIdent
         return $this->position;
     }
 
-    public function withPosition(int $position): PageObjectIdentifierInterface
+    public function withPosition(int $position): DomIdentifierInterface
     {
         $new = clone $this;
         $new->position = $position;
@@ -35,12 +35,12 @@ class PageObjectIdentifier extends AbstractIdentifier implements PageObjectIdent
         return $new;
     }
 
-    public function getParentIdentifier(): ?PageObjectIdentifierInterface
+    public function getParentIdentifier(): ?DomIdentifierInterface
     {
         return $this->parentIdentifier;
     }
 
-    public function withParentIdentifier(PageObjectIdentifierInterface $parentIdentifier): PageObjectIdentifierInterface
+    public function withParentIdentifier(DomIdentifierInterface $parentIdentifier): DomIdentifierInterface
     {
         $new = clone $this;
         $new->parentIdentifier = $parentIdentifier;
@@ -58,7 +58,7 @@ class PageObjectIdentifier extends AbstractIdentifier implements PageObjectIdent
         return $this->attributeName;
     }
 
-    public function withAttributeName(string $attributeName): PageObjectIdentifierInterface
+    public function withAttributeName(string $attributeName): DomIdentifierInterface
     {
         $new = clone $this;
         $new->attributeName = $attributeName;
@@ -70,7 +70,7 @@ class PageObjectIdentifier extends AbstractIdentifier implements PageObjectIdent
     {
         $string = $this->elementExpression->getExpression();
 
-        if ($this->parentIdentifier instanceof PageObjectIdentifierInterface) {
+        if ($this->parentIdentifier instanceof DomIdentifierInterface) {
             $string = '{{ ' . $this->parentIdentifier->getName() . ' }} ' . $string;
         }
 

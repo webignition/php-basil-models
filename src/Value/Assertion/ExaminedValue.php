@@ -5,14 +5,14 @@ namespace webignition\BasilModel\Value\Assertion;
 use webignition\BasilModel\Exception\InvalidAssertionExaminedValueException;
 use webignition\BasilModel\Value\ObjectValueInterface;
 use webignition\BasilModel\Value\PageElementReference;
-use webignition\BasilModel\Value\PageObjectValueInterface;
+use webignition\BasilModel\Value\DomIdentifierValueInterface;
 use webignition\BasilModel\Value\ReferenceValueInterface;
 use webignition\BasilModel\Value\WrappedValue;
 
 class ExaminedValue extends WrappedValue implements ExaminedValueInterface
 {
     /**
-     * @return ObjectValueInterface|PageElementReference|PageObjectValueInterface|ReferenceValueInterface
+     * @return ObjectValueInterface|PageElementReference|DomIdentifierValueInterface|ReferenceValueInterface
      *
      * @throws InvalidAssertionExaminedValueException
      */
@@ -22,7 +22,7 @@ class ExaminedValue extends WrappedValue implements ExaminedValueInterface
 
         if ($value instanceof ObjectValueInterface ||
             $value instanceof PageElementReference ||
-            $value instanceof PageObjectValueInterface ||
+            $value instanceof DomIdentifierValueInterface ||
             $value instanceof ReferenceValueInterface
         ) {
             return $value;
