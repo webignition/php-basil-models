@@ -2,7 +2,7 @@
 
 namespace webignition\BasilModel\Value;
 
-class PageObjectReferenceType
+class DomIdentifierReferenceType
 {
     const ATTRIBUTE = 'attribute';
     const ELEMENT = 'element';

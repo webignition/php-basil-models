@@ -6,7 +6,7 @@ use webignition\BasilModel\Identifier\DomIdentifier;
 use webignition\BasilModel\Value\ElementExpression;
 use webignition\BasilModel\Value\ElementExpressionType;
 use webignition\BasilModel\Value\DomIdentifierReference;
-use webignition\BasilModel\Value\PageObjectReferenceType;
+use webignition\BasilModel\Value\DomIdentifierReferenceType;
 use webignition\BasilModel\Value\DomIdentifierValue;
 use webignition\BasilModel\Value\ObjectValue;
 use webignition\BasilModel\Value\ObjectValueType;
@@ -46,14 +46,14 @@ trait ExaminedValueDataProviderTrait
             ],
             'element reference' => [
                 'value' => new DomIdentifierReference(
-                    PageObjectReferenceType::ELEMENT,
+                    DomIdentifierReferenceType::ELEMENT,
                     '$elements.element_name',
                     'element_name'
                 ),
             ],
             'attribute reference' => [
                 'value' => new DomIdentifierReference(
-                    PageObjectReferenceType::ATTRIBUTE,
+                    DomIdentifierReferenceType::ATTRIBUTE,
                     '$elements.element_name.attribute_name',
                     'element_name.attribute_name'
                 ),
