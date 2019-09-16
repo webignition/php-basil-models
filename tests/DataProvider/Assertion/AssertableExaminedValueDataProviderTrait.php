@@ -3,10 +3,9 @@
 namespace webignition\BasilModel\Tests\DataProvider\Assertion;
 
 use webignition\BasilModel\Identifier\PageObjectIdentifier;
-use webignition\BasilModel\Value\AttributeValue;
 use webignition\BasilModel\Value\ElementExpression;
 use webignition\BasilModel\Value\ElementExpressionType;
-use webignition\BasilModel\Value\ElementValue;
+use webignition\BasilModel\Value\PageObjectValue;
 use webignition\BasilModel\Value\ObjectValue;
 use webignition\BasilModel\Value\ObjectValueType;
 
@@ -16,7 +15,7 @@ trait AssertableExaminedValueDataProviderTrait
     {
         return [
             'attribute value' => [
-                'value' => new AttributeValue(
+                'value' => new PageObjectValue(
                     (new PageObjectIdentifier(
                         new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
                     ))->withAttributeName('attribute_name')
@@ -26,7 +25,7 @@ trait AssertableExaminedValueDataProviderTrait
                 'value' => new ObjectValue(ObjectValueType::BROWSER_PROPERTY, '$browser.size', 'size'),
             ],
             'element value' => [
-                'value' => new ElementValue(
+                'value' => new PageObjectValue(
                     new PageObjectIdentifier(
                         new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
                     )

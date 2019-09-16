@@ -13,7 +13,7 @@ use webignition\BasilModel\Value\Assertion\AssertableExpectedValue;
 use webignition\BasilModel\Value\Assertion\AssertableExpectedValueInterface;
 use webignition\BasilModel\Value\ElementExpression;
 use webignition\BasilModel\Value\ElementExpressionType;
-use webignition\BasilModel\Value\ElementValue;
+use webignition\BasilModel\Value\PageObjectValue;
 
 class AssertableComparisonAssertionTest extends \PHPUnit\Framework\TestCase
 {
@@ -37,7 +37,7 @@ class AssertableComparisonAssertionTest extends \PHPUnit\Framework\TestCase
     public function createDataProvider(): array
     {
         $examinedValue = new AssertableExaminedValue(
-            new ElementValue(
+            new PageObjectValue(
                 new PageObjectIdentifier(
                     new ElementExpression('.examined', ElementExpressionType::CSS_SELECTOR)
                 )
@@ -45,7 +45,7 @@ class AssertableComparisonAssertionTest extends \PHPUnit\Framework\TestCase
         );
 
         $expectedValue = new AssertableExpectedValue(
-            new ElementValue(
+            new PageObjectValue(
                 new PageObjectIdentifier(
                     new ElementExpression('.expected', ElementExpressionType::CSS_SELECTOR)
                 )
