@@ -9,7 +9,7 @@ use webignition\BasilModel\Identifier\ReferenceIdentifierInterface;
 use webignition\BasilModel\Identifier\ReferenceIdentifierTypes;
 use webignition\BasilModel\Value\PageElementReference;
 use webignition\BasilModel\Value\DomIdentifierReference;
-use webignition\BasilModel\Value\PageObjectReferenceType;
+use webignition\BasilModel\Value\DomIdentifierReferenceType;
 
 class ReferenceIdentifierTest extends \PHPUnit\Framework\TestCase
 {
@@ -31,7 +31,7 @@ class ReferenceIdentifierTest extends \PHPUnit\Framework\TestCase
     public function testCreateElementReferenceIdentifier()
     {
         $value = new DomIdentifierReference(
-            PageObjectReferenceType::ELEMENT,
+            DomIdentifierReferenceType::ELEMENT,
             '$elements.element_name',
             'element_name'
         );
@@ -46,7 +46,7 @@ class ReferenceIdentifierTest extends \PHPUnit\Framework\TestCase
     public function testCreateAttributeReferenceIdentifier()
     {
         $value = new DomIdentifierReference(
-            PageObjectReferenceType::ELEMENT,
+            DomIdentifierReferenceType::ELEMENT,
             '$elements.element_name',
             'element_name'
         );
@@ -82,7 +82,7 @@ class ReferenceIdentifierTest extends \PHPUnit\Framework\TestCase
             'element reference' => [
                 'identifier' => ReferenceIdentifier::createElementReferenceIdentifier(
                     new DomIdentifierReference(
-                        PageObjectReferenceType::ELEMENT,
+                        DomIdentifierReferenceType::ELEMENT,
                         '$elements.element_name',
                         'element_name'
                     )
@@ -110,7 +110,7 @@ class ReferenceIdentifierTest extends \PHPUnit\Framework\TestCase
     {
         $identifier = ReferenceIdentifier::createElementReferenceIdentifier(
             new DomIdentifierReference(
-                PageObjectReferenceType::ELEMENT,
+                DomIdentifierReferenceType::ELEMENT,
                 '$elements.element_name',
                 'element_name'
             )

@@ -5,7 +5,7 @@
 namespace webignition\BasilModel\Tests\Unit\Value;
 
 use webignition\BasilModel\Value\DomIdentifierReference;
-use webignition\BasilModel\Value\PageObjectReferenceType;
+use webignition\BasilModel\Value\DomIdentifierReferenceType;
 
 class DomIdentifierReferenceTest extends \PHPUnit\Framework\TestCase
 {
@@ -31,12 +31,12 @@ class DomIdentifierReferenceTest extends \PHPUnit\Framework\TestCase
     {
         return [
             'attribute reference' => [
-                'type' => PageObjectReferenceType::ATTRIBUTE,
+                'type' => DomIdentifierReferenceType::ATTRIBUTE,
                 'reference' => '$elements.element_name.attribute_name',
                 'property' => 'element_name.attribute_name'
             ],
             'element reference' => [
-                'type' => PageObjectReferenceType::ELEMENT,
+                'type' => DomIdentifierReferenceType::ELEMENT,
                 'reference' => '$elements.element_name',
                 'property' => 'element_name'
             ],
