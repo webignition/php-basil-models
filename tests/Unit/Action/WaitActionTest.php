@@ -7,6 +7,8 @@ use webignition\BasilModel\Action\ActionTypes;
 use webignition\BasilModel\Action\WaitAction;
 use webignition\BasilModel\Value\EnvironmentValue;
 use webignition\BasilModel\Value\LiteralValue;
+use webignition\BasilModel\Value\ObjectValue;
+use webignition\BasilModel\Value\ObjectValueType;
 use webignition\BasilModel\Value\ValueInterface;
 
 class WaitActionTest extends \PHPUnit\Framework\TestCase
@@ -38,7 +40,8 @@ class WaitActionTest extends \PHPUnit\Framework\TestCase
             ],
             'environment parameter value' => [
                 'actionString' => 'wait $env.DURATION',
-                'duration' => new EnvironmentValue(
+                'duration' => new ObjectValue(
+                    ObjectValueType::ENVIRONMENT_PARAMETER,
                     '$env.DURATION',
                     'DURATION'
                 ),

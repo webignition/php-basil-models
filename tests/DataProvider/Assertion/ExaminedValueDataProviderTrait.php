@@ -6,15 +6,13 @@ use webignition\BasilModel\Identifier\AttributeIdentifier;
 use webignition\BasilModel\Identifier\ElementIdentifier;
 use webignition\BasilModel\Value\AttributeReference;
 use webignition\BasilModel\Value\AttributeValue;
-use webignition\BasilModel\Value\BrowserProperty;
-use webignition\BasilModel\Value\DataParameter;
 use webignition\BasilModel\Value\ElementExpression;
 use webignition\BasilModel\Value\ElementExpressionType;
 use webignition\BasilModel\Value\ElementReference;
 use webignition\BasilModel\Value\ElementValue;
-use webignition\BasilModel\Value\EnvironmentValue;
+use webignition\BasilModel\Value\ObjectValue;
+use webignition\BasilModel\Value\ObjectValueType;
 use webignition\BasilModel\Value\PageElementReference;
-use webignition\BasilModel\Value\PageProperty;
 
 trait ExaminedValueDataProviderTrait
 {
@@ -32,7 +30,7 @@ trait ExaminedValueDataProviderTrait
                 ),
             ],
             'browser property' => [
-                'value' => new BrowserProperty('$browser.size', 'size'),
+                'value' => new ObjectValue(ObjectValueType::BROWSER_PROPERTY, '$browser.size', 'size'),
             ],
             'element value' => [
                 'value' => new ElementValue(
@@ -42,7 +40,7 @@ trait ExaminedValueDataProviderTrait
                 ),
             ],
             'environment value' => [
-                'value' => new EnvironmentValue('$env.KEY', 'KEY'),
+                'value' => new ObjectValue(ObjectValueType::ENVIRONMENT_PARAMETER, '$env.KEY', 'KEY'),
             ],
             'page element reference' => [
                 'value' => new PageElementReference(
@@ -64,16 +62,10 @@ trait ExaminedValueDataProviderTrait
                 ),
             ],
             'data parameter' => [
-                'value' => new DataParameter(
-                    '$data.key',
-                    'key'
-                ),
+                'value' => new ObjectValue(ObjectValueType::DATA_PARAMETER, '$data.key', 'key'),
             ],
             'page property' => [
-                'value' => new PageProperty(
-                    '$page.url',
-                    'url'
-                ),
+                'value' => new ObjectValue(ObjectValueType::PAGE_PROPERTY, '$page.url', 'url'),
             ],
         ];
     }
