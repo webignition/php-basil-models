@@ -11,11 +11,11 @@ class DomIdentifierTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {
-        $elementLocator = '.selector';
+        $locator = '.selector';
 
-        $identifier = new DomIdentifier($elementLocator);
+        $identifier = new DomIdentifier($locator);
 
-        $this->assertSame($elementLocator, $identifier->getElementLocator());
+        $this->assertSame($locator, $identifier->getLocator());
         $this->assertNull($identifier->getPosition());
         $this->assertNull($identifier->getAttributeName());
         $this->assertNull($identifier->getName());

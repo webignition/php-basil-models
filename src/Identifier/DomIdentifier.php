@@ -6,7 +6,7 @@ class DomIdentifier extends AbstractIdentifier implements DomIdentifierInterface
 {
     const DEFAULT_POSITION = 1;
 
-    private $elementLocator;
+    private $locator;
     private $position = null;
     private $attributeName = null;
 
@@ -17,7 +17,7 @@ class DomIdentifier extends AbstractIdentifier implements DomIdentifierInterface
 
     public function __construct(string $elementLocator)
     {
-        $this->elementLocator = $elementLocator;
+        $this->locator = $elementLocator;
     }
 
     public function getPosition(): ?int
@@ -46,9 +46,9 @@ class DomIdentifier extends AbstractIdentifier implements DomIdentifierInterface
         return $new;
     }
 
-    public function getElementLocator(): string
+    public function getLocator(): string
     {
-        return $this->elementLocator;
+        return $this->locator;
     }
 
     public function getAttributeName(): ?string
@@ -66,7 +66,7 @@ class DomIdentifier extends AbstractIdentifier implements DomIdentifierInterface
 
     public function __toString(): string
     {
-        $string = $this->elementLocator;
+        $string = $this->locator;
 
         if ($this->parentIdentifier instanceof DomIdentifierInterface) {
             $string = '{{ ' . $this->parentIdentifier->getName() . ' }} ' . $string;

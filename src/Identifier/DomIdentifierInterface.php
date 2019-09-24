@@ -8,7 +8,7 @@ interface DomIdentifierInterface extends IdentifierInterface
     public function withPosition(int $position): DomIdentifierInterface;
     public function getParentIdentifier(): ?DomIdentifierInterface;
     public function withParentIdentifier(DomIdentifierInterface $identifier): DomIdentifierInterface;
-    public function getElementLocator(): string;
+    public function getLocator(): string;
     public function getAttributeName(): ?string;
     public function withAttributeName(string $attributeName): DomIdentifierInterface;
 }
