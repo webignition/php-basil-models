@@ -9,8 +9,6 @@ use webignition\BasilModel\Identifier\IdentifierCollection;
 use webignition\BasilModel\Identifier\IdentifierCollectionInterface;
 use webignition\BasilModel\Identifier\DomIdentifier;
 use webignition\BasilModel\Page\Page;
-use webignition\BasilModel\Value\ElementExpression;
-use webignition\BasilModel\Value\ElementExpressionType;
 
 class PageTest extends \PHPUnit\Framework\TestCase
 {
@@ -39,16 +37,12 @@ class PageTest extends \PHPUnit\Framework\TestCase
             'valid elements' => [
                 'uri' => new Uri('http://example.com/'),
                 'identifierCollection' => new IdentifierCollection([
-                    (new DomIdentifier(
-                        new ElementExpression('.foo', ElementExpressionType::CSS_SELECTOR)
-                    ))->withName('foo'),
+                    (new DomIdentifier('.foo'))->withName('foo'),
                 ]),
                 'expectedPage' => new Page(
                     new Uri('http://example.com/'),
                     new IdentifierCollection([
-                        (new DomIdentifier(
-                            new ElementExpression('.foo', ElementExpressionType::CSS_SELECTOR)
-                        ))->withName('foo'),
+                        (new DomIdentifier('.foo'))->withName('foo'),
                     ])
                 ),
             ],
@@ -68,12 +62,8 @@ class PageTest extends \PHPUnit\Framework\TestCase
         $page = new Page(
             new Uri('http://example.com/'),
             new IdentifierCollection([
-                (new DomIdentifier(
-                    new ElementExpression('.foo', ElementExpressionType::CSS_SELECTOR)
-                ))->withName('foo'),
-                (new DomIdentifier(
-                    new ElementExpression('.bar', ElementExpressionType::CSS_SELECTOR)
-                ))->withName('bar')
+                (new DomIdentifier('.foo'))->withName('foo'),
+                (new DomIdentifier('.bar'))->withName('bar')
             ])
         );
 
@@ -88,9 +78,7 @@ class PageTest extends \PHPUnit\Framework\TestCase
 
     public function testGetElementIdentifier()
     {
-        $fooIdentifier = (new DomIdentifier(
-            new ElementExpression('.foo', ElementExpressionType::CSS_SELECTOR)
-        ))->withName('foo');
+        $fooIdentifier = (new DomIdentifier('.foo'))->withName('foo');
 
         $page = new Page(new Uri(''), new IdentifierCollection([
             $fooIdentifier,

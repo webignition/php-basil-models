@@ -6,42 +6,40 @@ namespace webignition\BasilModel\Tests\Unit\Identifier;
 use webignition\BasilModel\Identifier\DomIdentifier;
 use webignition\BasilModel\Identifier\DomIdentifierInterface;
 use webignition\BasilModel\Tests\TestIdentifierFactory;
-use webignition\BasilModel\Value\ElementExpression;
-use webignition\BasilModel\Value\ElementExpressionType;
 
 class DomIdentifierTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {
-        $elementExpression = new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR);
+        $locator = '.selector';
 
-        $identifier = new DomIdentifier($elementExpression);
+        $identifier = new DomIdentifier($locator);
 
-        $this->assertSame($elementExpression, $identifier->getElementExpression());
-        $this->assertNull($identifier->getPosition());
+        $this->assertSame($locator, $identifier->getLocator());
+        $this->assertNull($identifier->getOrdinalPosition());
         $this->assertNull($identifier->getAttributeName());
         $this->assertNull($identifier->getName());
     }
 
-    public function testWithPosition()
+    public function testWithOrdinalPosition()
     {
         $position = 1;
-        $identifier = new DomIdentifier(new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR));
-        $identifierWithPosition = $identifier->withPosition($position);
+        $identifier = new DomIdentifier('.selector');
+        $identifierWithPosition = $identifier->withOrdinalPosition($position);
 
-        $this->assertNull($identifier->getPosition());
+        $this->assertNull($identifier->getOrdinalPosition());
         $this->assertNotSame($identifier, $identifierWithPosition);
-        $this->assertSame($position, $identifierWithPosition->getPosition());
+        $this->assertSame($position, $identifierWithPosition->getOrdinalPosition());
     }
 
     public function testWithParentIdentifier()
     {
-        $identifier = new DomIdentifier(new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR));
+        $identifier = new DomIdentifier('.selector');
 
         $this->assertNull($identifier->getParentIdentifier());
 
         $parentIdentifier = TestIdentifierFactory::createObjectIdentifier(
-            new ElementExpression('.parent', ElementExpressionType::CSS_SELECTOR),
+            '.parent',
             1,
             'parent_name'
         );
@@ -55,10 +53,10 @@ class DomIdentifierTest extends \PHPUnit\Framework\TestCase
     public function testWithAttributeName()
     {
         $attributeName = 'attribute_name';
-        $identifier = new DomIdentifier(new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR));
+        $identifier = new DomIdentifier('.selector');
         $identifierWithAttributeName = $identifier->withAttributeName($attributeName);
 
-        $this->assertNull($identifier->getPosition());
+        $this->assertNull($identifier->getOrdinalPosition());
         $this->assertNotSame($identifier, $identifierWithAttributeName);
         $this->assertSame($attributeName, $identifierWithAttributeName->getAttributeName());
     }
@@ -74,20 +72,20 @@ class DomIdentifierTest extends \PHPUnit\Framework\TestCase
     public function toStringDataProvider(): array
     {
         $parentIdentifier = TestIdentifierFactory::createObjectIdentifier(
-            new ElementExpression('.parent', ElementExpressionType::CSS_SELECTOR),
+            '.parent',
             1,
             'parent_name'
         );
 
         $cssSelectorWithElementReference = TestIdentifierFactory::createObjectIdentifier(
-            new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR),
+            '.selector',
             null,
             null,
             $parentIdentifier
         );
 
         $xpathExpressionWithElementReference = TestIdentifierFactory::createObjectIdentifier(
-            new ElementExpression('//foo', ElementExpressionType::XPATH_EXPRESSION),
+            '//foo',
             null,
             null,
             $parentIdentifier
@@ -95,33 +93,23 @@ class DomIdentifierTest extends \PHPUnit\Framework\TestCase
 
         return [
             'css selector, no position, no attribute name, no parent identifier' => [
-                'identifier' => new DomIdentifier(
-                    new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
-                ),
+                'identifier' => new DomIdentifier('.selector'),
                 'expectedString' => '".selector"',
             ],
             'css selector with position 1' => [
-                'identifier' => (new DomIdentifier(
-                    new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
-                ))->withPosition(1),
+                'identifier' => (new DomIdentifier('.selector'))->withOrdinalPosition(1),
                 'expectedString' => '".selector"',
             ],
             'css selector with position 2' => [
-                'identifier' => (new DomIdentifier(
-                    new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
-                ))->withPosition(2),
+                'identifier' => (new DomIdentifier('.selector'))->withOrdinalPosition(2),
                 'expectedString' => '".selector":2',
             ],
             'css selector with attribute name' => [
-                'identifier' => (new DomIdentifier(
-                    new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
-                ))->withAttributeName('attribute_name'),
+                'identifier' => (new DomIdentifier('.selector'))->withAttributeName('attribute_name'),
                 'expectedString' => '".selector".attribute_name',
             ],
             'xpath expression' => [
-                'identifier' => new DomIdentifier(
-                    new ElementExpression('//foo', ElementExpressionType::XPATH_EXPRESSION)
-                ),
+                'identifier' => new DomIdentifier('//foo'),
                 'expectedString' => '"//foo"',
             ],
             'css selector with element reference, position null' => [
@@ -151,7 +139,7 @@ class DomIdentifierTest extends \PHPUnit\Framework\TestCase
 
     public function withNameDataProvider(): array
     {
-        $identifier = new DomIdentifier(new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR));
+        $identifier = new DomIdentifier('.selector');
 
         return [
             'no name, no new name' => [

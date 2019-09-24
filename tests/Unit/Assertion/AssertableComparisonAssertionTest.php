@@ -11,8 +11,6 @@ use webignition\BasilModel\Value\Assertion\AssertableExaminedValue;
 use webignition\BasilModel\Value\Assertion\AssertableExaminedValueInterface;
 use webignition\BasilModel\Value\Assertion\AssertableExpectedValue;
 use webignition\BasilModel\Value\Assertion\AssertableExpectedValueInterface;
-use webignition\BasilModel\Value\ElementExpression;
-use webignition\BasilModel\Value\ElementExpressionType;
 use webignition\BasilModel\Value\DomIdentifierValue;
 
 class AssertableComparisonAssertionTest extends \PHPUnit\Framework\TestCase
@@ -38,17 +36,13 @@ class AssertableComparisonAssertionTest extends \PHPUnit\Framework\TestCase
     {
         $examinedValue = new AssertableExaminedValue(
             new DomIdentifierValue(
-                new DomIdentifier(
-                    new ElementExpression('.examined', ElementExpressionType::CSS_SELECTOR)
-                )
+                new DomIdentifier('.examined')
             )
         );
 
         $expectedValue = new AssertableExpectedValue(
             new DomIdentifierValue(
-                new DomIdentifier(
-                    new ElementExpression('.expected', ElementExpressionType::CSS_SELECTOR)
-                )
+                new DomIdentifier('.expected')
             )
         );
 

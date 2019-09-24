@@ -7,9 +7,8 @@ namespace webignition\BasilModel\Tests\Unit\Value\Assertion;
 use webignition\BasilModel\Exception\InvalidAssertionExpectedValueException;
 use webignition\BasilModel\Tests\DataProvider\Assertion\ExaminedValueDataProviderTrait;
 use webignition\BasilModel\Value\Assertion\ExpectedValue;
-use webignition\BasilModel\Value\ElementExpression;
-use webignition\BasilModel\Value\ElementExpressionType;
 use webignition\BasilModel\Value\LiteralValue;
+use webignition\BasilModel\Value\PageElementReference;
 use webignition\BasilModel\Value\ValueInterface;
 
 class ExpectedValueTest extends \PHPUnit\Framework\TestCase
@@ -43,7 +42,13 @@ class ExpectedValueTest extends \PHPUnit\Framework\TestCase
     public function testGetExpectedValueThrowsException()
     {
         $assertionExpectedValue = new ExpectedValue(
-            new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
+            new ExpectedValue(
+                new PageElementReference(
+                    'page_import_name.elements.element_name',
+                    'page_import_name',
+                    'element_name'
+                )
+            )
         );
 
         $this->expectException(InvalidAssertionExpectedValueException::class);

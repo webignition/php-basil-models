@@ -4,17 +4,13 @@
 namespace webignition\BasilModel\Tests\Unit\Value;
 
 use webignition\BasilModel\Identifier\DomIdentifier;
-use webignition\BasilModel\Value\ElementExpression;
-use webignition\BasilModel\Value\ElementExpressionType;
 use webignition\BasilModel\Value\DomIdentifierValue;
 
 class DomIdentifierValueTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {
-        $identifier = (new DomIdentifier(
-            new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
-        ))->withAttributeName('attribute_name');
+        $identifier = (new DomIdentifier('.selector'))->withAttributeName('attribute_name');
 
         $value = new DomIdentifierValue($identifier);
 

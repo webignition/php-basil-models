@@ -9,8 +9,6 @@ use webignition\BasilModel\Assertion\AssertionComparison;
 use webignition\BasilModel\Identifier\DomIdentifier;
 use webignition\BasilModel\Value\Assertion\AssertableExaminedValue;
 use webignition\BasilModel\Value\Assertion\AssertableExaminedValueInterface;
-use webignition\BasilModel\Value\ElementExpression;
-use webignition\BasilModel\Value\ElementExpressionType;
 use webignition\BasilModel\Value\DomIdentifierValue;
 
 class AssertableExaminationAssertionTest extends \PHPUnit\Framework\TestCase
@@ -34,9 +32,7 @@ class AssertableExaminationAssertionTest extends \PHPUnit\Framework\TestCase
     {
         $examinedValue = new AssertableExaminedValue(
             new DomIdentifierValue(
-                new DomIdentifier(
-                    new ElementExpression('.examined', ElementExpressionType::CSS_SELECTOR)
-                )
+                new DomIdentifier('.examined')
             )
         );
 

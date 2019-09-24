@@ -4,20 +4,19 @@ namespace webignition\BasilModel\Tests;
 
 use webignition\BasilModel\Identifier\DomIdentifier;
 use webignition\BasilModel\Identifier\DomIdentifierInterface;
-use webignition\BasilModel\Value\ElementExpressionInterface;
 
 class TestIdentifierFactory
 {
     public static function createObjectIdentifier(
-        ElementExpressionInterface $elementExpression,
+        string $elementLocator,
         ?int $position,
         ?string $name = '',
         ?DomIdentifierInterface $parentIdentifier = null
     ): DomIdentifierInterface {
-        $identifier = new DomIdentifier($elementExpression);
+        $identifier = new DomIdentifier($elementLocator);
 
         if (null !== $position) {
-            $identifier = $identifier->withPosition($position);
+            $identifier = $identifier->withOrdinalPosition($position);
         }
 
         if (null !== $name) {

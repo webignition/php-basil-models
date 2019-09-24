@@ -2,14 +2,12 @@
 
 namespace webignition\BasilModel\Identifier;
 
-use webignition\BasilModel\Value\ElementExpressionInterface;
-
 class DomIdentifier extends AbstractIdentifier implements DomIdentifierInterface
 {
     const DEFAULT_POSITION = 1;
 
-    private $elementExpression;
-    private $position = null;
+    private $locator;
+    private $ordinalPosition = null;
     private $attributeName = null;
 
     /**
@@ -17,20 +15,20 @@ class DomIdentifier extends AbstractIdentifier implements DomIdentifierInterface
      */
     private $parentIdentifier;
 
-    public function __construct(ElementExpressionInterface $elementExpression)
+    public function __construct(string $elementLocator)
     {
-        $this->elementExpression = $elementExpression;
+        $this->locator = $elementLocator;
     }
 
-    public function getPosition(): ?int
+    public function getOrdinalPosition(): ?int
     {
-        return $this->position;
+        return $this->ordinalPosition;
     }
 
-    public function withPosition(int $position): DomIdentifierInterface
+    public function withOrdinalPosition(int $ordinalPosition): DomIdentifierInterface
     {
         $new = clone $this;
-        $new->position = $position;
+        $new->ordinalPosition = $ordinalPosition;
 
         return $new;
     }
@@ -48,9 +46,9 @@ class DomIdentifier extends AbstractIdentifier implements DomIdentifierInterface
         return $new;
     }
 
-    public function getElementExpression(): ElementExpressionInterface
+    public function getLocator(): string
     {
-        return $this->elementExpression;
+        return $this->locator;
     }
 
     public function getAttributeName(): ?string
@@ -68,7 +66,7 @@ class DomIdentifier extends AbstractIdentifier implements DomIdentifierInterface
 
     public function __toString(): string
     {
-        $string = $this->elementExpression->getExpression();
+        $string = $this->locator;
 
         if ($this->parentIdentifier instanceof DomIdentifierInterface) {
             $string = '{{ ' . $this->parentIdentifier->getName() . ' }} ' . $string;
@@ -76,8 +74,8 @@ class DomIdentifier extends AbstractIdentifier implements DomIdentifierInterface
 
         $string = '"' . $string . '"';
 
-        if (null !== $this->position && self::DEFAULT_POSITION !== $this->position) {
-            $string .= ':' . $this->position;
+        if (null !== $this->ordinalPosition && self::DEFAULT_POSITION !== $this->ordinalPosition) {
+            $string .= ':' . $this->ordinalPosition;
         }
 
         if (null !== $this->attributeName && '' !== $this->attributeName) {

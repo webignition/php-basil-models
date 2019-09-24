@@ -6,8 +6,6 @@ namespace webignition\BasilModel\Tests\Unit\Identifier;
 use webignition\BasilModel\Identifier\DomIdentifier;
 use webignition\BasilModel\Identifier\DomIdentifierCollection;
 use webignition\BasilModel\Tests\TestIdentifierFactory;
-use webignition\BasilModel\Value\ElementExpression;
-use webignition\BasilModel\Value\ElementExpressionType;
 
 class DomIdentifierCollectionTest extends \PHPUnit\Framework\TestCase
 {
@@ -24,7 +22,7 @@ class DomIdentifierCollectionTest extends \PHPUnit\Framework\TestCase
     public function createDataProvider(): array
     {
         $validIdentifier = TestIdentifierFactory::createObjectIdentifier(
-            new ElementExpression('.heading', ElementExpressionType::CSS_SELECTOR),
+            '.heading',
             1,
             'heading'
         );
@@ -40,10 +38,10 @@ class DomIdentifierCollectionTest extends \PHPUnit\Framework\TestCase
             ],
             'invalid, lacking names' => [
                 'identifiers' => [
-                    new DomIdentifier(new ElementExpression('.heading', ElementExpressionType::CSS_SELECTOR)),
+                    new DomIdentifier('.heading'),
                 ],
                 'expectedIdentifierCollection' => new DomIdentifierCollection([
-                    new DomIdentifier(new ElementExpression('.heading', ElementExpressionType::CSS_SELECTOR)),
+                    new DomIdentifier('.heading'),
                 ]),
             ],
             'valid' => [
@@ -60,7 +58,7 @@ class DomIdentifierCollectionTest extends \PHPUnit\Framework\TestCase
     public function testGetIdentifier()
     {
         $headingIdentifier = TestIdentifierFactory::createObjectIdentifier(
-            new ElementExpression('.heading', ElementExpressionType::CSS_SELECTOR),
+            '.heading',
             1,
             'heading'
         );
@@ -76,7 +74,7 @@ class DomIdentifierCollectionTest extends \PHPUnit\Framework\TestCase
     public function testIterator()
     {
         $headingIdentifier = TestIdentifierFactory::createObjectIdentifier(
-            new ElementExpression('.heading', ElementExpressionType::CSS_SELECTOR),
+            '.heading',
             1,
             'heading'
         );
@@ -95,13 +93,13 @@ class DomIdentifierCollectionTest extends \PHPUnit\Framework\TestCase
     public function testReplace()
     {
         $oldParentIdentifier = TestIdentifierFactory::createObjectIdentifier(
-            new ElementExpression('.parent', ElementExpressionType::CSS_SELECTOR),
+            '.parent',
             null,
             'parent'
         );
 
         $childIdentifier = TestIdentifierFactory::createObjectIdentifier(
-            new ElementExpression('.child', ElementExpressionType::CSS_SELECTOR),
+            '.child',
             null,
             'child',
             $oldParentIdentifier
@@ -113,13 +111,13 @@ class DomIdentifierCollectionTest extends \PHPUnit\Framework\TestCase
         ]);
 
         $newParentIdentifier = TestIdentifierFactory::createObjectIdentifier(
-            new ElementExpression('.parent', ElementExpressionType::CSS_SELECTOR),
+            '.parent',
             1,
             'parent'
         );
 
         $expectedNewChildIdentifier = TestIdentifierFactory::createObjectIdentifier(
-            new ElementExpression('.child', ElementExpressionType::CSS_SELECTOR),
+            '.child',
             null,
             'child',
             $newParentIdentifier
