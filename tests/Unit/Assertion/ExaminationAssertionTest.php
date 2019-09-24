@@ -9,8 +9,6 @@ use webignition\BasilModel\Assertion\ExaminationAssertion;
 use webignition\BasilModel\Identifier\DomIdentifier;
 use webignition\BasilModel\Value\Assertion\ExaminedValue;
 use webignition\BasilModel\Value\Assertion\ExaminedValueInterface;
-use webignition\BasilModel\Value\ElementExpression;
-use webignition\BasilModel\Value\ElementExpressionType;
 use webignition\BasilModel\Value\DomIdentifierValue;
 
 class ExaminationAssertionTest extends \PHPUnit\Framework\TestCase
@@ -34,9 +32,7 @@ class ExaminationAssertionTest extends \PHPUnit\Framework\TestCase
     {
         $examinedValue = new ExaminedValue(
             new DomIdentifierValue(
-                new DomIdentifier(
-                    new ElementExpression('.examined', ElementExpressionType::CSS_SELECTOR)
-                )
+                new DomIdentifier('.examined')
             )
         );
 
@@ -58,17 +54,13 @@ class ExaminationAssertionTest extends \PHPUnit\Framework\TestCase
     {
         $originalExaminedValue = new ExaminedValue(
             new DomIdentifierValue(
-                new DomIdentifier(
-                    new ElementExpression('.original', ElementExpressionType::CSS_SELECTOR)
-                )
+                new DomIdentifier('.original')
             )
         );
 
         $newExaminedValue = new ExaminedValue(
             new DomIdentifierValue(
-                new DomIdentifier(
-                    new ElementExpression('.new', ElementExpressionType::CSS_SELECTOR)
-                )
+                new DomIdentifier('.new')
             )
         );
 

@@ -6,8 +6,6 @@ namespace webignition\BasilModel\Tests\Unit\Identifier;
 use webignition\BasilModel\Identifier\IdentifierCollection;
 use webignition\BasilModel\Identifier\DomIdentifier;
 use webignition\BasilModel\Tests\TestIdentifierFactory;
-use webignition\BasilModel\Value\ElementExpression;
-use webignition\BasilModel\Value\ElementExpressionType;
 
 class IdentifierCollectionTest extends \PHPUnit\Framework\TestCase
 {
@@ -24,7 +22,7 @@ class IdentifierCollectionTest extends \PHPUnit\Framework\TestCase
     public function createDataProvider(): array
     {
         $validIdentifier = TestIdentifierFactory::createObjectIdentifier(
-            new ElementExpression('.heading', ElementExpressionType::CSS_SELECTOR),
+            '.heading',
             1,
             'heading'
         );
@@ -40,10 +38,10 @@ class IdentifierCollectionTest extends \PHPUnit\Framework\TestCase
             ],
             'invalid, lacking names' => [
                 'identifiers' => [
-                    new DomIdentifier(new ElementExpression('.heading', ElementExpressionType::CSS_SELECTOR)),
+                    new DomIdentifier('.heading'),
                 ],
                 'expectedIdentifierCollection' => new IdentifierCollection([
-                    new DomIdentifier(new ElementExpression('.heading', ElementExpressionType::CSS_SELECTOR)),
+                    new DomIdentifier('.heading'),
                 ]),
             ],
             'valid' => [
@@ -60,7 +58,7 @@ class IdentifierCollectionTest extends \PHPUnit\Framework\TestCase
     public function testGetIdentifier()
     {
         $headingIdentifier = TestIdentifierFactory::createObjectIdentifier(
-            new ElementExpression('.heading', ElementExpressionType::CSS_SELECTOR),
+            '.heading',
             1,
             'heading'
         );
@@ -76,7 +74,7 @@ class IdentifierCollectionTest extends \PHPUnit\Framework\TestCase
     public function testIterator()
     {
         $headingIdentifier = TestIdentifierFactory::createObjectIdentifier(
-            new ElementExpression('.heading', ElementExpressionType::CSS_SELECTOR),
+            '.heading',
             1,
             'heading'
         );

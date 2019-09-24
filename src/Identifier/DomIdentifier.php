@@ -2,13 +2,11 @@
 
 namespace webignition\BasilModel\Identifier;
 
-use webignition\BasilModel\Value\ElementExpressionInterface;
-
 class DomIdentifier extends AbstractIdentifier implements DomIdentifierInterface
 {
     const DEFAULT_POSITION = 1;
 
-    private $elementExpression;
+    private $elementLocator;
     private $position = null;
     private $attributeName = null;
 
@@ -17,9 +15,9 @@ class DomIdentifier extends AbstractIdentifier implements DomIdentifierInterface
      */
     private $parentIdentifier;
 
-    public function __construct(ElementExpressionInterface $elementExpression)
+    public function __construct(string $elementLocator)
     {
-        $this->elementExpression = $elementExpression;
+        $this->elementLocator = $elementLocator;
     }
 
     public function getPosition(): ?int
@@ -48,9 +46,9 @@ class DomIdentifier extends AbstractIdentifier implements DomIdentifierInterface
         return $new;
     }
 
-    public function getElementExpression(): ElementExpressionInterface
+    public function getElementLocator(): string
     {
-        return $this->elementExpression;
+        return $this->elementLocator;
     }
 
     public function getAttributeName(): ?string
@@ -68,7 +66,7 @@ class DomIdentifier extends AbstractIdentifier implements DomIdentifierInterface
 
     public function __toString(): string
     {
-        $string = $this->elementExpression->getExpression();
+        $string = $this->elementLocator;
 
         if ($this->parentIdentifier instanceof DomIdentifierInterface) {
             $string = '{{ ' . $this->parentIdentifier->getName() . ' }} ' . $string;

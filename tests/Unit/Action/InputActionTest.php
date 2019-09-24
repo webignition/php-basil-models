@@ -5,17 +5,13 @@ namespace webignition\BasilModel\Tests\Unit\Action;
 use webignition\BasilModel\Action\ActionTypes;
 use webignition\BasilModel\Action\InputAction;
 use webignition\BasilModel\Identifier\DomIdentifier;
-use webignition\BasilModel\Value\ElementExpression;
-use webignition\BasilModel\Value\ElementExpressionType;
 use webignition\BasilModel\Value\LiteralValue;
 
 class InputActionTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {
-        $identifier = new DomIdentifier(
-            new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
-        );
+        $identifier = new DomIdentifier('.selector');
         $value = new LiteralValue('foo');
 
         $action = new InputAction(
@@ -35,11 +31,8 @@ class InputActionTest extends \PHPUnit\Framework\TestCase
 
     public function testWithIdentifier()
     {
-        $originalIdentifier = new DomIdentifier(
-            new ElementExpression('.original', ElementExpressionType::CSS_SELECTOR)
-        );
-
-        $newIdentifier = new DomIdentifier(new ElementExpression('.new', ElementExpressionType::CSS_SELECTOR));
+        $originalIdentifier = new DomIdentifier('.original');
+        $newIdentifier = new DomIdentifier('.new');
 
         $action = new InputAction(
             'set ".original" to "value"',
@@ -58,9 +51,7 @@ class InputActionTest extends \PHPUnit\Framework\TestCase
     public function testWithValue()
     {
         $actionString = 'set ".selector" to "original-value';
-        $identifier = new DomIdentifier(
-            new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
-        );
+        $identifier = new DomIdentifier('.selector');
 
         $originalValue = new LiteralValue('original-value');
         $newValue = new LiteralValue('new-value');

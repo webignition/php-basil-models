@@ -3,8 +3,6 @@
 namespace webignition\BasilModel\Tests\DataProvider\Assertion;
 
 use webignition\BasilModel\Identifier\DomIdentifier;
-use webignition\BasilModel\Value\ElementExpression;
-use webignition\BasilModel\Value\ElementExpressionType;
 use webignition\BasilModel\Value\DomIdentifierValue;
 use webignition\BasilModel\Value\ObjectValue;
 use webignition\BasilModel\Value\ObjectValueType;
@@ -16,9 +14,7 @@ trait AssertableExaminedValueDataProviderTrait
         return [
             'attribute value' => [
                 'value' => new DomIdentifierValue(
-                    (new DomIdentifier(
-                        new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
-                    ))->withAttributeName('attribute_name')
+                    (new DomIdentifier('.selector'))->withAttributeName('attribute_name')
                 ),
             ],
             'browser property' => [
@@ -26,9 +22,7 @@ trait AssertableExaminedValueDataProviderTrait
             ],
             'element value' => [
                 'value' => new DomIdentifierValue(
-                    new DomIdentifier(
-                        new ElementExpression('.selector', ElementExpressionType::CSS_SELECTOR)
-                    )
+                    new DomIdentifier('.selector')
                 ),
             ],
             'environment value' => [
