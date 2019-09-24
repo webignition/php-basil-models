@@ -7,7 +7,7 @@ class DomIdentifier extends AbstractIdentifier implements DomIdentifierInterface
     const DEFAULT_POSITION = 1;
 
     private $locator;
-    private $position = null;
+    private $ordinalPosition = null;
     private $attributeName = null;
 
     /**
@@ -20,15 +20,15 @@ class DomIdentifier extends AbstractIdentifier implements DomIdentifierInterface
         $this->locator = $elementLocator;
     }
 
-    public function getPosition(): ?int
+    public function getOrdinalPosition(): ?int
     {
-        return $this->position;
+        return $this->ordinalPosition;
     }
 
-    public function withPosition(int $position): DomIdentifierInterface
+    public function withOrdinalPosition(int $ordinalPosition): DomIdentifierInterface
     {
         $new = clone $this;
-        $new->position = $position;
+        $new->ordinalPosition = $ordinalPosition;
 
         return $new;
     }
@@ -74,8 +74,8 @@ class DomIdentifier extends AbstractIdentifier implements DomIdentifierInterface
 
         $string = '"' . $string . '"';
 
-        if (null !== $this->position && self::DEFAULT_POSITION !== $this->position) {
-            $string .= ':' . $this->position;
+        if (null !== $this->ordinalPosition && self::DEFAULT_POSITION !== $this->ordinalPosition) {
+            $string .= ':' . $this->ordinalPosition;
         }
 
         if (null !== $this->attributeName && '' !== $this->attributeName) {

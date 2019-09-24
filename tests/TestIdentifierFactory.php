@@ -16,7 +16,7 @@ class TestIdentifierFactory
         $identifier = new DomIdentifier($elementLocator);
 
         if (null !== $position) {
-            $identifier = $identifier->withPosition($position);
+            $identifier = $identifier->withOrdinalPosition($position);
         }
 
         if (null !== $name) {

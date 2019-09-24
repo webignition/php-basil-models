@@ -4,8 +4,8 @@ namespace webignition\BasilModel\Identifier;
 
 interface DomIdentifierInterface extends IdentifierInterface
 {
-    public function getPosition(): ?int;
-    public function withPosition(int $position): DomIdentifierInterface;
+    public function getOrdinalPosition(): ?int;
+    public function withOrdinalPosition(int $ordinalPosition): DomIdentifierInterface;
     public function getParentIdentifier(): ?DomIdentifierInterface;
     public function withParentIdentifier(DomIdentifierInterface $identifier): DomIdentifierInterface;
     public function getLocator(): string;

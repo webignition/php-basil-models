@@ -16,20 +16,20 @@ class DomIdentifierTest extends \PHPUnit\Framework\TestCase
         $identifier = new DomIdentifier($locator);
 
         $this->assertSame($locator, $identifier->getLocator());
-        $this->assertNull($identifier->getPosition());
+        $this->assertNull($identifier->getOrdinalPosition());
         $this->assertNull($identifier->getAttributeName());
         $this->assertNull($identifier->getName());
     }
 
-    public function testWithPosition()
+    public function testWithOrdinalPosition()
     {
         $position = 1;
         $identifier = new DomIdentifier('.selector');
-        $identifierWithPosition = $identifier->withPosition($position);
+        $identifierWithPosition = $identifier->withOrdinalPosition($position);
 
-        $this->assertNull($identifier->getPosition());
+        $this->assertNull($identifier->getOrdinalPosition());
         $this->assertNotSame($identifier, $identifierWithPosition);
-        $this->assertSame($position, $identifierWithPosition->getPosition());
+        $this->assertSame($position, $identifierWithPosition->getOrdinalPosition());
     }
 
     public function testWithParentIdentifier()
@@ -56,7 +56,7 @@ class DomIdentifierTest extends \PHPUnit\Framework\TestCase
         $identifier = new DomIdentifier('.selector');
         $identifierWithAttributeName = $identifier->withAttributeName($attributeName);
 
-        $this->assertNull($identifier->getPosition());
+        $this->assertNull($identifier->getOrdinalPosition());
         $this->assertNotSame($identifier, $identifierWithAttributeName);
         $this->assertSame($attributeName, $identifierWithAttributeName->getAttributeName());
     }
@@ -97,11 +97,11 @@ class DomIdentifierTest extends \PHPUnit\Framework\TestCase
                 'expectedString' => '".selector"',
             ],
             'css selector with position 1' => [
-                'identifier' => (new DomIdentifier('.selector'))->withPosition(1),
+                'identifier' => (new DomIdentifier('.selector'))->withOrdinalPosition(1),
                 'expectedString' => '".selector"',
             ],
             'css selector with position 2' => [
-                'identifier' => (new DomIdentifier('.selector'))->withPosition(2),
+                'identifier' => (new DomIdentifier('.selector'))->withOrdinalPosition(2),
                 'expectedString' => '".selector":2',
             ],
             'css selector with attribute name' => [
