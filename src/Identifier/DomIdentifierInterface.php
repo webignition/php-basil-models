@@ -2,13 +2,12 @@
 
 namespace webignition\BasilModel\Identifier;
 
-interface DomIdentifierInterface extends IdentifierInterface
+use webignition\DomElementLocator\ElementLocatorInterface;
+
+interface DomIdentifierInterface extends IdentifierInterface, ElementLocatorInterface
 {
-    public function getOrdinalPosition(): ?int;
-    public function withOrdinalPosition(int $ordinalPosition): DomIdentifierInterface;
     public function getParentIdentifier(): ?DomIdentifierInterface;
     public function withParentIdentifier(DomIdentifierInterface $identifier): DomIdentifierInterface;
-    public function getLocator(): string;
     public function getAttributeName(): ?string;
     public function withAttributeName(string $attributeName): DomIdentifierInterface;
 }

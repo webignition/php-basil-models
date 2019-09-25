@@ -21,17 +21,6 @@ class DomIdentifierTest extends \PHPUnit\Framework\TestCase
         $this->assertNull($identifier->getName());
     }
 
-    public function testWithOrdinalPosition()
-    {
-        $position = 1;
-        $identifier = new DomIdentifier('.selector');
-        $identifierWithPosition = $identifier->withOrdinalPosition($position);
-
-        $this->assertNull($identifier->getOrdinalPosition());
-        $this->assertNotSame($identifier, $identifierWithPosition);
-        $this->assertSame($position, $identifierWithPosition->getOrdinalPosition());
-    }
-
     public function testWithParentIdentifier()
     {
         $identifier = new DomIdentifier('.selector');
@@ -97,11 +86,11 @@ class DomIdentifierTest extends \PHPUnit\Framework\TestCase
                 'expectedString' => '".selector"',
             ],
             'css selector with position 1' => [
-                'identifier' => (new DomIdentifier('.selector'))->withOrdinalPosition(1),
+                'identifier' => (new DomIdentifier('.selector', 1)),
                 'expectedString' => '".selector"',
             ],
             'css selector with position 2' => [
-                'identifier' => (new DomIdentifier('.selector'))->withOrdinalPosition(2),
+                'identifier' => (new DomIdentifier('.selector', 2)),
                 'expectedString' => '".selector":2',
             ],
             'css selector with attribute name' => [
