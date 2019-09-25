@@ -2,8 +2,10 @@
 
 namespace webignition\BasilModel\Identifier;
 
-class DomIdentifier extends AbstractIdentifier implements DomIdentifierInterface
+class DomIdentifier implements DomIdentifierInterface
 {
+    use IdentifierNameTrait;
+
     const DEFAULT_POSITION = 1;
 
     private $locator;

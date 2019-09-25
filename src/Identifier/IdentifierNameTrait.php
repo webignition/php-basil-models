@@ -2,7 +2,7 @@
 
 namespace webignition\BasilModel\Identifier;
 
-abstract class AbstractIdentifier implements IdentifierInterface
+trait IdentifierNameTrait
 {
     private $name;
 
