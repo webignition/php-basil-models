@@ -7,8 +7,10 @@ use webignition\BasilModel\Value\DomIdentifierReferenceInterface;
 use webignition\BasilModel\Value\ReferenceValueInterface;
 use webignition\BasilModel\Value\ValueInterface;
 
-class ReferenceIdentifier extends AbstractIdentifier implements ReferenceIdentifierInterface
+class ReferenceIdentifier implements ReferenceIdentifierInterface
 {
+    use IdentifierNameTrait;
+
     private $type;
     private $value;
 

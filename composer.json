@@ -35,7 +35,8 @@
         "php": ">=7.2",
         "ext-mbstring": "*",
         "psr/http-message": "^1.0",
-        "webignition/php-basil-context-aware-exception": "^0.1.0"
+        "webignition/php-basil-context-aware-exception": "^0.1.0",
+        "webignition/php-dom-element-locator": ">=0.1,<1"
     },
     "require-dev": {
         "phpunit/phpunit": "~8.0",
