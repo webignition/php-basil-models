@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7c9a70cd6d26c6cc61d866e3f9d71ddc",
+    "content-hash": "e0e4ce4e78da9a43b5f7ee7492821a3c",
     "packages": [
         {
             "name": "psr/http-message",
@@ -97,6 +97,48 @@
             "description": "Models for basil language objects",
             "homepage": "https://github.com/webignition/php-basil-context-aware-exception",
             "time": "2019-07-13T14:46:44+00:00"
+        },
+        {
+            "name": "webignition/php-dom-element-locator",
+            "version": "0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/webignition/php-dom-element-locator.git",
+                "reference": "78873e1f6d77b83672bd14f3e5e0dce07c63b828"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/webignition/php-dom-element-locator/zipball/78873e1f6d77b83672bd14f3e5e0dce07c63b828",
+                "reference": "78873e1f6d77b83672bd14f3e5e0dce07c63b828",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^0.11.16",
+                "phpunit/phpunit": "~8.0",
+                "squizlabs/php_codesniffer": "3.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "webignition\\DomElementLocator\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jon Cram",
+                    "email": "webignition@gmail.com"
+                }
+            ],
+            "description": "Model for identifying the location of an element within a DOM",
+            "homepage": "https://github.com/webignition/php-dom-element-locator",
+            "time": "2019-09-25T16:49:40+00:00"
         }
     ],
     "packages-dev": [
