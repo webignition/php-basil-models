@@ -9,7 +9,7 @@ use webignition\BasilModel\Assertion\ComparisonAssertion;
 use webignition\BasilModel\Identifier\DomIdentifier;
 use webignition\BasilModel\Value\Assertion\ExaminedValue;
 use webignition\BasilModel\Value\Assertion\ExaminedValueInterface;
-use webignition\BasilModel\Value\Assertion\ExpectedValue;
+use webignition\BasilModel\Value\ExpectableValue;
 use webignition\BasilModel\Value\DomIdentifierValue;
 use webignition\BasilModel\Value\LiteralValue;
 
@@ -22,7 +22,7 @@ class ComparisonAssertionTest extends \PHPUnit\Framework\TestCase
         string $assertionString,
         ExaminedValueInterface $examinedValue,
         string $comparison,
-        ExpectedValue $expectedValue
+        ExpectableValue $expectedValue
     ) {
         $assertion = new ComparisonAssertion($assertionString, $examinedValue, $comparison, $expectedValue);
 
@@ -40,7 +40,7 @@ class ComparisonAssertionTest extends \PHPUnit\Framework\TestCase
             )
         );
 
-        $expectedValue = new ExpectedValue(
+        $expectedValue = new \webignition\BasilModel\Value\ExpectableValue(
             new DomIdentifierValue(
                 new DomIdentifier('.expected')
             )
@@ -94,7 +94,7 @@ class ComparisonAssertionTest extends \PHPUnit\Framework\TestCase
             )
         );
 
-        $expectedValue = new ExpectedValue(
+        $expectedValue = new ExpectableValue(
             new LiteralValue("value")
         );
 
@@ -119,11 +119,11 @@ class ComparisonAssertionTest extends \PHPUnit\Framework\TestCase
             )
         );
 
-        $originalExpectedValue = new ExpectedValue(
+        $originalExpectedValue = new ExpectableValue(
             new LiteralValue("value")
         );
 
-        $newExpectedValue = new ExpectedValue(
+        $newExpectedValue = new ExpectableValue(
             new LiteralValue("value")
         );
 

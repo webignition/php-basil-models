@@ -3,7 +3,7 @@
 namespace webignition\BasilModel\Assertion;
 
 use webignition\BasilModel\Value\Assertion\ExaminedValueInterface;
-use webignition\BasilModel\Value\Assertion\ExpectedValueInterface;
+use webignition\BasilModel\Value\ExpectableValueInterface;
 
 class ComparisonAssertion extends ExaminationAssertion implements
     AssertionInterface,
@@ -15,19 +15,19 @@ class ComparisonAssertion extends ExaminationAssertion implements
         string $assertionString,
         ExaminedValueInterface $examinedValue,
         string $comparison,
-        ExpectedValueInterface $expectedValue
+        ExpectableValueInterface $expectedValue
     ) {
         parent::__construct($assertionString, $examinedValue, $comparison);
 
         $this->expectedValue = $expectedValue;
     }
 
-    public function getExpectedValue(): ExpectedValueInterface
+    public function getExpectedValue(): ExpectableValueInterface
     {
         return $this->expectedValue;
     }
 
-    public function withExpectedValue(ExpectedValueInterface $value): ComparisonAssertionInterface
+    public function withExpectedValue(ExpectableValueInterface $value): ComparisonAssertionInterface
     {
         $new = clone $this;
         $new->expectedValue = $value;

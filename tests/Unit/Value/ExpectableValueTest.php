@@ -2,16 +2,16 @@
 /** @noinspection PhpDocSignatureInspection */
 /** @noinspection PhpUnhandledExceptionInspection */
 
-namespace webignition\BasilModel\Tests\Unit\Value\Assertion;
+namespace webignition\BasilModel\Tests\Unit\Value;
 
 use webignition\BasilModel\Exception\InvalidAssertionExpectedValueException;
 use webignition\BasilModel\Tests\DataProvider\Assertion\ExaminedValueDataProviderTrait;
-use webignition\BasilModel\Value\Assertion\ExpectedValue;
+use webignition\BasilModel\Value\ExpectableValue;
 use webignition\BasilModel\Value\LiteralValue;
 use webignition\BasilModel\Value\PageElementReference;
 use webignition\BasilModel\Value\ValueInterface;
 
-class ExpectedValueTest extends \PHPUnit\Framework\TestCase
+class ExpectableValueTest extends \PHPUnit\Framework\TestCase
 {
     use ExaminedValueDataProviderTrait;
 
@@ -21,7 +21,7 @@ class ExpectedValueTest extends \PHPUnit\Framework\TestCase
      */
     public function testCreate(ValueInterface $value)
     {
-        $assertionExaminedValue = new ExpectedValue($value);
+        $assertionExaminedValue = new ExpectableValue($value);
 
         $this->assertSame($value, $assertionExaminedValue->getExpectedValue());
         $this->assertSame($value->isEmpty(), $assertionExaminedValue->isEmpty());
@@ -41,8 +41,8 @@ class ExpectedValueTest extends \PHPUnit\Framework\TestCase
 
     public function testGetExpectedValueThrowsException()
     {
-        $assertionExpectedValue = new ExpectedValue(
-            new ExpectedValue(
+        $assertionExpectedValue = new ExpectableValue(
+            new ExpectableValue(
                 new PageElementReference(
                     'page_import_name.elements.element_name',
                     'page_import_name',
