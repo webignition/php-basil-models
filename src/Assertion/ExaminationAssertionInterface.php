@@ -2,10 +2,10 @@
 
 namespace webignition\BasilModel\Assertion;
 
-use webignition\BasilModel\Value\Assertion\ExaminedValueInterface;
+use webignition\BasilModel\Value\ValueInterface;
 
 interface ExaminationAssertionInterface extends AssertionInterface
 {
-    public function getExaminedValue(): ExaminedValueInterface;
-    public function withExaminedValue(ExaminedValueInterface $value): ExaminationAssertionInterface;
+    public function getExaminedValue(): ValueInterface;
+    public function withExaminedValue(ValueInterface $value): ExaminationAssertionInterface;
 }

@@ -14,7 +14,6 @@ use webignition\BasilModel\Identifier\IdentifierCollectionInterface;
 use webignition\BasilModel\Identifier\DomIdentifier;
 use webignition\BasilModel\Step\Step;
 use webignition\BasilModel\Step\StepInterface;
-use webignition\BasilModel\Value\Assertion\ExaminedValue;
 use webignition\BasilModel\Value\DomIdentifierValue;
 use webignition\BasilModel\Value\LiteralValue;
 
@@ -35,9 +34,7 @@ class StepTest extends \PHPUnit\Framework\TestCase
     {
         $assertion = new ExaminationAssertion(
             '".selector" exists',
-            new ExaminedValue(
-                new DomIdentifierValue(new DomIdentifier('.selector'))
-            ),
+            DomIdentifierValue::create('.selector'),
             AssertionComparison::EXISTS
         );
 
@@ -170,9 +167,7 @@ class StepTest extends \PHPUnit\Framework\TestCase
     {
         $assertion = new ExaminationAssertion(
             '".selector" exists',
-            new ExaminedValue(
-                new DomIdentifierValue(new DomIdentifier('.selector'))
-            ),
+            DomIdentifierValue::create('.selector'),
             AssertionComparison::EXISTS
         );
 
@@ -266,17 +261,13 @@ class StepTest extends \PHPUnit\Framework\TestCase
     {
         $assertion1 = new ExaminationAssertion(
             '".selector1" exists',
-            new ExaminedValue(
-                new DomIdentifierValue(new DomIdentifier('.selector1'))
-            ),
+            DomIdentifierValue::create('.selector1'),
             AssertionComparison::EXISTS
         );
 
         $assertion2 = new ExaminationAssertion(
             '".selector2" exists',
-            new ExaminedValue(
-                new DomIdentifierValue(new DomIdentifier('.selector2'))
-            ),
+            DomIdentifierValue::create('.selector2'),
             AssertionComparison::EXISTS
         );
 
@@ -412,17 +403,13 @@ class StepTest extends \PHPUnit\Framework\TestCase
     {
         $assertion1 = new ExaminationAssertion(
             '".selector1" exists',
-            new ExaminedValue(
-                new DomIdentifierValue(new DomIdentifier('.selector1'))
-            ),
+            DomIdentifierValue::create('.selector1'),
             AssertionComparison::EXISTS
         );
 
         $assertion2 = new ExaminationAssertion(
             '".selector2" exists',
-            new ExaminedValue(
-                new DomIdentifierValue(new DomIdentifier('.selector2'))
-            ),
+            DomIdentifierValue::create('.selector2'),
             AssertionComparison::EXISTS
         );
 

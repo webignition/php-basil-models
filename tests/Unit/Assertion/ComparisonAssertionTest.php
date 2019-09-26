@@ -6,12 +6,9 @@ namespace webignition\BasilModel\Tests\Unit\Assertion;
 
 use webignition\BasilModel\Assertion\AssertionComparison;
 use webignition\BasilModel\Assertion\ComparisonAssertion;
-use webignition\BasilModel\Identifier\DomIdentifier;
-use webignition\BasilModel\Value\Assertion\ExaminedValue;
-use webignition\BasilModel\Value\Assertion\ExaminedValueInterface;
-use webignition\BasilModel\Value\ExpectableValue;
 use webignition\BasilModel\Value\DomIdentifierValue;
 use webignition\BasilModel\Value\LiteralValue;
+use webignition\BasilModel\Value\ValueInterface;
 
 class ComparisonAssertionTest extends \PHPUnit\Framework\TestCase
 {
@@ -20,9 +17,9 @@ class ComparisonAssertionTest extends \PHPUnit\Framework\TestCase
      */
     public function testCreate(
         string $assertionString,
-        ExaminedValueInterface $examinedValue,
+        ValueInterface $examinedValue,
         string $comparison,
-        ExpectableValue $expectedValue
+        ValueInterface $expectedValue
     ) {
         $assertion = new ComparisonAssertion($assertionString, $examinedValue, $comparison, $expectedValue);
 
@@ -34,17 +31,8 @@ class ComparisonAssertionTest extends \PHPUnit\Framework\TestCase
 
     public function createDataProvider(): array
     {
-        $examinedValue = new ExaminedValue(
-            new DomIdentifierValue(
-                new DomIdentifier('.examined')
-            )
-        );
-
-        $expectedValue = new \webignition\BasilModel\Value\ExpectableValue(
-            new DomIdentifierValue(
-                new DomIdentifier('.expected')
-            )
-        );
+        $examinedValue = DomIdentifierValue::create('.examined');
+        $expectedValue = DomIdentifierValue::create('.expected');
 
         return [
             'is comparison' => [
@@ -82,21 +70,9 @@ class ComparisonAssertionTest extends \PHPUnit\Framework\TestCase
 
     public function testWithExaminedValue()
     {
-        $originalExaminedValue = new ExaminedValue(
-            new DomIdentifierValue(
-                new DomIdentifier('.original')
-            )
-        );
-
-        $newExaminedValue = new ExaminedValue(
-            new DomIdentifierValue(
-                new DomIdentifier('.new')
-            )
-        );
-
-        $expectedValue = new ExpectableValue(
-            new LiteralValue("value")
-        );
+        $originalExaminedValue = DomIdentifierValue::create('.original');
+        $newExaminedValue = DomIdentifierValue::create('.new');
+        $expectedValue = new LiteralValue('value');
 
         $assertion = new ComparisonAssertion(
             '".selector" is "value"',
@@ -113,19 +89,9 @@ class ComparisonAssertionTest extends \PHPUnit\Framework\TestCase
 
     public function testWithExpectedValue()
     {
-        $examinedValue = new ExaminedValue(
-            new DomIdentifierValue(
-                new DomIdentifier('.selector')
-            )
-        );
-
-        $originalExpectedValue = new ExpectableValue(
-            new LiteralValue("value")
-        );
-
-        $newExpectedValue = new ExpectableValue(
-            new LiteralValue("value")
-        );
+        $examinedValue = DomIdentifierValue::create('.selector');
+        $originalExpectedValue = new LiteralValue('value');
+        $newExpectedValue = new LiteralValue('value');
 
         $assertion = new ComparisonAssertion(
             '".selector" is "value"',

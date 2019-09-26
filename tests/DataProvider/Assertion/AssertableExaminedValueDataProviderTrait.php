@@ -21,9 +21,7 @@ trait AssertableExaminedValueDataProviderTrait
                 'value' => new ObjectValue(ObjectValueType::BROWSER_PROPERTY, '$browser.size', 'size'),
             ],
             'element value' => [
-                'value' => new DomIdentifierValue(
-                    new DomIdentifier('.selector')
-                ),
+                'value' => DomIdentifierValue::create('.selector'),
             ],
             'environment value' => [
                 'value' => new ObjectValue(ObjectValueType::ENVIRONMENT_PARAMETER, '$env.KEY', 'KEY'),

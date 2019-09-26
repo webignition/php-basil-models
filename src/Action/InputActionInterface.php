@@ -2,10 +2,10 @@
 
 namespace webignition\BasilModel\Action;
 
-use webignition\BasilModel\Value\ExpectableValueInterface;
+use webignition\BasilModel\Value\ValueInterface;
 
 interface InputActionInterface extends InteractionActionInterface
 {
-    public function getValue(): ExpectableValueInterface;
-    public function withValue(ExpectableValueInterface $value): InputActionInterface;
+    public function getValue(): ValueInterface;
+    public function withValue(ValueInterface $value): InputActionInterface;
 }
