@@ -2,6 +2,7 @@
 
 namespace webignition\BasilModel\Value;
 
+use webignition\BasilModel\Identifier\DomIdentifier;
 use webignition\BasilModel\Identifier\DomIdentifierInterface;
 
 class DomIdentifierValue implements DomIdentifierValueInterface
@@ -11,6 +12,13 @@ class DomIdentifierValue implements DomIdentifierValueInterface
     public function __construct(DomIdentifierInterface $identifier)
     {
         $this->identifier = $identifier;
+    }
+
+    public static function create(string $locator, ?int $ordinalPosition = null): DomIdentifierValue
+    {
+        return new DomIdentifierValue(
+            new DomIdentifier($locator, $ordinalPosition)
+        );
     }
 
     public function getIdentifier(): DomIdentifierInterface

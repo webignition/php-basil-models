@@ -6,10 +6,8 @@ namespace webignition\BasilModel\Tests\Unit\Assertion;
 
 use webignition\BasilModel\Assertion\AssertionComparison;
 use webignition\BasilModel\Assertion\ExaminationAssertion;
-use webignition\BasilModel\Identifier\DomIdentifier;
-use webignition\BasilModel\Value\Assertion\ExaminedValue;
-use webignition\BasilModel\Value\Assertion\ExaminedValueInterface;
 use webignition\BasilModel\Value\DomIdentifierValue;
+use webignition\BasilModel\Value\ValueInterface;
 
 class ExaminationAssertionTest extends \PHPUnit\Framework\TestCase
 {
@@ -18,7 +16,7 @@ class ExaminationAssertionTest extends \PHPUnit\Framework\TestCase
      */
     public function testCreate(
         string $assertionString,
-        ExaminedValueInterface $examinedValue,
+        ValueInterface $examinedValue,
         string $comparison
     ) {
         $assertion = new ExaminationAssertion($assertionString, $examinedValue, $comparison);
@@ -30,11 +28,7 @@ class ExaminationAssertionTest extends \PHPUnit\Framework\TestCase
 
     public function createDataProvider(): array
     {
-        $examinedValue = new ExaminedValue(
-            new DomIdentifierValue(
-                new DomIdentifier('.examined')
-            )
-        );
+        $examinedValue = DomIdentifierValue::create('.examined');
 
         return [
             'exists comparison' => [
@@ -52,17 +46,8 @@ class ExaminationAssertionTest extends \PHPUnit\Framework\TestCase
 
     public function testWithExaminedValue()
     {
-        $originalExaminedValue = new ExaminedValue(
-            new DomIdentifierValue(
-                new DomIdentifier('.original')
-            )
-        );
-
-        $newExaminedValue = new ExaminedValue(
-            new DomIdentifierValue(
-                new DomIdentifier('.new')
-            )
-        );
+        $originalExaminedValue = DomIdentifierValue::create('.original');
+        $newExaminedValue = DomIdentifierValue::create('.new');
 
         $assertion = new ExaminationAssertion(
             '".selector" exists',

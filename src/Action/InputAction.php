@@ -3,7 +3,7 @@
 namespace webignition\BasilModel\Action;
 
 use webignition\BasilModel\Identifier\IdentifierInterface;
-use webignition\BasilModel\Value\ExpectableValueInterface;
+use webignition\BasilModel\Value\ValueInterface;
 
 class InputAction extends InteractionAction implements InputActionInterface
 {
@@ -12,7 +12,7 @@ class InputAction extends InteractionAction implements InputActionInterface
     public function __construct(
         string $actionString,
         IdentifierInterface $identifier,
-        ExpectableValueInterface $value,
+        ValueInterface $value,
         string $arguments
     ) {
         parent::__construct($actionString, ActionTypes::SET, $identifier, $arguments);
@@ -20,12 +20,12 @@ class InputAction extends InteractionAction implements InputActionInterface
         $this->value = $value;
     }
 
-    public function getValue(): ExpectableValueInterface
+    public function getValue(): ValueInterface
     {
         return $this->value;
     }
 
-    public function withValue(ExpectableValueInterface $value): InputActionInterface
+    public function withValue(ValueInterface $value): InputActionInterface
     {
         $new = clone $this;
         $new->value = $value;

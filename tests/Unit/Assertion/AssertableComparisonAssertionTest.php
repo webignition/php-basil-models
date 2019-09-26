@@ -35,15 +35,11 @@ class AssertableComparisonAssertionTest extends \PHPUnit\Framework\TestCase
     public function createDataProvider(): array
     {
         $examinedValue = new AssertableExaminedValue(
-            new DomIdentifierValue(
-                new DomIdentifier('.examined')
-            )
+            DomIdentifierValue::create('.examined')
         );
 
         $expectedValue = new AssertableExpectedValue(
-            new DomIdentifierValue(
-                new DomIdentifier('.expected')
-            )
+            DomIdentifierValue::create('.expected')
         );
 
         return [
