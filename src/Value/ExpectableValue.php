@@ -1,16 +1,10 @@
 <?php
 
-namespace webignition\BasilModel\Value\Assertion;
+namespace webignition\BasilModel\Value;
 
 use webignition\BasilModel\Exception\InvalidAssertionExpectedValueException;
-use webignition\BasilModel\Value\LiteralValueInterface;
-use webignition\BasilModel\Value\ObjectValueInterface;
-use webignition\BasilModel\Value\PageElementReference;
-use webignition\BasilModel\Value\DomIdentifierValueInterface;
-use webignition\BasilModel\Value\ReferenceValueInterface;
-use webignition\BasilModel\Value\WrappedValue;
 
-class ExpectedValue extends WrappedValue implements ExpectedValueInterface
+class ExpectableValue extends WrappedValue implements ExpectableValueInterface
 {
     /**
      * @return LiteralValueInterface|ObjectValueInterface|PageElementReference|DomIdentifierValueInterface|ReferenceValueInterface
