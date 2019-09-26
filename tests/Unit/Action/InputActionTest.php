@@ -5,6 +5,7 @@ namespace webignition\BasilModel\Tests\Unit\Action;
 use webignition\BasilModel\Action\ActionTypes;
 use webignition\BasilModel\Action\InputAction;
 use webignition\BasilModel\Identifier\DomIdentifier;
+use webignition\BasilModel\Value\ExpectableValue;
 use webignition\BasilModel\Value\LiteralValue;
 
 class InputActionTest extends \PHPUnit\Framework\TestCase
@@ -12,7 +13,9 @@ class InputActionTest extends \PHPUnit\Framework\TestCase
     public function testCreate()
     {
         $identifier = new DomIdentifier('.selector');
-        $value = new LiteralValue('foo');
+        $value = new ExpectableValue(
+            new LiteralValue('foo')
+        );
 
         $action = new InputAction(
             'set ".selector" to "foo"',
@@ -37,7 +40,9 @@ class InputActionTest extends \PHPUnit\Framework\TestCase
         $action = new InputAction(
             'set ".original" to "value"',
             $originalIdentifier,
-            new LiteralValue('value'),
+            new ExpectableValue(
+                new LiteralValue('value')
+            ),
             '".original" to "value"'
         );
 
@@ -53,8 +58,14 @@ class InputActionTest extends \PHPUnit\Framework\TestCase
         $actionString = 'set ".selector" to "original-value';
         $identifier = new DomIdentifier('.selector');
 
-        $originalValue = new LiteralValue('original-value');
-        $newValue = new LiteralValue('new-value');
+        $originalValue = new ExpectableValue(
+            new LiteralValue('original-value')
+        );
+
+        $newValue = new ExpectableValue(
+            new LiteralValue('new-value')
+        );
+
         $arguments = '".selector" to "original-value"';
 
         $action = new InputAction($actionString, $identifier, $originalValue, $arguments);
