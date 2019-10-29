@@ -14,5 +14,6 @@ class UnrecognisedActionTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('', $action->getArguments());
         $this->assertFalse($action->isRecognised());
         $this->assertSame('foo', $action->getActionString());
+        $this->assertSame('foo', $action->getSource());
     }
 }

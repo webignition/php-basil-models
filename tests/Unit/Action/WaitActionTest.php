@@ -28,6 +28,7 @@ class WaitActionTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($duration, $action->getDuration());
         $this->assertTrue($action->isRecognised());
         $this->assertSame($actionString, $action->getActionString());
+        $this->assertSame($actionString, $action->getSource());
     }
 
     public function createDataProvider(): array

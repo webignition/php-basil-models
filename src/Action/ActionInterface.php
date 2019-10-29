@@ -8,4 +8,5 @@ interface ActionInterface
     public function getType(): string;
     public function getArguments(): string;
     public function isRecognised(): bool;
+    public function getSource(): string;
 }

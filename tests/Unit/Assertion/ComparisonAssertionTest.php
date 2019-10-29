@@ -24,6 +24,7 @@ class ComparisonAssertionTest extends \PHPUnit\Framework\TestCase
         $assertion = new ComparisonAssertion($assertionString, $examinedValue, $comparison, $expectedValue);
 
         $this->assertSame($assertionString, $assertion->getAssertionString());
+        $this->assertSame($assertionString, $assertion->getSource());
         $this->assertSame($examinedValue, $assertion->getExaminedValue());
         $this->assertSame($comparison, $assertion->getComparison());
         $this->assertSame($expectedValue, $assertion->getExpectedValue());

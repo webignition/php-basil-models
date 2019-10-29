@@ -22,4 +22,9 @@ abstract class AbstractAssertion implements AssertionInterface
     {
         return $this->comparison;
     }
+
+    public function getSource(): string
+    {
+        return $this->assertionString;
+    }
 }

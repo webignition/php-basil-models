@@ -36,4 +36,9 @@ abstract class AbstractAction implements ActionInterface
     {
         return $this->isRecognised;
     }
+
+    public function getSource(): string
+    {
+        return $this->actionString;
+    }
 }

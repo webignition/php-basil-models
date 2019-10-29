@@ -27,6 +27,7 @@ class InputActionTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($value, $action->getValue());
         $this->assertTrue($action->isRecognised());
         $this->assertSame('set ".selector" to "foo"', $action->getActionString());
+        $this->assertSame('set ".selector" to "foo"', $action->getSource());
     }
 
     public function testWithIdentifier()
