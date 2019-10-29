@@ -13,11 +13,6 @@ abstract class AbstractAssertion implements AssertionInterface
         $this->comparison = $comparison;
     }
 
-    public function getAssertionString(): string
-    {
-        return $this->source;
-    }
-
     public function getComparison(): string
     {
         return $this->comparison;

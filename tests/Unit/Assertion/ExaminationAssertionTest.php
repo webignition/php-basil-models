@@ -21,7 +21,6 @@ class ExaminationAssertionTest extends \PHPUnit\Framework\TestCase
     ) {
         $assertion = new ExaminationAssertion($assertionString, $examinedValue, $comparison);
 
-        $this->assertSame($assertionString, $assertion->getAssertionString());
         $this->assertSame($assertionString, $assertion->getSource());
         $this->assertSame($examinedValue, $assertion->getExaminedValue());
         $this->assertSame($comparison, $assertion->getComparison());
