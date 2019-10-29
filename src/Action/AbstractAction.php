@@ -2,16 +2,18 @@
 
 namespace webignition\BasilModel\Action;
 
-abstract class AbstractAction implements ActionInterface
+use webignition\BasilModel\AbstractStatement;
+
+abstract class AbstractAction extends AbstractStatement implements ActionInterface
 {
-    private $source = '';
     private $type = '';
     private $arguments = '';
     private $isRecognised = false;
 
-    public function __construct(string $actionString, string $type, string $arguments, bool $isRecognised = false)
+    public function __construct(string $source, string $type, string $arguments, bool $isRecognised = false)
     {
-        $this->source = $actionString;
+        parent::__construct($source);
+
         $this->type = $type;
         $this->arguments = $arguments;
         $this->isRecognised = $isRecognised;
@@ -30,10 +32,5 @@ abstract class AbstractAction implements ActionInterface
     public function isRecognised(): bool
     {
         return $this->isRecognised;
-    }
-
-    public function getSource(): string
-    {
-        return $this->source;
     }
 }
