@@ -24,7 +24,7 @@ class InteractionActionTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('".selector"', $action->getArguments());
         $this->assertSame($identifier, $action->getIdentifier());
         $this->assertTrue($action->isRecognised());
-        $this->assertSame('click ".selector"', $action->getActionString());
+        $this->assertSame('click ".selector"', $action->getSource());
     }
 
     public function testWithIdentifier()
