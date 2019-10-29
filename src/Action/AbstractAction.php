@@ -17,11 +17,6 @@ abstract class AbstractAction implements ActionInterface
         $this->isRecognised = $isRecognised;
     }
 
-    public function getActionString(): string
-    {
-        return $this->source;
-    }
-
     public function getType(): string
     {
         return $this->type;

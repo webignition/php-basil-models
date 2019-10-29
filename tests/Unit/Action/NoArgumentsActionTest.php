@@ -16,7 +16,6 @@ class NoArgumentsActionTest extends \PHPUnit\Framework\TestCase
         $this->assertSame(ActionTypes::RELOAD, $action->getType());
         $this->assertSame('', $action->getArguments());
         $this->assertTrue($action->isRecognised());
-        $this->assertSame('reload', $action->getActionString());
         $this->assertSame('reload', $action->getSource());
     }
 }

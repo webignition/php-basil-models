@@ -5,7 +5,6 @@ namespace webignition\BasilModel\Tests\Unit\Action;
 
 use webignition\BasilModel\Action\ActionTypes;
 use webignition\BasilModel\Action\WaitAction;
-use webignition\BasilModel\Value\EnvironmentValue;
 use webignition\BasilModel\Value\LiteralValue;
 use webignition\BasilModel\Value\ObjectValue;
 use webignition\BasilModel\Value\ObjectValueType;
@@ -27,7 +26,6 @@ class WaitActionTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($expectedArguments, $action->getArguments());
         $this->assertSame($duration, $action->getDuration());
         $this->assertTrue($action->isRecognised());
-        $this->assertSame($actionString, $action->getActionString());
         $this->assertSame($actionString, $action->getSource());
     }
 
