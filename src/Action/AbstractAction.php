@@ -4,14 +4,14 @@ namespace webignition\BasilModel\Action;
 
 abstract class AbstractAction implements ActionInterface
 {
-    private $actionString = '';
+    private $source = '';
     private $type = '';
     private $arguments = '';
     private $isRecognised = false;
 
     public function __construct(string $actionString, string $type, string $arguments, bool $isRecognised = false)
     {
-        $this->actionString = $actionString;
+        $this->source = $actionString;
         $this->type = $type;
         $this->arguments = $arguments;
         $this->isRecognised = $isRecognised;
@@ -19,7 +19,7 @@ abstract class AbstractAction implements ActionInterface
 
     public function getActionString(): string
     {
-        return $this->actionString;
+        return $this->source;
     }
 
     public function getType(): string
@@ -39,6 +39,6 @@ abstract class AbstractAction implements ActionInterface
 
     public function getSource(): string
     {
-        return $this->actionString;
+        return $this->source;
     }
 }

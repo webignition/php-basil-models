@@ -4,18 +4,18 @@ namespace webignition\BasilModel\Assertion;
 
 abstract class AbstractAssertion implements AssertionInterface
 {
-    private $assertionString;
+    private $source;
     private $comparison;
 
     public function __construct(string $assertionString, string $comparison)
     {
-        $this->assertionString = $assertionString;
+        $this->source = $assertionString;
         $this->comparison = $comparison;
     }
 
     public function getAssertionString(): string
     {
-        return $this->assertionString;
+        return $this->source;
     }
 
     public function getComparison(): string
@@ -25,6 +25,6 @@ abstract class AbstractAssertion implements AssertionInterface
 
     public function getSource(): string
     {
-        return $this->assertionString;
+        return $this->source;
     }
 }
