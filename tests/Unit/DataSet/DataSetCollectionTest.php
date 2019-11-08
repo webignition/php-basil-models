@@ -5,6 +5,7 @@ namespace webignition\BasilModel\Tests\Unit\DataSet;
 
 use webignition\BasilModel\DataSet\DataSet;
 use webignition\BasilModel\DataSet\DataSetCollection;
+use webignition\BasilModel\DataSet\DataSetCollectionInterface;
 
 class DataSetCollectionTest extends \PHPUnit\Framework\TestCase
 {
@@ -134,5 +135,37 @@ class DataSetCollectionTest extends \PHPUnit\Framework\TestCase
             ]),
             $dataSetCollection
         );
+    }
+
+    /**
+     * @dataProvider getParameterNamesDataProvider
+     */
+    public function testGetParameterNames(DataSetCollectionInterface $dataSetCollection, array $expectedKeys)
+    {
+        $keys = $dataSetCollection->getParameterNames();
+
+        $this->assertSame($expectedKeys, $keys);
+    }
+
+    public function getParameterNamesDataProvider(): array
+    {
+        return [
+            'empty' => [
+                'dataSetCollection' => new DataSetCollection(),
+                'expectedKeys' => [],
+            ],
+            'non-empty' => [
+                'dataSetCollection' => new DataSetCollection([
+                    new DataSet('set1', [
+                        'key1' => 'value1',
+                        'key2' => 'value2',
+                    ])
+                ]),
+                'expectedKeys' => [
+                    'key1',
+                    'key2',
+                ],
+            ],
+        ];
     }
 }
