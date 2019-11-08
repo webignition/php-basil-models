@@ -1,9 +1,5 @@
 <?php
 
-/** @noinspection PhpDocSignatureInspection */
-
-/** @noinspection PhpUnhandledExceptionInspection */
-
 declare(strict_types=1);
 
 namespace webignition\BasilModel\Tests\Unit\Assertion;
