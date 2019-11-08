@@ -40,6 +40,20 @@ class DataSetCollection implements DataSetCollectionInterface
         $this->dataSets[] = $dataSet;
     }
 
+    /**
+     * @return string[]
+     */
+    public function getParameterNames(): array
+    {
+        $firstDataSet = $this->dataSets[0] ?? null;
+
+        if (null === $firstDataSet) {
+            return [];
+        }
+
+        return $firstDataSet->getParameterNames();
+    }
+
     // \Countable methods
 
     public function count(): int
@@ -54,9 +68,9 @@ class DataSetCollection implements DataSetCollectionInterface
         $this->iteratorPosition = 0;
     }
 
-    public function current(): DataSetInterface
+    public function current(): ?DataSetInterface
     {
-        return $this->dataSets[$this->iteratorPosition];
+        return $this->dataSets[$this->iteratorPosition] ?? null;
     }
 
     public function key(): int
