@@ -1,5 +1,7 @@
 <?php
+
 /** @noinspection PhpDocSignatureInspection */
+
 /** @noinspection PhpUnhandledExceptionInspection */
 
 namespace webignition\BasilModel\Tests\Unit\Assertion;
