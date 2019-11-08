@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace webignition\BasilModel\Exception;
 
 use webignition\BasilModel\Identifier\IdentifierInterface;
