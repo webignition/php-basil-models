@@ -17,7 +17,7 @@ interface StepInterface
     /**
      * @return AssertionInterface[]
      */
-    public function getAssertions() :array;
+    public function getAssertions(): array;
 
     /**
      * @return DataSetCollectionInterface
