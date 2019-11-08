@@ -52,6 +52,6 @@ class ReferenceIdentifier implements ReferenceIdentifierInterface
 
     public function __toString(): string
     {
-        return $this->getValue();
+        return (string) $this->getValue();
     }
 }
