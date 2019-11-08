@@ -4,20 +4,20 @@ namespace webignition\BasilModel\Assertion;
 
 class AssertionComparison
 {
-    const IS = 'is';
-    const IS_NOT = 'is-not';
-    const EXISTS = 'exists';
-    const NOT_EXISTS = 'not-exists';
-    const INCLUDES = 'includes';
-    const EXCLUDES = 'excludes';
-    const MATCHES = 'matches';
+    public const IS = 'is';
+    public const IS_NOT = 'is-not';
+    public const EXISTS = 'exists';
+    public const NOT_EXISTS = 'not-exists';
+    public const INCLUDES = 'includes';
+    public const EXCLUDES = 'excludes';
+    public const MATCHES = 'matches';
 
-    const EXAMINATION_COMPARISONS = [
+    public const EXAMINATION_COMPARISONS = [
         self::EXISTS,
         self::NOT_EXISTS,
     ];
 
-    const COMPARISON_COMPARISONS = [
+    public const COMPARISON_COMPARISONS = [
         self::IS,
         self::IS_NOT,
         self::INCLUDES,

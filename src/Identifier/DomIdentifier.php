@@ -8,7 +8,7 @@ class DomIdentifier extends ElementLocator implements DomIdentifierInterface
 {
     use IdentifierNameTrait;
 
-    const DEFAULT_POSITION = 1;
+    private const DEFAULT_POSITION = 1;
 
     private $attributeName = null;
 
