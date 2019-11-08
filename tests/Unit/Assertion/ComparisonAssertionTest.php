@@ -4,6 +4,8 @@
 
 /** @noinspection PhpUnhandledExceptionInspection */
 
+declare(strict_types=1);
+
 namespace webignition\BasilModel\Tests\Unit\Assertion;
 
 use webignition\BasilModel\Assertion\AssertionComparison;

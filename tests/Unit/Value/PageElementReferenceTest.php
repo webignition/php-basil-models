@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace webignition\BasilModel\Tests\Unit\Value;
 
 use webignition\BasilModel\Value\PageElementReference;

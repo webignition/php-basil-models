@@ -4,6 +4,8 @@
 
 /** @noinspection PhpDocSignatureInspection */
 
+declare(strict_types=1);
+
 namespace webignition\BasilModel\Tests\Unit\Step;
 
 use webignition\BasilModel\Action\WaitAction;

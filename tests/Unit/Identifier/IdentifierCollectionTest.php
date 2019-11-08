@@ -2,6 +2,8 @@
 
 /** @noinspection PhpDocSignatureInspection */
 
+declare(strict_types=1);
+
 namespace webignition\BasilModel\Tests\Unit\Identifier;
 
 use webignition\BasilModel\Identifier\IdentifierCollection;
