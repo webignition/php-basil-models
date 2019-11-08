@@ -4,12 +4,12 @@ namespace webignition\BasilModel\PageUrlReference;
 
 class PageUrlReference implements PageUrlReferenceInterface
 {
-    const PART_DELIMITER = '.';
-    const EXPECTED_PART_COUNT = 2;
+    private const PART_DELIMITER = '.';
+    private const EXPECTED_PART_COUNT = 2;
 
-    const IMPORT_NAME_INDEX = 0;
-    const URL_PART_INDEX = 1;
-    const EXPECTED_URL_PART = 'url';
+    private const IMPORT_NAME_INDEX = 0;
+    private const URL_PART_INDEX = 1;
+    private const EXPECTED_URL_PART = 'url';
 
     private $importName = '';
     private $isValid = false;

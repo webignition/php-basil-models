@@ -4,16 +4,16 @@ namespace webignition\BasilModel\Action;
 
 class ActionTypes
 {
-    const CLICK = 'click';
-    const SET = 'set';
-    const SUBMIT = 'submit';
-    const WAIT = 'wait';
-    const WAIT_FOR = 'wait-for';
-    const BACK = 'back';
-    const FORWARD = 'forward';
-    const RELOAD = 'reload';
+    public const CLICK = 'click';
+    public const SET = 'set';
+    public const SUBMIT = 'submit';
+    public const WAIT = 'wait';
+    public const WAIT_FOR = 'wait-for';
+    public const BACK = 'back';
+    public const FORWARD = 'forward';
+    public const RELOAD = 'reload';
 
-    const ALL = [
+    public const ALL = [
         self::CLICK,
         self::SET,
         self::SUBMIT,

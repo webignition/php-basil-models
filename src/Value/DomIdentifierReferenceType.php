@@ -4,6 +4,6 @@ namespace webignition\BasilModel\Value;
 
 class DomIdentifierReferenceType
 {
-    const ATTRIBUTE = 'attribute';
-    const ELEMENT = 'element';
+    public const ATTRIBUTE = 'attribute';
+    public const ELEMENT = 'element';
 }

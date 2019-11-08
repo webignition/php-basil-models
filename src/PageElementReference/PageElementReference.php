@@ -4,13 +4,13 @@ namespace webignition\BasilModel\PageElementReference;
 
 class PageElementReference implements PageElementReferenceInterface
 {
-    const PART_DELIMITER = '.';
-    const EXPECTED_PART_COUNT = 3;
-    const EXPECTED_ELEMENTS_PART = 'elements';
+    private const PART_DELIMITER = '.';
+    private const EXPECTED_PART_COUNT = 3;
+    private const EXPECTED_ELEMENTS_PART = 'elements';
 
-    const IMPORT_NAME_INDEX = 0;
-    const ELEMENTS_PART_INDEX = 1;
-    const ELEMENT_NAME_INDEX = 2;
+    private const IMPORT_NAME_INDEX = 0;
+    private const ELEMENTS_PART_INDEX = 1;
+    private const ELEMENT_NAME_INDEX = 2;
 
     private $importName = '';
     private $elementName = '';

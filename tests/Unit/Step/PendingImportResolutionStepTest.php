@@ -1,5 +1,7 @@
 <?php
+
 /** @noinspection PhpUnhandledExceptionInspection */
+
 /** @noinspection PhpDocSignatureInspection */
 
 namespace webignition\BasilModel\Tests\Unit\Step;

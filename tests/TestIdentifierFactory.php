@@ -19,8 +19,10 @@ class TestIdentifierFactory
             $identifier = $identifier->withName($name);
         }
 
-        if ($identifier instanceof DomIdentifierInterface &&
-            $parentIdentifier instanceof DomIdentifierInterface) {
+        if (
+            $identifier instanceof DomIdentifierInterface &&
+            $parentIdentifier instanceof DomIdentifierInterface
+        ) {
             $identifier = $identifier->withParentIdentifier($parentIdentifier);
         }
 
