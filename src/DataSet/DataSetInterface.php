@@ -7,6 +7,7 @@ namespace webignition\BasilModel\DataSet;
 interface DataSetInterface
 {
     public function getName(): string;
+    public function getData(): array;
 
     public function getParameterValue(string $parameterName): ?string;
 

@@ -171,4 +171,22 @@ class DataSetTest extends \PHPUnit\Framework\TestCase
             ],
         ];
     }
+
+    public function testGetData()
+    {
+        $this->assertEquals([], (new DataSet('name', []))->getData());
+        $this->assertEquals(
+            [
+                'key1' => 'value1',
+                'key2' => 'value2',
+            ],
+            (new DataSet(
+                'name',
+                [
+                    'key1' => 'value1',
+                    'key2' => 'value2',
+                ]
+            ))->getData()
+        );
+    }
 }
