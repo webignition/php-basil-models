@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace webignition\BasilModel\Action;
 
 use webignition\BasilModel\Value\ValueInterface;
@@ -10,7 +12,7 @@ class WaitAction extends AbstractAction implements WaitActionInterface
 
     public function __construct(string $actionString, ValueInterface $duration)
     {
-        parent::__construct($actionString, ActionTypes::WAIT, $duration, true);
+        parent::__construct($actionString, ActionTypes::WAIT, (string) $duration, true);
 
         $this->duration = $duration;
     }

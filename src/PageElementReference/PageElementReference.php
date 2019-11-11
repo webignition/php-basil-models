@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace webignition\BasilModel\PageElementReference;
 
 class PageElementReference implements PageElementReferenceInterface

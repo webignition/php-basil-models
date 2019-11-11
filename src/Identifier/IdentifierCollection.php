@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace webignition\BasilModel\Identifier;
 
 class IdentifierCollection extends AbstractIdentifierCollection implements IdentifierCollectionInterface

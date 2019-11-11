@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace webignition\BasilModel\Identifier;
 
 use webignition\BasilModel\Value\PageElementReference;
@@ -50,6 +52,6 @@ class ReferenceIdentifier implements ReferenceIdentifierInterface
 
     public function __toString(): string
     {
-        return $this->getValue();
+        return (string) $this->getValue();
     }
 }

@@ -1,8 +1,6 @@
 <?php
 
-/** @noinspection PhpUnhandledExceptionInspection */
-
-/** @noinspection PhpDocSignatureInspection */
+declare(strict_types=1);
 
 namespace webignition\BasilModel\Tests\Unit\Step;
 

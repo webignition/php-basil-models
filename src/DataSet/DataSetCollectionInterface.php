@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace webignition\BasilModel\DataSet;
 
 interface DataSetCollectionInterface extends \Countable, \Iterator

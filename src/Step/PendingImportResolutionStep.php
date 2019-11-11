@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace webignition\BasilModel\Step;
 
 use webignition\BasilModel\DataSet\DataSetCollectionInterface;
