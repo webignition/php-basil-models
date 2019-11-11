@@ -23,6 +23,11 @@ class DataSet implements DataSetInterface
         return $this->name;
     }
 
+    public function getData(): array
+    {
+        return $this->data;
+    }
+
     public function getParameterValue(string $parameterName): ?string
     {
         return $this->data[$parameterName] ?? null;
