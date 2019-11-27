@@ -17,7 +17,7 @@ class ReferenceIdentifierTest extends \PHPUnit\Framework\TestCase
     public function testCreatePageElementReferenceIdentifier()
     {
         $value = new PageElementReference(
-            'page_import_name.elements.element_name',
+            '$page_import_name.elements.element_name',
             'page_import_name',
             'element_name'
         );
@@ -73,12 +73,12 @@ class ReferenceIdentifierTest extends \PHPUnit\Framework\TestCase
             'page element reference' => [
                 'identifier' => ReferenceIdentifier::createPageElementReferenceIdentifier(
                     new PageElementReference(
-                        'page_import_name.elements.element_name',
+                        '$page_import_name.elements.element_name',
                         'page_import_name',
                         'element_name'
                     )
                 ),
-                'expectedString' => 'page_import_name.elements.element_name',
+                'expectedString' => '$page_import_name.elements.element_name',
             ],
             'element reference' => [
                 'identifier' => ReferenceIdentifier::createElementReferenceIdentifier(

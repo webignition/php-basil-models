@@ -33,7 +33,7 @@ class StepTest extends \PHPUnit\Framework\TestCase
     public function createDataProvider(): array
     {
         $assertion = new ExaminationAssertion(
-            '".selector" exists',
+            '$".selector" exists',
             DomIdentifierValue::create('.selector'),
             AssertionComparison::EXISTS
         );
@@ -166,7 +166,7 @@ class StepTest extends \PHPUnit\Framework\TestCase
     public function withPrependedActionsDataProvider(): array
     {
         $assertion = new ExaminationAssertion(
-            '".selector" exists',
+            '$".selector" exists',
             DomIdentifierValue::create('.selector'),
             AssertionComparison::EXISTS
         );
@@ -260,13 +260,13 @@ class StepTest extends \PHPUnit\Framework\TestCase
     public function withPrependedAssertionsDataProvider(): array
     {
         $assertion1 = new ExaminationAssertion(
-            '".selector1" exists',
+            '$".selector1" exists',
             DomIdentifierValue::create('.selector1'),
             AssertionComparison::EXISTS
         );
 
         $assertion2 = new ExaminationAssertion(
-            '".selector2" exists',
+            '$".selector2" exists',
             DomIdentifierValue::create('.selector2'),
             AssertionComparison::EXISTS
         );
@@ -402,13 +402,13 @@ class StepTest extends \PHPUnit\Framework\TestCase
     public function withAssertionsDataProvider(): array
     {
         $assertion1 = new ExaminationAssertion(
-            '".selector1" exists',
+            '$".selector1" exists',
             DomIdentifierValue::create('.selector1'),
             AssertionComparison::EXISTS
         );
 
         $assertion2 = new ExaminationAssertion(
-            '".selector2" exists',
+            '$".selector2" exists',
             DomIdentifierValue::create('.selector2'),
             AssertionComparison::EXISTS
         );

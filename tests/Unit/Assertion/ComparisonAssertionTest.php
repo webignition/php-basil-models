@@ -36,31 +36,31 @@ class ComparisonAssertionTest extends \PHPUnit\Framework\TestCase
 
         return [
             'is comparison' => [
-                'assertionString' => '".examined" is ".expected"',
+                'assertionString' => '$$".examined" is $$".expected"',
                 'examinedValue' => $examinedValue,
                 'comparison' => AssertionComparison::IS,
                 'expectedValue' => $expectedValue,
             ],
             'is-not comparison' => [
-                'assertionString' => '".examined" is-not ".expected"',
+                'assertionString' => '$".examined" is-not $".expected"',
                 'examinedValue' => $examinedValue,
                 'comparison' => AssertionComparison::IS_NOT,
                 'expectedValue' => $expectedValue,
             ],
             'includes comparison' => [
-                'assertionString' => '".examined" includes ".expected"',
+                'assertionString' => '$".examined" includes $".expected"',
                 'examinedValue' => $examinedValue,
                 'comparison' => AssertionComparison::INCLUDES,
                 'expectedValue' => $expectedValue,
             ],
             'excludes comparison' => [
-                'assertionString' => '".examined" excludes ".expected"',
+                'assertionString' => '$".examined" excludes $".expected"',
                 'examinedValue' => $examinedValue,
                 'comparison' => AssertionComparison::EXCLUDES,
                 'expectedValue' => $expectedValue,
             ],
             'matches comparison' => [
-                'assertionString' => '".examined" matches ".expected"',
+                'assertionString' => '$".examined" matches $".expected"',
                 'examinedValue' => $examinedValue,
                 'comparison' => AssertionComparison::MATCHES,
                 'expectedValue' => $expectedValue,
@@ -75,7 +75,7 @@ class ComparisonAssertionTest extends \PHPUnit\Framework\TestCase
         $expectedValue = new LiteralValue('value');
 
         $assertion = new ComparisonAssertion(
-            '".selector" is "value"',
+            '$".selector" is "value"',
             $originalExaminedValue,
             AssertionComparison::IS,
             $expectedValue
@@ -94,7 +94,7 @@ class ComparisonAssertionTest extends \PHPUnit\Framework\TestCase
         $newExpectedValue = new LiteralValue('value');
 
         $assertion = new ComparisonAssertion(
-            '".selector" is "value"',
+            '$".selector" is "value"',
             $examinedValue,
             AssertionComparison::IS,
             $originalExpectedValue

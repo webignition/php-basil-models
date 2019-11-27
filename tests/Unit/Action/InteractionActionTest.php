@@ -16,17 +16,17 @@ class InteractionActionTest extends \PHPUnit\Framework\TestCase
         $identifier = new DomIdentifier('.selector');
 
         $action = new InteractionAction(
-            'click ".selector"',
+            'click $".selector"',
             $type,
             $identifier,
-            '".selector"'
+            '$".selector"'
         );
 
         $this->assertSame($type, $action->getType());
-        $this->assertSame('".selector"', $action->getArguments());
+        $this->assertSame('$".selector"', $action->getArguments());
         $this->assertSame($identifier, $action->getIdentifier());
         $this->assertTrue($action->isRecognised());
-        $this->assertSame('click ".selector"', $action->getSource());
+        $this->assertSame('click $".selector"', $action->getSource());
     }
 
     public function testWithIdentifier()
@@ -35,10 +35,10 @@ class InteractionActionTest extends \PHPUnit\Framework\TestCase
         $newIdentifier = new DomIdentifier('.new');
 
         $action = new InteractionAction(
-            'click ".original"',
+            'click $".original"',
             ActionTypes::CLICK,
             $originalIdentifier,
-            '".original"'
+            '$".original"'
         );
 
         $mutatedAction = $action->withIdentifier($newIdentifier);
