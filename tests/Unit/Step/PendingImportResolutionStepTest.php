@@ -75,7 +75,7 @@ class PendingImportResolutionStepTest extends \PHPUnit\Framework\TestCase
                     ],
                     [
                         new ExaminationAssertion(
-                            '".selector" exists',
+                            '$".selector" exists',
                             DomIdentifierValue::create('.selector'),
                             AssertionComparison::EXISTS
                         ),
@@ -90,7 +90,7 @@ class PendingImportResolutionStepTest extends \PHPUnit\Framework\TestCase
                         ],
                         [
                             new ExaminationAssertion(
-                                '".selector" exists',
+                                '$".selector" exists',
                                 DomIdentifierValue::create('.selector'),
                                 AssertionComparison::EXISTS
                             ),

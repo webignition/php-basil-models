@@ -17,18 +17,18 @@ class InputActionTest extends \PHPUnit\Framework\TestCase
         $value = new LiteralValue('foo');
 
         $action = new InputAction(
-            'set ".selector" to "foo"',
+            'set $".selector" to "foo"',
             $identifier,
             $value,
-            '".selector" to "foo"'
+            '$".selector" to "foo"'
         );
 
         $this->assertSame(ActionTypes::SET, $action->getType());
-        $this->assertSame('".selector" to "foo"', $action->getArguments());
+        $this->assertSame('$".selector" to "foo"', $action->getArguments());
         $this->assertSame($identifier, $action->getIdentifier());
         $this->assertSame($value, $action->getValue());
         $this->assertTrue($action->isRecognised());
-        $this->assertSame('set ".selector" to "foo"', $action->getSource());
+        $this->assertSame('set $".selector" to "foo"', $action->getSource());
     }
 
     public function testWithIdentifier()
@@ -37,10 +37,10 @@ class InputActionTest extends \PHPUnit\Framework\TestCase
         $newIdentifier = new DomIdentifier('.new');
 
         $action = new InputAction(
-            'set ".original" to "value"',
+            'set $".original" to "value"',
             $originalIdentifier,
             new LiteralValue('value'),
-            '".original" to "value"'
+            '$".original" to "value"'
         );
 
         $mutatedAction = $action->withIdentifier($newIdentifier);
@@ -52,14 +52,14 @@ class InputActionTest extends \PHPUnit\Framework\TestCase
 
     public function testWithValue()
     {
-        $actionString = 'set ".selector" to "original-value';
+        $actionString = 'set $".selector" to "original-value';
         $identifier = new DomIdentifier('.selector');
 
         $originalValue = new LiteralValue('original-value');
 
         $newValue = new LiteralValue('new-value');
 
-        $arguments = '".selector" to "original-value"';
+        $arguments = '$".selector" to "original-value"';
 
         $action = new InputAction($actionString, $identifier, $originalValue, $arguments);
         $newAction = $action->withValue($newValue);

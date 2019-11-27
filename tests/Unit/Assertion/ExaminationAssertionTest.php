@@ -32,12 +32,12 @@ class ExaminationAssertionTest extends \PHPUnit\Framework\TestCase
 
         return [
             'exists comparison' => [
-                'assertionString' => '".examined" exists',
+                'assertionString' => '$".examined" exists',
                 'examinedValue' => $examinedValue,
                 'comparison' => AssertionComparison::EXISTS,
             ],
             'not-exists comparison' => [
-                'assertionString' => '".examined" exists',
+                'assertionString' => '$".examined" exists',
                 'examinedValue' => $examinedValue,
                 'comparison' => AssertionComparison::NOT_EXISTS,
             ],
@@ -50,7 +50,7 @@ class ExaminationAssertionTest extends \PHPUnit\Framework\TestCase
         $newExaminedValue = DomIdentifierValue::create('.new');
 
         $assertion = new ExaminationAssertion(
-            '".selector" exists',
+            '$".selector" exists',
             $originalExaminedValue,
             AssertionComparison::IS
         );
